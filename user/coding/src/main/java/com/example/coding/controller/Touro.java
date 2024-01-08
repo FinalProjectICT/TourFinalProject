@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class pageMain {
+public class Touro {
     
   @RequestMapping("/{step}")
 	public String viewPage0(@PathVariable String step) {

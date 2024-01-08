@@ -1,6 +1,6 @@
 package com.example.coding.service;
 
-public interface TouroService {
+public interface TourService {
 
   
 } 
