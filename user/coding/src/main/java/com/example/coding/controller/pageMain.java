@@ -6,21 +6,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class pageMain {
-    /* 
-    @RequestMapping("/{step}")
-	public String viewPage(@PathVariable String step) {
+    
+  @RequestMapping("/{step}")
+	public String viewPage0(@PathVariable String step) {
 		return ""+step;
 	}
-	*/
 	
-	@RequestMapping("/html/{step}")
+	
+	@RequestMapping("/user/{step}")
 	public String viewPage(@PathVariable String step) {
-		return "/html/"+step;
+		return "/user/"+step;
 	}
 
-	@RequestMapping("/jsp/{step}")
+	@RequestMapping("/tour/{step}")
+	public String viewPage1(@PathVariable String step) {
+		return "/tour/"+step;
+	}
+
+	@RequestMapping("/touromate/{step}")
 	public String viewPage2(@PathVariable String step) {
-		return "/jsp/"+step;
+		return "/touromate/"+step;
+	}
+
+	@RequestMapping("/touroview/{step}")
+	public String viewPage3(@PathVariable String step) {
+		return "/touroview/"+step;
 	}
 
 }

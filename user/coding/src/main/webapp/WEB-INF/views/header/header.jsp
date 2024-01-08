@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
       <div class="col">
         <div class="menu">
           <div class="brand-logo">
-            <a href="/jsp/main">
+            <a href="/touro">
               <img
                 src="../assets/images/icon/footer-logo.png"
                 alt=""
@@ -38,15 +38,15 @@ pageEncoding="UTF-8"%>
                     </div>
                   </li>
                   <li class="nav-submenu">
-                    <a href="/jsp/TourList" class="nav-link">Tour</a>
+                    <a href="/tour/tour_list" class="nav-link">Tour</a>
                   </li>
                   <li class="nav-submenu">
-                    <a href="/jsp/TouroMate_list" class="nav-link"
+                    <a href="/touromate/touromate_list" class="nav-link"
                       >Touromate</a
                     >
                   </li>
                   <li class="nav-submenu">
-                    <a href="/jsp/TouroView_list" class="nav-link"
+                    <a href="/touroview/touroview_list" class="nav-link"
                       >Touroview</a
                     >
                   </li>
@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
               </select>
             </li>
             <li class="user user-light rounded5">
-              <a href="/jsp/login-copy">
+              <a href="/user/login">
                 <i class="fas fa-user"> 로그인</i>
               </a>
             </li>
