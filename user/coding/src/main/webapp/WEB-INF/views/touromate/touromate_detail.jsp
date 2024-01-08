@@ -996,7 +996,11 @@ pageEncoding="UTF-8"%>
                     <input placeholder="Check In" id="datepicker" />
                     <input placeholder="Check Out" id="datepicker1" />
                     <a
-                      href="hotel-booking.html"
+                      id="chat-circle"
+                      class="btn btn-raised"
+                      data-bs-toggle="modal"
+                      data-bs-target="#chatLive"
+                      href="#"
                       class="btn btn-rounded btn-sm color1"
                       >채팅 참가하기</a
                     >
@@ -1349,6 +1353,47 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- enquiry modal end -->
+
+    <!-- 채팅 양식 (Modal) 구성 시작-->
+    <div
+      class="modal fade edit-profile-modal"
+      id="chatLive"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">채팅 테스트</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body dashboard-section">
+            <div class="chat-box-overlay"></div>
+            <div class="chat-logs"></div>
+          </div>
+          <form>
+            <div class="modal-footer">
+              <input
+                type="text"
+                id="chat-input"
+                placeholder="Send a message..."
+              />
+              <button type="submit" class="chat-submit" id="chat-submit">
+                <i class="material-icons">send</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 채팅 양식 끝 -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
