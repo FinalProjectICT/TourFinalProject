@@ -48,11 +48,9 @@
 
 <body>
 
-    <!-- header start -->
-    <header class="light_header">
-        <h2>헤더</h2>
-    </header>
-    <!--  header end -->
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+<!--  해더 끝 -->
 
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
@@ -198,10 +196,8 @@
 
 
     <!-- footer start -->
-    <footer>
-        <h2>푸터</h2>
-    </footer>
-    <!-- footer end -->
+    <%@ include file='../footer/footer.jsp' %>
+ <!-- footer end -->
 
         <!-- tap to top -->
         <div class="tap-top">

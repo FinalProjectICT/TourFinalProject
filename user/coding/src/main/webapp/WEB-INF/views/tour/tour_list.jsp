@@ -56,97 +56,11 @@ pageEncoding="UTF-8"%>
   </head>
 
   <body>
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+   <%@ include file='../header/header.jsp' %>
+   <!--  해더 끝 -->
     <!-- pre-loader start -->
-    <div class="skeleton_loader">
-      <header class="inner-page">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="menu">
-                <div class="brand-logo">
-                  <a href="/touro">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </a>
-                </div>
-                <nav>
-                  <div class="main-navbar">
-                    <div id="mainnav">
-                      <div class="toggle-nav">
-                        <i class="fa fa-bars sidebar-bar"></i>
-                      </div>
-                      <div class="menu-overlay"></div>
-                      <ul class="nav-menu">
-                        <li class="back-btn">
-                          <div class="mobile-back text-end">
-                            <span>Back</span>
-                            <i
-                              aria-hidden="true"
-                              class="fa fa-angle-right ps-2"
-                            ></i>
-                          </div>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/tour/tour_list" class="nav-link">Tour</a>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touromate/touromate_list" class="nav-link"
-                            >Touromate</a
-                          >
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touroview/touroview_list" class="nav-link"
-                            >Touroview</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
-                <ul class="header-right">
-                  <li class="front-setting rounded5">
-                    <select>
-                      <option value="volvo">한국어</option>
-                      <option value="saab">영어</option>
-                    </select>
-                  </li>
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fas fa-user"> 로그인</i>
-                    </a>
-                  </li>
-                  <li class="setting">
-                    <a href="#">
-                      <i class="fas fa-cog"></i>
-                    </a>
-                    <ul class="setting-open">
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">USD</option>
-                          <option value="saab">EUR</option>
-                          <option value="opel">INR</option>
-                          <option value="audi">AUD</option>
-                        </select>
-                      </li>
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">ENG</option>
-                          <option value="saab">FRE</option>
-                          <option value="opel">SPA</option>
-                          <option value="audi">DUT</option>
-                        </select>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+    <!-- <div class="skeleton_loader">
       <div class="breadcrumb-section dark-bg"></div>
       <section class="small-section bg-inner">
         <div class="container">
@@ -538,10 +452,10 @@ pageEncoding="UTF-8"%>
         </div>
       </section>
     </div>
-    <!-- pre-loader end -->
+    pre-loader end -->
 
     <!-- header start -->
-    <header class="inner-page overlay-black">
+    <!-- <header class="inner-page overlay-black">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -629,7 +543,7 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
     <!--  header end -->
 
     <!-- breadcrumb start -->

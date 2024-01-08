@@ -93,6 +93,11 @@
                             >Touroview</a
                           >
                         </li>
+                        <li class="nav-submenu">
+                          <a href="/user/img_change" class="nav-link"
+                            >ImgChange</a
+                          >
+                        </li>
                       </ul>
                     </div>
                   </div>
