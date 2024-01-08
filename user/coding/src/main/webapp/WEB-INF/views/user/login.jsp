@@ -168,18 +168,18 @@ pageEncoding="UTF-8"%>
                   <button type="submit" class="w-100 btn btn-solid">
                     로그인
                   </button>
-                  <div class="divider">
-                    <h6>or</h6>
-                  </div>
-                  <button
-                    type="submit"
-                    class="w-100 btn btn-solid btn-outline"
-                    onclick="window.location.href = '/jsp/sign-up';"
-                  >
-                    회원가입
-                  </button>
                 </div>
               </form>
+               
+              <div class="divider">
+                <h6>or</h6>
+              </div>
+              <div class="button-bottom">
+                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'sign-up' ">
+                  회원가입
+                </button>
+              </div>
+              
             </div>
           </div>
         </div>
