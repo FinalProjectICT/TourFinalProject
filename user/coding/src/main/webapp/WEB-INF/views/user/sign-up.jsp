@@ -285,6 +285,7 @@
 
                   <div class="form-group">
                     <label class="col-form-label form-label-title">프로필 사진</label>
+
                     <!-- 프로필 사진 왼쪽 박스 -->
                     <div class="profile-picture-container ">
                       <!-- 사진 미리보기 -->
