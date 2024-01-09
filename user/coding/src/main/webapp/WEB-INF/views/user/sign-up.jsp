@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css" />
+    
 
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   
@@ -54,12 +55,14 @@
 
                 <h4>회원가입</h4>
                 <p>회원 정보를 입력해주세요.</p>
-                <form class="theme-form">
+                <form class="theme-form" action="insertUser" method="get">
                   <div class="form-group">
                     <label class="col-form-label form-label-title">이름</label><span id="required" class="required">(필수입력사항)</span>
                     <div class="input-group">
-                      <input class="form-control" type="text" id="user_name" name="user_name" placeholder="한글 5자 이내"
-                        required />
+                      <input class="form-control" type="text" id="user_name" name="user_name" placeholder="한글 5자 이내" required />
+                    </div>
+                    <div>
+                      <span id="nameError" class="error"></span>
                     </div>
                   </div>
                   <!-- 아이디 -->
@@ -69,12 +72,14 @@
                       <div class="col">
                         <div class="form-input position-relative">
                           <input class="form-control" type="text" id="user_id" name="user_id" placeholder="5자~10자 영어와 숫자조합" required />
-                          <span id="idError" class="error"></span>
                         </div>
                       </div>
                       <div class="col-auto">
                         <input type="button" id="id_chk" class="btn btn-primary" value="중복확인">
                         <!-- <button class="btn btn-primary" id="id_chk">중복확인</button> -->
+                      </div>
+                      <div>
+                        <span id="idError" class="error"></span>
                       </div>
                     </div>
                   </div>
@@ -84,7 +89,7 @@
                     <label class="col-form-label form-label-title">비밀번호</label><span id="required" class="required">(필수입력사항)</span>
                     <div class="form-input position-relative">
                       <input class="form-control" type="password" id="user_pass" name="user_pass" placeholder="4자이상 영어와 숫자조합" required />
-                      <span id="pwdChkError" class="error"></span>
+                      <span id="passError" class="error"></span>
                     </div>
                   </div>
 
@@ -103,7 +108,7 @@
                       </div>
                       <input class="form-control" type="text" id="sample6_address" name="address" placeholder="주소" readonly><br />
                       <input class="form-control" type="text" id="sample6_detailAddress" name="detailaddr" placeholder="상세주소">
-                      <input type="text" id="sample6_extraAddress" name="addr" style="display:none;">
+                      <input type="text" id="sample6_extraAddress" name="user_addr" style="display:none;">
                     </div>
                   </div>
 
@@ -112,8 +117,8 @@
                     <label class="col-form-label form-label-title">전화번호</label>
                     <span id="required" class="required">(필수입력사항)</span>
                     <div class="form-input position-relative">
-                      <input class="form-control" type="text" id="user_tel" name="user_tel" placeholder="-없이 숫자조합"
-                        required />
+                      <input class="form-control" type="text" id="user_tel" name="user_tel" placeholder="-없이 숫자조합" required />
+                      <span id="telError" class="error"></span>
                     </div>
                   </div>
 
@@ -129,11 +134,11 @@
                     <label class="col-form-label form-label-title">성별</label>
                     <span id="required" class="required">(필수입력사항)</span>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender" id="gender" value="female" checked />
+                      <input class="form-check-input" type="radio" name="user_gender" id="user_gender" value="female" checked />
                       <label class="form-check-label" for="female">여성</label>
                     </div>
                     <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="gender" id="gender" value="male" checked />
+                      <input class="form-check-input" type="radio" name="user_gender" id="user_gender" value="male" checked />
                       <label class="form-check-label" for="male">남성</label>
                     </div>
                   </div>
@@ -150,7 +155,7 @@
                     <div>
                       <label class="col-form-label form-label-title">나이</label>
                       <div class="form-input position-relative">
-                        <input class="form-control" type="text" name="additionalText" placeholder="" style="width: 100px;" readonly required />
+                        <input class="form-control" type="text" id="user_age" name="user_age" placeholder="" style="width: 100px;" readonly required />
                       </div>
                     </div>
                   </div>
@@ -165,31 +170,31 @@
                         <label class="col-form-label form-label-title">1순위</label>
                         <select class="form-control" name="user_prefer_type1">
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="tourist">관광지 위주</option>
-                          <option value="dining">맛집 위주</option>
-                          <option value="room">숙소 위주</option>
+                          <option value="관광지">관광지 위주</option>
+                          <option value="음식">맛집 위주</option>
+                          <option value="숙박">숙소 위주</option>
                         </select>
                       </div>
 
                       <!-- 2순위 -->
                       <div class="col">
                         <label class="col-form-label form-label-title">2순위</label>
-                        <select class="form-control" name="user_prefer_type2">
+                        <select class="form-control" name="user_prefer_type2" disabled>
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="tourist">관광지 위주</option>
-                          <option value="dining">맛집 위주</option>
-                          <option value="room">숙소 위주</option>
+                          <option value="관광지">관광지 위주</option>
+                          <option value="음식">맛집 위주</option>
+                          <option value="숙박">숙소 위주</option>
                         </select>
                       </div>
 
                       <!-- 3순위 -->
                       <div class="col">
                         <label class="col-form-label form-label-title">3순위</label>
-                        <select class="form-control" name="user_prefer_type3">
+                        <select class="form-control" name="user_prefer_type3" disabled>
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="tourist">관광지 위주</option>
-                          <option value="dining">맛집 위주</option>
-                          <option value="room">숙소 위주</option>
+                          <option value="관광지">관광지 위주</option>
+                          <option value="음식">맛집 위주</option>
+                          <option value="숙박">숙소 위주</option>>
                         </select>
                       </div>
                     </div>
@@ -205,23 +210,23 @@
                         <label class="col-form-label form-label-title">1순위</label>
                         <select class="form-control" name="user_prefer_loc1">
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="1">서울</option>
-                          <option value="2">인천</option>
-                          <option value="3">대전</option>
-                          <option value="4">대구</option>
-                          <option value="5">광주</option>
-                          <option value="6">부산</option>
-                          <option value="7">울산</option>
-                          <option value="8">세종특별자치시</option>
-                          <option value="31">경기도</option>
-                          <option value="32">강원특별자치도</option>
-                          <option value="33">충청북도</option>
-                          <option value="34">충청남도</option>
-                          <option value="35">경상북도</option>
-                          <option value="36">경상북도</option>
-                          <option value="37">전라북도</option>
-                          <option value="38">전라남도</option>
-                          <option value="39">제주도</option>
+                          <option value="1.0">서울</option>
+                          <option value="2.0">인천</option>
+                          <option value="3.0">대전</option>
+                          <option value="4.0">대구</option>
+                          <option value="5.0">광주</option>
+                          <option value="6.0">부산</option>
+                          <option value="7.0">울산</option>
+                          <option value="8.0">세종특별자치시</option>
+                          <option value="31.0">경기도</option>
+                          <option value="32.0">강원특별자치도</option>
+                          <option value="33.0">충청북도</option>
+                          <option value="34.0">충청남도</option>
+                          <option value="35.0">경상북도</option>
+                          <option value="36.0">경상북도</option>
+                          <option value="37.0">전라북도</option>
+                          <option value="38.0">전라남도</option>
+                          <option value="39.0">제주도</option>
                         </select>
                       </div>
 
@@ -230,23 +235,23 @@
                         <label class="col-form-label form-label-title">2순위</label>
                         <select class="form-control" name="user_prefer_loc2">
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="1">서울</option>
-                          <option value="2">인천</option>
-                          <option value="3">대전</option>
-                          <option value="4">대구</option>
-                          <option value="5">광주</option>
-                          <option value="6">부산</option>
-                          <option value="7">울산</option>
-                          <option value="8">세종특별자치시</option>
-                          <option value="31">경기도</option>
-                          <option value="32">강원특별자치도</option>
-                          <option value="33">충청북도</option>
-                          <option value="34">충청남도</option>
-                          <option value="35">경상북도</option>
-                          <option value="36">경상북도</option>
-                          <option value="37">전라북도</option>
-                          <option value="38">전라남도</option>
-                          <option value="39">제주도</option>
+                          <option value="1.0">서울</option>
+                          <option value="2.0">인천</option>
+                          <option value="3.0">대전</option>
+                          <option value="4.0">대구</option>
+                          <option value="5.0">광주</option>
+                          <option value="6.0">부산</option>
+                          <option value="7.0">울산</option>
+                          <option value="8.0">세종특별자치시</option>
+                          <option value="31.0">경기도</option>
+                          <option value="32.0">강원특별자치도</option>
+                          <option value="33.0">충청북도</option>
+                          <option value="34.0">충청남도</option>
+                          <option value="35.0">경상북도</option>
+                          <option value="36.0">경상북도</option>
+                          <option value="37.0">전라북도</option>
+                          <option value="38.0">전라남도</option>
+                          <option value="39.0">제주도</option>
                         </select>
                       </div>
 
@@ -255,23 +260,23 @@
                         <label class="col-form-label form-label-title">3순위</label>
                         <select class="form-control" name="user_prefer_loc3">
                           <option value="" disabled selected hidden>---선택 ▼---</option>
-                          <option value="1">서울</option>
-                          <option value="2">인천</option>
-                          <option value="3">대전</option>
-                          <option value="4">대구</option>
-                          <option value="5">광주</option>
-                          <option value="6">부산</option>
-                          <option value="7">울산</option>
-                          <option value="8">세종특별자치시</option>
-                          <option value="31">경기도</option>
-                          <option value="32">강원특별자치도</option>
-                          <option value="33">충청북도</option>
-                          <option value="34">충청남도</option>
-                          <option value="35">경상북도</option>
-                          <option value="36">경상북도</option>
-                          <option value="37">전라북도</option>
-                          <option value="38">전라남도</option>
-                          <option value="39">제주도</option>
+                          <option value="1.0">서울</option>
+                          <option value="2.0">인천</option>
+                          <option value="3.0">대전</option>
+                          <option value="4.0">대구</option>
+                          <option value="5.0">광주</option>
+                          <option value="6.0">부산</option>
+                          <option value="7.0">울산</option>
+                          <option value="8.0">세종특별자치시</option>
+                          <option value="31.0">경기도</option>
+                          <option value="32.0">강원특별자치도</option>
+                          <option value="33.0">충청북도</option>
+                          <option value="34.0">충청남도</option>
+                          <option value="35.0">경상북도</option>
+                          <option value="36.0">경상북도</option>
+                          <option value="37.0">전라북도</option>
+                          <option value="38.0">전라남도</option>
+                          <option value="39.0">제주도</option>
                         </select>
                       </div>
                     </div>
@@ -280,30 +285,27 @@
 
                   <div class="form-group">
                     <label class="col-form-label form-label-title">프로필 사진</label>
-                    
+
                     <!-- 프로필 사진 왼쪽 박스 -->
-                    <div class="profile-picture-container row">
-                      <div class="profile-picture">
-                        <img  id="profilePicturePreview" src="../assets/images/cab/blog-footer/2.jpg" class="img-fluid blur-up lazyloaded" alt="">
-                      </div>
-
-                      <!-- 사진 업로드 버튼 -->
-                      <div class="upload-button-box col-8">
-                        <label for="profilePictureUpload" class="upload-button">
-                          사진 업로드
-                          <input type="file" id="profilePictureUpload" name="profilePicture" accept="image/*" onchange="previewProfilePicture()">
-                        </label>
+                    <div class="profile-picture-container ">
+                      <!-- 사진 미리보기 -->
+                      <div class="profile-picture-box row g-2">
+                        <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
+                        <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="profilePicture" accept="image/*" onchange="previewProfilePicture()" />
                       </div>
                     </div>
+                  </div>
 
-                    <div class="form-group mb-0">
-                      <div class="checkbox p-0">
-                        <input id="checkbox1" type="checkbox" />
-                        <label class="text-muted" for="checkbox1">개인정보 수집에 동의하시면 체크해주세요.</label>
-                      </div>
-                      <button class="btn btn-primary btn-block w-100" type="submit" id="submitBtn">회원가입</button>
+                  <div class="form-group mb-0">
+                    <div class="checkbox p-0">
+                      <input id="checkbox1" type="checkbox" />
+                      <label class="text-muted" for="checkbox1">개인정보 수집에 동의하시면 체크해주세요.</label>
                     </div>
-                </form>
+                    <button class="btn btn-primary btn-block w-100" type="submit" id="submitBtn">회원가입</button>
+                  </div>
+                  
+
+              </form>
 
                 <h6 class="text-muted mt-4 or">간편 회원가입</h6>
                 <div class="social mt-4">
@@ -341,20 +343,94 @@
       <!-- login js-->
       <!-- Plugin used-->
 
-      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드-->
+      <!-- 생년월일을 나이로 변환 -->
       <script>
         $(document).ready(function () {
-          $('select[name^="user_prefer_type"]').change(function () {
-            // 선택된 값을 가져옴
-            var selectedValue = $(this).val();
+          // 생년월일 입력 시 나이 계산 함수
+          function calculateAge(birthdate) {
+            var today = new Date();
+            var birthDate = new Date(birthdate);
+            var age = today.getFullYear() - birthDate.getFullYear();
+      
+            // 생일이 지났는지 체크
+            var monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+              age--;
+            }
+      
+            return age;
+          }
+      
+          // 생년월일 입력이 변경되면 나이 계산 후 '나이' 칸에 값 설정
+          $('#birthdate').change(function () {
+            var birthdate = $(this).val();
+            var age = calculateAge(birthdate);
+      
+            // '나이' 칸에 값을 설정
+            $('#user_age').val(age);
+          });
+        });
+      </script>
 
-            // 다른 셀렉트 박스에서 선택된 값 제거
-            $('select[name^="user_prefer_type"]').not(this).find('option').prop('disabled', false);
-            $('select[name^="user_prefer_type"]').not(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
-            
-            // 현재 셀렉트 박스에서 선택된 값 비활성화
-            // $(this).find('option').prop('disabled', false);
-            // $(this).find('option:selected').prop('disabled', true);
+      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드-->
+      <!-- <script>
+        $(document).ready(function () {
+          // 다른 select 박스에서 선택된 값을 비활성화하는 함수
+          function disableSelectedValue(selectedValue, selectBoxes) {
+            selectBoxes.each(function () {
+              // $(this).find('option').prop('disabled', false);
+              $(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
+            });
+          }
+      
+          // user_prefer_type select 박스 처리
+          $('select[name^="user_prefer_type"]').change(function () {
+            var selectedValue = $(this).val();
+            var selectBoxes = $('select[name^="user_prefer_type"]').not(this);
+            disableSelectedValue(selectedValue, selectBoxes);
+          });
+      
+          // user_prefer_loc select 박스 처리
+          $('select[name^="user_prefer_loc"]').change(function () {
+            var selectedValue = $(this).val();
+            var selectBoxes = $('select[name^="user_prefer_loc"]').not(this);
+            disableSelectedValue(selectedValue, selectBoxes);
+          });
+        });
+      </script> -->
+
+      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드22-->
+      <script>
+        $(document).ready(function () {
+          // 다른 select 박스에서 선택된 값을 비활성화하는 함수
+          function disableSelectedValue(selectedValue, selectBoxes) {
+            selectBoxes.each(function () {
+              $(this).find('option').prop('disabled', false);
+              $(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
+            });
+          }
+      
+          // user_prefer_type select 박스 처리
+          $('select[name="user_prefer_type1"]').change(function () {
+            var selectedValue = $(this).val();
+            var selectBoxes = $('select[name^="user_prefer_type"]').not(this);
+            disableSelectedValue(selectedValue, selectBoxes);
+            $('select[name="user_prefer_type2"]').prop('disabled', false);
+          });
+
+          $('select[name="user_prefer_type2"]').change(function () {
+            var selectedValue = $(this).val();
+            var selectBoxes = $('select[name^="user_prefer_type"]').not(this);
+            disableSelectedValue(selectedValue, selectBoxes);
+            $('select[name="user_prefer_type3"]').prop('disabled', false);
+            $('select[name="user_prefer_type3"]').prop('disabled', false);
+          });
+      
+          // user_prefer_loc select 박스 처리
+          $('select[name^="user_prefer_loc"]').change(function () {
+            var selectedValue = $(this).val();
+            var selectBoxes = $('select[name^="user_prefer_loc"]').not(this);
+            disableSelectedValue(selectedValue, selectBoxes);
           });
         });
       </script>
@@ -408,6 +484,124 @@
                 }
             }).open();
         }
+      </script>
+
+      <!-- 이미지 미리보기 -->
+      <script>
+        function previewProfilePicture() {
+          var input = document.getElementById('profilePictureUpload');
+          var preview = document.getElementById('profilePicturePreview');
+      
+          if (input.files && input.files[0]) {
+            var reader = new FileReader();
+      
+            reader.onload = function (e) {
+              preview.src = e.target.result;
+            };
+      
+            reader.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+
+
+      <!-- 유효성 검사 -->
+      <script>
+        $(function() { 
+            function validateId() {
+                var id = $("#user_id").val();
+                var idPattern = /^[a-zA-Z0-9]{5,10}$/;
+                if (!id.match(idPattern)) {
+                    $("#idError").text("아이디는 5자~10자의 영어와 숫자 조합이어야 합니다.");
+                } else {
+                    $("#idError").text("");
+                }
+            }
+        
+            function validatePassword() {
+                var pwd = $("#user_pass").val();
+                var pwdPattern = /^[a-zA-Z0-9]{4,}$/;
+                if (!pwd.match(pwdPattern)) {
+                    $("#passError").text("비밀번호는 4자 이상의 영어와 숫자 조합이어야 합니다.");
+                } else {
+                    $("#passError").text("");
+                }
+            }
+        
+            function validateName() {
+                var name = $("#user_name").val();
+                var namePattern = /^[가-힣]{1,5}$/;
+                if (!name.match(namePattern)) {
+                    $("#nameError").text("이름은 한글로 5자 이내여야 합니다.");
+                } else {
+                    $("#nameError").text("");
+                }
+            }
+        
+            function validatePhone() {
+                var phone = $("#user_tel").val();
+                var phonePattern = /^[0-9]*$/;
+                if (!phone.match(phonePattern)) {
+                    $("#telError").text("전화번호는 숫자만 입력해야 합니다.");
+                } else {
+                    $("#telError").text("");
+                }
+            }
+        
+            //아이디 중복체크
+          $("#id_chk").click(function(){
+              var user_id = $('#user_id').val();
+              //alert(id);
+              
+              // AJAX를 사용하여 서버로 중복 체크 요청 보내기
+              $.ajax({
+                  type: "POST",
+                  url: "idCheck", // 서버의 중복 체크 컨트롤러 주소
+                  data: { user_id: user_id }, // 아이디를 서버로 보내기
+                  success: function(response) {
+                      //console.log(id);
+                      if (response === "1") {
+                          alert("이미 존재하는 아이디입니다.");
+                          $("#submitBtn").prop('disabled', true);
+    
+                      } else if (response === "0") {
+                          alert("사용 가능한 아이디입니다.");
+                            // 아이디 중복 확인이 성공했으므로 제출 버튼을 활성화합니다.
+                            $("#submitBtn").prop('disabled', false);
+                      }
+                  },
+                  error: function() {
+                      // 오류 처리
+                      alert("오류가 발생했습니다.");
+                  }
+              });
+          });
+            
+          $("#submitBtn").submit(function(event) {
+                if ($("#idError").text() !== "") {
+                    event.preventDefault(); // 양식 제출 방지
+                    alert("아이디 중복 확인을 해주세요.");
+                }else if($("#birthdate").text() !== ""){
+                    event.preventDefault(); // 양식 제출 방지
+                    alert("생년월일을 입력 해주세요.");
+                }
+            });
+            
+            
+            $("#user_id").blur(validateId);
+            $("#user_pass").blur(validatePassword);
+            $("#user_name").blur(validateName);
+            $("#user_tel").blur(validatePhone);
+            
+           // 상세주소 입력이 완료되면 주소 정보를 hidden 필드에 저장
+          $("#sample6_detailAddress").on("change", function() {
+            var addr = $("#sample6_address").val();
+            var detailaddr = $(this).val();
+            var fullAddress = addr + "," + detailaddr;
+            $("#sample6_extraAddress").val(fullAddress);
+          });
+    
+        });
       </script>
 
     </div>

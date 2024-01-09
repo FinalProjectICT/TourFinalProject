@@ -242,7 +242,7 @@ pageEncoding="UTF-8"%>
                         type="text"
                         class="form-control"
                         id="exampleFormControlInput1"
-                        placeholder="친구 찾기 "
+                        placeholder="2글자 이상 입력하세요."
                       />
                     </div>
                   </div>
@@ -253,68 +253,60 @@ pageEncoding="UTF-8"%>
           </div>
           <div class="col-lg-12 ratio3_2">
             <div class="container">
-              <div class="list-view row content grid">
-                <div class="list-box col-12 popular grid-item wow fadeInUp">
-                  <!-- 게시글 이미지-->
-                  <div class="list-img">
-                    <a href="/touromate/touromate_detail">
-                      <img
-                        src="../assets/images/tour/tour/11.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                      />
-                    </a>
-                  </div>
-                  <div class="list-content">
-                    <div>
-                      <a href="/touromate/touromate_detail">
-                        <h5>친구 찾기 게시글 제목</h5>
-                      </a>
-                      <br />
-                      <p>게시글 등록일</p>
-                      <p>게시글 수정일</p>
 
-                      <div class="price">게시글 작성자</div>
-                      <a
-                        href="/touromate/touromate_detail"
-                        class="btn btn-solid color1 book-now"
-                        >게시글 보기</a
-                      >
+              <!-- 여행 친구 매칭 게시글 반복적으로 출력하는 부분 -->
+              <c:forEach var="touromate" items="${touromates}">
+                <div class="list-view row content grid">
+                    <div class="list-box col-12 popular grid-item wow fadeInUp">
+                        <!-- 게시글 이미지-->
+                        <!-- <div class="list-img">
+                            <a href="touromate/view/${touromate.touro_mate_num}"> -->
+                        <!-- 이미지 출력 부분 -->
+                        <!-- </a> -->
+                        <!-- </div> -->
+                        <div class="list-content">
+                            <div>
+                              <!-- 게시글 제목과 링크 -->
+                                <a href="touromate/view/${touromate.touro_mate_num}">
+                                    <h5>${touromate.touro_mate_title}</h5>
+                                </a>
+                                <br />
+                                <!-- 게시글 작성 일자 -->
+                                <p>${touromate.touro_mate_date}</p>
+                                <!-- 게시글 작성자 (사용자 ID) -->
+                                <div class="price">${touromate.user_id}</div>
+                                <!-- 게시글 보기 버튼 -->
+                                <a href="touromate/view/${touromate.touro_mate_num}" class="btn btn-solid color1 book-now">게시글 보기</a>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
+              </c:forEach>
 
-              <nav
-                aria-label="Page navigation example"
-                class="pagination-section"
-              >
+              <!-- 페이지 네이션 -->
+              <nav aria-label="Page navigation example" class="pagination-section">
                 <ul class="pagination">
-                  <li class="page-item">
-                    <a
-                      class="page-link"
-                      href="javascript:void(0)"
-                      aria-label="Previous"
-                    >
-                      <span aria-hidden="true">&laquo;</span>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="javascript:void(0)">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0)">2</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="javascript:void(0)">3</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
+                  <!-- 이전 페이지 이동 버튼-->
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    <!-- 페이지 번호를 출력하는 forEach -->
+                    <c:forEach begin="1" end="${totalPages}" var="pageNumber">
+                      <!-- 현재 페이지에 해당하는 경우 활성화된 스타일을 적용하는 부분 -->
+                        <li class="page-item ${pageNumber eq currentPage ? 'active' : ''}">
+                            <a class="page-link" href="?page=${pageNumber}">${pageNumber}</a>
+                        </li>
+                    </c:forEach>
+                    <!-- 다음 페이지 이동 버튼-->
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
                 </ul>
               </nav>
             </div>
