@@ -280,15 +280,15 @@
 
                   <div class="form-group">
                     <label class="col-form-label form-label-title">프로필 사진</label>
-
+                    
                     <!-- 프로필 사진 왼쪽 박스 -->
-                    <div class="profile-picture-container">
-                      <div class="profile-picture-box">
-                        <img class="profile-picture" id="profilePicturePreview" src="#" alt="프로필 사진">
+                    <div class="profile-picture-container row">
+                      <div class="profile-picture">
+                        <img  id="profilePicturePreview" src="../assets/images/cab/blog-footer/2.jpg" class="img-fluid blur-up lazyloaded" alt="">
                       </div>
 
                       <!-- 사진 업로드 버튼 -->
-                      <div class="upload-button-box">
+                      <div class="upload-button-box col-8">
                         <label for="profilePictureUpload" class="upload-button">
                           사진 업로드
                           <input type="file" id="profilePictureUpload" name="profilePicture" accept="image/*" onchange="previewProfilePicture()">
