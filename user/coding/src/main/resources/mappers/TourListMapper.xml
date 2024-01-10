@@ -4,12 +4,46 @@
 
 <mapper namespace="com.example.coding.dao.TourListDAO">
 
-<select id="selectAll" resultType="com.example.coding.domain.TourVO">
-	SELECT * FROM tour
+<select id="selectAll" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.Paging">
+	SELECT *
+	FROM tour 
+	<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="tour_cate_code != null and tour_cate_code != '' ">
+				AND tour_cate_code like #{tour_cate_code}
+			</if>
+			<if test="keyword != null and keyword != '' ">
+				AND tour_name like  CONCAT('%',#{keyword},'%') 
+				OR tour_content like CONCAT('%',#{keyword},'%')
+			</if>
+		</trim>
+	ORDER BY tour_num DESC 
+	LIMIT #{startList}, #{listSize}
 </select>
 
+<select id="tourListCnt" resultType="int" parameterType="com.example.coding.domain.Paging">
+		SELECT count(*) as listCnt
+		FROM tour 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+				<if test="tour_cate_code=='12'">
+					AND tour_cate_code like '12'
+				</if>
+				<if test="tour_cate_code=='32'">
+					AND tour_cate_code like '32'
+				</if>
+				<if test="tour_cate_code=='39'">
+					AND tour_cate_code like '39'
+				</if>
+				<if test="keyword != null and keyword != '' ">
+					AND tour_name like CONCAT('%',#{keyword},'%') 
+					OR tour_content like CONCAT('%',#{keyword},'%')
+				</if>
+		</trim>
+	</select>
+
 <select id="selectOne" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.TourVO">
-	SELECT * FROM tour WHERE tour_num=#{tour_num}
+	SELECT * 
+	FROM tour 
+	WHERE tour_num=#{tour_num}
 </select>
-  
+
 </mapper>

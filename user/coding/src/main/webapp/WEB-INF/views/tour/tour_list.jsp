@@ -586,6 +586,7 @@ prefix="c" %>
       <div class="container">
         <div class="row">
           <div class="col-12">
+            <form>
             <div class="filter-panel">
               <div class="left-filter">
                 <div class="respon-filter-btn">
@@ -595,9 +596,9 @@ prefix="c" %>
                 <div class="filters respon-filter-content filter-button-group">
                   <ul>
                     <li class="active" data-filter="*">전체</li>
-                    <li data-filter=".popular">인기순</li>
-                    <li data-filter=".trend">조회순</li>
-                    <li data-filter=".latest">최신순</li>
+                    <li data-filter=".a12">#관광</li>
+                    <li data-filter=".a32">#숙박</li>
+                    <li data-filter=".a39">#음식</li>
                   </ul>
                 </div>
               </div>
@@ -623,7 +624,7 @@ prefix="c" %>
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">유형별 분류</h6>
                           <div class="collection-collapse-block-content">
-                            <div class="collection-brand-filter">
+                            <div class="collection-brand-filter" id="tour_cate_code">
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -940,6 +941,7 @@ prefix="c" %>
                         <a
                           href="javascript:void(0)"
                           class="btn btn-solid color1 me-2"
+                          id="btnSearch"
                           >필터 적용</a
                         >
                         <a
@@ -993,17 +995,20 @@ prefix="c" %>
                 </div>
               </div>
             </div>
+          </form>
           </div>
-          <div class="col-xl-12 onclick-map">
+          <div class="col-xl-12 onclick-map " >
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
-                <form>
+                <form action="./tour">
                   <div class="row w-100">
                     <div class="form-group p-0">
                       <input
                         type="text"
                         class="form-control"
+                        id="keyword"
                         placeholder="검색어 입력"
+                        value="${search.keyword}"
                       />
                       <img
                         src="../assets/images/icon/table-no.png"
@@ -1012,7 +1017,7 @@ prefix="c" %>
                       />
                     </div>
                   </div>
-                  <a href="#" class="btn btn-rounded col-2 color1">검색</a>
+                  <button id="btnSearch" class="btn btn-rounded col-2 color1">검색</button>
                 </form>
               </div>
             </div>
@@ -1024,7 +1029,7 @@ prefix="c" %>
                 <c:forEach items="${TourList }" var="TourData">
                   <div
                     class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
-                    data-class="popular"
+                    data-class="a${TourData.tour_cate_code}"
                   >
                     <div class="special-box p-0">
                       <div class="special-img">
@@ -1060,10 +1065,10 @@ prefix="c" %>
                         <div class="tour-detail">
                           <h6 class="nowrap-cls">${TourData.tour_content }</h6>
                           <div class="include-sec">
-                            <span>별점</span>
+                            <span>별점 ${TourData.tour_star}</span>
                             <ul class="include">
                               <c:choose>
-                                <c:when test="${TourData.tour_star eq 0}">
+                                <c:when test="${0 eq TourData.tour_star}">
                                   <li class="not-include">
                                     <i class="far fa-star"></i>
                                   </li>
@@ -1080,21 +1085,80 @@ prefix="c" %>
                                     <i class="far fa-star"></i>
                                   </li>
                                 </c:when>
+                                <c:when test="${TourData.tour_star > 0 and 1 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 1 and 2 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 3 and 4 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 4}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                </c:when>
                                 <c:otherwise>
                                   <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star">?</i>
                                   </li>
                                 </c:otherwise>
                               </c:choose>
@@ -1109,7 +1173,7 @@ prefix="c" %>
                           </div>-->
                         </div>
                       </div>
-                      <div class="label-offer">라벨 예시</div>
+                      <div class="label-offer">${TourData.tour_cate_code}</div>
                     </div>
                   </div>
                 </c:forEach>
@@ -1122,31 +1186,45 @@ prefix="c" %>
               class="pagination-section mt-0"
             >
               <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    class="page-link"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                  >
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0)">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
+                <c:if test="${paging.prev}">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Previous"
+                      onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}'
+                    ,'${search.tour_cate_code}', '${search.keyword}')"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                </c:if>
+
+                <c:forEach
+                  begin="${paging.startPage}"
+                  end="${paging.endPage}"
+                  var="testId"
+                >
+                  <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
+                    <a class="page-link" 
+                    href="#" 
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                    ${testId}</a>
+                  </li>
+                </c:forEach>
+                <c:if test="${paging.next}">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Next"
+                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </c:if>
               </ul>
             </nav>
           </div>
@@ -1414,6 +1492,9 @@ prefix="c" %>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 리스트 용 js -->
+    <script src="../assets/js/tourListNav.js"></script>
 
     <script>
       $("#datepicker").datepicker({
