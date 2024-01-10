@@ -1,10 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { images } from "../../data/images";
 import { Link } from "react-router-dom";
 import GalleryCom from "../../component/tour-view/GalleryCom";
+import axios from "axios";
+import { useNavigate,useParams } from "react-router-dom";
+
 
 function Heading() {
   const [imagesG, setImages] = useState(images);
+  const navigate = useNavigate();
+  const { tourNum } = useParams();
+  const [tours, setTours] = useState({});
+
+  const baseUrl = "http://localhost:8080";
+
+  useEffect(() => {
+    axios.get(baseUrl+"/tour-view/" + tourNum).then((result) => {
+    const tours = result.data;
+    console.log(result);
+    setTours({...tours});
+      
+  }
+  )
+  .catch((error) => {
+    console.error('검색 오류:', error);
+  });
+  }, []);
+
+  const ModifyTour = (e) =>{
+    e.preventDefault();
+    axios
+    .get()
+    .then(()=>{
+
+    });
+
+  };
+
+  const DeleteTour = (e) =>{
+    e.preventDefault();
+    axios
+    .get()
+    .then(()=>{
+      
+    });
+  };
+
   return (
     <>
       <div className="row">
@@ -20,12 +61,14 @@ function Heading() {
           </label>
           <div className="col-md-6">
             <div className="mb-3">
-              <input
+              <textarea
                 style={{ height:'400px' }}
                 type="text"
                 className="form-control"
-                readOnly
-              />
+                value={tours.tour_content}
+                onChange={(e) => setTours({ ...tours, tour_content: e.target.value })}
+              >
+              </textarea>
             </div>
           </div>
 
@@ -38,8 +81,10 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                readOnly
+                value={tours.tour_addr}
+                onChange={(e) => setTours({ ...tours, tour_addr: e.target.value })}
               />
+              
             </div>
             <div className="mb-3">
               <label className="form-label-title ">
@@ -49,7 +94,8 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                readOnly
+                value={tours.tour_site_addr}
+                onChange={(e) => setTours({ ...tours, tour_site_addr: e.target.value })}
               />
             </div>
             <div className="mb-3">
@@ -60,8 +106,10 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                readOnly
+                value={tours.inquiry_num}
+                onChange={(e) => setTours({ ...tours, inquiry_num: e.target.value })}
               />
+              
             </div>
             <div className="row">
               <div className="col" style={{paddingRight:'10px'}}>
@@ -73,17 +121,7 @@ function Heading() {
                   type="text"
                   className="form-control"
                   readOnly
-                />
-              </div>
-              <div className="col">
-                <label className="form-label-title ">
-                  여행지 좋아요 수
-                </label>
-                <input
-                  style={{ height:'50px' }}
-                  type="text"
-                  className="form-control"
-                  readOnly
+                  value={tours.tour_star}
                 />
               </div>
             </div>
@@ -98,6 +136,7 @@ function Heading() {
                   data-bs-target="#email_modal"
                   className="crancy-btn crancy-sbcolor"
                   style={{width:'100%', justifyContent:'center'}}
+                  onClick={ModifyTour} 
                 >
                   Modify
                 </Link>
@@ -109,6 +148,7 @@ function Heading() {
                   data-bs-target="#email_modal"
                   className="crancy-btn crancy-rbcolor"
                   style={{width:'100%', justifyContent:'center'}}
+                  onClick={DeleteTour} 
                 >
                   Delete
                 </Link>

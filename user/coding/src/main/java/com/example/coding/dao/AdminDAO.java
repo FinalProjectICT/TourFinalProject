@@ -12,5 +12,9 @@ public interface AdminDAO {
     public List<AdminVO> tourList();
 
     public AdminVO tourdetail(AdminVO vo);
+
+    public int deleteNum(AdminVO vo );
+
+    public int tourInsert(AdminVO vo);
     
 }

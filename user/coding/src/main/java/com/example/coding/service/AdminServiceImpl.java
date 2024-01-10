@@ -27,5 +27,18 @@ public class AdminServiceImpl implements AdminService {
     public AdminVO tourdetail(AdminVO vo) {
         return adminDAO.tourdetail(vo);
     }
+
+    @Override
+    public int deleteNum(AdminVO vo) {
+        int result = adminDAO.deleteNum(vo);
+        return result;
+    }
+
+    @Override
+    public int tourInsert(AdminVO vo) {
+
+        return adminDAO.tourInsert(vo);
+    }
+
     
 }
