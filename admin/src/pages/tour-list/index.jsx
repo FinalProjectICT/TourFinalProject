@@ -12,6 +12,7 @@ import SearchBar from "../../component/user/SearchBar";
 
 function TourList() {
   const [supportNow, setSupportNow] = useState(false);
+  
   useMenu();
   return (
     <Layout>
