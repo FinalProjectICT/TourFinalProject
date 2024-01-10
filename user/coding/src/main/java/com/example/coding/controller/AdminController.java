@@ -45,7 +45,7 @@ public class AdminController {
         return repo.findByTourNameLike("%" + search_tourName + "%");
     }
 
-    @GetMapping("/tour-view/${tourNum}")
+    @GetMapping("/tour-view/{tourNum}")
     public AdminVO TourDetail(@PathVariable String tourNum) {
         AdminVO vo = new AdminVO();
         vo.setTourNum(tourNum);
