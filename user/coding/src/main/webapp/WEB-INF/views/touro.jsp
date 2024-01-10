@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %>
 <html>
   <head lang="ko">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -10,7 +10,11 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="rica" />
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
-    <link rel="icon" href="../../assets/images/favicon.png" type="image/x-icon" />
+    <link
+      rel="icon"
+      href="../../assets/images/favicon.png"
+      type="image/x-icon"
+    />
     <title>Rica</title>
 
     <!--Google font-->
@@ -42,7 +46,11 @@ pageEncoding="UTF-8"%>
     />
 
     <!-- Animation -->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/animate.css"
+    />
 
     <!-- Date-time picker css -->
     <link
@@ -60,7 +68,11 @@ pageEncoding="UTF-8"%>
     />
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../../assets/css/bootstrap.css"
+    />
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../../assets/css/color5.css" />
@@ -797,12 +809,13 @@ pageEncoding="UTF-8"%>
               <div class="testimonial">
                 <div class="left-part col-2">
                   <a
+                    id="userInfo_Byounggon"
                     data-bs-toggle="modal"
-                    data-bs-target="#edit-profile"
-                    href=""
+                    data-bs-target="#profile"
+                    href="#"
                   >
                     <img
-                      src="../../assets/images/avtar/1.jpg"
+                      src="../assets/images/avtar/1.jpg"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
@@ -811,12 +824,13 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="left-part col-2">
                   <a
+                    id="userInfo_Daehoon"
                     data-bs-toggle="modal"
-                    data-bs-target="#edit-profile"
-                    href=""
+                    data-bs-target="#profile"
+                    href="#"
                   >
                     <img
-                      src="../../assets/images/avtar/1.jpg"
+                      src="../assets/images/avtar/1.jpg"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
@@ -825,12 +839,13 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="left-part col-2">
                   <a
+                    id="userInfo_Hangil"
                     data-bs-toggle="modal"
-                    data-bs-target="#edit-profile"
-                    href=""
+                    data-bs-target="#profile"
+                    href="#"
                   >
                     <img
-                      src="../../assets/images/avtar/1.jpg"
+                      src="../assets/images/avtar/1.jpg"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
@@ -839,12 +854,13 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="left-part col-2">
                   <a
+                    id="userInfo_Hangil"
                     data-bs-toggle="modal"
-                    data-bs-target="#edit-profile"
-                    href=""
+                    data-bs-target="#profile"
+                    href="#"
                   >
                     <img
-                      src="../../assets/images/avtar/1.jpg"
+                      src="../assets/images/avtar/1.jpg"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
@@ -871,7 +887,7 @@ pageEncoding="UTF-8"%>
     <!-- 사용자 페이지(Modal) 창 구성 시작 -->
     <div
       class="modal fade edit-profile-modal"
-      id="edit-profile"
+      id="profile"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -880,7 +896,7 @@ pageEncoding="UTF-8"%>
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">사용자 페이지</h5>
+            <h5 class="modal-title" id="exampleModalLabel">사용자 프로필</h5>
             <button
               type="button"
               class="btn-close"
@@ -894,14 +910,14 @@ pageEncoding="UTF-8"%>
                 <div class="profile-top">
                   <div class="profile-image">
                     <img
-                      src="../../assets/images/avtar/1.jpg"
+                      src="../assets/images/avtar/1.jpg"
                       class="img-fluid blur-up lazyloaded"
                       alt=""
                     />
                   </div>
                   <div class="profile-detail">
-                    <h5>사용자 연령대</h5>
-                    <h6>mark.enderess@mail.com</h6>
+                    <h5 id="user_age">사용자 연령대</h5>
+                    <h6 id="user_email">mark.enderess@mail.com</h6>
                   </div>
                 </div>
                 <div class="dashboard-box">
@@ -913,7 +929,9 @@ pageEncoding="UTF-8"%>
                       <div class="detail-middle">
                         <div class="media">
                           <div class="media-body">
-                            <h6 class="media-heading">사용자 아이디</h6>
+                            <h6 class="media-heading" id="user_id">
+                              사용자 아이디
+                            </h6>
                           </div>
                         </div>
                       </div>
@@ -929,15 +947,21 @@ pageEncoding="UTF-8"%>
                       <div class="detail-middle">
                         <div class="media">
                           <div class="media-body">
-                            <h6 class="media-heading">유형</h6>
+                            <h6 class="media-heading" id="user_prefer_type1">
+                              유형
+                            </h6>
                             <p>1 순위</p>
                           </div>
                           <div class="media-body">
-                            <h6 class="media-heading">유형</h6>
+                            <h6 class="media-heading" id="user_prefer_type2">
+                              유형
+                            </h6>
                             <p>2 순위</p>
                           </div>
                           <div class="media-body">
-                            <h6 class="media-heading">유형</h6>
+                            <h6 class="media-heading" id="user_prefer_type3">
+                              유형
+                            </h6>
                             <p>3 순위</p>
                           </div>
                         </div>
@@ -954,15 +978,21 @@ pageEncoding="UTF-8"%>
                       <div class="detail-middle">
                         <div class="media">
                           <div class="media-body">
-                            <h6 class="media-heading">지역</h6>
+                            <h6 class="media-heading" id="user_prefer_loc1">
+                              지역
+                            </h6>
                             <p>1 순위</p>
                           </div>
                           <div class="media-body">
-                            <h6 class="media-heading">지역</h6>
+                            <h6 class="media-heading" id="user_prefer_loc2">
+                              지역
+                            </h6>
                             <p>2 순위</p>
                           </div>
                           <div class="media-body">
-                            <h6 class="media-heading">지역</h6>
+                            <h6 class="media-heading" id="user_prefer_loc3">
+                              지역
+                            </h6>
                             <p>3 순위</p>
                           </div>
                         </div>
@@ -1072,6 +1102,9 @@ pageEncoding="UTF-8"%>
     <!-- Theme js-->
     <script src="../../assets/js/script.js"></script>
     <script src="../../assets/js/snow.js"></script>
+
+    <!-- 사용자 정보 가져오는 ajax -->
+    <script src="../assets/js/userModal.js"></script>
 
     <script>
       $(function () {

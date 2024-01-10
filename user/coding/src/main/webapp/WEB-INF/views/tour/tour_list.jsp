@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %>
 <html lang="UTF-8">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -57,8 +57,8 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
-   <%@ include file='../header/header.jsp' %>
-   <!--  해더 끝 -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
     <!-- pre-loader start -->
     <!-- <div class="skeleton_loader">
       <div class="breadcrumb-section dark-bg"></div>
@@ -586,6 +586,7 @@ pageEncoding="UTF-8"%>
       <div class="container">
         <div class="row">
           <div class="col-12">
+            <form>
             <div class="filter-panel">
               <div class="left-filter">
                 <div class="respon-filter-btn">
@@ -594,10 +595,10 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="filters respon-filter-content filter-button-group">
                   <ul>
-                    <li class="active" data-filter="*">조건1</li>
-                    <li data-filter=".popular">조건2</li>
-                    <li data-filter=".latest">조건3</li>
-                    <li data-filter=".trend">조건4</li>
+                    <li class="active" data-filter="*">전체</li>
+                    <li data-filter=".a12">#관광</li>
+                    <li data-filter=".a32">#숙박</li>
+                    <li data-filter=".a39">#음식</li>
                   </ul>
                 </div>
               </div>
@@ -623,7 +624,7 @@ pageEncoding="UTF-8"%>
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">유형별 분류</h6>
                           <div class="collection-collapse-block-content">
-                            <div class="collection-brand-filter">
+                            <div class="collection-brand-filter" id="tour_cate_code">
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -940,6 +941,7 @@ pageEncoding="UTF-8"%>
                         <a
                           href="javascript:void(0)"
                           class="btn btn-solid color1 me-2"
+                          id="btnSearch"
                           >필터 적용</a
                         >
                         <a
@@ -993,17 +995,20 @@ pageEncoding="UTF-8"%>
                 </div>
               </div>
             </div>
+          </form>
           </div>
-          <div class="col-xl-12 onclick-map">
+          <div class="col-xl-12 onclick-map " >
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
-                <form>
+                <form action="./tour">
                   <div class="row w-100">
                     <div class="form-group p-0">
                       <input
                         type="text"
                         class="form-control"
+                        id="keyword"
                         placeholder="검색어 입력"
+                        value="${search.keyword}"
                       />
                       <img
                         src="../assets/images/icon/table-no.png"
@@ -1012,7 +1017,7 @@ pageEncoding="UTF-8"%>
                       />
                     </div>
                   </div>
-                  <a href="#" class="btn btn-rounded col-2 color1">검색</a>
+                  <button id="btnSearch" class="btn btn-rounded col-2 color1">검색</button>
                 </form>
               </div>
             </div>
@@ -1020,779 +1025,206 @@ pageEncoding="UTF-8"%>
           <div class="col-lg-12 ratio3_2">
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
-                  data-class="popular"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/7.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
+                <!-- 여행지 리스트 객체 반복 시작 -->
+                <c:forEach items="${TourList }" var="TourData">
+                  <div
+                    class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
+                    data-class="a${TourData.tour_cate_code}"
+                  >
+                    <div class="special-box p-0">
+                      <div class="special-img">
+                        <!-- tour_num으로 상세 페이지 구분 -->
+                        <a href="/touro/${TourData.tour_num}">
+                          <img
+                            src="../assets/images/tour/tour/7.jpg"
+                            class="img-fluid blur-up lazyload bg-img"
+                            alt=""
+                          />
                         </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>여행지 명<span>주소</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          여행지에 대한 상세 설명, 길어지면 알아서 ... 처리
-                        </h6>
-                        <div class="include-sec">
-                          <span>별점</span>
-                          <ul class="include">
-                            <li></li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li class="not-include">
-                              <i class="far fa-star"></i>
-                            </li>
-                            <li class="not-include">
-                              <i class="far fa-star"></i>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6>0000명</h6>
-                            <span>조회수</span>
-                          </div>
+                        <div class="top-icon">
+                          <a
+                            href="#"
+                            class=""
+                            data-bs-toggle="tooltip"
+                            data-placement="top"
+                            title=""
+                            data-original-title="Add to Wishlist"
+                          >
+                            <i class="far fa-heart"></i>
+                          </a>
                         </div>
                       </div>
-                    </div>
-                    <div class="label-offer">라벨 예시</div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 latest grid-item wow fadeInUp"
-                  data-class="latest"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/8.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
+                      <div class="special-content">
+                        <a href="tour-single-6.html">
+                          <h5>
+                            ${TourData.tour_name}<span
+                              >${TourData.tour_addr}</span
+                            >
+                          </h5>
                         </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>여행지 명<span>주소</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          여행지에 대한 상세 설명, 길어지면 알아서 ... 처리
-                        </h6>
-                        <div class="include-sec">
-                          <span>별점</span>
-                          <ul class="include">
-                            <li></li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li>
-                              <i class="fas fa-star"></i>
-                            </li>
-                            <li class="not-include">
-                              <i class="far fa-star"></i>
-                            </li>
-                            <li class="not-include">
-                              <i class="far fa-star"></i>
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6>0000명</h6>
-                            <span>조회수</span>
+                        <div class="tour-detail">
+                          <h6 class="nowrap-cls">${TourData.tour_content }</h6>
+                          <div class="include-sec">
+                            <span>별점 ${TourData.tour_star}</span>
+                            <ul class="include">
+                              <c:choose>
+                                <c:when test="${0 eq TourData.tour_star}">
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 0 and 1 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 1 and 2 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 3 and 4 > TourData.tour_star}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li class="not-include">
+                                    <i class="far fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:when test="${TourData.tour_star > 4}">
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                  <li>
+                                    <i class="fas fa-star"></i>
+                                  </li>
+                                </c:when>
+                                <c:otherwise>
+                                  <li>
+                                    <i class="far fa-star">?</i>
+                                  </li>
+                                </c:otherwise>
+                              </c:choose>
+                            </ul>
                           </div>
+
+                          <!--<div class="bottom-section">
+                            <div class="price">
+                              <h6>0000명</h6>
+                              <span>조회수</span>
+                            </div>
+                          </div>-->
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
-                  data-class="popular"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/9.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>delightful dubai<span>(6N 7D)</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
+                      <div class="label-offer">${TourData.tour_cate_code}</div>
                     </div>
                   </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 trend grid-item wow fadeInUp"
-                  data-class="trend"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/10.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>exploring sydney<span>(6N 7D)</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
-                  data-class="popular"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/11.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>splendid spain<span>(6N 7D)</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="label-offer">certified</div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 latest grid-item wow fadeInUp"
-                  data-class="latest"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/12.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>simply mauritius<span>(6N 7D)</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
-                  data-class="popular"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/13.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>canadian delight<span>(6N 7D)</span></h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="label-offer">certified</div>
-                  </div>
-                </div>
-                <div
-                  class="col-xl-3 col-lg-4 col-sm-6 latest grid-item wow fadeInUp"
-                  data-class="latest"
-                >
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="/tour/tour_detail">
-                        <img
-                          src="../assets/images/tour/tour/14.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="/tour/tour_detail">
-                        <h5>
-                          Egyptian Wonders with Cruise<span>(6N 7D)</span>
-                        </h5>
-                      </a>
-                      <div class="tour-detail">
-                        <h6 class="nowrap-cls">
-                          <i class="fas fa-plane-departure me-3"></i> Kuta (2N)
-                          → Lombok (2N) → Ubud (2N)
-                          <i class="fas fa-plane-arrival ms-3"></i>
-                        </h6>
-                        <div class="include-sec">
-                          <span>include at this price</span>
-                          <ul class="include">
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/hotel.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Hotel"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/airplane.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Flight"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/fork.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Meals"
-                              />
-                            </li>
-                            <li>
-                              <img
-                                src="../assets/images/icon/tour/photo-camera.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Sightseeing"
-                              />
-                            </li>
-                            <li class="not-include">
-                              <img
-                                src="../assets/images/icon/tour/visa.png"
-                                class="img-fluid blur-up lazyload"
-                                alt=""
-                                data-bs-toggle="tooltip"
-                                data-placement="top"
-                                title="Visa"
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                        <div class="bottom-section">
-                          <div class="price">
-                            <h6><del>$1300</del>$1245</h6>
-                            <span>price per person</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </c:forEach>
+                <!-- 여행지 리스트 객체 반복 끝 -->
               </div>
             </div>
+
             <nav
               aria-label="Page navigation example"
               class="pagination-section mt-0"
             >
               <ul class="pagination">
-                <li class="page-item">
-                  <a
-                    class="page-link"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                  >
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0)">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
+                <c:if test="${paging.prev}">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Previous"
+                      onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}'
+                    ,'${search.tour_cate_code}', '${search.keyword}')"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                  </li>
+                </c:if>
+
+                <c:forEach
+                  begin="${paging.startPage}"
+                  end="${paging.endPage}"
+                  var="testId"
+                >
+                  <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
+                    <a class="page-link" 
+                    href="#" 
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                    ${testId}</a>
+                  </li>
+                </c:forEach>
+                <c:if test="${paging.next}">
+                  <li class="page-item">
+                    <a
+                      class="page-link"
+                      href="#"
+                      aria-label="Next"
+                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                      <span aria-hidden="true">&raquo;</span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </li>
+                </c:if>
               </ul>
             </nav>
           </div>
@@ -2001,9 +1433,9 @@ pageEncoding="UTF-8"%>
     </footer> -->
     <!-- footer end -->
 
-     <!-- footer start -->
-     <%@ include file='../footer/footer.jsp' %>
-     <!-- footer end -->
+    <!-- footer start -->
+    <%@ include file='../footer/footer.jsp' %>
+    <!-- footer end -->
 
     <!-- tap to top -->
     <div class="tap-top">
@@ -2060,6 +1492,9 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 리스트 용 js -->
+    <script src="../assets/js/tourListNav.js"></script>
 
     <script>
       $("#datepicker").datepicker({
