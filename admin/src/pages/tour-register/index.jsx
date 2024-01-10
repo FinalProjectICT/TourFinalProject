@@ -8,7 +8,7 @@ function TourRegister() {
   useMenu();
   return (
     <Layout>
-      <BreadCrumb title="rica 여행지 등록/수정 " link="notifications" />
+      <BreadCrumb title="여행지 등록 " />
       <NotificationsCom />
     </Layout>
   );

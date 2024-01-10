@@ -8,4 +8,10 @@ public interface AdminService {
 
     List<AdminVO> tourList();
     AdminVO tourdetail(AdminVO vo); 
+
+
+    public int deleteNum(AdminVO vo);
+    public int tourInsert(AdminVO vo);
+
+    
 }

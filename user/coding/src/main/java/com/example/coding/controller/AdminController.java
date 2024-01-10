@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173")
 @Tag(name="AdminController", description="이 클래스에 대한 설명부분")
 public class AdminController {
     
@@ -45,12 +47,33 @@ public class AdminController {
         return repo.findByTourNameLike("%" + search_tourName + "%");
     }
 
-    @GetMapping("/tour-view/${tourNum}")
-    public AdminVO TourDetail(@PathVariable String tourNum) {
+    @GetMapping("/tour-view/{tourNum}")
+    public AdminVO TourDetail(@PathVariable("tourNum") String tourNum) {
+        System.out.println(tourNum);
         AdminVO vo = new AdminVO();
         vo.setTourNum(tourNum);
+        System.out.println();
         AdminVO result = adminService.tourdetail(vo);
+        result.setTourNum(tourNum);
+        System.out.println(result);
         return result;
     }
+
+    @DeleteMapping("/tour-list/{tourNum}")
+    public void deleteNum(@PathVariable String tourNum) {
+        System.out.println(tourNum);
+        AdminVO vo = new AdminVO();
+        vo.setTourNum(tourNum);
+        System.out.println("/tour-list/{tourNum} delete 요청");
+        adminService.deleteNum(vo);
+    }
+
+    @PostMapping("/tour-register/tourInsert")
+    public void tourInsert(AdminVO vo) {
+        System.out.println("/tourInsert post 요청");
+        adminService.tourInsert(vo);
+    }
+
+    
 
 }

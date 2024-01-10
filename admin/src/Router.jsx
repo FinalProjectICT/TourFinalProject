@@ -139,6 +139,11 @@ const router = createBrowserRouter([
         element: <Tourview />,
       },
       {
+        path: "/tour-view/:tourNum",
+        element: <Tourview />,
+      },
+      
+      {
         path: "/tour-register",
         element: <TourRegister />,
       },
@@ -175,6 +180,7 @@ const router = createBrowserRouter([
         path: "/history",
         element: <History />,
       },
+      
       {
         path: "/profile-overview",
         Component: ProfileOverview,

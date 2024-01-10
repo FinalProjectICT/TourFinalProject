@@ -17,9 +17,25 @@
 	<select id="tourdetail" parameterType="AdminVO" resultType="AdminVO">
 	
 		SELECT *
-		FROM tour
-		WHERE tour_num = #{tour_num}
+		FROM tour t
+		LEFT OUTER JOIN img_detail id
+								LEFT OUTER JOIN img ig
+								ON ig.img_num = id.img_num
+		ON id.tour_num = t.tour_num
+		WHERE t.tour_num = #{tourNum}
 	</select>
 
+	<delete id="deleteNum" parameterType="AdminVO" >
+
+		DELETE FROM tour WHERE tour_num = #{tourNum}
+
+	</delete>
+
+	<insert id="tourInsert" parameterType="AdminVO">
+
+		INSERT INTO tour (tour_num,tour_name, tour_addr, tour_content, tour_site_addr) 
+		VALUES (#{tour_num}, #{tour_name}, #{tour_addr}, #{tour_content}, #{tour_site_addr})
+	
+	</insert>
 	
 </mapper>

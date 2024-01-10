@@ -25,15 +25,24 @@ function SupportTicketsList() {
   const createTour = () => {
     navigate("/tour-register");
   };
-  const detailTourNum = () => {
-    e.preventDefault();
-    navigate("/tour-view/${tourNum}");
+  const detailTourNum = (e,tourNum) => {
+    e.preventDefault(); // a 태그의 기본 기능 막기 
+    axios.get(`${baseUrl}/tour-list/${tourNum}`)
+    .then((result) => {
+      const tourDetails = result.data;
+    })
+    .catch((error) => {
+      console.error('에러 발생:', error);
+    }); 
+    navigate(`/tour-view/${tourNum}`);
   };
 
-  const detailTourName = () => {
-    e.preventDefault();
-    navigate("/tour-view/${tourName}");
-  };
+
+
+  // const detailTourName = () => {
+  //   e.preventDefault();
+  //   navigate("/tour-view/${tourName}");
+  // };
 
   const handleSubmit = (e) => {
     forceUpdate();
@@ -51,6 +60,22 @@ function SupportTicketsList() {
       });
   };
 
+  // 삭제 함수 
+  const deleteTourNum = (e,tourNum,tourName) => {
+    e.preventDefault();
+    console.log(tourName)
+    if (window.confirm("정말로 삭제하시겠습니까?" +
+                    "\n" +
+                    "여행지 이름: " + 
+                    `${tourName}`
+    )) {
+      axios.delete(`${baseUrl}/tour-list/${tourNum}`).then((result) => {
+        handleSubmit(e);   
+      });
+    }
+  };
+
+
     const forceUpdate = () => {
     // 빈 객체를 생성하여 상태를 변경함으로써 강제로 다시 렌더링
     setTours([]);
@@ -64,6 +89,7 @@ function SupportTicketsList() {
       
     });
   }, []);
+  
   return (
     <div className="container-fluid p-0">
       {/* <div className="col-xxl-9 col-lg-8 col-12"> */}
@@ -135,30 +161,32 @@ function SupportTicketsList() {
                   </tr>
                 </thead>
                 {/* <!-- crancy Table Body --> */}
-              <tbody className="crancy-table__body">
+              <tbody className="crancy-table__body" >
                 {currentItems.map((tour) => (
                   <tr key={tour.tourNum}>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
+                    <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTourNum(e, tour.tourNum)}>
                       <div className="crancy-table__product--id">
                                 <p className="crany-table__product--number">
                                   <a onClick={(e) => detailTourNum(e, tour.tourNum)}>{tour.tourNum?.toString()}</a>
                                 </p>
                       </div>
                     </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
+                    <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTourNum(e, tour.tourNum)}>
                       <h5 className="crancy-table__inner--title">
-                                <a  onClick={(e) => detailTourName(e, tour.tourName)}>{tour.tourName?.toString()}
+                                <a  onClick={(e) => detailTourNum(e, tour.tourNum)}>{tour.tourName?.toString()}
                                 </a>
                       </h5>
                     </td>
                     <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status">
-                        Done
+                      <div className="crancy-table__status"
+                       onClick={(e) => detailTourNum(e, tour.tourNum)}>
+                        Update 
                       </div>
                     </td>
                     <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status crancy-table__status--cancel">
-                        Cancel
+                      <div className="crancy-table__status crancy-table__status--cancel"
+                      onClick={(e) => deleteTourNum(e, tour.tourNum,tour.tourName )}>
+                        Delete
                       </div>
                     </td>  
                   </tr>
@@ -207,7 +235,7 @@ function SupportTicketsList() {
                         page === 1 ? "disabled" : ""
                       }`}
                       id="crancy-table__main_previous"
-                      onClick={() => page > 1 && setPage(page - 1)}
+                      onClick={() => page > 0 && setPage(page - 1)}
                     >
                       <a
                         aria-controls="crancy-table__main"
@@ -220,16 +248,16 @@ function SupportTicketsList() {
                     </li>
                     {Array.from(
                       { length: Math.min(10, Math.ceil(tours.length / show)) },
-                      (_, index) => page + index - 5
+                      (_, index) => page + index 
                     )
                     .filter((pageNumber) => pageNumber > 0 && pageNumber <= Math.ceil(tours.length / show)) 
                     .map((pageNumber, index) => (
                       <li
                         className={`paginate_button page-item ${
-                          page === index + 1 ? "active" : ""
+                          page === pageNumber ? "active" : ""
                         }`}
-                        onClick={() => setPage( pageNumber)}
-                        key={index + "key"}
+                        onClick={() => setPage(pageNumber)}
+                        key={pageNumber}
                       >
                         <a
                           aria-controls="crancy-table__main"
