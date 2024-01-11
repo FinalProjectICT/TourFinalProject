@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coding.dao.TouroMateDAO">
+    <!-- 여행 친구 찾기 게시글 리스트 -->
+   <select id="getSelectedMateList" resultType="TouroMateVO">
+        SELECT touro_mate_num, touro_mate_title, touro_mate_date, user_id
+        FROM touro_mate;
+    </select>
+    
+    <!-- 검색 게시물 -->
+    <select id="searchMateList" resultType="TouroMateVO" parameterType="String">
+        SELECT touro_mate_title, touro_mate_date, user_id FROM touro_mate
+        <where>
+            <if test="searchKeyword != null and searchKeyword.length() >= 2">
+                AND touro_mate_title LIKE CONCAT('%', #{searchKeyword}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 전체 게시글 개수 -->
+    <select id="getTotalMateCount" resultType="int">
+        SELECT COUNT(*) FROM touro_mate;
+    </select>
+
+</mapper>

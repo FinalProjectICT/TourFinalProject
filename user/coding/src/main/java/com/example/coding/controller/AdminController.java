@@ -53,6 +53,7 @@ public class AdminController {
     }
 
     @GetMapping("/tour-view/{tourNum}")
+
     public AdminVO TourDetail(@PathVariable("tourNum") String tourNum) {
         System.out.println(tourNum);
         AdminVO vo = new AdminVO();

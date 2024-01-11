@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %>
 <html lang="UTF-8">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -447,9 +447,11 @@ pageEncoding="UTF-8"%>
                 >
                   <div class="row">
                     <div class="about-sec col-lg-6">
-                      <h2>여행지 명 - 분류</h2>
+                      <h2>
+                        ${TourData.tour_name} - ${TourData.tour_cate_code}
+                      </h2>
                       <div class="about-sec">
-                        <h4>여행지 위치</h4>
+                        <h4>${TourData.tour_addr}</h4>
                       </div>
                     </div>
 
@@ -472,7 +474,7 @@ pageEncoding="UTF-8"%>
                   <div class="row">
                     <div class="about-sec col-lg-7">
                       <h6>소개문</h6>
-                      <p>소개글 자리</p>
+                      <p>${TourData.tour_content}</p>
                     </div>
                     <div class="col-lg-5 card row">
                       <div class="card-body btn-group-showcase offset-xl-2">
@@ -533,33 +535,7 @@ pageEncoding="UTF-8"%>
                         data-bs-parent="#accordion"
                       >
                         <div class="card-body">
-                          Welcome to Madrid - the capital city of Spain. On
-                          arrival we enjoy the city orientation tour which
-                          includes the Plaza de Espana, Sabatini Garden,
-                          Cervantes Statue, Cibeles fountain, Parliament, Puerto
-                          del sol. Then visit the Royal Palace and Prado Museum
-                          – one of the world's greatest art galleries. From
-                          inside.
-                          <div class="highlight">
-                            <ul>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                dinner
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/bed.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                night stay in madrid
-                              </li>
-                            </ul>
-                          </div>
+                          <div class="highlight"></div>
                         </div>
                       </div>
                     </div>
@@ -649,51 +625,7 @@ pageEncoding="UTF-8"%>
                         data-bs-parent="#accordion"
                       >
                         <div class="card-body">
-                          Today we enjoy Seville city tour wherein, we visit the
-                          massive cathedral with the Tomb of Christopher
-                          Columbus, Moorish Giralda Tower, The Alcázar, a photo
-                          stop at Santa Cruz Quarter with flower decked
-                          balconies and the Ultramodern expo site - a small
-                          scale model of "Victoria" the first vessel to
-                          circumnavigate the globe. Then we visit Metropol
-                          Parasol - The largest wooden structure in the world.
-                          In the evening we enjoy the Flamenco Show with dinner.
-                          <div class="highlight">
-                            <ul>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                breakfast
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                lunch
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                dinner
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/bed.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                night stay in seville
-                              </li>
-                            </ul>
-                          </div>
+                          <div class="highlight"></div>
                         </div>
                       </div>
                     </div>
@@ -2081,10 +2013,9 @@ pageEncoding="UTF-8"%>
     </footer> -->
     <!-- footer end -->
 
-
-     <!-- footer start -->
-     <%@ include file='../footer/footer.jsp' %>
-     <!-- footer end -->
+    <!-- footer start -->
+    <%@ include file='../footer/footer.jsp' %>
+    <!-- footer end -->
 
     <!-- tap to top -->
     <div class="tap-top">
