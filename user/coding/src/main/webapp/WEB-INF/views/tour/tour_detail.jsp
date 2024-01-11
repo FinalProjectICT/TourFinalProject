@@ -276,7 +276,7 @@ prefix="c" %>
           <div class="col">
             <div class="menu">
               <div class="brand-logo">
-                <a href="/jsp/main">
+                <a href="/touro">
                   <img
                     src="../assets/images/icon/footer-logo.png"
                     alt=""
@@ -302,16 +302,21 @@ prefix="c" %>
                         </div>
                       </li>
                       <li class="nav-submenu">
-                        <a href="/jsp/TourList#" class="nav-link">Tour</a>
+                        <a href="/touro/tour" class="nav-link">Tour</a>
                       </li>
                       <li class="nav-submenu">
-                        <a href="/jsp/TouroMate_list" class="nav-link"
+                        <a href="/touromate/touromate_list" class="nav-link"
                           >Touromate</a
                         >
                       </li>
                       <li class="nav-submenu">
-                        <a href="/jsp/TouroView_list" class="nav-link"
+                        <a href="/touroview/touroview_list" class="nav-link"
                           >Touroview</a
+                        >
+                      </li>
+                      <li class="nav-submenu">
+                        <a href="/user/img_change" class="nav-link"
+                          >ImgChange</a
                         >
                       </li>
                     </ul>
@@ -326,7 +331,7 @@ prefix="c" %>
                   </select>
                 </li>
                 <li class="user user-light rounded5">
-                  <a href="/jsp/login-copy">
+                  <a href="/user/login">
                     <i class="fas fa-user"> 로그인</i>
                   </a>
                 </li>
@@ -447,37 +452,35 @@ prefix="c" %>
                 >
                   <div class="row">
                     <div class="about-sec col-lg-6">
-                      <h2>
-                        ${TourData.tour_name} - ${TourData.tour_cate_code}
-                      </h2>
+                      <div>
+                        <br />
+                        <h2>
+                          ${TourData.tour_name} - ${TourData.tour_cate_code}
+                        </h2>
+                      </div>
+                      <div class="row"><br /></div>
                       <div class="about-sec">
                         <h4>${TourData.tour_addr}</h4>
                       </div>
                     </div>
 
-                    <div class="detail-img col-lg-3">
+                    <div class="detail-img card col-lg-6">
                       <img
-                        src="../assets/images/tour/spain.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                      />
-                    </div>
-
-                    <div class="detail-img col-lg-3">
-                      <img
-                        src="../assets/images/tour/spain.jpg"
-                        class="img-fluid blur-up lazyload"
+                        src="../${TourData.tour_img1_path}"
+                        class="card-body img-fluid blur-up lazyload"
                         alt=""
                       />
                     </div>
                   </div>
                   <div class="row">
-                    <div class="about-sec col-lg-7">
+                    <div class="about-sec col-lg-6">
                       <h6>소개문</h6>
                       <p>${TourData.tour_content}</p>
                     </div>
-                    <div class="col-lg-5 card row">
-                      <div class="card-body btn-group-showcase offset-xl-2">
+                    <div class="col-1"></div>
+                    <div class="col-lg-5 row">
+                      <div class="row"></div>
+                      <div class="btn-group-showcase offset-xl-1">
                         <a
                           href="#"
                           class="btn btn-rounded btn-secondary col-2"
@@ -2365,17 +2368,28 @@ prefix="c" %>
               <div class="row">
                 <div class="form-group col-12">
                   <label for="old">여행지</label>
-                  <input type="email" class="form-control" id="old" />
+                  <input
+                    class="form-control"
+                    value="${TourData.tour_name}"
+                    disabled
+                  />
+                  <input
+                    type="hidden"
+                    class="form-control"
+                    value="${TourData.tour_num}"
+                    id="tour_num"
+                  />
                 </div>
                 <div class="form-group col-12">
                   <label for="new">제목</label>
-                  <input type="email" class="form-control" id="new" />
+                  <input class="form-control" id="inquiry_title" />
                 </div>
                 <div class="form-group col-12">
                   <label for="comfirm">내용</label>
                   <textarea
                     class="form-control"
-                    id="exampleFormControlTextarea1"
+                    id="inquiry_content"
+                    placeholder="문의 사항을 입력해주세요."
                     rows="3"
                   ></textarea>
                 </div>

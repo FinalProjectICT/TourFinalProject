@@ -618,13 +618,13 @@ prefix="c" %>
                   <h5>검색 필터</h5>
                 </a>
                 <div class="left-sidebar filter-bottom-content">
-                  <div class="middle-part collection-collapse-block open">
+                  <div id="fbox" class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
                       <div class="filter-block col">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">지역별 분류</h6>
                           <div class="collection-collapse-block-content row">
-                            <div class="collection-brand-filter col-4">
+                            <div name="Loc_cates" class="collection-brand-filter col-4">
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -704,7 +704,7 @@ prefix="c" %>
                                   >충청북도</label>
                               </div>
                             </div>
-                            <div class="collection-brand-filter col-4">
+                            <div name="Loc_cates" class="collection-brand-filter col-4">
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -778,7 +778,7 @@ prefix="c" %>
                                 >
                               </div>
                             </div>
-                            <div class="collection-brand-filter col-4">
+                            <div name="Loc_cates" class="collection-brand-filter col-4">
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -961,7 +961,7 @@ prefix="c" %>
                 <form action="./tour">
                   <div class="row w-100">
                     <div class="form-group col-2">
-                      <select id="tour_cate_code">
+                      <select id="tour_cate_code" class="btn btn-rounded color1">
                         <option value="" >전체</option>
                         <option value="12">관광</option>
                         <option value="32">숙박</option>
@@ -982,8 +982,7 @@ prefix="c" %>
                         alt=""
                       />
                     </div>
-                    <input type="hidden" value="" id="tour_cate_code"/>
-                  
+                    <input type="hidden" value="${search.tour_cate_code}" id="tour_cate_code"/>
                   <button id="btnSearch" class="btn btn-rounded col-1 color1">검색</button>
                 </div>
                 </form>
@@ -1004,8 +1003,8 @@ prefix="c" %>
                         <!-- tour_num으로 상세 페이지 구분 -->
                         <a href="/touro/${TourData.tour_num}">
                           <img
-                            src="../assets/images/tour/tour/7.jpg"
-                            class="img-fluid blur-up lazyload bg-img"
+                            src="../${TourData.tour_img1_path}"
+                            class="img-fluid blur-up lazyload"
                             alt=""
                           />
                         </a>

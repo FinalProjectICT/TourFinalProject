@@ -11,13 +11,9 @@
 			<if test="tour_cate_code != null and tour_cate_code != '' ">
 				AND tour_cate_code like #{tour_cate_code}
 			</if>
-			
 			<if test="keyword != null and keyword != '' ">
 				AND tour_name like  CONCAT('%',#{keyword},'%') 
 				OR tour_content like CONCAT('%',#{keyword},'%')
-			</if>
-			<if test="1">
-			AND loc_cate_code like 1.0
 			</if>
 		</trim>
 	
@@ -29,21 +25,12 @@
 		SELECT count(*) as listCnt
 		FROM tour 
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-				<if test="tour_cate_code=='12'">
-					AND tour_cate_code like '12'
-				</if>
-				<if test="tour_cate_code=='32'">
-					AND tour_cate_code like '32'
-				</if>
-				<if test="tour_cate_code=='39'">
-					AND tour_cate_code like '39'
+				<if test="tour_cate_code != null and tour_cate_code != '' ">
+					AND tour_cate_code like #{tour_cate_code}
 				</if>
 				<if test="keyword != null and keyword != '' ">
 					AND tour_name like CONCAT('%',#{keyword},'%') 
 					OR tour_content like CONCAT('%',#{keyword},'%')
-				</if>
-				<if test="1">
-				AND loc_cate_code like 1.0
 				</if>
 		</trim>
 	</select>

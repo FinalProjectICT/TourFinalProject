@@ -55,3 +55,13 @@ $(document).on("click", "#btnSearch", function (e) {
   url = url + "&keyword=" + $("#keyword").val();
   location.href = url;
 });
+
+// 검색 여행지 항목 설정
+$(() => {
+  $("select#tour_cate_code")
+    .val($("input#tour_cate_code").val())
+    .prop("selected", true);
+});
+
+// 지역 조건 체크박스 선택 jo
+$(() => {});
