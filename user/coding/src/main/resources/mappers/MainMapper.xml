@@ -5,7 +5,7 @@
 <mapper namespace="com.example.coding.dao.MainDAO">
 
 
-  <select id="preferLoc" parameterType="com.example.coding.domain.BMHVO" resultType="com.example.coding.domain.MainVO">
+  <select id="preferLoc" parameterType="com.example.coding.domain.UserVO" resultType="com.example.coding.domain.MainVO">
     SELECT
       loc1.loc_cate_name AS user_prefer_loc1,
       loc2.loc_cate_name AS user_prefer_loc2,

@@ -2,8 +2,11 @@ package com.example.coding.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.example.coding.domain.TouroviewVO;
 
+@Mapper
 public interface TouroviewDAO {
     
     // TouroviewVO 전체 가져오기
