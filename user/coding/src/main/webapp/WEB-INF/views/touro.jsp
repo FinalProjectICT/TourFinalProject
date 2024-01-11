@@ -12,7 +12,7 @@ prefix="c" %>
     <meta name="author" content="rica" />
     <link
       rel="icon"
-      href="../../assets/images/favicon.png"
+      href="../assets/images/favicon.png"
       type="image/x-icon"
     />
     <title>Rica</title>
@@ -35,53 +35,62 @@ prefix="c" %>
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/font-awesome.css"
+      href="../assets/css/font-awesome.css"
     />
 
     <!-- Themify icon -->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/themify-icons.css"
+      href="../assets/css/themify-icons.css"
     />
 
     <!-- Animation -->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/animate.css"
+      href="../assets/css/animate.css"
     />
 
     <!-- Date-time picker css -->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/datepicker.min.css"
+      href="../assets/css/datepicker.min.css"
     />
 
     <!--Slick slider css-->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/slick.css" />
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/slick-theme.css"
+      href="../assets/css/slick-theme.css"
     />
 
     <!-- Bootstrap css -->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../../assets/css/bootstrap.css"
+      href="../assets/css/bootstrap.css"
     />
 
     <!-- Theme css -->
-    <link rel="stylesheet" type="text/css" href="../../assets/css/color5.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/css/color5.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+      
+
+      
+    </script>
+    
   </head>
 
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='./header/header.jsp' %>
     <!--  해더 끝 -->
+
+    <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/>
 
     <!-- 로고, 배경 설정 (home_effect)-->
     <section class="home_effect effect-cls pt-0">
@@ -101,8 +110,67 @@ prefix="c" %>
     <section class="section-b-space pt-5">
       <div class="container">
         <div class="row">
-          <div class="col-12">
-            <div class="search_section">
+          <div class="col">
+            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
+              <div style="float : left;">
+                  <div class="weather_icon"></div>
+              </div><br>
+          
+              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
+                      <div class="temp_min"></div>
+                      <div class="temp_max"></div>
+                      <div class="humidity"></div>
+                      <div class="wind"></div>
+                      <div class="cloud"></div>
+              </div>
+              <div style="float : right; margin-top : -30px;">
+                  <div class="current_temp" style="font-size : 20pt"></div>
+                  <div class="weather_description" style="font-size : 20pt"></div>
+                  <div class="city" style="font-size : 13pt"></div>
+              </div>
+          </div>
+          </div>
+          <div class="col">
+            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
+              <div style="float : left;">
+                  <div class="weather_icon1"></div>
+              </div><br>
+          
+              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
+                      <div class="temp_min1"></div>
+                      <div class="temp_max1"></div>
+                      <div class="humidity1"></div>
+                      <div class="wind1"></div>
+                      <div class="cloud1"></div>
+              </div>
+              <div style="float : right; margin-top : -30px;">
+                  <div class="current_temp1" style="font-size : 20pt"></div>
+                  <div class="weather_description1" style="font-size : 20pt"></div>
+                  <div class="city1" style="font-size : 13pt"></div>
+              </div>
+          </div>
+          </div>
+          <div class="col">
+            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
+              <div style="float : left;">
+                  <div class="weather_icon2"></div>
+              </div><br>
+          
+              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
+                      <div class="temp_min2"></div>
+                      <div class="temp_max2"></div>
+                      <div class="humidity2"></div>
+                      <div class="wind2"></div>
+                      <div class="cloud2"></div>
+              </div>
+              <div style="float : right; margin-top : -30px;">
+                  <div class="current_temp2" style="font-size : 20pt"></div>
+                  <div class="weather_description2" style="font-size : 20pt"></div>
+                  <div class="city2" style="font-size : 13pt"></div>
+              </div>
+          </div>
+          </div>
+            <!-- <div class="search_section">
               <div class="book-table single-table input-radius-cls">
                 <div class="table-form classic-form p-0">
                   <form>
@@ -124,7 +192,7 @@ prefix="c" %>
                           placeholder="검색어 입력"
                         />
                         <img
-                          src="../../assets/images/icon/table-no.png"
+                          src="../assets/images/icon/table-no.png"
                           class="img-fluid blur-up lazyload"
                           alt=""
                         />
@@ -134,9 +202,9 @@ prefix="c" %>
                   </form>
                 </div>
               </div>
-            </div>
-          </div>
+            </div> -->
         </div>
+        
       </div>
     </section>
     <!-- 검색창 설정 끝 -->
@@ -146,7 +214,7 @@ prefix="c" %>
       class="effect-cls effect-cls-up padding-cls full-banner parallax-img"
     >
       <img
-        src="../../assets/images/tour/background/3.jpg"
+        src="../assets/images/tour/background/3.jpg"
         class="img-fluid blur-up lazyload bg-img"
         alt=""
       />
@@ -163,7 +231,7 @@ prefix="c" %>
                   <div class="menu-box">
                     <div class="top-bar">
                       <img
-                        src="../../assets/images/tour/category/3.jpg"
+                        src="../assets/images/tour/category/3.jpg"
                         class="img-fluid blur-up lazyload"
                         alt=""
                       />
@@ -174,7 +242,7 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -188,7 +256,7 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -202,65 +270,7 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                        /></a>
-                        <div class="content">
-                          <a href="#">
-                            <h5>여행지 이름</h5>
-                          </a>
-                          <p>여행지 주소</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="menu-box">
-                    <div class="top-bar">
-                      <a href="#"
-                        ><img
-                          src="../../assets/images/tour/category/4.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                      <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
-                    </div>
-                    <div class="bottom-bar">
-                      <div class="menu-bar">
-                        <a href="#"
-                          ><img
-                            src="../../assets/images/flights/offer/6.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                        /></a>
-                        <div class="content">
-                          <a href="#">
-                            <h5>여행지 이름</h5>
-                          </a>
-                          <p>여행지 주소</p>
-                        </div>
-                      </div>
-                      <div class="menu-bar">
-                        <a href="#"
-                          ><img
-                            src="../../assets/images/flights/offer/6.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                        /></a>
-                        <div class="content">
-                          <a href="#">
-                            <h5>여행지 이름</h5>
-                          </a>
-                          <p>여행지 주소</p>
-                        </div>
-                      </div>
-                      <div class="menu-bar">
-                        <a href="#"
-                          ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -279,7 +289,7 @@ prefix="c" %>
                     <div class="top-bar">
                       <a href="#"
                         ><img
-                          src="../../assets/images/tour/category/5.jpg"
+                          src="../assets/images/tour/category/4.jpg"
                           class="img-fluid blur-up lazyload"
                           alt=""
                       /></a>
@@ -290,7 +300,7 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -304,7 +314,7 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -318,7 +328,65 @@ prefix="c" %>
                       <div class="menu-bar">
                         <a href="#"
                           ><img
-                            src="../../assets/images/flights/offer/6.jpg"
+                            src="../assets/images/flights/offer/6.jpg"
+                            class="img-fluid blur-up lazyload"
+                            alt=""
+                        /></a>
+                        <div class="content">
+                          <a href="#">
+                            <h5>여행지 이름</h5>
+                          </a>
+                          <p>여행지 주소</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div class="menu-box">
+                    <div class="top-bar">
+                      <a href="#"
+                        ><img
+                          src="../assets/images/tour/category/5.jpg"
+                          class="img-fluid blur-up lazyload"
+                          alt=""
+                      /></a>
+                      <h2>여행지 추천</h2>
+                      <div class="decorate">추천명</div>
+                    </div>
+                    <div class="bottom-bar">
+                      <div class="menu-bar">
+                        <a href="#"
+                          ><img
+                            src="../assets/images/flights/offer/6.jpg"
+                            class="img-fluid blur-up lazyload"
+                            alt=""
+                        /></a>
+                        <div class="content">
+                          <a href="#">
+                            <h5>여행지 이름</h5>
+                          </a>
+                          <p>여행지 주소</p>
+                        </div>
+                      </div>
+                      <div class="menu-bar">
+                        <a href="#"
+                          ><img
+                            src="../assets/images/flights/offer/6.jpg"
+                            class="img-fluid blur-up lazyload"
+                            alt=""
+                        /></a>
+                        <div class="content">
+                          <a href="#">
+                            <h5>여행지 이름</h5>
+                          </a>
+                          <p>여행지 주소</p>
+                        </div>
+                      </div>
+                      <div class="menu-bar">
+                        <a href="#"
+                          ><img
+                            src="../assets/images/flights/offer/6.jpg"
                             class="img-fluid blur-up lazyload"
                             alt=""
                         /></a>
@@ -357,7 +425,7 @@ prefix="c" %>
                   <div class="topTour_box mt-0">
                     <div class="image-section">
                       <img
-                        src="../../assets/images/tour/background/10.jpg"
+                        src="../assets/images/tour/background/10.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -376,7 +444,7 @@ prefix="c" %>
                   <div class="topTour_box mt-0">
                     <div class="image-section">
                       <img
-                        src="../../assets/images/tour/background/9.jpg"
+                        src="../assets/images/tour/background/9.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -393,7 +461,7 @@ prefix="c" %>
                 <div class="topTour_box mt-0">
                   <div class="image-section">
                     <img
-                      src="../../assets/images/tour/background/11.jpg"
+                      src="../assets/images/tour/background/11.jpg"
                       class="img-fluid blur-up lazyload bg-img"
                       alt=""
                     />
@@ -409,7 +477,7 @@ prefix="c" %>
                 <div class="topTour_box mt-0">
                   <div class="image-section">
                     <img
-                      src="../../assets/images/tour/background/12.jpg"
+                      src="../assets/images/tour/background/12.jpg"
                       class="img-fluid blur-up lazyload bg-img"
                       alt=""
                     />
@@ -433,7 +501,7 @@ prefix="c" %>
       class="effect-cls effect-cls-up padding-cls full-banner parallax-img"
     >
       <img
-        src="../../assets/images/tour/background/3.jpg"
+        src="../assets/images/tour/background/3.jpg"
         class="img-fluid blur-up lazyload bg-img"
         alt=""
       />
@@ -450,7 +518,7 @@ prefix="c" %>
                   <div class="tourBox">
                     <div class="tourImg">
                       <img
-                        src="../../assets/images/tour/background/4.jpg"
+                        src="../assets/images/tour/background/4.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -465,7 +533,7 @@ prefix="c" %>
                   <div class="tourBox">
                     <div class="tourImg">
                       <img
-                        src="../../assets/images/tour/background/8.jpg"
+                        src="../assets/images/tour/background/8.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -480,7 +548,7 @@ prefix="c" %>
                   <div class="tourBox">
                     <div class="tourImg">
                       <img
-                        src="../../assets/images/tour/background/6.jpg"
+                        src="../assets/images/tour/background/6.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -495,7 +563,7 @@ prefix="c" %>
                   <div class="tourBox">
                     <div class="tourImg">
                       <img
-                        src="../../assets/images/tour/background/5.jpg"
+                        src="../assets/images/tour/background/5.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -510,7 +578,7 @@ prefix="c" %>
                   <div class="tourBox">
                     <div class="tourImg">
                       <img
-                        src="../../assets/images/tour/background/7.jpg"
+                        src="../assets/images/tour/background/7.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
@@ -534,7 +602,7 @@ prefix="c" %>
       class="effect-cls effect-cls-up padding-cls full-banner parallax-img"
     >
       <img
-        src="../../assets/images/tour/background/3.jpg"
+        src="../assets/images/tour/background/3.jpg"
         class="img-fluid blur-up lazyload bg-img"
         alt=""
       />
@@ -552,7 +620,7 @@ prefix="c" %>
                   <div class="menu-box">
                     <div class="top-bar">
                       <img
-                        src="../../assets/images/tour/category/3.jpg"
+                        src="../assets/images/tour/category/3.jpg"
                         class="img-fluid blur-up lazyload"
                         alt=""
                       />
@@ -567,7 +635,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -588,7 +656,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -608,7 +676,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -631,7 +699,7 @@ prefix="c" %>
                     <div class="top-bar">
                       <a href="#"
                         ><img
-                          src="../../assets/images/tour/category/4.jpg"
+                          src="../assets/images/tour/category/4.jpg"
                           class="img-fluid blur-up lazyload"
                           alt=""
                       /></a>
@@ -646,7 +714,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -667,7 +735,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -687,7 +755,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -710,7 +778,7 @@ prefix="c" %>
                     <div class="top-bar">
                       <a href="#"
                         ><img
-                          src="../../assets/images/tour/category/5.jpg"
+                          src="../assets/images/tour/category/5.jpg"
                           class="img-fluid blur-up lazyload"
                           alt=""
                       /></a>
@@ -725,7 +793,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -746,7 +814,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -766,7 +834,7 @@ prefix="c" %>
                           <div class="special-img">
                             <a href="flight-right-sidebar.html">
                               <img
-                                src="../../assets/images/tour/slider/1.jpg"
+                                src="../assets/images/tour/slider/1.jpg"
                                 class="img-fluid blur-up lazyload bg-img"
                                 alt=""
                               />
@@ -1085,26 +1153,30 @@ prefix="c" %>
     <!-- setting end -->
 
     <!-- latest jquery-->
-    <script src="../../assets/js/jquery-3.5.1.min.js"></script>
+    <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
     <!-- slick js-->
-    <script src="../../assets/js/slick.js"></script>
+    <script src="../assets/js/slick.js"></script>
 
     <!-- Bootstrap js-->
-    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
     <!-- date-time picker js -->
-    <script src="../../assets/js/date-picker.js"></script>
+    <script src="../assets/js/date-picker.js"></script>
 
     <!-- lazyload js-->
-    <script src="../../assets/js/lazysizes.min.js"></script>
+    <script src="../assets/js/lazysizes.min.js"></script>
 
     <!-- Theme js-->
-    <script src="../../assets/js/script.js"></script>
-    <script src="../../assets/js/snow.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/snow.js"></script>
 
     <!-- 사용자 정보 가져오는 ajax -->
     <script src="../assets/js/userModal.js"></script>
+
+    <!-- 날씨 가져오기 -->
+    <script src="../assets/js/weather.js"></script>
+
 
     <script>
       $(function () {
