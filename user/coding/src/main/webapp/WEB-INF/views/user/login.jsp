@@ -132,13 +132,14 @@ pageEncoding="UTF-8"%>
                   <h6>OR</h6>
                 </div>
               </div>
-              <form>
+              <form action="loginCheck" method="post">
                 <div class="form-group">
                   <label for="exampleInputEmail1">아이디</label>
                   <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    id="exampleInputEmail1"
+                    id="user_id"
+                    name="user_id"
                     aria-describedby="emailHelp"
                     placeholder="ID"
                   />
@@ -150,7 +151,8 @@ pageEncoding="UTF-8"%>
                   <input
                     type="password"
                     class="form-control"
-                    id="exampleInputPassword1"
+                    id="user_pass"
+                    name="user_pass"
                     placeholder="Password"
                   />
                 </div>
@@ -165,7 +167,7 @@ pageEncoding="UTF-8"%>
                   >
                 </div>
                 <div class="button-bottom">
-                  <button type="submit" class="w-100 btn btn-solid">
+                  <button type="submit" class="w-100 btn btn-solid" >
                     로그인
                   </button>
                 </div>
