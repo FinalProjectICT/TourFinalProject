@@ -77,11 +77,61 @@ prefix="c" %>
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color5.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script>
-      
+    <!-- <script>
+      $(function(){
+
+        // 겨울 : 사용자 맞춤 지역 1순위와 평점에 따른 1순위 장소
+        var winterH3 = $('.winter-h3');
+        var winterH6 = $('.winter-h6');
+        var winterImg = $('.winter-div');
+        $.ajax({
+          type:'GET',
+          data: {user_id : 'dlwldus'},
+          url:'winter',
+          success: function(res) {
+            // console.log(res.tour_img1_path)
+            winterH3.text(res.tour_name)
+            winterH6.text(res.tour_addr)
+            winterImg.html('<img src="../' + res.tour_img1_path + '" class="img-fluid blur-up lazyload bg-img" alt="Dynamic Image">');
+            
+          },
+          error: function(err) {
+            console.log(err)
+          }
+
+        }) // end ajax
+
+
+        // 봄 : 사용자 맞춤 지역 1순위와 평점에 따른 1순위 장소
+        var springH3 = $('.spring-h3');
+        var springH6 = $('.spring-h6');
+        var springImg = $('.spring-div');
+
+        $.ajax({
+          type:'GET',
+          data: {user_id : 'dlwldus'},
+          url:'spring',
+          success: function(res) {
+            // console.log(res.tour_img1_path)
+            springH3.text(res.tour_name)
+            springH6.text(res.tour_addr)
+            springImg.html('<img src="../' + res.tour_img1_path + '" class="img-fluid blur-up lazyload bg-img" alt="Dynamic Image">');
+            
+          },
+          error: function(err) {
+            console.log(err)
+          }
+
+        }) // end ajax
+
+
+
+
+
+      }) // end script
 
       
-    </script>
+    </script> -->
     
   </head>
 
@@ -514,81 +564,85 @@ prefix="c" %>
                 <h2>계절에 따른 추천 여행지<span>touro</span></h2>
               </div>
               <div class="slider-4 no-arrow">
+                <c:forEach var="winter" items="${winter}">
                 <div>
                   <div class="tourBox">
-                    <div class="tourImg">
-                      <img
-                        src="../assets/images/tour/background/4.jpg"
-                        class="img-fluid blur-up lazyload bg-img"
-                        alt=""
-                      />
-                    </div>
-                    <div class="tourContent">
-                      <h3>이름 표시</h3>
-                      <h6>설명</h6>
-                    </div>
+                    <a href="">
+                      <div class="tourImg winter-div">
+                        <img
+                          src="../${winter.tour_img1_path}"
+                          class="img-fluid blur-up lazyload"
+                          id = "winter-img"
+                          alt="img"
+                        />
+                      </div>
+                    </a>
+                    <a href="">
+                      <div class="tourContent">
+                        <h3 class="winter-h3">${winter.tour_name}</h3>
+                        <h6 class="winter-h6">${winter.tour_addr}</h6>
+                      </div>
+                    </a>
                   </div>
                 </div>
-                <div>
+              </c:forEach>
+                <!-- <div>
                   <div class="tourBox">
-                    <div class="tourImg">
-                      <img
-                        src="../assets/images/tour/background/8.jpg"
-                        class="img-fluid blur-up lazyload bg-img"
-                        alt=""
-                      />
-                    </div>
-                    <div class="tourContent">
-                      <h3>이름 표시</h3>
-                      <h6>설명</h6>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="tourBox">
-                    <div class="tourImg">
+                    <a href="">
+                    <div class="tourImg spring-div">
                       <img
                         src="../assets/images/tour/background/6.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
                     </div>
+                    </a>
+                    <a href="">
                     <div class="tourContent">
-                      <h3>이름 표시</h3>
-                      <h6>설명</h6>
+                      <h3 class="spring-h3"></h3>
+                      <h6 class="spring-h6"></h6>
                     </div>
+                    </a>
                   </div>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                   <div class="tourBox">
-                    <div class="tourImg">
+                    <a href="">
+                    <div class="tourImg summer-div">
                       <img
                         src="../assets/images/tour/background/5.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
                     </div>
+                  </a>
+                  <a href="">
                     <div class="tourContent">
-                      <h3>이름 표시</h3>
-                      <h6>설명</h6>
+                      <h3 class="summer-h3"></h3>
+                      <h6 class="summer-h6"></h6>
                     </div>
+                  </a>
                   </div>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                   <div class="tourBox">
-                    <div class="tourImg">
+                    <a href="">
+                    <div class="tourImg fall-div">
                       <img
                         src="../assets/images/tour/background/7.jpg"
                         class="img-fluid blur-up lazyload bg-img"
                         alt=""
                       />
                     </div>
+                  </a>
+                  <a href="">
                     <div class="tourContent">
-                      <h3>이름 표시</h3>
-                      <h6>설명</h6>
+                      <h3 class="fall-h3"></h3>
+                      <h6 class="fall-h6"></h6>
                     </div>
+                  </a>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>

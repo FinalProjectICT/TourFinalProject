@@ -16,7 +16,21 @@
       JOIN loc_cate loc2 ON u.user_prefer_loc2 = loc2.loc_cate_code
       JOIN loc_cate loc3 ON u.user_prefer_loc3 = loc3.loc_cate_code
     WHERE
-      u.user_id =#{user_id}
+      u.user_id = #{user_id}
+
+  </select>
+
+  <select id="seasonRecommand" parameterType="com.example.coding.domain.UserVO" resultType="com.example.coding.domain.MainVO">
+    SELECT DISTINCT t.tour_name tour_name, t.tour_addr tour_addr
+    , t.tour_star tour_star, t.tour_content tour_content, t.tour_img1_path tour_img1_path
+    , t.tour_cate_code tour_cate_code 
+    FROM tour t
+    JOIN USER u ON (t.tour_cate_name = u.user_prefer_type1 OR t.tour_cate_name = u.user_prefer_type2 OR t.tour_cate_name = u.user_prefer_type3)
+    JOIN seasonTable s ON t.loc_cate_code = s.loc_cate_code
+    WHERE u.user_id = #{user_id} AND s.season = 1
+    AND (t.loc_cate_code = u.user_prefer_loc1 OR t.loc_cate_code = u.user_prefer_loc2 OR t.loc_cate_code = u.user_prefer_loc3)
+    ORDER BY t.tour_cate_code, t.tour_star DESC
+    LIMIT 4;
 
   </select>
 
