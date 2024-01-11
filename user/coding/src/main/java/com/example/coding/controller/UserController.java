@@ -89,6 +89,8 @@ public class UserController {
         if( vo != null ){
             // 사용자 정보를 세션에 저장
             s.setAttribute("loggedInUser", vo);
+            // 아이디 세션이 필요해서 추가합니다 - 이지연
+            s.setAttribute("loggedId", vo.getUser_id());
             // 사용자 정보 중 관리자 권한 여부 확인
             int role = vo.getAdmin_authority();
             // 관리자 권한 여부가 1이면 사용자 페이지(메인페이지)로 이동

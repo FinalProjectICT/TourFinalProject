@@ -16,15 +16,18 @@ $(function(){
   var city2;
   var city3;
 
+  var user_id = $('#loggedInUser').val();
+  console.log(user_id);
+
   $.ajax({
     type:'GET',
-    data: {user_id : 'dlwldus'},
+    data: {user_id : user_id},
     url:'preferLoc',
     success: function(res) {
       city1 = res.user_prefer_loc1
       city2 = res.user_prefer_loc2
       city3 = res.user_prefer_loc3
-      // console.log(res.user_prefer_loc1)
+      console.log(res.user_prefer_loc1)
       // console.log(res.user_prefer_loc2)
       // console.log(res.user_prefer_loc3)
 

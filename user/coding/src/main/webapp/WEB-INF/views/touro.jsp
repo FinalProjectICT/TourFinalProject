@@ -77,61 +77,7 @@ prefix="c" %>
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color5.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <!-- <script>
-      $(function(){
-
-        // 겨울 : 사용자 맞춤 지역 1순위와 평점에 따른 1순위 장소
-        var winterH3 = $('.winter-h3');
-        var winterH6 = $('.winter-h6');
-        var winterImg = $('.winter-div');
-        $.ajax({
-          type:'GET',
-          data: {user_id : 'dlwldus'},
-          url:'winter',
-          success: function(res) {
-            // console.log(res.tour_img1_path)
-            winterH3.text(res.tour_name)
-            winterH6.text(res.tour_addr)
-            winterImg.html('<img src="../' + res.tour_img1_path + '" class="img-fluid blur-up lazyload bg-img" alt="Dynamic Image">');
-            
-          },
-          error: function(err) {
-            console.log(err)
-          }
-
-        }) // end ajax
-
-
-        // 봄 : 사용자 맞춤 지역 1순위와 평점에 따른 1순위 장소
-        var springH3 = $('.spring-h3');
-        var springH6 = $('.spring-h6');
-        var springImg = $('.spring-div');
-
-        $.ajax({
-          type:'GET',
-          data: {user_id : 'dlwldus'},
-          url:'spring',
-          success: function(res) {
-            // console.log(res.tour_img1_path)
-            springH3.text(res.tour_name)
-            springH6.text(res.tour_addr)
-            springImg.html('<img src="../' + res.tour_img1_path + '" class="img-fluid blur-up lazyload bg-img" alt="Dynamic Image">');
-            
-          },
-          error: function(err) {
-            console.log(err)
-          }
-
-        }) // end ajax
-
-
-
-
-
-      }) // end script
-
-      
-    </script> -->
+  
     
   </head>
 
@@ -140,7 +86,15 @@ prefix="c" %>
     <%@ include file='./header/header.jsp' %>
     <!--  해더 끝 -->
 
-    <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/>
+    <!-- <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/> -->
+    <!-- 세션이 비어 있지 않으면 로그인 값으로 -->
+    <c:if test="${not empty sessionScope.loggedId}">
+      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser"/>
+    </c:if>
+    <!-- 세션이 비어있으면 병곤 아이디로 -->
+    <c:if test="${empty sessionScope.loggedInUser}">
+      <input type="hidden" value="Byounggon" id="loggedInUser"/>
+    </c:if>
 
     <!-- 로고, 배경 설정 (home_effect)-->
     <section class="home_effect effect-cls pt-0">
