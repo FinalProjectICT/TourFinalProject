@@ -6,7 +6,7 @@
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
 <!-- 여행지 찾기 하고 검색 해당 여행지 목록 가져오긴-->
-<select id="searchTouroviews" resultMap="com.example.coding.domain.TouroviewVO" parameterType="String">
+<select id="searchTouroviews" parameterType="String">
     SELECT * 
     FROM tour 
     WHERE tour_name LIKE '%' || #{keyword} || '%' OR tour_addr LIKE '%' || #{keyword} || '%';
