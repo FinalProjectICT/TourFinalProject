@@ -51,7 +51,17 @@ function fn_next(page, range, rangeSize, listSize, tour_cate_code, keyword) {
 $(document).on("click", "#btnSearch", function (e) {
   e.preventDefault();
   var url = "/touro/tour";
-  url = url + "?tour_cate_code=" + $("#tour_cate_code").val();
+  url = url + "?tour_cate_code=" + $("#tour_cate_code option:selected").val();
   url = url + "&keyword=" + $("#keyword").val();
   location.href = url;
 });
+
+// 검색 여행지 항목 설정
+$(() => {
+  $("select#tour_cate_code")
+    .val($("input#tour_cate_code").val())
+    .prop("selected", true);
+});
+
+// 지역 조건 체크박스 선택 jo
+$(() => {});
