@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="tour")
-public class AdminJpaVO {
+public class AdminTourJpaVO {
 
     @Column(name = "tour_name")
     private String tourName;       // 여행지 명 
@@ -50,5 +50,6 @@ public class AdminJpaVO {
     
     @Column(name = "tour_longi")
     private String tourLongi;      // 경도
+    
 
 }

@@ -6,6 +6,7 @@ import com.example.coding.domain.AdminVO;
 
 public interface AdminService {
 
+    // 여행지 
     List<AdminVO> tourList();
     AdminVO tourdetail(AdminVO vo); 
 
@@ -13,5 +14,13 @@ public interface AdminService {
     public int deleteNum(AdminVO vo);
     public int tourInsert(AdminVO vo);
 
+
+
+    // 유저
+    List<AdminVO> userList();
+    
+    // 후기 게시판 
+    List<AdminVO> touroviewList();
+    
     
 }

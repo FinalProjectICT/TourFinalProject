@@ -13,7 +13,7 @@ function Users() {
     <Layout>
       <BreadCrumb title="Users" link="/user" />
       <Wrapper>
-          <SearchBar />
+          {/* <SearchBar /> */}
           <UsersCom />
       </Wrapper>
     </Layout>

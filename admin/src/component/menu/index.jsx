@@ -184,7 +184,6 @@ function Menu({ toggleMenu, menu }) {
                   // { link: "teams", title: "Teams" },
                   { link: "tour-list", title: "여행지 목록" },
                   { link: "tour-register", title: "여행지 등록" },
-                  { link: "tour-view", title: "여행지 상세" },
                   // { link: "calendar", title: "Calendar" },
                   // { link: "error-page", title: "Error Page" },
                 ]}
