@@ -174,65 +174,60 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
                     <form action="abc" method="post">
-                    
-                                <!-- 이미지만 보여주는 테이블-->
-                                <div class="image_section ">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
-                                                <div>
-                                                    <a href="../assets/images/hotel/room/11.jpg">
-                                                        <img src="../assets/images/hotel/room/11.jpg"
-                                                            class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                        <h6 class="view-all">view all images</h6>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="center-content">
-                                                <input class="upload-name1" value="파일선택" disabled="disabled">
-                                                <label for="input-file1" class="upload1">업로드</label>
-                                                <input type="file" id="input-file1" class="upload-hidden1">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 d-none d-sm-block">
-                                            <div class="row">
-                                                <div class="col-12 ratio_59">
-                                                    <div class="slide-1 zoom-gallery no-arrow">
-                                                        <div>
-                                                            <a href="../assets/images/hotel/room/4.jpg">
-                                                                <img src="../assets/images/hotel/room/4.jpg"
-                                                                    class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                                <h6 class="view-all">room images</h6>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="center-content">
-                                                        <input class="upload-name2" value="파일선택" disabled="disabled">
-                                                        <label for="input-file2" class="upload1">업로드</label>
-                                                        <input type="file" id="input-file2" class="upload-hidden2">
-                                                    </div>
 
-                                                    <div class="slide-1 zoom-gallery no-arrow m-cls">
-                                                        <div>
-                                                            <a href="../assets/images/hotel/room/13.jpg">
-                                                                <img src="../assets/images/hotel/room/13.jpg"
-                                                                    class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                                <h6 class="view-all">poll images</h6>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="center-content">
-                                                        <input class="upload-name3" value="파일선택" disabled="disabled">
-                                                        <label for="input-file3" class="upload3">업로드</label>
-                                                        <input type="file" id="input-file3" class="upload-hidden3">
-                                                    </div>
-
-                                                    </div>
-                                                </div>
+                      <!-- 이미지만 보여주는 테이블-->
+                      <div class="image_section ">
+                        <div class="row">
+                            <div class="col-sm-8">
+                              <div class="center-content">
+                                  <label for="file1" class="upload1-btn"> </label>
+                                </div>
+                                <!-- 이미지 파일 1-->
+                                <div id="previewImage1">
+                                  <a href="#">
+                                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
+                                    <input type="file" accept="image/*" id="file1" onchange="setThumbnail(event, 'previewImage1');">
+                              </a>
+                            </div>
+                          </div>
+                            <div class="col-sm-4 d-none d-sm-block">
+                                <div class="row">
+                                    <div class="col-12 ratio_59">
+                                            <div>
+                                              <!-- 이미지 파일 2-->
+                                              <div id="previewImage2">
+                                                <a href="#">
+                                                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
+                                                </a>
                                             </div>
+                                          </div>
+                                        <div class="center-content">
+                                            <label for="file2" class="upload1-btn"> </label>
+                                            <input type="file" accept="image/*" id="file2" onchange="setThumbnail(event, 'previewImage2');">
                                         </div>
                                     </div>
                                 </div>
+                                  <div class="row">
+                                      <div class="col-12 ratio_59">
+                                              <div>
+                                                <!-- 이미지 파일 3-->
+                                                <div id="previewImage3">
+                                                  <a href="#">
+                                                      <img id="previewImage3" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
+                                                  </a>
+                                                </div>
+                                              </div>
+                                          <div class="center-content">
+                                              <label for="file3" class="upload1-btn"> </label>
+                                              <input type="file" accept="image/*" id="file3" onchange="setThumbnail(event, 'previewImage3');">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+
                             <!-- 게시글  -->
                                 <div class="description-section">
                                     <div class="description-details">
@@ -269,7 +264,7 @@
                                                 placeholder="게시글 상세정보 " ></textarea>
                                                 <br/>
                                                 <div>
-                                                    <input type="submit" id = "info_btn" value=" 등록 " style="background-color: #3e5eef;">
+                                                    <input type="submit" id = "info_btn" value=" 등록 " style="background-color: #d9dadb;">
                                                 </div>
                                             </div>
                                         </div>
@@ -295,11 +290,14 @@
                                                 <form>
                                                     <div class="row w-100">
                                                         <div class="form-group col p-0">
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()"
                                                                 placeholder="여행지 검색 ">
+
+                                                                <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
+                                                                <ul id="searchResults"></ul>
                                                         </div>
                                                     </div>
-                                                    <a href="#" class="btn btn-rounded color1">search</a>
+                                                    <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -551,8 +549,6 @@
         </div>
         <!-- tap to top end -->
 
-
-
     <!-- setting start 화면 검정 + 왼쪽 정렬 , 오른쪽 정렬 -->
     <div class="theme-setting">
         <div class="dark">
@@ -593,7 +589,7 @@
     <script src="../assets/js/script.js"></script>
 
     <!-- fileupload js-->
-    <script src="../assets/js/fileupload.js"></script>
+    <!-- <script src="../assets/js/fileupload.js"></script> -->
 
     <script>
         $('#datepicker').datepicker({
@@ -605,6 +601,59 @@
             format: 'dd mmmm'
         });
     </script>
+
+    <!-- 이미지 파일 업로드(미리보기)-->
+    <script>
+      function setThumbnail(event, previewImageId) {
+        var reader = new FileReader();
+
+        reader.onload = function(event){
+          var img = document.createElement("img");
+          img.setAttribute("src", event.target.result);
+          img.setAttribute("class", "image-box bg-img w-100");    // 이미지에 스타일 추가
+          document.getElementById(previewImageId).innerHTML = ''; // 초기화 필요 없음
+          document.getElementById(previewImageId).appendChild(img);
+        };
+
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+
+    <!-- 후기 게시판 db에 등록-->
+    <script>
+      // 폼이 서브밋될 때 실행될 함수
+      document.getElementById('about').addEventListener('submit',function(event){
+        // 기본 서브밋 동작 막기
+        event.preventDefault();
+
+        // Ajax 사용해 서버에 등록 데이터 전송
+        $.ajax({
+          type:   'POST',
+          url:    '/submitForm',
+          data: {
+            destination: $('#destinationInput').val(),
+            title:       $('exampleFormControlInput1').val(),
+            details:     $('exampleFormControlInput111').val()
+          },
+          success: function (response){
+            // 등록 성공 -> 서버에서 반환된 데이터에 따라 동작 수행
+            if(response.success) {
+              // 등록 성공 시 페이지 이동
+              window.location.href = 'touroview/touroview_detail/' + response.touroviewId;
+            } else {
+              // 등록 실패 시 사용자에게 오류 메시지
+              alert('등록에 실패했습니다.');
+            }
+          },
+          error: function(){
+            // Ajax 오류 처리
+            alert('서버와의 통신 중 오류가 발생했습니다.');
+          }
+        });
+      });
+    </script>
+
+
 
 </body>
 
