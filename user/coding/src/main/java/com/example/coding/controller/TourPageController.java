@@ -41,7 +41,8 @@ public class TourPageController {
 	public String tourList(Model m ,@RequestParam(required = false, defaultValue = "1") int page 
 							,@RequestParam(required = false, defaultValue = "1") int range 
 							,@RequestParam(required = false, defaultValue = "") String tour_cate_code 
-							,@RequestParam(required = false) String keyword 
+							,@RequestParam(required = false) String keyword
+							,@RequestParam(required = false) List<String> Loc
 							,@ModelAttribute("search") Search search) throws Exception {
 
 		m.addAttribute("search", search);
@@ -52,10 +53,10 @@ public class TourPageController {
 
 		search.pageInfo(page, range, listCnt);
 		m.addAttribute("paging", search);
-		System.out.println(search.toString());
+		System.out.println(search.toString() + '/' + search.getTour_cate_code()+ '/' +search.getKeyword());
 
 		List<TourVO> List = tourListService.getTourList(search);
-		
+
 		m.addAttribute("TourList", List);
 		return "/tour/tour_list";	
 	}

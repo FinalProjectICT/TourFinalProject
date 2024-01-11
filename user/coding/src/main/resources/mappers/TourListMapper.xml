@@ -4,23 +4,28 @@
 
 <mapper namespace="com.example.coding.dao.TourListDAO">
 
-<select id="selectAll" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.Paging">
+<select id="selectAll" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.Search">
 	SELECT *
 	FROM tour 
 	<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="tour_cate_code != null and tour_cate_code != '' ">
 				AND tour_cate_code like #{tour_cate_code}
 			</if>
+			
 			<if test="keyword != null and keyword != '' ">
 				AND tour_name like  CONCAT('%',#{keyword},'%') 
 				OR tour_content like CONCAT('%',#{keyword},'%')
 			</if>
+			<if test="1">
+			AND loc_cate_code like 1.0
+			</if>
 		</trim>
+	
 	ORDER BY tour_num DESC 
 	LIMIT #{startList}, #{listSize}
 </select>
 
-<select id="tourListCnt" resultType="int" parameterType="com.example.coding.domain.Paging">
+<select id="tourListCnt" resultType="int" parameterType="com.example.coding.domain.Search">
 		SELECT count(*) as listCnt
 		FROM tour 
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
@@ -36,6 +41,9 @@
 				<if test="keyword != null and keyword != '' ">
 					AND tour_name like CONCAT('%',#{keyword},'%') 
 					OR tour_content like CONCAT('%',#{keyword},'%')
+				</if>
+				<if test="1">
+				AND loc_cate_code like 1.0
 				</if>
 		</trim>
 	</select>

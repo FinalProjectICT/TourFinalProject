@@ -16,6 +16,8 @@ public class TourVO {
     private double tour_lati;       // 위도
     private double tour_longi;      // 경도
     private float tour_star;        // 여행지 별점
-
+    private String tour_sigungucode;// API 용
+    private String tour_img1_path;  // 이미지 1
+    private String tour_img2_path;  // 이미지 2
 
 }
