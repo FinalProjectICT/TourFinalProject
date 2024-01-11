@@ -44,6 +44,7 @@ function SupportTicketsList() {
   //   navigate("/tour-view/${tourName}");
   // };
 
+  // 여행지 내부에서 검색
   const handleSubmit = (e) => {
     forceUpdate();
     e.preventDefault();
@@ -154,6 +155,7 @@ function SupportTicketsList() {
                     </th>
                     <th className="crancy-table__column-4 crancy-table__h4">
                       수정
+                      
                     </th>
                     <th className="crancy-table__column-5 crancy-table__h5">
                       삭제
@@ -167,13 +169,13 @@ function SupportTicketsList() {
                     <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTourNum(e, tour.tourNum)}>
                       <div className="crancy-table__product--id">
                                 <p className="crany-table__product--number">
-                                  <a onClick={(e) => detailTourNum(e, tour.tourNum)}>{tour.tourNum?.toString()}</a>
+                                  <a >{tour.tourNum?.toString()}</a>
                                 </p>
                       </div>
                     </td>
                     <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTourNum(e, tour.tourNum)}>
                       <h5 className="crancy-table__inner--title">
-                                <a  onClick={(e) => detailTourNum(e, tour.tourNum)}>{tour.tourName?.toString()}
+                                <a >{tour.tourName?.toString()}
                                 </a>
                       </h5>
                     </td>

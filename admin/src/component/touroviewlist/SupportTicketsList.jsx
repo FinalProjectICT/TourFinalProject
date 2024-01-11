@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import SelectInput from "../form/SelectInput";
 import { ticketsList } from "../../data/ticketsList";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+
 function SupportTicketsList() {
   const [page, setPage] = useState(1);
   const [show, setShow] = useState(25);
+
+  const current = page * show;
+  const previous = current - show;
+
+  const [viewLists, setViewLists] = useState([]);
+  const [inputValue, setInputValue] = useState("");
+
+  const baseUrl = "http://localhost:8080";
+
+  useEffect(() => {
+    axios.get(baseUrl+"/touroview-list/touroviewList").then((result) => {
+      const viewLists = result.data;
+      console.log(viewLists);
+      setViewLists([...viewLists]);
+      console.log(viewLists+"1");
+    });
+  }, []);
 
   return (
     <div className="container-fluid p-0">
@@ -79,7 +98,7 @@ function SupportTicketsList() {
                   </tr>
                 </thead>
                 {/* <!-- crancy Table Body --> */}
-                {/* <tbody className="crancy-table__body">
+                <tbody className="crancy-table__body">
                   {ticketsList?.map((ticket, index) => {
                     const current = page * show;
                     const previous = current - show;
@@ -227,7 +246,7 @@ function SupportTicketsList() {
                       );
                     }
                   })}
-                </tbody> */}
+                </tbody>
                 {/* <!-- End crancy Table Body --> */}
               </table>
               {/* <!-- End crancy Table --> */}
@@ -323,325 +342,6 @@ function SupportTicketsList() {
                   </ul>
                 </div>
               </div>
-            </div>
-            <div
-              className="tab-pane fade"
-              id="table_2"
-              role="tabpanel"
-              aria-labelledby="table_1"
-            >
-              {/* <!-- crancy Table --> */}
-              <table
-                id="crancy-table__main"
-                className="crancy-table__main crancy-table__ticket"
-              >
-                {/* <!-- crancy Table Head --> */}
-                <thead className="crancy-table__head">
-                  <tr>
-                    <th className="crancy-table__column-1 crancy-table__h1">
-                      ID
-                    </th>
-                    <th className="crancy-table__column-2 crancy-table__h2">
-                      Subject
-                    </th>
-                    <th className="crancy-table__column-3 crancy-table__h3">
-                      Date
-                    </th>
-                    <th className="crancy-table__column-4 crancy-table__h4">
-                      Customer
-                    </th>
-                    <th className="crancy-table__column-5 crancy-table__h5">
-                      Status
-                    </th>
-                    <th className="crancy-table__column-6 crancy-table__h6">
-                      Priority
-                    </th>
-                  </tr>
-                </thead>
-                {/* <!-- crancy Table Body --> */}
-                <tbody className="crancy-table__body">
-                  <tr>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
-                      <div className="crancy-table__product--id">
-                        <p className="crany-table__product--number">
-                          <a href="ticket-details.html">#3356</a>
-                        </p>
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
-                      <h5 className="crancy-table__inner--title">
-                        <a href="ticket-details.html">
-                          AuthorID checks for AudioJungle find that...
-                        </a>
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-3 crancy-table__data-3">
-                      <p className="crancy-table__text crancy-table__time">
-                        2/05/2023
-                      </p>
-                    </td>
-                    <td className="crancy-table__column-4 crancy-table__data-4">
-                      <h5 className="crancy-table__inner--title">
-                        Dianne Russell
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status">Done</div>
-                    </td>
-                    <td className="crancy-table__column-6 crancy-table__data-6">
-                      <div className="crancy-flex-between">
-                        <h5 className="crancy-table__inner--title">High</h5>
-                        <div className="crancy-chatbox__toggle">
-                          <svg
-                            width="6"
-                            height="25"
-                            viewBox="0 0 4 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 14)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 8)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 2)"
-                            ></circle>
-                          </svg>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
-                      <div className="crancy-table__product--id">
-                        <p className="crany-table__product--number">
-                          <a href="ticket-details.html">#3356</a>
-                        </p>
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
-                      <h5 className="crancy-table__inner--title">
-                        <a href="ticket-details.html">
-                          You’ve spent hours researching ...
-                        </a>
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-3 crancy-table__data-3">
-                      <p className="crancy-table__text crancy-table__time">
-                        2/05/2023
-                      </p>
-                    </td>
-                    <td className="crancy-table__column-4 crancy-table__data-4">
-                      <h5 className="crancy-table__inner--title">Adim Makram</h5>
-                    </td>
-                    <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status crancy-table__status--cancel">
-                        Cancel
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-6 crancy-table__data-6">
-                      <div className="crancy-flex-between">
-                        <h5 className="crancy-table__inner--title">Law</h5>
-                        <div className="crancy-chatbox__toggle">
-                          <svg
-                            width="6"
-                            height="25"
-                            viewBox="0 0 4 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 14)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 8)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 2)"
-                            ></circle>
-                          </svg>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
-                      <div className="crancy-table__product--id">
-                        <p className="crany-table__product--number">
-                          <a href="ticket-details.html">#3356</a>
-                        </p>
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
-                      <h5 className="crancy-table__inner--title">
-                        <a href="ticket-details.html">
-                          people to read the article since you worr...
-                        </a>
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-3 crancy-table__data-3">
-                      <p className="crancy-table__text crancy-table__time">
-                        2/05/2023
-                      </p>
-                    </td>
-                    <td className="crancy-table__column-4 crancy-table__data-4">
-                      <h5 className="crancy-table__inner--title">Adim Makram</h5>
-                    </td>
-                    <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status crancy-table__status--pending">
-                        Cancel
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-6 crancy-table__data-6">
-                      <div className="crancy-flex-between">
-                        <h5 className="crancy-table__inner--title">Medium</h5>
-                        <div className="crancy-chatbox__toggle">
-                          <svg
-                            width="6"
-                            height="25"
-                            viewBox="0 0 4 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 14)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 8)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 2)"
-                            ></circle>
-                          </svg>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
-                      <div className="crancy-table__product--id">
-                        <p className="crany-table__product--number">
-                          <a href="ticket-details.html">#3356</a>
-                        </p>
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
-                      <h5 className="crancy-table__inner--title">
-                        <a href="ticket-details.html">
-                          here’s the sad truth: on average...
-                        </a>
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-3 crancy-table__data-3">
-                      <p className="crancy-table__text crancy-table__time">
-                        2/05/2023
-                      </p>
-                    </td>
-                    <td className="crancy-table__column-4 crancy-table__data-4">
-                      <h5 className="crancy-table__inner--title">Jenny Wilson</h5>
-                    </td>
-                    <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status">Done</div>
-                    </td>
-                    <td className="crancy-table__column-6 crancy-table__data-6">
-                      <div className="crancy-flex-between">
-                        <h5 className="crancy-table__inner--title">High</h5>
-                        <div className="crancy-chatbox__toggle">
-                          <svg
-                            width="6"
-                            height="25"
-                            viewBox="0 0 4 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 14)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 8)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 2)"
-                            ></circle>
-                          </svg>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="crancy-table__column-1 crancy-table__data-1">
-                      <div className="crancy-table__product--id">
-                        <p className="crany-table__product--number">
-                          <a href="ticket-details.html">#3356</a>
-                        </p>
-                      </div>
-                    </td>
-                    <td className="crancy-table__column-2 crancy-table__data-2">
-                      <h5 className="crancy-table__inner--title">
-                        <a href="ticket-details.html">
-                          AuthorID checks for AudioJungle find that...
-                        </a>
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-3 crancy-table__data-3">
-                      <p className="crancy-table__text crancy-table__time">
-                        2/05/2023
-                      </p>
-                    </td>
-                    <td className="crancy-table__column-4 crancy-table__data-4">
-                      <h5 className="crancy-table__inner--title">
-                        Dianne Russell
-                      </h5>
-                    </td>
-                    <td className="crancy-table__column-5 crancy-table__data-5">
-                      <div className="crancy-table__status">Done</div>
-                    </td>
-                    <td className="crancy-table__column-6 crancy-table__data-6">
-                      <div className="crancy-flex-between">
-                        <h5 className="crancy-table__inner--title">High</h5>
-                        <div className="crancy-chatbox__toggle">
-                          <svg
-                            width="6"
-                            height="25"
-                            viewBox="0 0 4 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 14)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 8)"
-                            ></circle>
-                            <circle
-                              r="2"
-                              transform="matrix(1 0 0 -1 2 2)"
-                            ></circle>
-                          </svg>
-                        </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-                {/* <!-- End crancy Table Body --> */}
-              </table>
-              {/* <!-- End crancy Table --> */}
             </div>
           </div>
         </div>

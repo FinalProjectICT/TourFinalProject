@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.coding.domain.AdminJpaVO;
+import com.example.coding.domain.AdminTourJpaVO;
 
 
-public interface AdminRepository extends CrudRepository<AdminJpaVO, String>{
+public interface AdminRepository extends CrudRepository<AdminTourJpaVO, String>{
 	
-	List<AdminJpaVO> findByTourNameLike(String tourName);
+	List<AdminTourJpaVO> findByTourNameLike(String tourName);
+	
 	
 }

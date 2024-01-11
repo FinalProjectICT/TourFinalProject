@@ -40,5 +40,21 @@ public class AdminServiceImpl implements AdminService {
         return adminDAO.tourInsert(vo);
     }
 
+
+    // 유저 리스트 출력
+    public List<AdminVO> userList() {
+    List<AdminVO> userlist = adminDAO.userList();
+    System.out.println("확인: " + userlist.size());
+    return userlist;
+    }
+
+    // 후기 게시판 리스트 출력
+    public List<AdminVO> touroviewList() {
+    List<AdminVO> viewList = adminDAO.touroviewList();
+    System.out.println("확인: " + viewList.size());
+    return viewList;
+    }
+    
+
     
 }
