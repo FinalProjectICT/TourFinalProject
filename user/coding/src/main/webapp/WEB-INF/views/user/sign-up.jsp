@@ -291,7 +291,7 @@
                       <!-- 사진 미리보기 -->
                       <div class="profile-picture-box row g-2">
                         <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
-                        <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="profilePicture" accept="image/*" onchange="previewProfilePicture()" />
+                        <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="img_name" accept="image/*" onchange="previewProfilePicture()" />
                       </div>
                     </div>
                   </div>
