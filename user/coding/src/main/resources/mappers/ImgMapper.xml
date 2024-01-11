@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.coding.dao.ImgDAO">
+
+    <!-- ************* ImgDAO의 메소드명과 id가 동일해야 함 -->
+							<!--  resultType = 원래는 com.example.domain.BoardVO-->
+    <insert id="insertImg" parameterType="ImgVO">
+        INSERT INTO img
+               ( 
+                img_name
+                , img_real_name
+                , img_path
+                ) 
+        VALUES ( 
+                #{img_name}
+                , #{img_real_name}
+                , #{img_path}
+                )
+    </insert>
+    
+    <select id="selectFile" parameterType="ImgVO" resultType="ImgVO">
+        SELECT *
+        FROM board_file
+        WHERE fileid = #{fileId}
+    </select>
+
+    <!-- board2 테이블에 최근 seq 값을 검색 -->
+    <select id="selectNum" resultType="long">
+        SELECT img_num
+        FROM img
+        ORDER BY img_num DESC LIMIT 1
+    </select>
+
+</mapper>

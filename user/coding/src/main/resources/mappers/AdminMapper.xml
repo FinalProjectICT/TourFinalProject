@@ -7,14 +7,14 @@
 
 	<!-- ******************* BoardDAO에 메소드명이랑 동일 ( id 값이 )  -->
 										<!-- 원래 : com.example.domain.BoardVO -->
-	<select id="tourList" resultType="AdminVO">
+	<select id="tourList" resultType="com.example.coding.domain.AdminVO">
 	SELECT t.tour_name tourName, t.tour_num tourNum, c.check_num checkNum
     FROM tour t
     LEFT OUTER JOIN `check` c
     ON c.tour_num = t.tour_num
 	</select>
 	
-	<select id="tourdetail" parameterType="AdminVO" resultType="AdminVO">
+	<select id="tourdetail" parameterType="com.example.coding.domain.AdminVO" resultType="com.example.coding.domain.AdminVO">
 	
 		SELECT *
 		FROM tour t
