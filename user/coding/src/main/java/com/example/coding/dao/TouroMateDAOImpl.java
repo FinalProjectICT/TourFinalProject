@@ -40,5 +40,12 @@ public class TouroMateDAOImpl implements TouroMateDAO {
 
         return sqlSession.selectOne("com.example.coding.dao.TouroMateDAO.getTotalMateCount");
     }
+
+    // 게시글 작성 페이지 insert
+    @Override
+    public void registerCourse(TouroMateVO touroMateVO) {
+        
+        sqlSession.insert("com.example.coding.dao.TouroMateMapper.registerCourse", touroMateVO); 
+    }
     
 }

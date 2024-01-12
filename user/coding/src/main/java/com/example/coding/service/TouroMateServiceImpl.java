@@ -52,4 +52,11 @@ public class TouroMateServiceImpl implements TouroMateService {
         // 전체 게시물 수를 페이지 사이즈로 나누어 전체 페이지 수를 계산하여 반환
         return (int) Math.ceil((double) totalMateCount / pageSize);
     }
+
+    // 게시글 작성 페이지 insert
+    @Override
+    public void registerCourse(TouroMateVO touroMateVO) {
+        
+        TouromateDAO.registerCourse(touroMateVO);
+    }
 }

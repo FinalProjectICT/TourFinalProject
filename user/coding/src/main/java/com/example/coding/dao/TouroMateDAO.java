@@ -25,4 +25,7 @@ public interface TouroMateDAO {
 
     // 게시글 페이지 네이션 중 전체 게시글 반환 메서드
     int getTotalMateCount();
+
+    // 게시글 작성 페이지 insert
+    void registerCourse(TouroMateVO touroMateVO);
 }
