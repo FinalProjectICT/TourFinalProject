@@ -17,21 +17,23 @@ $(() => {
       console.log(icon.attr("class"));
 
       // 찜 상태 구분으로 중복 찜처리 방지
-      if (icon.attr("class") != "fas fa-heart") {
-        $.ajax({
-          url: "/touro/addWishList",
-          type: "post",
-          dataType: "json",
-          data: { user_id: id, tour_num: num },
-          success: function (result) {
-            ck = result;
-          },
-          error: function (err) {
-            console.log(err);
-          },
-        });
-        $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
-      }
+      if (id != null && id != "") {
+        if (icon.attr("class") != "fas fa-heart") {
+          $.ajax({
+            url: "/touro/addWishList",
+            type: "post",
+            dataType: "json",
+            data: { user_id: id, tour_num: num },
+            success: function (result) {
+              ck = result;
+            },
+            error: function (err) {
+              console.log(err);
+            },
+          });
+          $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+        }
+      } else if (id == null || id == "") alert("로그인이 필요합니다.");
     });
   });
 });
