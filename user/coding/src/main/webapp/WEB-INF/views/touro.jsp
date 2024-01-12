@@ -10,11 +10,7 @@ prefix="c" %>
     <meta name="description" content="rica" />
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
-    <link
-      rel="icon"
-      href="../assets/images/favicon.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
     <title>Rica</title>
 
     <!--Google font-->
@@ -46,11 +42,7 @@ prefix="c" %>
     />
 
     <!-- Animation -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../assets/css/animate.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css" />
 
     <!-- Date-time picker css -->
     <link
@@ -68,17 +60,15 @@ prefix="c" %>
     />
 
     <!-- Bootstrap css -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="../assets/css/bootstrap.css"
-    />
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color5.css" />
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-  
-    
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body>
@@ -89,11 +79,11 @@ prefix="c" %>
     <!-- <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/> -->
     <!-- 세션이 비어 있지 않으면 로그인 값으로 -->
     <c:if test="${not empty sessionScope.loggedId}">
-      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser"/>
+      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
     </c:if>
     <!-- 세션이 비어있으면 병곤 아이디로 -->
     <c:if test="${empty sessionScope.loggedInUser}">
-      <input type="hidden" value="Byounggon" id="loggedInUser"/>
+      <input type="hidden" value="Byounggon" id="loggedInUser" />
     </c:if>
 
     <!-- 로고, 배경 설정 (home_effect)-->
@@ -115,66 +105,111 @@ prefix="c" %>
       <div class="container">
         <div class="row">
           <div class="col">
-            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
-              <div style="float : left;">
-                  <div class="weather_icon"></div>
-              </div><br>
-          
-              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
-                      <div class="temp_min"></div>
-                      <div class="temp_max"></div>
-                      <div class="humidity"></div>
-                      <div class="wind"></div>
-                      <div class="cloud"></div>
+            <div
+              style="
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
+              "
+            >
+              <div style="float: left">
+                <div class="weather_icon"></div>
               </div>
-              <div style="float : right; margin-top : -30px;">
-                  <div class="current_temp" style="font-size : 20pt"></div>
-                  <div class="weather_description" style="font-size : 20pt"></div>
-                  <div class="city" style="font-size : 13pt"></div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min"></div>
+                <div class="temp_max"></div>
+                <div class="humidity"></div>
+                <div class="wind"></div>
+                <div class="cloud"></div>
               </div>
-          </div>
-          </div>
-          <div class="col">
-            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
-              <div style="float : left;">
-                  <div class="weather_icon1"></div>
-              </div><br>
-          
-              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
-                      <div class="temp_min1"></div>
-                      <div class="temp_max1"></div>
-                      <div class="humidity1"></div>
-                      <div class="wind1"></div>
-                      <div class="cloud1"></div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp" style="font-size: 20pt"></div>
+                <div class="weather_description" style="font-size: 20pt"></div>
+                <div class="city" style="font-size: 13pt"></div>
               </div>
-              <div style="float : right; margin-top : -30px;">
-                  <div class="current_temp1" style="font-size : 20pt"></div>
-                  <div class="weather_description1" style="font-size : 20pt"></div>
-                  <div class="city1" style="font-size : 13pt"></div>
-              </div>
-          </div>
+            </div>
           </div>
           <div class="col">
-            <div style="background-color : rgb(255, 255, 255); padding : 25px;color : #000; height : 150px; width: 50%;">
-              <div style="float : left;">
-                  <div class="weather_icon2"></div>
-              </div><br>
-          
-              <div style="float : right; margin : -136px 0px 0px 50px; font-size : 9pt">
-                      <div class="temp_min2"></div>
-                      <div class="temp_max2"></div>
-                      <div class="humidity2"></div>
-                      <div class="wind2"></div>
-                      <div class="cloud2"></div>
+            <div
+              style="
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
+              "
+            >
+              <div style="float: left">
+                <div class="weather_icon1"></div>
               </div>
-              <div style="float : right; margin-top : -30px;">
-                  <div class="current_temp2" style="font-size : 20pt"></div>
-                  <div class="weather_description2" style="font-size : 20pt"></div>
-                  <div class="city2" style="font-size : 13pt"></div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min1"></div>
+                <div class="temp_max1"></div>
+                <div class="humidity1"></div>
+                <div class="wind1"></div>
+                <div class="cloud1"></div>
               </div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp1" style="font-size: 20pt"></div>
+                <div class="weather_description1" style="font-size: 20pt"></div>
+                <div class="city1" style="font-size: 13pt"></div>
+              </div>
+            </div>
           </div>
+          <div class="col">
+            <div
+              style="
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
+              "
+            >
+              <div style="float: left">
+                <div class="weather_icon2"></div>
+              </div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min2"></div>
+                <div class="temp_max2"></div>
+                <div class="humidity2"></div>
+                <div class="wind2"></div>
+                <div class="cloud2"></div>
+              </div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp2" style="font-size: 20pt"></div>
+                <div class="weather_description2" style="font-size: 20pt"></div>
+                <div class="city2" style="font-size: 13pt"></div>
+              </div>
+            </div>
           </div>
-            <!-- <div class="search_section">
+          <!-- <div class="search_section">
               <div class="book-table single-table input-radius-cls">
                 <div class="table-form classic-form p-0">
                   <form>
@@ -208,7 +243,6 @@ prefix="c" %>
               </div>
             </div> -->
         </div>
-        
       </div>
     </section>
     <!-- 검색창 설정 끝 -->
@@ -519,27 +553,27 @@ prefix="c" %>
               </div>
               <div class="slider-4 no-arrow">
                 <c:forEach var="winter" items="${winter}">
-                <div>
-                  <div class="tourBox">
-                    <a href="">
-                      <div class="tourImg winter-div">
-                        <img
-                          src="../${winter.tour_img1_path}"
-                          class="img-fluid blur-up lazyload"
-                          id = "winter-img"
-                          alt="img"
-                        />
-                      </div>
-                    </a>
-                    <a href="">
-                      <div class="tourContent">
-                        <h3 class="winter-h3">${winter.tour_name}</h3>
-                        <h6 class="winter-h6">${winter.tour_addr}</h6>
-                      </div>
-                    </a>
+                  <div>
+                    <div class="tourBox">
+                      <a href="../touro/${winter.tour_num}">
+                        <div class="tourImg winter-div">
+                          <img
+                            src="../${winter.tour_img1_path}"
+                            class="img-fluid blur-up lazyload"
+                            id="winter-img"
+                            alt="img"
+                          />
+                        </div>
+                      </a>
+                      <a href="">
+                        <div class="tourContent">
+                          <h3 class="winter-h3">${winter.tour_name}</h3>
+                          <h6 class="winter-h6">${winter.tour_addr}</h6>
+                        </div>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </c:forEach>
+                </c:forEach>
                 <!-- <div>
                   <div class="tourBox">
                     <a href="">
@@ -1184,7 +1218,6 @@ prefix="c" %>
 
     <!-- 날씨 가져오기 -->
     <script src="../assets/js/weather.js"></script>
-
 
     <script>
       $(function () {

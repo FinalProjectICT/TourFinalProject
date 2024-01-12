@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
 prefix="c" %>
+
 <html lang="UTF-8">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -56,6 +57,11 @@ prefix="c" %>
   </head>
 
   <body>
+
+    <!-- 세션 로그인 값 -->
+      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
+
+
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
@@ -1014,8 +1020,8 @@ prefix="c" %>
                             class=""
                             data-bs-toggle="tooltip"
                             data-placement="top"
-                            title=""
-                            data-original-title="Add to Wishlist"
+                            title="${TourData.tour_num}"
+                            data-original-title="Add_to_Wishlist"
                           >
                             <i class="far fa-heart"></i>
                           </a>
@@ -1471,6 +1477,9 @@ prefix="c" %>
 
     <!-- 리스트 용 js -->
     <script src="../assets/js/tourListNav.js"></script>
+
+    <!-- 찜리스트 추가용 js-->
+    <script src="../assets/js/addWishList.js"></script>
 
     <script>
       $("#datepicker").datepicker({

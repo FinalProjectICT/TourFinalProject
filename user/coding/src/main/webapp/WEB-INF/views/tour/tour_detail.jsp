@@ -52,6 +52,9 @@ prefix="c" %>
   </head>
 
   <body>
+    <!-- 세션 로그인 값 -->
+    <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
+
     <!-- pre-loader start -->
     <div class="skeleton_loader">
       <header class="light_header">
@@ -486,7 +489,8 @@ prefix="c" %>
                           class="btn btn-rounded btn-secondary col-2"
                           data-bs-toggle=""
                           data-placement=""
-                          title=""
+                          title="${TourData.tour_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i
                         ></a>
@@ -2429,5 +2433,8 @@ prefix="c" %>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 찜리스트 추가용 js-->
+    <script src="../assets/js/addWishList.js"></script>
   </body>
 </html>

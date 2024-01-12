@@ -23,7 +23,7 @@
   <select id="seasonRecommand" parameterType="com.example.coding.domain.UserVO" resultType="com.example.coding.domain.MainVO">
     SELECT DISTINCT t.tour_name tour_name, t.tour_addr tour_addr
     , t.tour_star tour_star, t.tour_content tour_content, t.tour_img1_path tour_img1_path
-    , t.tour_cate_code tour_cate_code 
+    , t.tour_cate_code tour_cate_code, t.tour_num 
     FROM tour t
     JOIN USER u ON (t.tour_cate_name = u.user_prefer_type1 OR t.tour_cate_name = u.user_prefer_type2 OR t.tour_cate_name = u.user_prefer_type3)
     JOIN seasonTable s ON t.loc_cate_code = s.loc_cate_code

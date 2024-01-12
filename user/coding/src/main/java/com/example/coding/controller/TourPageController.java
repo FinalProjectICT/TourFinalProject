@@ -17,6 +17,7 @@ import com.example.coding.service.UserInfoService;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.WishListVO;
 
 @Controller
 @RequestMapping("/touro")
@@ -95,6 +96,27 @@ public class TourPageController {
 	 * - UserVO, TourVO - HashMap & UserInfoService, DAO
 	 * - mapper - TourListMapper - wishListAdd
 	 */
-	
+	@RequestMapping(value = "/addWishList", method = {RequestMethod.POST})
+	@ResponseBody
+	public String addWishList(@ModelAttribute("vo") WishListVO vo){
+		String res = tourListService.addWishList(vo);
+		if (res.equals("1")){
+			System.out.println("찜 리스트 추가");
+		}else System.out.println("에러");
+		return res;
+	}
+
+	/*********
+	 * 찜 된 여행지 구분
+	 * @param vo
+	 * @return
+	*/
+	@RequestMapping(value = "/ckWishList", method = {RequestMethod.POST})
+	@ResponseBody
+	public String ckWishList(@ModelAttribute("vo") WishListVO vo){
+		String res = tourListService.ckWishList(vo);
+		return res;
+	}
+
 
 }
