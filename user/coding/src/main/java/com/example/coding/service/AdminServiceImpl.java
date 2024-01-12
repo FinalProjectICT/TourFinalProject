@@ -55,6 +55,10 @@ public class AdminServiceImpl implements AdminService {
     return viewList;
     }
     
+    @Override
+    public AdminVO touroViewNum(AdminVO vo) {
+        return adminDAO.touroViewNum(vo);
+    }
 
     
 }

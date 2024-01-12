@@ -142,6 +142,11 @@ const router = createBrowserRouter([
         path: "/tour-view/:tourNum",
         element: <Tourview />,
       },
+
+      {
+        path: "/pricing/:touroview_num",
+        element: <Pricing />,
+      },
       
       {
         path: "/tour-register",

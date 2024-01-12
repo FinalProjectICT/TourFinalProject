@@ -22,7 +22,11 @@ public interface AdminDAO {
     // 회원 리스트 출력
     public List<AdminVO> userList();
 
-    //후기 게시판 리스트 추렭
+    //후기 게시판 리스트 출력
     public List<AdminVO> touroviewList();
+
+    // 게시판 디테일
+    public AdminVO touroViewNum(AdminVO vo);
+
     
 }

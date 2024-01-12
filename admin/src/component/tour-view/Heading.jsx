@@ -28,7 +28,7 @@ function Heading() {
   }, []);
 
   const ModifyTour = (e) =>{
-    e.preventDefault();
+    e.preventDefault(); 
     axios
     .get()
     .then(()=>{

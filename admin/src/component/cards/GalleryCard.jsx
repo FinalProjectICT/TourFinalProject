@@ -8,6 +8,7 @@ function GalleryCard({ className, image, openImg, id }) {
         <div className="crancy-single__gallery--thumb">
           <img src={image} alt="" />
           <a className="crancy-img__preview" onClick={() => openImg(id)}>
+            <div></div>
             <svg
               className="crancy-header__svg--icon"
               width="25"

@@ -16,7 +16,7 @@
 
 	</select>
 	
-	<select id="tourdetail" parameterType="com.example.coding.domain.AdminVO" resultType="com.example.coding.domain.AdminVO">
+	<select id="tourdetail" parameterType="AdminVO" resultType="AdminVO">
 	
 		SELECT *
 		FROM tour t
@@ -64,15 +64,27 @@
 
 
 	<select  id="touroviewList" parameterType="AdminVO" resultType="AdminVO">
-	SELECT tvw.user_id user_id , 
-	tvw.touroview_content touroview_content, 
-	li.like_count like_count, 
-	rp.report_count report_count,	
-	tvw.touroview_regdate touroview_regdate, 
-	tvw.touroview_update touroview_update
-	FROM 	touroview tvw
-	LEFT  JOIN `like` li ON li.touroview_num = tvw.touroview_num
-	LEFT  JOIN `report` rp ON rp.touroview_num = tvw.touroview_num
+		SELECT tvw.user_id user_id , 
+		tvw.touroview_content touroview_content, 
+		li.like_count like_count, 
+		rp.report_count report_count,	
+		tvw.touroview_regdate touroview_regdate, 
+		tvw.touroview_update touroview_update
+		,tvw.touroview_title
+		,tr.tour_num tour_name
+		,tvw.touroview_num touroview_num
+		FROM 	touroview tvw
+		LEFT  JOIN `like` li ON li.touroview_num = tvw.touroview_num
+		LEFT  JOIN `report` rp ON rp.touroview_num = tvw.touroview_num
+		LEFT  JOIN `tour` tr ON tr.tour_num = tvw.tour_num
 	</select>
+
+	<select id = "touroViewNum" parameterType="AdminVO" resultType="AdminVO">
+		SELECT * FROM touroview tvw
+		LEFT OUTER JOIN img_detail id ON id.touroview_num = tvw.touroview_num
+		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
+		WHERE tvw.touroview_num = #{touroview_num}
+	</select>
+	
 
 </mapper>

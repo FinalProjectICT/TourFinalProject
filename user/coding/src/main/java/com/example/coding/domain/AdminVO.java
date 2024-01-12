@@ -2,6 +2,8 @@ package com.example.coding.domain;
 
 import lombok.Data;
 import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 public class AdminVO {
@@ -96,16 +98,30 @@ public class AdminVO {
 
     private Integer touroview_num ;        // 후기 게시판 글 번호      
     private String touroview_title ;       // 게시글제목
-    private Date touroview_regdate ;       // 등록일
-    private Date touroview_update ;        // 수정일
+    private LocalDateTime  touroview_regdate ;       // 등록일
+    private LocalDateTime  touroview_update ;        // 수정일
     private String touroview_content ;     // 게시글 상세 정보 
     private Integer like_num ;             // 좋아요 번호
     private String like_count ;            // 좋아요 갯수
     private Integer report_num ;           // 신고 번호
     private String report_count ;          // 신고 갯수
-
     
 
+    
+    public static void main(String[] args) {
+        // VO 인스턴스 생성
+        AdminVO myData = new AdminVO();
+
+       // 날짜와 시간을 원하는 형식으로 포매팅
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+       String formattedDateTime = myData.getTouroview_regdate().format(formatter);
+   
+       System.out.println("등록일: " + formattedDateTime);
+   
+       // 수정일자도 포맷팅
+       String formattedDateTimeUpdate = myData.getTouroview_update().format(formatter);
+       System.out.println("수정일: " + formattedDateTimeUpdate);
+    }
 
 
 

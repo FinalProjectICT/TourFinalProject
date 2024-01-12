@@ -1,7 +1,35 @@
-import React from "react";
-import PricingCard from "../cards/PricingCard";
+import React, { useEffect,useState } from "react";
+import { images } from "../../data/images";
+import { Link } from "react-router-dom";
+import GalleryCom from "../../component/tour-view/GalleryCom";
+import axios from "axios";
+import { useNavigate,useParams } from "react-router-dom";
 
 function PricingCom() {
+
+  const [imagesG, setImages] = useState(images);
+  const navigate = useNavigate();
+  const { touroview_num } = useParams();
+  const [touroviews, setTouroviews] = useState([]);
+
+  const baseUrl = "http://localhost:8080";
+
+  useEffect(() => {
+    axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num).then((result) => {
+    const touroviews = result.data;
+    console.log(result);
+    setTouroviews({...touroviews});
+      
+  }
+  )
+  .catch((error) => {
+    console.error('검색 오류:', error);
+  });
+  }, []);
+
+
+
+
   return (
     <>
       <div className="row">
@@ -9,33 +37,37 @@ function PricingCom() {
         </div>
       </div>
       <div className="row">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card">
-                    <div class="card-header">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-12">
+              <div className="row">
+                <div className="col-sm-12">
+                  <div className="card">
+                    <div className="card-header">
                       <h5>상세 페이지</h5>
                     </div>
-                    <div class="card-body">
-                      <form class="theme-form mega-form">
-                        <div class="mb-3">
-                          <label class="form-label-title">제목</label>
+                    <div className="card-body">
+                      <form className="theme-form mega-form">
+                        <div className="mb-3">
+                          <label className="form-label-title">제목</label>
                           <input
-                            class="form-control"
+                            className="form-control"
                             type="text"
                             placeholder="게시글 제목"
+                            readOnly
+                            value={touroviews.touroview_title}
                           />
                         </div>
 
                         <br />
 
-                        <div class="mb-3">
+                        <div className="mb-3">
                           <input
-                            class="form-control"
+                            className="form-control"
                             type="text"
                             placeholder="작성자"
+                            readOnly
+                            value={touroviews.user_id}
                           />
                         </div>
 
@@ -49,9 +81,11 @@ function PricingCom() {
                               </label>
                               <input
                                 style={{ height:'200px' }}
-                                class="form-control"
+                                className="form-control"
                                 type="text"
                                 placeholder="여행지 설명"
+                                readOnly
+                                value={touroviews.touroview_content}
                               />
                             </div>
                           </div>
@@ -69,6 +103,8 @@ function PricingCom() {
                                 style={{ height:'400px' }}
                                 type="text"
                                 className="form-control"
+                                readOnly
+                                value={touroviews.img_name}
                               />
                             </div>
                           </div>
@@ -79,6 +115,8 @@ function PricingCom() {
                                 style={{ height:'192px' }}
                                 type="text"
                                 className="form-control"
+                                readOnly
+                                value={touroviews.img_name}
                               />
                             </div>
                             <div className="mb-3">
@@ -86,6 +124,8 @@ function PricingCom() {
                                 style={{ height:'192px' }}
                                 type="text"
                                 className="form-control"
+                                readOnly
+                                value={touroviews.img_name}
                               />
                             </div>
                           </div>

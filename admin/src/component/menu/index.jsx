@@ -213,7 +213,6 @@ function Menu({ toggleMenu, menu }) {
                 }
                 options={[
                   { link: "touroview-list", title: "Touroview 목록" },
-                  { link: "pricing", title: "Touroview" },
                   // { link: "gallery", title: "Gallery" },
                   // { link: "tour-view", title: "여행지 상세" },
                   // { link: "faq", title: "Faq" },
