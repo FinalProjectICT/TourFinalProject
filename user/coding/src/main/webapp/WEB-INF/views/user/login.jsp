@@ -106,27 +106,11 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="login-with">
                 <h6>SNS 간편로그인</h6>
-                <div class="login-social row">
-                  <div class="col">
-                    <a class="boxes">
-                      <img
-                        src="../assets/images/icon/social/kakao.png"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                      />
-                      <h6>카카오톡 로그인</h6>
-                    </a>
-                  </div>
-                  <div class="col">
-                    <a class="boxes">
-                      <img
-                        src="../assets/images/icon/social/facebook.png"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                      />
-                      <h6>페이스북 로그인</h6>
-                    </a>
-                  </div>
+                <div class="row g-1 mb-2" style="text-align: center;">
+                  <a class="col-6" href="naverLogin" target="_blank">
+                    <img height="50" src="../assets/images/naver_login.PNG"/></a>
+                  <a class="col-6" href="kakaoLogin" target="_blank">
+                    <img height="50" src="../assets/images/kakao_login.PNG"/></a>
                 </div>
                 <div class="divider">
                   <h6>OR</h6>

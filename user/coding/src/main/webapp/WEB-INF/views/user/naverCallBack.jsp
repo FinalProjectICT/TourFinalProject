@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-  <html lang="UTF-8">
+
+<html lang="UTF-8">
 
   <head>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
