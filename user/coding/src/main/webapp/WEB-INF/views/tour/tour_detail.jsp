@@ -52,6 +52,11 @@ prefix="c" %>
   </head>
 
   <body>
+    <!-- 세션 로그인 값 -->
+    <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
+    <input type="hidden" value="${TourData.tour_lati}" id="tour_lati" />
+    <input type="hidden" value="${TourData.tour_longi}" id="tour_longi" />
+
     <!-- pre-loader start -->
     <div class="skeleton_loader">
       <header class="light_header">
@@ -455,7 +460,19 @@ prefix="c" %>
                       <div>
                         <br />
                         <h2>
-                          ${TourData.tour_name} - ${TourData.tour_cate_code}
+                          ${TourData.tour_name} -
+                          <c:choose>
+                            <c:when test="${TourData.tour_cate_code eq 12}"
+                              >관광지</c:when
+                            >
+                            <c:when test="${TourData.tour_cate_code eq 32}"
+                              >숙박업</c:when
+                            >
+                            <c:when test="${TourData.tour_cate_code eq 39}"
+                              >음식점</c:when
+                            >
+                            <c:otherwise>?</c:otherwise>
+                          </c:choose>
                         </h2>
                       </div>
                       <div class="row"><br /></div>
@@ -486,7 +503,8 @@ prefix="c" %>
                           class="btn btn-rounded btn-secondary col-2"
                           data-bs-toggle=""
                           data-placement=""
-                          title=""
+                          title="${TourData.tour_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i
                         ></a>
@@ -562,49 +580,7 @@ prefix="c" %>
                         aria-labelledby="headingTwo"
                         data-bs-parent="#accordion"
                       >
-                        <div class="card-body">
-                          Today we proceed to Toledo - declared as World
-                          Heritage Site by UNESCO. On arrival we visit the
-                          city's most famous monument Santa Maria la Blanca
-                          Synagogue. Then we visit Sword factory. Later we leave
-                          for Seville
-                          <div class="highlight">
-                            <ul>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                breakfast
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                lunch
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                dinner
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/bed.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                night stay in seville
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                        <div class="card-body"></div>
                       </div>
                     </div>
                     <div class="card col-lg-3">
@@ -778,48 +754,7 @@ prefix="c" %>
                         aria-labelledby="headingFive"
                         data-bs-parent="#accordion"
                       >
-                        <div class="card-body">
-                          Today we proceed to Cordoba. On arrival we visit
-                          Mezquita from inside followed by orientation city tour
-                          which includes Roman bridge, Arab waterwheels and
-                          Plaza del Potro. Then we leave for Valencia.
-                          <div class="highlight">
-                            <ul>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                breakfast
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                lunch
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/fork.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                dinner
-                              </li>
-                              <li>
-                                <img
-                                  src="../assets/images/icon/tour/bed.png"
-                                  class="img-fluid blur-up lazyload"
-                                  alt=""
-                                />
-                                night stay in Valencia
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                        <div class="card-body"></div>
                       </div>
                     </div>
                   </div>
@@ -1425,7 +1360,7 @@ prefix="c" %>
                           <button
                             class="btn btn-warning btn-rounded dropdown-toggle"
                             type="button"
-                            id="dropdownMenuButton1"
+                            id="dropdownStarCount"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
                           >
@@ -1433,7 +1368,7 @@ prefix="c" %>
                           </button>
                           <ul
                             class="dropdown-menu"
-                            aria-labelledby="dropdownMenuButton1"
+                            aria-labelledby="dropdownStarCount"
                           >
                             <li>
                               <a class="dropdown-item" href="#"
@@ -2429,5 +2364,14 @@ prefix="c" %>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 찜리스트 추가용 js-->
+    <script src="../assets/js/addWishList.js"></script>
+
+    <!-- 날씨 API (위도, 경도로 4일정도) js -->
+    <script src="../assets/js/tourDetailWeather.js"></script>
+
+    <!-- 여행지 API 주변 관광 정보 & 여행지 API 상세 내용 js -->
+    <script src="../assets/js/tourDetailData.js"></script>
   </body>
 </html>

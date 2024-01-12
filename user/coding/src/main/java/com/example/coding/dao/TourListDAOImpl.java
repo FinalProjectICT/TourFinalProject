@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.WishListVO;
 
 @Repository
 public class TourListDAOImpl implements TourListDAO{
@@ -27,6 +28,20 @@ public class TourListDAOImpl implements TourListDAO{
     @Override
     public TourVO getTourData(TourVO vo) {
         return mybatis.selectOne("selectOne", vo);
+    }
+
+    @Override
+    public String addWishList(WishListVO vo) {
+        int res = mybatis.insert("addWishList", vo);
+        return String.valueOf(res);
+    }
+
+    @Override
+    public String ckWishList(WishListVO vo) {
+        if (mybatis.selectOne("ckWishList", vo) == null)
+        {
+            return "0";
+        }else return "1";
     }
 
 }

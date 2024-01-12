@@ -14,6 +14,7 @@ public class MainVO {
     private String tour_content;        // 여행지 설명
     private String tour_img1_path;      // 여행지 이미지 경로
     private String tour_cate_code;      // 여행지 타입 코드(숙박,음식점,관광지)
+    private String tour_num;            // 여행지 번호
 
 
   

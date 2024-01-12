@@ -7,6 +7,7 @@ import java.util.List;
 import com.example.coding.dao.TourListDAO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.WishListVO;
 
 @Service
 public class TourListServiceImpl implements TourListService{
@@ -27,6 +28,16 @@ public class TourListServiceImpl implements TourListService{
     @Override
     public TourVO getTourData(TourVO vo) {
         return tourListDAO.getTourData(vo);
+    }
+
+    @Override
+    public String addWishList(WishListVO vo) {
+        return tourListDAO.addWishList(vo);
+    }
+
+    @Override
+    public String ckWishList(WishListVO vo) {
+        return tourListDAO.ckWishList(vo);
     }
 
 }
