@@ -25,7 +25,7 @@ public class AdminUserJpaVO {
     private String userName;        // 이름
 
     @Column(name = "user_pass")
-    private Integer userPass ;   // 비밀 번호
+    private String userPass ;   // 비밀 번호
 
     @Column(name = "user_tel")
     private String userTel ;  // 전화 번호

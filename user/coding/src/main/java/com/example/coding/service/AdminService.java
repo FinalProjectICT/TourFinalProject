@@ -21,6 +21,10 @@ public interface AdminService {
     
     // 후기 게시판 
     List<AdminVO> touroviewList();
+
+    // 후기 게시판 디테일
+    AdminVO touroViewNum(AdminVO vo); 
+
     
     
 }

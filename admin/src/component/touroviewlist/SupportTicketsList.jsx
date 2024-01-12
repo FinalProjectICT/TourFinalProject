@@ -2,7 +2,7 @@ import React, { useEffect,useState } from "react";
 import SelectInput from "../form/SelectInput";
 import { ticketsList } from "../../data/ticketsList";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SupportTicketsList() {
@@ -12,17 +12,32 @@ function SupportTicketsList() {
   const current = page * show;
   const previous = current - show;
 
-  const [viewLists, setViewLists] = useState([]);
+  const [touroviews, setTouroviews] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   const baseUrl = "http://localhost:8080";
+  const navigate = useNavigate();
+  
+  const detailTouroviewNum = (e,touroview_num) => {
+    e.preventDefault(); // a 태그의 기본 기능 막기
+    axios.get(`${baseUrl}/tour-list/touroviewNum/${touroview_num}`)
+    .then((result) => {
+      const tourDetails = result.data;
+    })
+    .catch((error) => {
+      console.error('에러 발생:', error);
+    }); 
+    navigate(`/pricing/${touroview_num}`);
+  }
+
+
 
   useEffect(() => {
     axios.get(baseUrl+"/touroview-list/touroviewList").then((result) => {
-      const viewLists = result.data;
-      console.log(viewLists);
-      setViewLists([...viewLists]);
-      console.log(viewLists+"1");
+      const touroviews = result.data;
+      console.log(touroviews);
+      setTouroviews([...touroviews]);
+      console.log(touroviews);
     });
   }, []);
 
@@ -80,6 +95,9 @@ function SupportTicketsList() {
                     <th className="crancy-tab le__column-1 crancy-table__h1">
                       회원 ID
                     </th>
+                    <th className="crancy-tab le__column-1 crancy-table__h1">
+                      여행지
+                    </th>
                     <th className="crancy-table__column-2 crancy-table__h2">
                       제목
                     </th>
@@ -87,7 +105,7 @@ function SupportTicketsList() {
                       내용
                     </th>
                     <th className="crancy-table__column-4 crancy-table__h4">
-                      등록날짜
+                      등록 및 수정 날짜
                     </th>
                     <th className="crancy-table__column-5 crancy-table__h5">
                       좋아요 수
@@ -99,54 +117,53 @@ function SupportTicketsList() {
                 </thead>
                 {/* <!-- crancy Table Body --> */}
                 <tbody className="crancy-table__body">
-                  {ticketsList?.map((ticket, index) => {
-                    const current = page * show;
-                    const previous = current - show;
-                    if (
-                      previous > 0 &&
-                      index + 1 > previous &&
-                      index + 1 <= current
-                    ) {
-                      return (
-                        <tr key={index + "key"}>
+                  {touroviews?.map((touroview) => (
+                        <tr key={touroview.touroview_num}>
+                          <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
+                            <div className="crancy-table__product--id">
+                              <p className="crany-table__product--number">
+                                <a to="/ticket-details">{touroview.user_id?.toString()}</a>
+                              </p>
+                            </div>
+                          </td>
                           <td className="crancy-table__column-1 crancy-table__data-1">
                             <div className="crancy-table__product--id">
                               <p className="crany-table__product--number">
-                                <Link to="/ticket-details">#{ticket.id}</Link>
+                                <a to="/ticket-details">{touroview.tour_name?.toString()}</a>
                               </p>
                             </div>
                           </td>
                           <td className="crancy-table__column-2 crancy-table__data-2">
                             <h5 className="crancy-table__inner--title">
-                              <Link to="/ticket-details">{ticket.subject}</Link>
+                              <a to="/ticket-details">{touroview.touroview_title?.toString()}</a>
                             </h5>
                           </td>
                           <td className="crancy-table__column-3 crancy-table__data-3">
                             <p className="crancy-table__text crancy-table__time">
-                              {ticket.date}
+                              {touroview.touroview_content?.toString()}
                             </p>
                           </td>
                           <td className="crancy-table__column-4 crancy-table__data-4">
                             <h5 className="crancy-table__inner--title">
-                              {ticket.customer}
+                            {touroview.touroview_update ? `${touroview.touroview_update}` : ` ${touroview.touroview_regdate}`}
                             </h5>
                           </td>
                           <td className="crancy-table__column-5 crancy-table__data-5">
                             <div
                               className={`crancy-table__status ${
-                                ticket.status === "Cancel"
+                                touroview.status === "Cancel"
                                   ? "crancy-table__status--cancel"
-                                  : ticket.status === "Pending"
+                                  : touroview.status === "Pending"
                                   ? "crancy-table__status--pending"
                                   : ""
                               }`}
                             >
-                              {ticket.status}
+                              {touroview.like_count}
                             </div>
                           </td>
                           <td className="crancy-table__column-6 crancy-table__data-6">
                             <div className="crancy-flex-between">
-                              <h5 className="crancy-table__inner--title">High</h5>
+                              <h5 className="crancy-table__status crancy-table__status--cancel">{touroview.report_count}</h5>
                               <div className="crancy-chatbox__toggle">
                                 <svg
                                   width="6"
@@ -172,80 +189,7 @@ function SupportTicketsList() {
                             </div>
                           </td>
                         </tr>
-                      );
-                    } else if (page == 1) {
-                      return (
-                        index < page * show && (
-                          <tr key={index + "key"}>
-                            <td className="crancy-table__column-1 crancy-table__data-1">
-                              <div className="crancy-table__product--id">
-                                <p className="crany-table__product--number">
-                                  <Link to="/ticket-details">#{ticket.id}</Link>
-                                </p>
-                              </div>
-                            </td>
-                            <td className="crancy-table__column-2 crancy-table__data-2">
-                              <h5 className="crancy-table__inner--title">
-                                <Link to="/ticket-details">{ticket.subject}</Link>
-                              </h5>
-                            </td>
-                            <td className="crancy-table__column-3 crancy-table__data-3">
-                              <p className="crancy-table__text crancy-table__time">
-                                {ticket.date}
-                              </p>
-                            </td>
-                            <td className="crancy-table__column-4 crancy-table__data-4">
-                              <h5 className="crancy-table__inner--title">
-                                {ticket.customer}
-                              </h5>
-                            </td>
-                            <td className="crancy-table__column-5 crancy-table__data-5">
-                              <div
-                                className={`crancy-table__status ${
-                                  ticket.status === "Cancel"
-                                    ? "crancy-table__status--cancel"
-                                    : ticket.status === "Pending"
-                                    ? "crancy-table__status--pending"
-                                    : ""
-                                }`}
-                              >
-                                {ticket.status}
-                              </div>
-                            </td>
-                            <td className="crancy-table__column-6 crancy-table__data-6">
-                              <div className="crancy-flex-between">
-                                <h5 className="crancy-table__inner--title">
-                                  High
-                                </h5>
-                                <div className="crancy-chatbox__toggle">
-                                  <svg
-                                    width="6"
-                                    height="25"
-                                    viewBox="0 0 4 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 14)"
-                                    ></circle>
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 8)"
-                                    ></circle>
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 2)"
-                                    ></circle>
-                                  </svg>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        )
-                      );
-                    }
-                  })}
+                ))}
                 </tbody>
                 {/* <!-- End crancy Table Body --> */}
               </table>
@@ -301,7 +245,7 @@ function SupportTicketsList() {
                       </a>
                     </li>
                     {Array.from(
-                      Array(Math.ceil(ticketsList.length / show)).keys("n")
+                      Array(Math.ceil(touroviews.length / show)).keys("n")
                     ).map((id, index) => (
                       <li
                         className={`paginate_button page-item ${
@@ -322,11 +266,11 @@ function SupportTicketsList() {
                     ))}
                     <li
                       className={`paginate_button page-item next ${
-                        page === ticketsList.length % show < 1 ? "disabled" : ""
+                        page === touroviews.length % show < 1 ? "disabled" : ""
                       }`}
                       id="crancy-table__main_next"
                       onClick={() =>
-                        page < Math.ceil(ticketsList.length / show) &&
+                        page < Math.ceil(touroviews.length / show) &&
                         setPage(page + 1)
                       }
                     >
