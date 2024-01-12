@@ -173,7 +173,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
-                    <form action="abc" method="post">
+                    <form th:action="touroview_detail" method="post" id="touroview" enctype="multipart/form-data">
 
                       <!-- 이미지만 보여주는 테이블-->
                       <div class="image_section ">
@@ -232,20 +232,21 @@
                                 <div class="description-section">
                                     <div class="description-details">
                                         <div class="desc-box">
-                                            
                                             <div class="col-xl-3 col-lg-4" id="booking">
                                                 <div class="sticky-cls">
                                                     <div class="abcddessadsa">
                                                         <div class="single-sidebar">
-                                                            <div class="selection-section"> 
+                                                            <div class="selection-section">
+                                                              <!-- 작성 날짜 --> 
                                                                 <div class="price-part">
                                                                     <div class="left-part">
-                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert">
+                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert" name="touroview_regdate">
                                                                     </div>
                                                                 </div>  
                                                                 <br/>
+                                                                <!-- 작성자-->
                                                                 <div class="price-part">
-                                                                    작성자<input type="text" class="writer-insert" id ="writerNumber" placeholder="작성자(세션값)">
+                                                                    작성자<input type="text" class="writer-insert" id ="writerNumber" value="<%= session.getAttribute("user_id") %>" readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -257,14 +258,14 @@
                                                 <input type="text" id="destinationInput" placeholder="search 후 선택 된 여행지 이름 띄워">
                                                 <br/>
                                                 <br/>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="touroview_title"
                                                 placeholder="게시글 제목 ">
                                                 <br/>
-                                                <textarea  class="form-control" id="exampleFormControlInput111"
-                                                placeholder="게시글 상세정보 " ></textarea>
+                                                <textarea  class="form-control" id="exampleFormControlInput111" name="touroview_content"
+                                                placeholder="게시글 상세정보" ></textarea>
                                                 <br/>
                                                 <div>
-                                                    <input type="submit" id = "info_btn" value=" 등록 " style="background-color: #d9dadb;">
+                                                    <input type="submit" id = "info_btn" value="등록" style="background-color: #d9dadb;" onclick="submitForm();">
                                                 </div>
                                             </div>
                                         </div>
@@ -290,18 +291,27 @@
                                                 <form>
                                                     <div class="row w-100">
                                                         <div class="form-group col p-0">
-                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()"
-                                                                placeholder="여행지 검색 ">
-
-                                                                <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
-                                                                <ul id="searchResults"></ul>
+                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
+                                                                
+                                                            <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
+                                                            <ul id="searchResults">
+                                                            <c:forEach var="tour" items="${tourvo}">
+                                                              <li onclick="showDestinationInfo('${tour.tour_name}', '${tour.tour_addr}')">
+                                                                ${tour.tour_name} - ${tour.tour_addr}
+                                                            </li>
+                                                            </c:forEach>
+                                                          </ul>
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="menu-part page-section">search 버튼 누르면 떠야 되는 곳 </div>
+                                        <div class="menu-part page-section">
+                                          <div id="selectedDestinationInfo">
+                                            <!-- 선택한 여행지 정보 여기에 표시-->
+                                          </div>
+                                        </div>
                                     </div> 
                                     
                                     <br/>
@@ -602,7 +612,7 @@
         });
     </script>
 
-    <!-- 이미지 파일 업로드(미리보기)-->
+    <!-- 이미지 파일 (미리보기)-->
     <script>
       function setThumbnail(event, previewImageId) {
         var reader = new FileReader();
@@ -620,38 +630,92 @@
     </script>
 
     <!-- 후기 게시판 db에 등록-->
-    <script>
-      // 폼이 서브밋될 때 실행될 함수
-      document.getElementById('about').addEventListener('submit',function(event){
-        // 기본 서브밋 동작 막기
-        event.preventDefault();
+    <!-- <script>
+      const formData = new FormData(document.getElementById("touroview"));
+      
+      function submitForm(){
 
+        // 폼 데이터를 FormData 객체로 가져옴
+        
         // Ajax 사용해 서버에 등록 데이터 전송
         $.ajax({
           type:   'POST',
-          url:    '/submitForm',
-          data: {
-            destination: $('#destinationInput').val(),
-            title:       $('exampleFormControlInput1').val(),
-            details:     $('exampleFormControlInput111').val()
-          },
-          success: function (response){
-            // 등록 성공 -> 서버에서 반환된 데이터에 따라 동작 수행
-            if(response.success) {
-              // 등록 성공 시 페이지 이동
-              window.location.href = 'touroview/touroview_detail/' + response.touroviewId;
-            } else {
-              // 등록 실패 시 사용자에게 오류 메시지
-              alert('등록에 실패했습니다.');
+          url:    'touroview/submitForm', // 서버로 데이터를 보낼 주소
+          data:   formData,
+          processData : false,
+          contentType : false,
+          success: function (response) {
+                // 등록 성공 시
+                alert('입력되었습니다.');
+                // 페이지 이동
+                window.location.href = '/touroview_detail';
+            },
+            error: function (xhr, status, error) {
+                // Ajax 오류 처리
+                alert('서버와의 통신 중 오류가 발생했습니다.' + error);
+                // 페이지 이동
+                window.location.href = '/touroview_insert'; // 오류 발생 시 이동할 페이지
             }
-          },
-          error: function(){
-            // Ajax 오류 처리
-            alert('서버와의 통신 중 오류가 발생했습니다.');
-          }
         });
+      }
+    </script> -->
+
+    <!-- 여행지 검색하기 -->
+    <script>
+      function showDestinationInfo(name, address){
+        // 선택한 여행지 정보 표시
+        var selectedDestinationInfo = document.getElementById("selectedDestinationInfo");
+        selectedDestinationInfo.innerHTML = "선택한 여행지: " + name + " | " +" 주소: " + address;
+      }
+
+      function appendSearchResults(results){
+        var searchResultsList = document.getElementById("searchResults");
+        searchResultsList.innerHTML = ""; // 기존 결과 초기화
+        
+        // 결과 동적 추가
+        for (let i = 0; i < results.length; i++){
+          var resultItem = document.createElement("li");
+          resultItem.innerHTML = results[i].tour_name + " - " + results[i].tour_addr;
+        
+          // 클릭 이벤트 핸들러 추가
+          resultItem.onclick = function(){
+            // 선택한 여행지 정보 표시
+            showDestinationInfo(results[i].tour_name, results[i].tour_addr);
+          };
+
+          searchResultsList.appendChild(resultItem);
+        }
+      }
+
+      // 여행지 검색 함수
+      function searchDestinations(){
+        var keyword = document.getElementById("searchInput").value;
+
+        // Ajax 사용해 서버에서 검색 결과 가져오기
+        $.ajax({
+            type: 'POST',
+            url: '/touroview/search',
+            data: {
+                keyword: keyword
+            },
+            success: function (results) {
+                // 성공 시 검색 결과를 동적으로 추가
+                appendSearchResults(results);
+            },
+            error: function () {
+                // 오류 처리
+                alert('서버와의 통신 중 오류가 발생했습니다.');
+            }
+        });
+      }
+
+      // 페이지 로드 시 초기 검색 결과 표시
+      $("#searchButton").click(function() {
+      searchDestinations();
       });
     </script>
+    
+    <!-- 이미지 파일 db 저장하기-->>    
 
 
 

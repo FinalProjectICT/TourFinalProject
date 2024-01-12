@@ -3,17 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- *************************** dao interface 경로+이름 -->
-<mapper namespace="com.example.coding.dao.TourDAO">
+<mapper namespace="com.example.coding.dao.TouroviewDAO">
 
-
-
-
-
-
-
-
-
-
+<select id="findByKeyword" parameterType="java.lang.String" resultType="TourVO"> 
+    SELECT * 
+    FROM tour
+    WHERE tour_name LIKE #{keyword} OR tour_addr LIKE #{keyword};
+</select>
 
   
 </mapper>

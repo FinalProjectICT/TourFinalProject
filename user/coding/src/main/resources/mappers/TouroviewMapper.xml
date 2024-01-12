@@ -6,16 +6,26 @@
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
 <!-- 여행지 찾기 하고 검색 해당 여행지 목록 가져오긴-->
-<select id="searchTouroviews" resultMap="com.example.coding.domain.TouroviewVO" parameterType="String">
+<select id="searchTouroview" parameterType="String">
     SELECT * 
     FROM tour 
     WHERE tour_name LIKE '%' || #{keyword} || '%' OR tour_addr LIKE '%' || #{keyword} || '%';
 </select>
 
-<!-- 후기 게시물 작성 후 입력-->
-<insert id="insertTouroview" parameterType="com.example.coding.domain.TouroviewVO">
-    INSERT INTO touroview (touroview_num, user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
-    VALUES (#{touroview_num}, #{user_id}, #{tour_num}, #{touroview_title}, #{touroview_regdate}, #{touroview_update}, #{touroview_content});
+<!-- 여행지 목록 -->
+<select id="getAllTouroview" resultType="TouroviewVO">
+        SELECT * FROM touroview;
+</select>
+
+<!-- 후기 게시물 작성 후 db저장-->
+<insert id="insertTouroview">
+        INSERT INTO touroview (touroview_num, user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
+        VALUES (#{touroviewNum}, #{userId}, #{tourNum}, #{touroviewTitle}, #{touroviewRegdate}, #{touroviewUpdate}, #{touroviewContent});
 </insert>
   
+<insert id="insertviewImage" parameterType="ImgVO">
+        INSERT INTO img (img_name, img_real_name, img_size, img_width, img_length)
+        VALUES (#{imgName}, #{imgRealName}, #{imgSize}, #{imgWidth}, #{imgLength})
+</insert>
+
 </mapper>
