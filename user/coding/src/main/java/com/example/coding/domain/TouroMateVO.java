@@ -26,6 +26,4 @@ public class TouroMateVO {
     private String touro_mate_date; // 작성 날짜, 수정 날짜
 
 
-
-
 }

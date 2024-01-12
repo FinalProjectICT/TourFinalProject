@@ -23,4 +23,15 @@
         SELECT COUNT(*) FROM touro_mate;
     </select>
 
+    <!-- insert 페이지 값 저장 -->
+    <insert id="registerCourse" parameterType="TouroMateVO">
+        INSERT INTO touro_mate (touro_mate_title, touro_mate_count, touro_mate_content,
+        touro_mate_name1, touro_mate_name2, touro_mate_name3,
+        touro_mate_addr1, touro_mate_addr2, touro_mate_addr3)
+        
+        VALUES (#{touro_mate_title}, #{touro_mate_count}, #{touro_mate_content},
+        #{touro_mate_name1}, #{touro_mate_name2}, #{touro_mate_name3},
+        #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3})
+    </insert>
+
 </mapper>

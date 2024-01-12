@@ -12,6 +12,7 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="rica">
     <meta name="keywords" content="rica">
     <meta name="author" content="rica">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06fc5245a1f95d2f4b68d45eedf183cd"></script>
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
     <title>Rica</title>
 
@@ -57,7 +58,17 @@ pageEncoding="UTF-8"%>
     <!-- 카카오 검색 및 목록 -->
     <!-- <script src="../assets/js/kakaoapi/kakaoapi.js"></script> -->
 
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
 
+
+    <style>
+        .map_wrap {position:relative;width:100%;height:350px;}
+        .title {font-weight:bold;display:block;}
+        .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+        .hAddr-add {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
+        #centerAddr {display:block;margin-top:2px;font-weight: normal;}
+        .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+    </style>
         
 </head>
 
@@ -84,553 +95,518 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- breadcrumb end -->
 
-
-    <!-- section start -->
-    <section class="single-section small-section bg-inner">
-        <div class="container" data-sticky_parent>
-            <form>
-            <div class="row">
-                <div class="col-xl-9 col-lg-8">
-                    <div class="checkout-process">
-                        
-                        <div class="checkout-box">
-                            <h4 class="title">여행 코스 등록</h4>
-                            <div class="review-section">
-                                <div class="review_box">
-                                    <div class="flight_detail payment-gateway">
-                                        <div class="accordion" id="accordionExample">
-                                            <div class="card">
-                                                <div class="card-header" id="h_one">
-                                                    <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#one"
-                                                        aria-expanded="true" aria-controls="one">
-                                                        <label for='r_one'>
-                                                            <input class="radio_animated ms-0" type='radio' checked
-                                                                id='r_one' name='occupation' value='Working' required />
-                                                                여행 코스 정보
-                                                        </label>
+    <form action="/touromate/register-course" method="post" id="youtFormId">
+        <!-- section start -->
+        <section class="single-section small-section bg-inner">
+            <div class="container" data-sticky_parent>
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="checkout-process">
+                            <div class="checkout-box">
+                                <h4 class="title">여행 코스 등록</h4>
+                                <div class="review-section">
+                                    <div class="review_box">
+                                        <div class="flight_detail payment-gateway">
+                                            <div class="accordion" id="accordionExample">
+                                                <div class="card">
+                                                    <div class="card-header" id="h_one">
+                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#one"
+                                                            aria-expanded="true" aria-controls="one">
+                                                            <label for='r_one'>
+                                                                <input class="radio_animated ms-0" type='radio' checked
+                                                                    id='r_one' name='occupation' value='Working' required />
+                                                                    여행 코스 정보
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div id="one" class="collapse show" aria-labelledby="h_one"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="card-body">
+                                                                <div class="form-group">
+                                                                    <label for="name">제목</label>
+                                                                    <input type="text" class="form-control" id="name" name="touro_mate_title">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="number">선호 여행 유형</label>
+                                                                    <input type="text" class="form-control" id="number" >
+                                                                    <!-- <img src="../assets/images/creditcards.png" alt=""
+                                                                        class="img-fluid blur-up lazyload"> -->
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="number">상세 내용</label>
+                                                                    <textarea  class="form-control" id="number" name="touro_mate_content" style="height: 300px;"></textarea>
+                                                                    <!-- <img src="../assets/images/creditcards.png" alt=""
+                                                                        class="img-fluid blur-up lazyload"> -->
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div id="one" class="collapse show" aria-labelledby="h_one"
-                                                    data-bs-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                            <div class="form-group">
-                                                                <label for="name">제목</label>
-                                                                <input type="text" class="form-control" id="name">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="number">선호 여행 유형</label>
-                                                                <input type="text" class="form-control" id="number">
-                                                                <!-- <img src="../assets/images/creditcards.png" alt=""
-                                                                    class="img-fluid blur-up lazyload"> -->
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="number">상세 내용</label>
-                                                                <input type="text" class="form-control" id="number" style="height: 300px;">
-                                                                <!-- <img src="../assets/images/creditcards.png" alt=""
-                                                                    class="img-fluid blur-up lazyload"> -->
-                                                            </div>
-                                                            <!-- <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="month">month</label>
-                                                                    <select id="month" class="form-control">
-                                                                        <option selected>Month...</option>
-                                                                        <option>January</option>
-                                                                        <option>February</option>
-                                                                        <option>March</option>
-                                                                        <option>April</option>
-                                                                        <option>May</option>
-                                                                        <option>June</option>
-                                                                        <option>July</option>
-                                                                        <option>August</option>
-                                                                        <option>September</option>
-                                                                        <option>October</option>
-                                                                        <option>November</option>
-                                                                        <option>December</option>
-                                                                    </select>
+                                                <div class="card">
+                                                    <div class="card-header" id="h_two">
+                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two"
+                                                            aria-expanded="true" aria-controls="two">
+                                                            <label for='r_two'>
+                                                                <input class="radio_animated ms-0" type='radio' id='r_two'
+                                                                    name='occupation' value='Working' required /> 이미지 업로드
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div id="two" class="collapse" aria-labelledby="h_two"
+                                                        data-bs-parent="#accordionExample">
+                                                        <div class="card-body">
+                                                                <div class="dropzone" id="singleFileUpload">
+                                                                    <div class="dz-message needsclick">
+                                                                        <i class="icon-cloud-up"></i>
+                                                                        <h6>Drop files here or click to upload.</h6>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="year">year</label>
-                                                                    <select id="year" class="form-control">
-                                                                        <option selected>Year...</option>
-                                                                        <option>...</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="cvv">cvv</label>
-                                                                    <input type="password" maxlength="4"
-                                                                        class="form-control" id="cvv">
-                                                                    <img src="../assets/images/cvv.png"
-                                                                        class="img-fluid blur-up lazyload" alt="">
-                                                                </div>
-                                                            </div> -->
-                                                            <!-- <div class="payment-btn">
-                                                                <button
-                                                                    onclick="window.location.href='restaurant-order-success.html';"
-                                                                    type="button" class="btn btn-solid color1">make
-                                                                    payment</button>
-                                                            </div> -->
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="card">
-                                                <div class="card-header" id="h_two">
-                                                    <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two"
-                                                        aria-expanded="true" aria-controls="two">
-                                                        <label for='r_two'>
-                                                            <input class="radio_animated ms-0" type='radio' id='r_two'
-                                                                name='occupation' value='Working' required /> 이미지 업로드
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div id="two" class="collapse" aria-labelledby="h_two"
-                                                    data-bs-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                            <div class="dropzone" id="singleFileUpload">
-                                                                <div class="dz-message needsclick">
-                                                                    <i class="icon-cloud-up"></i>
-                                                                    <h6>Drop files here or click to upload.</h6>
-                                                                </div>
-                                                            </div>
-                                                            <!-- <div class="form-group">
-                                                                <label for="c-name">name on card</label>
-                                                                <input type="text" class="form-control" id="c-name">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="c-number">card number</label>
-                                                                <input type="text" class="form-control" id="c-number">
-                                                                <img src="../assets/images/creditcards.png" alt=""
-                                                                    class="img-fluid blur-up lazyload">
-                                                            </div> -->
-                                                            <!-- <div class="row">
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="c-month">month</label>
-                                                                    <select id="c-month" class="form-control">
-                                                                        <option selected>Month...</option>
-                                                                        <option>January</option>
-                                                                        <option>February</option>
-                                                                        <option>March</option>
-                                                                        <option>April</option>
-                                                                        <option>May</option>
-                                                                        <option>June</option>
-                                                                        <option>July</option>
-                                                                        <option>August</option>
-                                                                        <option>September</option>
-                                                                        <option>October</option>
-                                                                        <option>November</option>
-                                                                        <option>December</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="c-year">year</label>
-                                                                    <select id="c-year" class="form-control">
-                                                                        <option selected>Year...</option>
-                                                                        <option>...</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <label for="c-cvv">cvv</label>
-                                                                    <input type="password" class="form-control"
-                                                                        maxlength="4" id="c-cvv">
-                                                                    <img src="../assets/images/cvv.png"
-                                                                        class="img-fluid blur-up lazyload" alt="">
-                                                                </div>
-                                                            </div> -->
-                                                            <!-- <div class="payment-btn">
-                                                                <button
-                                                                    onclick="window.location.href='restaurant-order-success.html';"
-                                                                    type="button" class="btn btn-solid color1">make
-                                                                    payment</button>
-                                                            </div> -->
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- <div class="card"> -->
-                                                <!-- <div class="card-header" id="h_three">
-                                                    <div class="btn btn-link" data-bs-toggle="collapse"
-                                                        data-bs-target="#three" aria-expanded="true" aria-controls="three">
-                                                        <label for='r_three'>
-                                                            <input class="radio_animated ms-0" type='radio' id='r_three'
-                                                                name='occupation' value='Working' required /> net
-                                                            banking
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div id="three" class="collapse" aria-labelledby="h_three"
-                                                    data-bs-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <form class="wallet-section">
-                                                            <h6>select popular banks</h6>
-                                                            <div class="row">
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios1"
-                                                                        value="option1" checked>
-                                                                    <label class="form-check-label" for="Radios1">
-                                                                        Industrial & Commercial Bank
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios2"
-                                                                        value="option2">
-                                                                    <label class="form-check-label" for="Radios2">
-                                                                        Construction Bank Corp.
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios3"
-                                                                        value="option2">
-                                                                    <label class="form-check-label" for="Radios3">
-                                                                        Agricultural Bank
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios4"
-                                                                        value="option2">
-                                                                    <label class="form-check-label" for="Radios4">
-                                                                        HSBC Holdings
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios5"
-                                                                        value="option2">
-                                                                    <label class="form-check-label" for="Radios5">
-                                                                        Bank of America
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios1" id="Radios6"
-                                                                        value="option2">
-                                                                    <label class="form-check-label" for="Radios6">
-                                                                        JPMorgan Chase & Co.
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group mt-3">
-                                                                <label for="net-b">select bank</label>
-                                                                <select id="net-b" class="form-control">
-                                                                    <option selected>Choose Bank...</option>
-                                                                    <option>...</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="payment-btn">
-                                                                <button
-                                                                    onclick="window.location.href='restaurant-order-success.html';"
-                                                                    type="button" class="btn btn-solid color1">make
-                                                                    payment</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div> -->
-                                            <!-- </div> -->
-                                            <!-- <div class="card"> -->
-                                                <!-- <div class="card-header" id="h_four">
-                                                    <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#four"
-                                                        aria-expanded="true" aria-controls="four">
-                                                        <label for='r_four'>
-                                                            <input class="radio_animated ms-0" type='radio' id='r_four'
-                                                                name='occupation' value='Working' required /> my wallet
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div id="four" class="collapse" aria-labelledby="h_four"
-                                                    data-bs-parent="#accordionExample">
-                                                    <div class="card-body">
-                                                        <form class="wallet-section">
-                                                            <h6>select your wallet</h6>
-                                                            <div class="row">
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        value="option1" checked>
-                                                                    <label class="form-check-label">
-                                                                        Adyen
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        value="option2">
-                                                                    <label class="form-check-label">
-                                                                        Airtel Money
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        id="exampleRadios3" value="option2">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios3">
-                                                                        AlliedWallet
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        id="exampleRadios4" value="option2">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios4">
-                                                                        Apple Pay
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        id="exampleRadios5" value="option2">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios5">
-                                                                        Brinks
-                                                                    </label>
-                                                                </div>
-                                                                <div class="form-check col-md-6">
-                                                                    <input class="form-check-input radio_animated"
-                                                                        type="radio" name="exampleRadios2"
-                                                                        id="exampleRadios6" value="option2">
-                                                                    <label class="form-check-label"
-                                                                        for="exampleRadios6">
-                                                                        CardFree
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                            <div class="payment-btn">
-                                                                <button
-                                                                    onclick="window.location.href='restaurant-order-success.html';"
-                                                                    type="button" class="btn btn-solid color1">make
-                                                                    payment</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div> -->
-                                            <!-- </div> -->
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="checkout-box">
-                            <h4 class="title">여행 코스 선택(최대 3개):</h4>
-                            <div class="sub-title">
-                                <h5>여행 코스</h5>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#add-address" class="add-new">+ 여행코스 추가</a>
-                            </div>
-                            <div class="row address-sec">
-                                <div class="select-box active col-xl-4 col-md-6">
-                                    <div class="address-box">
-                                        <div class="top">
-                                            <h6>여행지명</h6>
-                                        </div>
-                                        <div class="middle">
-                                            <div class="address">
-                                                <p>여행지 주소</p>
-                                            </div>
-                                            <!-- <div class="number">
-                                                <p>mobile: <span>+91 123 - 456 - 7890</span></p>
-                                            </div> -->
-                                        </div>
-                                        
-                                        <div class="bottom">
-                                            <!-- 여행코스 수정 버튼 -->
-                                            <a href="javascript:void(0)" data-bs-target="#edit-address" data-bs-toggle="modal"
-                                                class="bottom_btn">edit</a>
-                                            <!-- 여행코스 삭제 버튼 -->
-                                            <a href="#" class="bottom_btn">remove</a>
-                                        </div>
-                                    </div>
+                            <div class="checkout-box">
+                                <h4 class="title">여행 코스 선택(최대 3개):</h4>
+                                <div class="sub-title">
+                                    <h5>여행 코스</h5>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#add-address" class="add-new">+ 여행코스 추가</a>
+                                </div>
+                                <div class="row address-sec" id="travel-courses">
+                                    <!-- 여행 코스가 추가되면 동적으로 생성될 영역 -->
+                                    
                                 </div>
                                 
+                                <script>
+                                    // 여행 코스 정보를 저장할 배열
+                                    var travelCourses = [];
+                            
+                                    // 여행코스 추가 버튼 클릭 시 호출되는 함수
+                                    function addNewCourse() {
+                                        // 여행코스 추가 모달 초기화 작업 수행 (맵 초기화 등)
+                                        initializeMap_add();
+                            
+                                        // 여행코스 추가 모달 띄우기
+                                        $('#add-address').modal('show');
+                                    }
+                                
+                                    // 여행코스 등록 버튼 클릭 시 호출되는 함수
+                                    function registerCourse() {
+                                        // 선택한 위치의 주소를 가져옵니다.
+                                        var selectedAddressElement = document.getElementById('detailAddr_add');
+                                        
+                                        if (selectedAddressElement) {
+                                            var selectedAddress = selectedAddressElement.textContent.trim();
+                                            console.log("Selected Address:", selectedAddress);
+
+                                            // 여행 코스 정보를 배열에 추가
+                                            var courseInfo = {
+                                                name: "여행지", // 여행지명을 적절한 값으로 변경
+                                                address: selectedAddress
+                                            };
+
+                                            travelCourses.push(courseInfo);
+
+                                        // 모달 닫기
+                                        $('#add-address').modal('hide');
+
+                                        // 코스가 추가되었으므로 주소를 표시하는 부분을 업데이트합니다.
+                                        var detailAddr = !!selectedAddress ? '<div>' + selectedAddress + '</div>' : '';
+                                        $('.address').html(detailAddr);
+
+                                        // 추가된 여행 코스를 동적으로 생성하여 화면에 표시
+                                        displayCourses();
+                                        } else {
+                                            console.error("Error: Cannot find element with ID 'detailAddr_add'");
+                                        }
+
+                                    }
+                           
+                                    // 여행코스를 동적으로 생성하여 화면에 표시하는 함수
+                                    function displayCourses() {
+                                        var coursesContainer = $('#travel-courses');
+                                        coursesContainer.empty(); // 기존 코스 삭제
+
+                                        for (var index = 0; index < travelCourses.length; index++) {
+                                            var course = travelCourses[index];
+                                            var selectedAddress = course.address;
+                                            var detailAddrId = 'detailAddr_' + (index+1);
+                                            var detailAddr = selectedAddress;
+                                        // travelCourses.forEach(function (course, index) {
+                                        //     var selectedAddress = course.address;
+                                        //     var detailAddrId = 'detailAddr_' + index;
+                                        //     var detailAddr = !!selectedAddress ? '<div>' + selectedAddress + '</div>' : '';
+
+                                            console.log("selectedAddress:", selectedAddress);
+                                            console.log("detailAddrId:", detailAddrId);
+                                            console.log("detailAddr:", detailAddr);
+                                            console.log("course: ", course);
+                                            console.log("1", course[0]);
+
+                                            var courseHtml = `
+                                                <div class="select-box active col-xl-4 col-md-6">
+                                                    <div class="address-box">
+                                                        <div class="top">
+                                                            <input type="text" class="form-control" id="detailname_${'${index+1}'}" name="touro_mate_name${'${index+1}'}">
+                                                        </div>
+                                                        <div class="middle">
+                                                            <!-- 여기에 도로명 주소 추가 -->
+                                                            
+                                                            <input type="text" class="form-control" id="detailAddr_${'${index+1}'}" name="touro_mate_addr${'${index+1}'}" value="${'${detailAddr}'}" readonly>
+                                                            
+                                                        </div>
+                                                        <div class="bottom">
+                                                            <!-- 여행코스 수정 버튼 -->
+                                                            <a href="javascript:void(0)" onclick="editCourse(${'${index+1}'})" class="bottom_btn">edit</a>
+                                                            <!-- 여행코스 삭제 버튼 -->
+                                                            <a href="#" class="bottom_btn">remove</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `;
+
+                                            coursesContainer.append(courseHtml);
+
+                                            if (selectedAddress) {
+                                                $('#' + detailAddrId).html(selectedAddress);
+                                            }
+                                        };
+                                    }
+
+                                        // 여행코스 수정 버튼 클릭 시 호출되는 함수
+                                        function editCourse(index) {
+                                            // 여행코스 수정 모달 초기화 작업 수행 (맵 초기화 등)
+                                            initializeMap_edit();
+
+                                            // 여행코스 수정 모달 띄우기
+                                            $('#edit-address').modal('show');
+
+                                            // 모달에 현재 여행 코스 정보 표시
+                                            var currentCourse = travelCourses[index];
+                                            var map_edit = new kakao.maps.Map(document.getElementById('map_edit'), {
+                                            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 기본 중심 좌표
+                                            level: 1
+                                        });
+
+                                            // 여행 코스 정보에서 도로명 주소를 가져와서 모달에 표시
+                                            var detailAddrId = 'detailAddr_' + index; // 고유한 식별자 생성
+                                            var detailAddr = !!currentCourse.address ? '<div id="' + detailAddrId + '">' + currentCourse.address + '</div>' : '';
+                                            document.getElementById('centerAddr').innerHTML = detailAddr;
+
+                                            // 도로명 주소를 동적으로 생성되는 코스의 address 요소에 할당
+                                            var selectedAddress = currentCourse.address;
+                                            if (selectedAddress) {
+                                                $('#' + detailAddrId).html(selectedAddress);
+                                            }
+                                        }
+                                </script>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- 인원수 설정 -->
-                <div class="col-xl-3 col-lg-4 checkout-cart">
-                    <div class="sticky-cls-top">
-                        <div class="single-sidebar order-cart-right">
-                            <div class="order-cart">
-                                <h4 class="title">모집인원</h4>
-                                <div class="cart-items">
-                                    <div class="items veg">
-                                        <!-- <h6>Veg Cheese Quesadillas</h6> -->
-                                        <!-- <h5>$10.00</h5> -->
-                                        <div class="qty-box cart_qty">
-                                            <div class="input-group">
-                                                <button type="button" class="btn qty-left-minus" data-type="minus"
-                                                    data-field="" tabindex="1" onclick="minusQuantity()">
-                                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                                </button>
-                                                <!-- <input type="text" name="quantity"
-                                                    class="form-control input-number qty-input" value="1" tabindex="1" id="inputQuantity"> -->
-                                                <span id="inputQuantity" class="form-control input-number qty-input">1</span>
-                                                <button type="button" class="btn qty-right-plus" data-type="plus"
-                                                    data-field="" tabindex="1" onclick="plusQuantity()">
-                                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                                </button>
+                    <!-- 인원수 설정 -->
+                    <div class="col-xl-3 col-lg-4 checkout-cart">
+                        <div class="sticky-cls-top">
+                            <div class="single-sidebar order-cart-right">
+                                <div class="order-cart">
+                                    <div class="form-group" name="touro_mate_count">
+                                        <input type="hidden" name="touro_mate_count" id="touro_mate_count" value="1">
+                                        <h4 class="title">모집인원</h4>
+                                    </div>
+                                    <div class="cart-items">
+                                        <div class="items veg">
+                                            <!-- <h6>Veg Cheese Quesadillas</h6> -->
+                                            <!-- <h5>$10.00</h5> -->
+                                            <div class="qty-box cart_qty">
+                                                <div class="input-group">
+                                                    <button type="button" class="btn qty-left-minus" data-type="minus"
+                                                        data-field="" tabindex="1" onclick="minusQuantity()">
+                                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                                    </button>
+                                                    <!-- <input type="text" name="quantity"
+                                                        class="form-control input-number qty-input" value="1" tabindex="1" id="inputQuantity"> -->
+                                                    <span id="inputQuantity" class="form-control input-number qty-input">1</span>
+                                                    <button type="button" class="btn qty-right-plus" data-type="plus"
+                                                        data-field="" tabindex="1" onclick="plusQuantity()">
+                                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="price">
-                                            <span  id="quantityValue">1</span>명
-                                        </div>
-                                        <!-- 카운트 js 코드 -->
-                                        <script>
-                                            var quantitySpan = document.getElementById('quantityValue');
-                                            var buttonText = document.getElementById('inputQuantity');
-                                            // plus 버튼 1씩 증가
-                                            function plusQuantity() {
-                                                var currentQuantity = parseInt(quantitySpan.innerText, 10);
-                                                
-                                                currentQuantity += 1;
-                                        
-                                                quantitySpan.innerText = currentQuantity;
-                                                buttonText.innerText = currentQuantity;
-                                            }
-                                            // minus 버튼 1까지만 감소
-                                            function minusQuantity() {
-                                                var currentQuantity = parseInt(quantitySpan.innerText, 10);
-                                                if (currentQuantity > 1) {
-                                                    currentQuantity -= 1;
+                                            <div class="price">
+                                                <span  id="quantityValue">1</span>명
+                                            </div>
+                                            <!-- 카운트 js 코드 -->
+                                            <script>
+                                                var quantitySpan = document.getElementById('quantityValue');
+                                                var hiddenField = document.getElementById('touro_mate_count');
+                                                var buttonText = document.getElementById('inputQuantity');
+                                            
+                                                function plusQuantity() {
+                                                    var currentQuantity = parseInt(quantitySpan.innerText, 10);
+                                                    currentQuantity += 1;
+                                            
                                                     quantitySpan.innerText = currentQuantity;
                                                     buttonText.innerText = currentQuantity;
-                                                } else {
-                                                    buttonText.innerText = 1
+                                                    hiddenField.value = currentQuantity; // 모집인원을 히든 필드에 설정
+                                            
+                                                    // 추가: 서버로 모집인원 업데이트 전송 (AJAX 또는 폼 제출 등)
+                                                    updateServerWithQuantity(currentQuantity);
                                                 }
-                                        
-                                            }
-                                        </script>
+                                            
+                                                function minusQuantity() {
+                                                    var currentQuantity = parseInt(quantitySpan.innerText, 10);
+                                                    if (currentQuantity > 1) {
+                                                        currentQuantity -= 1;
+                                                        quantitySpan.innerText = currentQuantity;
+                                                        buttonText.innerText = currentQuantity;
+                                                        hiddenField.value = currentQuantity; // 모집인원을 히든 필드에 설정
+                                            
+                                                        // 추가: 서버로 모집인원 업데이트 전송 (AJAX 또는 폼 제출 등)
+                                                        updateServerWithQuantity(currentQuantity);
+                                                    } else {
+                                                        buttonText.innerText = 1;
+                                                        hiddenField.value = 1; // 최소값일 때도 설정
+                                                    }
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-sidebar p-0">
+                                <div class="newsletter-sec">
+                                    <div>
+                                        <h4 class="title">등록 전 확인</h4>
+                                        <p>Check your contents!</p>
+                                            <div class="button">
+                                                <input class="btn btn-solid" type="submit" value="등록" style="width: 60px;"/>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="single-sidebar p-0">
-                            <div class="newsletter-sec">
-                                <div>
-                                    <h4 class="title">등록 전 확인</h4>
-                                    <p>Check your contents!</p>
-                                        <div class="button">
-                                            <input class="btn btn-solid type="submit" value="등록" style="width: 60px;"/>
-                                        </div>
-                                </div>
+                    </div>
+                </div>
+    
+            </div>
+        </section>
+        <!-- section end -->
+
+
+        <!-- footer start -->
+        <%@ include file='../footer/footer.jsp' %>
+        <!-- footer end -->
+
+        <!-- 여행코스 수정 모달 -->
+        <!-- add card modal start -->
+        <div class="modal fade edit-profile-modal" id="edit-address" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">여행 코스 장소 찍어주세요</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- 카카오 api -->
+                        <div class="map_wrap">
+                            <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                            <div class="hAddr">
+                                <span class="title">지도중심기준 행정동 주소정보</span>
+                                <span id="centerAddr"></span>
                             </div>
                         </div>
+                        
+                        <script>
+                            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                                mapOption = {
+                                    center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                                    level: 1 // 지도의 확대 레벨
+                                };  
+                            
+                            // 지도를 생성합니다    
+                            var map = new kakao.maps.Map(mapContainer, mapOption); 
+                            
+                            // 주소-좌표 변환 객체를 생성합니다
+                            var geocoder = new kakao.maps.services.Geocoder();
+                            
+                            var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+                                infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+                            
+                            // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+                            searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+                            
+                            // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+                            kakao.maps.event.addListener(map, 'click', function(mouseEvent) {                  
+                                searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+                                    if (status === kakao.maps.services.Status.OK) {
+                                        var detailAddr = !!result[0].road_address ? '<div>' + result[0].road_address.address_name + '</div>' : '';
+                                        detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+
+                                        console.log(detailAddr);
+                                        
+                                        var content = '<div class="bAddr">' +
+                                                        '<span class="title">법정동 주소정보</span>' + 
+                                                        detailAddr + 
+                                                    '</div>';
+                            
+                                        // 마커를 클릭한 위치에 표시합니다 
+                                        marker.setPosition(mouseEvent.latLng);
+                                        marker.setMap(map);
+                            
+                                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                                        infowindow.setContent(content);
+                                        infowindow.open(map, marker);
+                                    }   
+                                });
+                            });
+                            
+                            // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+                            kakao.maps.event.addListener(map, 'idle', function() {
+                                searchAddrFromCoords(map.getCenter(), displayCenterInfo);
+                            });
+                            
+                            function searchAddrFromCoords(coords, callback) {
+                                // 좌표로 행정동 주소 정보를 요청합니다
+                                geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+                            }
+                            
+                            function searchDetailAddrFromCoords(coords, callback) {
+                                // 좌표로 법정동 상세 주소 정보를 요청합니다
+                                geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+                            }
+                            
+                            // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+                            function displayCenterInfo(result, status) {
+                                if (status === kakao.maps.services.Status.OK) {
+                                    var infoDiv = document.getElementById('centerAddr');
+                            
+                                    for(var i = 0; i < result.length; i++) {
+                                        // 행정동의 region_type 값은 'H' 이므로
+                                        if (result[i].region_type === 'H') {
+                                            infoDiv.innerHTML = result[i].address_name;
+                                            break;
+                                        }
+                                    }
+                                }    
+                            }
+                        </script>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-solid">코스 수정</button>
                     </div>
                 </div>
             </div>
-        </form>
         </div>
-    </section>
-    <!-- section end -->
+        <!-- edit password modal start -->
 
-
-    <!-- footer start -->
-    <%@ include file='../footer/footer.jsp' %>
- <!-- footer end -->
-
-    <!-- 여행코스 수정 모달 -->
-    <!-- add card modal start -->
-    <div class="modal fade edit-profile-modal" id="edit-address" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">여행 코스 장소 찍어주세요</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- 카카오 api -->
-                    <!-- <div id="map" style="width:400px;height:400px;"></div> -->
-                    
-                    <!-- <form>
-                        <div class="form-group">
-                            <label for="e-na">name</label>
-                            <input type="text" class="form-control" placeholder="Mark Jecno" id="e-na">
-                        </div>
-                        <div class="form-group">
-                            <label for="e-n">mobile number</label>
-                            <input type="text" class="form-control" placeholder="+91 123 - 456 - 7890" id="e-n">
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="549 Sulphur Springs Road">
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-5">
-                                <label>City</label>
-                                <input type="text" class="form-control">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label>State</label>
-                                <select class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="inputZip">Zip</label>
-                                <input placeholder="60515" type="text" class="form-control">
+        <!-- 여행코스 추가 모달 -->
+        <!-- add card modal start -->
+        <div class="modal fade edit-profile-modal" id="add-address" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">여행 코스 장소 찍어주세요</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- 카카오 api -->
+                        <div class="map_wrap">
+                            <div id="map_add" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                            <div class="hAddr">
+                                <span class="title">지도중심기준 행정동 주소정보</span>
+                                <span id="centerAddr_add"></span>
                             </div>
                         </div>
-                    </form> -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-solid">코스 수정</button>
+                        
+                        <script>
+                            var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div 
+                                mapOption_add = {
+                                    center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                                    level: 1 // 지도의 확대 레벨
+                                };  
+                            
+                            // 지도를 생성합니다    
+                            var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add); 
+                            
+                            // 주소-좌표 변환 객체를 생성합니다
+                            var geocoder_add = new kakao.maps.services.Geocoder();
+                            
+                            var marker_add = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
+                                infowindow_add = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+                            
+                            // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+                            searchAddrFromCoords_add(map_add.getCenter(), displayCenterInfo_add);
+                            
+                            // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+                            kakao.maps.event.addListener(map_add, 'click', function(mouseEvent) {
+                                searchDetailAddrFromCoords_add(mouseEvent.latLng, function(result, status) {
+                                    if (status === kakao.maps.services.Status.OK) {
+                                        var detailAddr_add = !!result[0].road_address ? '<div id="detailAddr_add">' + result[0].road_address.address_name + '</div>' : '';
+                                        detailAddr_add += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
+                                        
+                                        var content_add = '<div class="bAddr">' +
+                                                        '<span class="title">법정동 주소정보</span>' + 
+                                                        detailAddr_add + 
+                                                    '</div>';
+                            
+                                        // 마커를 클릭한 위치에 표시합니다 
+                                        marker_add.setPosition(mouseEvent.latLng);
+                                        marker_add.setMap(map_add);
+                            
+                                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
+                                        infowindow_add.setContent(content_add);
+                                        infowindow_add.open(map_add, marker_add);
+                                    }   
+                                });
+                            });
+                            
+                            // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+                            kakao.maps.event.addListener(map_add, 'idle', function() {
+                                searchAddrFromCoords_add(map_add.getCenter(), displayCenterInfo_add);
+                            });
+                            
+                            function searchAddrFromCoords_add(coords, callback) {
+                                // 좌표로 행정동 주소 정보를 요청합니다
+                                geocoder_add.coord2RegionCode(coords.getLng(), coords.getLat(), callback);         
+                            }
+                            
+                            function searchDetailAddrFromCoords_add(coords, callback) {
+                                // 좌표로 법정동 상세 주소 정보를 요청합니다
+                                geocoder_add.coord2Address(coords.getLng(), coords.getLat(), callback);
+                            }
+                            
+                            // 지도 좌측상단에 지도 중심좌표에 대한 주소정보를 표출하는 함수입니다
+                            function displayCenterInfo_add(result, status) {
+                                if (status === kakao.maps.services.Status.OK) {
+                                    var infoDiv_add = document.getElementById('centerAddr_add');
+                            
+                                    for(var i = 0; i < result.length; i++) {
+                                        // 행정동의 region_type 값은 'H' 이므로
+                                        if (result[i].region_type === 'H') {
+                                            infoDiv_add.innerHTML = result[i].address_name;
+                                            break;
+                                        }
+                                    }
+                                }    
+                            }
+                        </script>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button type="button" class="btn btn-solid" data-bs-dismiss="modal" onclick="registerCourse()">코스 등록</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- edit password modal start -->
+        <!-- edit password modal start -->
 
-    <!-- 여행코스 추가 모달 -->
-    <!-- add card modal start -->
-    <div class="modal fade edit-profile-modal" id="add-address" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">여행 코스 장소 찍어주세요</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
-                </div>
-                
-                <div class="modal-body">
-                    <!-- 카카오 api -->
-                    <!-- <div id="map1" style="width:400px;height:400px;"></div>
-                    <script>
-                        var container = document.getElementById('map1');
-                        var options = {
-                            center: new kakao.maps.LatLng(33.450701, 126.570667),
-                            level: 3
-                        };
-                
-                        var map = new kakao.maps.Map(container, options);
-                    </script> -->
-                    <!-- <div class="map_wrap">
-                        <div id="map" style="width:400px;height:400px;"></div>
-                    
-                        <div id="menu_wrap" class="bg_white">
-                            <div class="option">
-                                <div>
-                                    <form onsubmit="searchPlaces(); return false;">
-                                        키워드 : <input type="text" value="이태원 맛집" id="keyword" size="15"> 
-                                        <button type="submit">검색하기</button> 
-                                    </form>
-                                </div>
-                            </div>
-                            <hr>
-                            <ul id="placesList"></ul>
-                            <div id="pagination"></div>
-                        </div>
-                    </div> -->
-                  
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                    <button type="button" class="btn btn-solid">코스 추가</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- edit password modal start -->
+    </form>
 
 
     <!-- tap to top -->

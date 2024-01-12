@@ -14,5 +14,8 @@ public interface TouroMateService {
 
     // Touromate 리스트 게시판 페이지 네이션을 위한 전체 게시물 수 반환 메서드, 페이지 네이션에 사용
     int getTotalPages();
+
+    // 게시글 작성 페이지 insert
+    void registerCourse(TouroMateVO touroMateVO);
     
 }
