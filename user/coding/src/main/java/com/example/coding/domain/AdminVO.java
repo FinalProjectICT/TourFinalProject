@@ -75,6 +75,8 @@ public class AdminVO {
     private Integer user_login_authority ;  // 로그인 여부
     private Date user_register_date ;       // 회원 가입 날짜 
     private Date user_delete_date ;         // 탈퇴 날짜
+    private String tour_img1_path;          // 여행지 이미지1
+    private String tour_img2_path;          // 여행지 이미지2
     
 
     private String userId;                 // 아이디

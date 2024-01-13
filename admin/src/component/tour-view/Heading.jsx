@@ -15,29 +15,36 @@ function Heading() {
   const baseUrl = "http://localhost:8080";
 
   useEffect(() => {
-    axios.get(baseUrl+"/tour-view/" + tourNum).then((result) => {
-    const tours = result.data;
-    console.log(result);
-    setTours({...tours});
-      
-  }
-  )
-  .catch((error) => {
-    console.error('검색 오류:', error);
-  });
-  }, []);
-
-  const ModifyTour = (e) =>{
-    e.preventDefault(); 
-    axios
-    .get()
-    .then(()=>{
-
+    axios.get(baseUrl + "/tour-view/" + tourNum).then((result) => {
+      const toursData = result.data;
+      setTours({ ...toursData });
+      setImages([
+        `../${toursData.tour_img1_path}`,
+        `../${toursData.tour_img2_path}`
+      ]);
+    }).catch((error) => {
+      console.error('검색 오류:', error);
     });
+  }, [tourNum]);
+
+
+
+  const DeleteTour = (e,tourNum,tourName) =>{
+    e.preventDefault();
+    console.log(tourName)
+    if (window.confirm("정말로 삭제하시겠습니까?" +
+                    "\n" +
+                    "여행지 이름: " + 
+                    `${tourName}`
+    )) {
+      axios.delete(`${baseUrl}/tour-list/${tourNum}`).then((result) => {
+        handleSubmit(e);   
+      });
+    }
 
   };
 
-  const DeleteTour = (e) =>{
+  const ModifyTour = (e) =>{
     e.preventDefault();
     axios
     .get()
@@ -51,7 +58,9 @@ function Heading() {
       <div className="row">
         <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
           <div className="crancy-section-title mg-btm-20">
-            <h3 className="crancy-section__title">여행지명</h3>
+            <h3 className="crancy-section__title">
+            {tours.tour_name || ''}
+              </h3>
           </div>
         </div>
         <GalleryCom images={imagesG} />
@@ -65,7 +74,7 @@ function Heading() {
                 style={{ height:'400px' }}
                 type="text"
                 className="form-control"
-                value={tours.tour_content}
+                value={tours.tour_content || ''}
                 onChange={(e) => setTours({ ...tours, tour_content: e.target.value })}
               >
               </textarea>
@@ -81,7 +90,7 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                value={tours.tour_addr}
+                value={tours.tour_addr || ''}
                 onChange={(e) => setTours({ ...tours, tour_addr: e.target.value })}
               />
               
@@ -94,7 +103,7 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                value={tours.tour_site_addr}
+                value={tours.tour_site_addr || ''}
                 onChange={(e) => setTours({ ...tours, tour_site_addr: e.target.value })}
               />
             </div>
@@ -106,7 +115,7 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                value={tours.inquiry_num}
+                value={tours.inquiry_num || ''}
                 onChange={(e) => setTours({ ...tours, inquiry_num: e.target.value })}
               />
               
@@ -121,7 +130,7 @@ function Heading() {
                   type="text"
                   className="form-control"
                   readOnly
-                  value={tours.tour_star}
+                  value={tours.tour_star || ''}
                 />
               </div>
             </div>
@@ -148,7 +157,7 @@ function Heading() {
                   data-bs-target="#email_modal"
                   className="crancy-btn crancy-rbcolor"
                   style={{width:'100%', justifyContent:'center'}}
-                  onClick={DeleteTour} 
+                  onClick={(e) => DeleteTour(e,tours.tour_num, tours.tour_name)} 
                 >
                   Delete
                 </Link>

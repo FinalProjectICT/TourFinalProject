@@ -126,29 +126,29 @@ function SupportTicketsList() {
                               </p>
                             </div>
                           </td>
-                          <td className="crancy-table__column-1 crancy-table__data-1">
+                          <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <div className="crancy-table__product--id">
                               <p className="crany-table__product--number">
                                 <a to="/ticket-details">{touroview.tour_name?.toString()}</a>
                               </p>
                             </div>
                           </td>
-                          <td className="crancy-table__column-2 crancy-table__data-2">
+                          <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <h5 className="crancy-table__inner--title">
                               <a to="/ticket-details">{touroview.touroview_title?.toString()}</a>
                             </h5>
                           </td>
-                          <td className="crancy-table__column-3 crancy-table__data-3">
+                          <td className="crancy-table__column-3 crancy-table__data-3" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <p className="crancy-table__text crancy-table__time">
                               {touroview.touroview_content?.toString()}
                             </p>
                           </td>
-                          <td className="crancy-table__column-4 crancy-table__data-4">
+                          <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <h5 className="crancy-table__inner--title">
                             {touroview.touroview_update ? `${touroview.touroview_update}` : ` ${touroview.touroview_regdate}`}
                             </h5>
                           </td>
-                          <td className="crancy-table__column-5 crancy-table__data-5">
+                          <td className="crancy-table__column-5 crancy-table__data-5" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <div
                               className={`crancy-table__status ${
                                 touroview.status === "Cancel"

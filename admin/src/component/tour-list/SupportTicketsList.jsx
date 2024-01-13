@@ -25,6 +25,8 @@ function SupportTicketsList() {
   const createTour = () => {
     navigate("/tour-register");
   };
+
+  // 여행지 상세 페이지 가는 함수 
   const detailTourNum = (e,tourNum) => {
     e.preventDefault(); // a 태그의 기본 기능 막기 
     axios.get(`${baseUrl}/tour-list/${tourNum}`)
