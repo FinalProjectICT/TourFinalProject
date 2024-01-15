@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@page import="com.example.coding.domain.UserVO"%>
+<% UserVO user = (UserVO) session.getAttribute("loggedInUser"); %>
+
 
 <html>
   <body>
@@ -67,10 +69,21 @@ prefix="c" %>
                     <option value="saab">영어</option>
                   </select>
                 </li>
-                <li class="user user-light rounded5">
-                  <a href="/user/login">
-                    <i class="fas fa-user"> 로그인</i>
-                  </a>
+                <!-- 세션이 비어 있으면 로그인 버튼으로 -->
+                <c:if test="${empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/login">
+                      <i class="fas fa-user"> 로그인</i>
+                    </a>
+                </c:if>
+                <!-- 세션이 비어 있지 않으면 로그아웃 버튼으로 -->
+                <c:if test="${not empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/logout">
+                      <i class="fas fa-sign-out-alt">로그아웃</i>
+                    </a>
+                </c:if>
+                
                 </li>
                 <li class="setting">
                   <a href="#">
