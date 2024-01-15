@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="ko">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -55,6 +56,11 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+      <!-- latest jquery-->
+      <script src="../assets/js/jquery-3.5.1.min.js"></script>
+
+      <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
   </head>
 
   <body>
@@ -559,7 +565,7 @@ pageEncoding="UTF-8"%>
               <div class="hotel-name">
                 <div class="left-part">
                   <div class="top">
-                    <h2>게시물 제목</h2>
+                    <h2>${touroMate.touro_mate_title}</h2>
                     <div class="rating">
                       <i class="fas fa-star"></i>
                       <i class="fas fa-star"></i>
@@ -568,14 +574,14 @@ pageEncoding="UTF-8"%>
                       <i class="far fa-star"></i>
                     </div>
                     <div class="share-buttons">
-                      <a href="#" class="btn btn-solid"
+                      <a href="#" class="btn btn-solids"
                         ><i class="far fa-heart"></i>좋아요</a
                       >
                     </div>
                   </div>
                   <div class="facility-detail">
-                    <span>[게시글 작성자]</span>
-                    <span>[게시글 작성일]</span>
+                    <span>작성자: ${touroMate.user_id}</span>
+                    <span>작성일: ${touroMate.touro_mate_date}</span>
                   </div>
                 </div>
               </div>
@@ -626,10 +632,10 @@ pageEncoding="UTF-8"%>
                           <div class="room-detail">
                             <div class="row">
                               <div class="col-6 p-0">
-                                <h6>여행지 이름</h6>
+                                <h6>${touroMate.touro_mate_name1}</h6>
                                 <div class="facility-detail">
                                   <ul>
-                                    <li>설명</li>
+                                    <li>${touroMate.touro_mate_addr1}</li>
                                   </ul>
                                 </div>
                               </div>
@@ -652,10 +658,10 @@ pageEncoding="UTF-8"%>
                           <div class="room-detail">
                             <div class="row">
                               <div class="col-6 p-0">
-                                <h6>여행지 이름</h6>
+                                <h6>${touroMate.touro_mate_name2}</h6>
                                 <div class="facility-detail">
                                   <ul>
-                                    <li>설명</li>
+                                    <li>${touroMate.touro_mate_addr2}</li>
                                   </ul>
                                 </div>
                               </div>
@@ -678,10 +684,10 @@ pageEncoding="UTF-8"%>
                           <div class="room-detail">
                             <div class="row">
                               <div class="col-6 p-0">
-                                <h6>여행지 이름</h6>
+                                <h6>${touroMate.touro_mate_name3}</h6>
                                 <div class="facility-detail">
                                   <ul>
-                                    <li>설명</li>
+                                    <li>${touroMate.touro_mate_addr3}</li>
                                   </ul>
                                 </div>
                               </div>
@@ -692,52 +698,87 @@ pageEncoding="UTF-8"%>
                     </table>
                   </div>
                   <div class="about menu-part tab-pane fade" id="about">
-                    <h6>Enjoy a luxurious experience!</h6>
+                    <h6>${touroMate.touro_mate_content}</h6>
                     <p>
-                      A luxurious hotel in Duba, Sea view is just 500 meters
-                      away from the main center. Featuring palatial space,
-                      modern architecture and stylish interiors, this hotel is
-                      an ideal choice for a peaceful relaxation or a business
-                      trip.
-                    </p>
-                    <h6>Hotel Facilities</h6>
-                    <p>
-                      The classy hotel has a swimming pool, spa and a fitness
-                      centre. It also features a well-appointed conference hall
-                      and a spacious harbour banquet conference centre for
-                      events and for meeting business needs. Complimentary Wi-Fi
-                      is provided on-premises. Other services offered are travel
-                      desk, car parking and credit card acceptance.
-                    </p>
-                    <h6>Dining</h6>
-                    <p>
-                      The luxurious hotel in dubai features an in-house
-                      restaurant and a bar. Flame N Grill restaurant operates
-                      from 7.30 AM till midnight. It offers multi-cuisine menu
-                      including Continental, Chinese, Indian and Goan dishes.
-                      Pool Deck BAR is a paradise providing a range of
-                      beverages. Featuring a water fountain, it also offers a
-                      pleasant ambience to enjoy your drinks.
-                    </p>
-                    <h6>Room Facilities</h6>
-                    <p class="mb-0">
-                      This hotel has 150 air-conditioned rooms including 50
-                      Superior Rooms, 30 Deluxe Rooms, 10 Super Deluxe Rooms, 2
-                      Classic Rooms and 5 Duplex Rooms. Most of the rooms have
-                      balconies offering spectacular views of the environs and a
-                      few offering phenomenal views of the pool. With
-                      contemporary furniture and elegant decor, all the rooms
-                      ensure utmost comfort for the guests. Some in-room
-                      amenities include LCD TV with satellite connection,
-                      minibar and an electronic safe deposit box.
+                     
                     </p>
                   </div>
                   <div class="menu-part tab-pane fade map" id="location">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147718689!2d-74.11976358820196!3d40.69740344169578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1568001991098!5m2!1sen!2sin"
-                      style="border: 0"
-                      allowfullscreen=""
-                    ></iframe>
+                    <div id="map" style="width: 100%; height: 420px; margin-bottom: -5px;">
+                      <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
+                      <script>
+                        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                                mapOption = {
+                                  center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                                  level: 3 // 지도의 확대 레벨
+                                };
+                      
+                        // 지도를 생성합니다
+                        var map = new kakao.maps.Map(mapContainer, mapOption);
+                      
+                        // 주소-좌표 변환 객체를 생성합니다
+                        var geocoder = new kakao.maps.services.Geocoder();
+
+                        // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+                        var bounds = new kakao.maps.LatLngBounds();
+                      
+                        var positions = [
+                            {
+                                title: '${touroMate.touro_mate_name1}',
+                                address: '${touroMate.touro_mate_addr1}'
+                            },
+                            {
+                                title: '${touroMate.touro_mate_name2}',
+                                address: '${touroMate.touro_mate_addr2}'
+                            },
+                            {
+                                title: '${touroMate.touro_mate_name3}',
+                                address: '${touroMate.touro_mate_addr3}'
+                            },
+
+                        ];
+                      
+                        
+                      
+                        positions.forEach(function (position) {
+                          // 주소로 좌표를 검색합니다
+                          geocoder.addressSearch(position.address, function(result, status) {
+                      
+                            // 정상적으로 검색이 완료됐으면
+                            if (status === kakao.maps.services.Status.OK) {
+                      
+                              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                      
+                              // 결과값으로 받은 위치를 마커로 표시합니다
+                              var marker = new kakao.maps.Marker({
+                                map: map,
+                                position: coords
+                              });
+                              marker.setMap(map); //추가한 코드
+                      
+                              // LatLngBounds 객체에 좌표를 추가합니다
+                              bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
+                      
+                              // 인포윈도우로 장소에 대한 설명을 표시합니다
+                              var infowindow = new kakao.maps.InfoWindow({
+                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + position.title + '</div>'
+                              });
+                              infowindow.open(map, marker);
+                      
+                              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                              // map.setCenter(coords); //제거한 코드
+                              setBounds(); //추가한 코드
+                            }
+                          });
+                        });
+                        function setBounds() { //추가한 함수
+                          // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
+                          // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+                          map.setBounds(bounds);
+                        }
+                      </script>
+
+                    </div>
                   </div>
                 </div>
               </div>
@@ -982,19 +1023,32 @@ pageEncoding="UTF-8"%>
           <div class="col-xl-3 col-lg-4" id="booking">
             <div class="sticky-cls-top">
               <div class="single-sidebar">
+                <h6 class="contact-title">작성자 정보</h6>
+                <p class="address">
+                  <i class="fas fa-map-marker-alt"></i>아이디: ${authorInfo.user_id}
+                </p>
+                <p><i class="fas fa-phone-alt"></i>전화번호:  ${authorInfo.user_tel}</p>
+                <a href="#">
+                  <p><i class="fas fa-envelope"></i>메일: ${authorInfo.user_email}</p>
+                </a>
+                <div class="social-box">
+                  <p>나이: ${authorInfo.user_age} </p>
+                  <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
+                  <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
+                  <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
+                </div>
+              </div>
+              <div class="single-sidebar">
                 <div class="selection-section">
-                  <div class="price-part">
+                  <div class="price-part">   
                     <div class="left-part">
-                      <a href="#">[채팅방 제목?]</a>
                       <span class="mt-2"
-                        ><i class="fas fa-check"></i> [인원수?]</span
+                        ><i class="fas fa-check"></i>채팅 참여 인원: ${touroMate.touro_mate_count}</span
                       >
-                      <span><i class="fas fa-check"></i>[뭐 적을 거?]</span>
+                      <span><i class="fas fa-check"></i>[남은 인원 수]</span>
                     </div>
                   </div>
                   <div class="book-btn-section">
-                    <input placeholder="Check In" id="datepicker" />
-                    <input placeholder="Check Out" id="datepicker1" />
                     <a
                       id="chat-circle"
                       class="btn btn-raised"
@@ -1394,9 +1448,6 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- 채팅 양식 끝 -->
-
-    <!-- latest jquery-->
-    <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>

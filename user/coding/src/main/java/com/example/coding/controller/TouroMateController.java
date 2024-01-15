@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserVO;
 import com.example.coding.service.TouroMateService;
 
 @Controller
@@ -53,12 +54,30 @@ public class TouroMateController {
         return "touromate/touromate_list";
 }
 
-    // insert
+    // insert 페이지
     @PostMapping("/register-course")
     public String registerCourse(@ModelAttribute TouroMateVO touroMateVO){
         mateService.registerCourse(touroMateVO);
         return "redirect:/touromate/touromate_list";
 
+    }
+
+    //detail 페이지
+    @RequestMapping("/touromate_detail")
+    public void showDetailPage(@RequestParam int touro_mate_num, Model m){
+
+        // 해당 게시글의 정보 가져옴
+        TouroMateVO touroMate = mateService.getTouroMateById(touro_mate_num);
+
+        // 해당 게시글의 여행지 정보를 가져옴
+        List<TouroMateVO> travelPlaces = mateService.getTravelPlaces(touro_mate_num);
+
+        // 해당 게시글의 작성자 정보를 가져옴
+        UserVO authorInfo = mateService.getAuthorInfo(touroMate.getUser_id());
+
+        m.addAttribute("touroMate", touroMate);
+        m.addAttribute("travelPlaces", travelPlaces);
+        m.addAttribute("authorInfo", authorInfo);
     }
 
 

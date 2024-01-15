@@ -260,23 +260,22 @@ pageEncoding="UTF-8"%>
                     <div class="list-box col-12 popular grid-item wow fadeInUp">
                         <!-- 게시글 이미지-->
                         <!-- <div class="list-img">
-                            <a href="touromate/view/${touromate.touro_mate_num}"> -->
+                            <a href="touromate_detail/${touromate.touro_mate_num}"> -->
                         <!-- 이미지 출력 부분 -->
                         <!-- </a> -->
                         <!-- </div> -->
                         <div class="list-content">
                             <div>
                               <!-- 게시글 제목과 링크 -->
-                                <a href="touromate/view/${touromate.touro_mate_num}">
+                                <a href="touromate_detail?touro_mate_num=${touromate.touro_mate_num}">
                                     <h5>${touromate.touro_mate_title}</h5>
                                 </a>
                                 <br />
                                 <!-- 게시글 작성 일자 -->
                                 <p>${touromate.touro_mate_date}</p>
                                 <!-- 게시글 작성자 (사용자 ID) -->
-                                <div class="price">${touromate.user_id}</div>
-                                <!-- 게시글 보기 버튼 -->
-                                <a href="touromate/view/${touromate.touro_mate_num}" class="btn btn-solid color1 book-now">게시글 보기</a>
+                                <div class="price">${touromate.user_id}</div>                                <!-- 게시글 보기 버튼 -->
+                                <a href="touromate_detail?touro_mate_num=${touromate.touro_mate_num}" class="btn btn-solid color1 book-now">게시글 보기</a>
                             </div>
                         </div>
                     </div>
