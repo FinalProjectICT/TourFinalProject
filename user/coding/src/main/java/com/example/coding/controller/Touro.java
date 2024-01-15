@@ -12,7 +12,6 @@ public class Touro {
 		return ""+step;
 	}
 	
-	
 	@RequestMapping("/user/{step}")
 	public String viewPage(@PathVariable String step) {
 		return "/user/"+step;

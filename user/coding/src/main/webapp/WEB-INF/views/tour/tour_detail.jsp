@@ -56,6 +56,11 @@ prefix="c" %>
     <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
     <input type="hidden" value="${TourData.tour_lati}" id="tour_lati" />
     <input type="hidden" value="${TourData.tour_longi}" id="tour_longi" />
+    <input
+      type="hidden"
+      value="${TourData.tour_cate_code}"
+      id="tour_cate_code"
+    />
 
     <!-- pre-loader start -->
     <div class="skeleton_loader">
@@ -535,7 +540,7 @@ prefix="c" %>
                 <!-- 상세 정보 -->
                 <div class="menu-part accordion tab-pane fade" id="itinerary">
                   <div id="accordion" class="row">
-                    <div class="card col-lg-6">
+                    <div class="card col-lg-8">
                       <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                           <button
@@ -544,8 +549,9 @@ prefix="c" %>
                             data-bs-target="#collapseOne"
                             aria-expanded="true"
                             aria-controls="collapseOne"
+                            id="info_head"
                           >
-                            해당 여행지의 정보
+                            상세 정보
                           </button>
                         </h5>
                       </div>
@@ -555,11 +561,12 @@ prefix="c" %>
                         aria-labelledby="headingOne"
                         data-bs-parent="#accordion"
                       >
-                        <div class="card-body">
+                        <div id="info_head_body" class="card-body">
                           <div class="highlight"></div>
                         </div>
                       </div>
                     </div>
+                    <!--
                     <div class="card col-lg-3">
                       <div class="card-header" id="headingTwo">
                         <h5 class="mb-0">
@@ -569,6 +576,7 @@ prefix="c" %>
                             data-bs-target="#collapseTwo"
                             aria-expanded="false"
                             aria-controls="collapseTwo"
+                            id="cate_info_head"
                           >
                             분류별 추가 정보
                           </button>
@@ -580,10 +588,11 @@ prefix="c" %>
                         aria-labelledby="headingTwo"
                         data-bs-parent="#accordion"
                       >
-                        <div class="card-body"></div>
+                        <div id="cate_info_body" class="card-body"></div>
                       </div>
                     </div>
-                    <div class="card col-lg-3">
+-->
+                    <div class="card col-lg-4">
                       <div class="card-header" id="headingThree">
                         <h5 class="mb-0">
                           <button
@@ -604,7 +613,112 @@ prefix="c" %>
                         data-bs-parent="#accordion"
                       >
                         <div class="card-body">
-                          <div class="highlight"></div>
+                          <div class="highlight">
+                            <c:choose>
+                              <c:when
+                                test="${0 eq TourData.tour_star
+                            }"
+                              >
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                              </c:when>
+                              <c:when
+                                test="${TourData.tour_star > 0 and 1 > TourData.tour_star}"
+                              >
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                              </c:when>
+                              <c:when
+                                test="${TourData.tour_star > 1 and 2 > TourData.tour_star}"
+                              >
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                              </c:when>
+                              <c:when
+                                test="${TourData.tour_star > 3 and 4 > TourData.tour_star}"
+                              >
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li class="not-include">
+                                  <i class="far fa-star"></i>
+                                </li>
+                              </c:when>
+                              <c:when test="${TourData.tour_star > 4}">
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                                <li>
+                                  <i class="fas fa-star"></i>
+                                </li>
+                              </c:when>
+                              <c:otherwise>
+                                <li>
+                                  <i class="far fa-star">?</i>
+                                </li>
+                              </c:otherwise>
+                            </c:choose>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -765,7 +879,7 @@ prefix="c" %>
                   <div class="container-fluid p-0 ratio3_2">
                     <div class="row zoom-gallery">
                       <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
+                        <div id="tour_img1" class="overlay">
                           <a href="../assets/images/tour/tour/7.jpg">
                             <div class="overlay-background">
                               <i class="fa fa-plus" aria-hidden="true"></i>
@@ -773,77 +887,77 @@ prefix="c" %>
                             <img
                               src="../assets/images/tour/tour/7.jpg"
                               alt=""
-                              class="img-fluid blur-up lazyload bg-img"
+                              class="img-fluid blur-up lazyload"
+                            />
+                          </a>
+                        </div>
+                      </div>
+                      <div id="tour_img2" class="col-lg-4 col-sm-6">
+                        <div class="overlay">
+                          <a href="">
+                            <div class="overlay-background">
+                              <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                            <img
+                              src=""
+                              alt=""
+                              class="img-fluid blur-up lazyload"
                             />
                           </a>
                         </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
-                          <a href="../assets/images/tour/tour/8.jpg">
+                        <div id="tour_img3" class="overlay">
+                          <a href="">
                             <div class="overlay-background">
                               <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                             <img
-                              src="../assets/images/tour/tour/8.jpg"
+                              src=""
                               alt=""
-                              class="img-fluid blur-up lazyload bg-img"
+                              class="img-fluid blur-up lazyload"
                             />
                           </a>
                         </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
-                          <a href="../assets/images/tour/tour/9.jpg">
+                        <div id="tour_img4" class="overlay">
+                          <a href="">
                             <div class="overlay-background">
                               <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                             <img
-                              src="../assets/images/tour/tour/9.jpg"
+                              src=""
                               alt=""
-                              class="img-fluid blur-up lazyload bg-img"
+                              class="img-fluid blur-up lazyload"
                             />
                           </a>
                         </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
-                          <a href="../assets/images/tour/tour/10.jpg">
+                        <div id="tour_img5" class="overlay">
+                          <a href="">
                             <div class="overlay-background">
                               <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                             <img
-                              src="../assets/images/tour/tour/10.jpg"
+                              src=""
                               alt=""
-                              class="img-fluid blur-up lazyload bg-img"
+                              class="img-fluid blur-up lazyload"
                             />
                           </a>
                         </div>
                       </div>
                       <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
-                          <a href="../assets/images/tour/tour/11.jpg">
+                        <div id="tour_img6" class="overlay">
+                          <a href="">
                             <div class="overlay-background">
                               <i class="fa fa-plus" aria-hidden="true"></i>
                             </div>
                             <img
-                              src="../assets/images/tour/tour/11.jpg"
+                              src=""
                               alt=""
-                              class="img-fluid blur-up lazyload bg-img"
-                            />
-                          </a>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-sm-6">
-                        <div class="overlay">
-                          <a href="../assets/images/tour/tour/12.jpg">
-                            <div class="overlay-background">
-                              <i class="fa fa-plus" aria-hidden="true"></i>
-                            </div>
-                            <img
-                              src="../assets/images/tour/tour/12.jpg"
-                              alt=""
-                              class="img-fluid blur-up lazyload bg-img"
+                              class="img-fluid blur-up lazyload"
                             />
                           </a>
                         </div>
@@ -862,11 +976,11 @@ prefix="c" %>
                           data-class="popular"
                         >
                           <div class="special-box p-0">
-                            <div class="special-img">
+                            <div id="accommod_tour1" class="special-img">
                               <a href="/jsp/Tourinfo">
                                 <img
                                   src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
+                                  class="img-fluid blur-up lazyload"
                                   alt=""
                                 />
                               </a>
@@ -886,70 +1000,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">라벨 예시</div>
-                          </div>
-                        </div>
-                        <div
-                          class="col-xl-4 col-sm-6 popular grid-item wow fadeInUp"
-                          data-class="popular"
-                        >
-                          <div class="special-box p-0">
-                            <div class="special-img">
-                              <a href="tour-single-6.html">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title=""
-                                  data-original-title="Add to Wishlist"
-                                >
-                                  <i class="far fa-heart"></i>
-                                </a>
-                              </div>
-                              <div class="content-inner">
-                                <h5>여행지 명</h5>
-                              </div>
-                            </div>
-                            <div class="label-offer">라벨 예시</div>
-                          </div>
-                        </div>
-                        <div
-                          class="col-xl-4 col-sm-6 popular grid-item wow fadeInUp"
-                          data-class="popular"
-                        >
-                          <div class="special-box p-0">
-                            <div class="special-img">
-                              <a href="tour-single-6.html">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title=""
-                                  data-original-title="Add to Wishlist"
-                                >
-                                  <i class="far fa-heart"></i>
-                                </a>
-                              </div>
-                              <div class="content-inner">
-                                <h5>여행지 명</h5>
-                              </div>
-                            </div>
+                            <div class="label-offer">관광지</div>
                           </div>
                         </div>
 
@@ -958,11 +1009,11 @@ prefix="c" %>
                           data-class="popular"
                         >
                           <div class="special-box p-0">
-                            <div class="special-img">
-                              <a href="tour-single-6.html">
+                            <div id="accommod_tour2" class="special-img">
+                              <a href="/jsp/Tourinfo">
                                 <img
                                   src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
+                                  class="img-fluid blur-up lazyload"
                                   alt=""
                                 />
                               </a>
@@ -982,6 +1033,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
+                            <div class="label-offer">관광지</div>
                           </div>
                         </div>
 
@@ -990,11 +1042,11 @@ prefix="c" %>
                           data-class="popular"
                         >
                           <div class="special-box p-0">
-                            <div class="special-img">
-                              <a href="tour-single-6.html">
+                            <div id="accommod_tour3" class="special-img">
+                              <a href="/jsp/Tourinfo">
                                 <img
                                   src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
+                                  class="img-fluid blur-up lazyload"
                                   alt=""
                                 />
                               </a>
@@ -1014,6 +1066,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
+                            <div class="label-offer">숙박업</div>
                           </div>
                         </div>
 
@@ -1022,11 +1075,11 @@ prefix="c" %>
                           data-class="popular"
                         >
                           <div class="special-box p-0">
-                            <div class="special-img">
-                              <a href="tour-single-6.html">
+                            <div id="accommod_tour4" class="special-img">
+                              <a href="/jsp/Tourinfo">
                                 <img
                                   src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
+                                  class="img-fluid blur-up lazyload"
                                   alt=""
                                 />
                               </a>
@@ -1046,6 +1099,73 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
+                            <div class="label-offer">숙박업</div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-xl-4 col-sm-6 popular grid-item wow fadeInUp"
+                          data-class="popular"
+                        >
+                          <div class="special-box p-0">
+                            <div id="accommod_tour5" class="special-img">
+                              <a href="/jsp/Tourinfo">
+                                <img
+                                  src="../assets/images/tour/tour/7.jpg"
+                                  class="img-fluid blur-up lazyload"
+                                  alt=""
+                                />
+                              </a>
+                              <div class="top-icon">
+                                <a
+                                  href="#"
+                                  class=""
+                                  data-bs-toggle="tooltip"
+                                  data-placement="top"
+                                  title=""
+                                  data-original-title="Add to Wishlist"
+                                >
+                                  <i class="far fa-heart"></i>
+                                </a>
+                              </div>
+                              <div class="content-inner">
+                                <h5>여행지 명</h5>
+                              </div>
+                            </div>
+                            <div class="label-offer">음식점</div>
+                          </div>
+                        </div>
+
+                        <div
+                          class="col-xl-4 col-sm-6 popular grid-item wow fadeInUp"
+                          data-class="popular"
+                        >
+                          <div class="special-box p-0">
+                            <div id="accommod_tour6" class="special-img">
+                              <a href="/jsp/Tourinfo">
+                                <img
+                                  src="../assets/images/tour/tour/7.jpg"
+                                  class="img-fluid blur-up lazyload"
+                                  alt=""
+                                />
+                              </a>
+                              <div class="top-icon">
+                                <a
+                                  href="#"
+                                  class=""
+                                  data-bs-toggle="tooltip"
+                                  data-placement="top"
+                                  title=""
+                                  data-original-title="Add to Wishlist"
+                                >
+                                  <i class="far fa-heart"></i>
+                                </a>
+                              </div>
+                              <div class="content-inner">
+                                <h5>여행지 명</h5>
+                              </div>
+                            </div>
+                            <div class="label-offer">음식점</div>
                           </div>
                         </div>
                       </div>
