@@ -105,4 +105,13 @@ public class UserController {
         return "user/login_failed";
     }
 
+    @RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		// 세션을 제거하여 로그아웃 처리
+		session.invalidate();
+
+		// 로그아웃 후 리다이렉트
+		return "redirect:/touro";
+	}
+
 }
