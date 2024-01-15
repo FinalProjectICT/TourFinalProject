@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserVO;
 
 @Service
 public interface TouroMateService {
@@ -17,5 +18,14 @@ public interface TouroMateService {
 
     // 게시글 작성 페이지 insert
     void registerCourse(TouroMateVO touroMateVO);
+
+    // 게시글 상세보기 페이지 detail
+    TouroMateVO getTouroMateById(int touro_mate_num);
+
+    // 여행지 정보 가져오기
+    List<TouroMateVO> getTravelPlaces(int touro_mate_num);
+
+    // 게시글 작성자 정보 가져오기
+    UserVO getAuthorInfo(String user_id);
     
 }

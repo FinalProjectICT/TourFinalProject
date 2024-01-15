@@ -34,4 +34,30 @@
         #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3})
     </insert>
 
+    <!-- detail 페이지 -->
+    <select id="getTouroMateById" resultType="TouroMateVO" parameterType="Object">
+        SELECT touro_mate_num, user_id, touro_mate_title, touro_mate_count, touro_mate_content,
+            touro_mate_name1, touro_mate_name2, touro_mate_name3,
+            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3, touro_mate_date
+        FROM touro_mate
+        WHERE touro_mate_num = #{touro_mate_num}
+    </select>
+
+    <!-- 여행지 정보 가져오기 -->
+    <select id="getTravelPlaces" resultType="TouroMateVO">
+        SELECT touro_mate_num, touro_mate_name1, touro_mate_name2, touro_mate_name3,
+            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3
+        FROM touro_mate
+        WHERE touro_mate_num = #{touro_mate_num}
+    </select>
+
+    <!-- 게시글 작성자 정보 가져오기 -->
+    <select id="getAuthorInfo" resultType="UserVO" parameterType="String">
+        SELECT u.user_id, u.user_tel, u.user_email, u.user_gender, u.user_age,
+            u.user_prefer_type1, u.user_prefer_type2, u.user_prefer_type3
+        FROM touro_mate tm
+        INNER JOIN user u ON tm.user_id = u.user_id
+        WHERE tm.user_id = #{userId}
+    </select>
+
 </mapper>

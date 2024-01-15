@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserVO;
 
 @Repository // Spring Data Repository
 @Primary
@@ -46,6 +47,27 @@ public class TouroMateDAOImpl implements TouroMateDAO {
     public void registerCourse(TouroMateVO touroMateVO) {
         
         sqlSession.insert("com.example.coding.dao.TouroMateMapper.registerCourse", touroMateVO); 
+    }
+
+    // 게시글 상세 보기 페이지 detail
+    @Override
+    public TouroMateVO getTouroMateById(int touro_mate_num) {
+        return sqlSession.selectOne("com.example.coding.dao.TouroMateDAO.getTouroMateById", touro_mate_num);
+        
+    }
+
+    // 여행지 정보 가져오기
+    @Override
+    public List<TouroMateVO> getTravelPlaces(int touro_mate_num) {
+        
+        return sqlSession.selectList("com.example.coding.dao.TouroMatrDAO.getTravelPlaces", touro_mate_num);
+    }
+
+    // 게시글 작성자 정보 가져오기
+    @Override
+    public UserVO getAuthorInfo(String user_id) {
+        
+        return sqlSession.selectOne("com.example.coding.dao.TouroMateDAO.getAuthorInfo", user_id);
     }
     
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.TouroMateDAO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserVO;
 
 @Service
 public class TouroMateServiceImpl implements TouroMateService {
@@ -58,5 +59,26 @@ public class TouroMateServiceImpl implements TouroMateService {
     public void registerCourse(TouroMateVO touroMateVO) {
         
         TouromateDAO.registerCourse(touroMateVO);
+    }
+
+    // 게시글 detail 페이지
+    @Override
+    public TouroMateVO getTouroMateById(int touro_mate_num) {
+        
+        return TouromateDAO.getTouroMateById(touro_mate_num);
+    }
+
+    //여행지 정보 가져오기
+    @Override
+    public List<TouroMateVO> getTravelPlaces(int touro_mate_num) {
+        
+        return TouromateDAO.getTravelPlaces(touro_mate_num);
+    }
+
+    // 게시글 작성자 정보 가져오기
+    @Override
+    public UserVO getAuthorInfo(String user_id) {
+        
+        return TouromateDAO.getAuthorInfo(user_id);
     }
 }
