@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.TouroMateDAO;
+import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TouroMateServiceImpl implements TouroMateService {
@@ -80,5 +83,12 @@ public class TouroMateServiceImpl implements TouroMateService {
     public UserVO getAuthorInfo(String user_id) {
         
         return TouromateDAO.getAuthorInfo(user_id);
+    }
+
+    @Transactional
+    @Override
+    public void registerTouroMateAndChat(TouroMateVO touroMateVO) {
+        TouromateDAO.registerTouroMateAndChat(touroMateVO);
+        TouromateDAO.registerTouroMateChat(touroMateVO);
     }
 }

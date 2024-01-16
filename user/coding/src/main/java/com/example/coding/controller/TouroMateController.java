@@ -14,6 +14,9 @@ import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.service.TouroMateService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/touromate")
 public class TouroMateController {
@@ -29,8 +32,11 @@ public class TouroMateController {
     @RequestMapping("/touromate_list")
     // '@RequestParam'를 사용하여, URL에서 파라미터를 읽어옴. name = "searchKeyword" 파라미터의 이름 정의, 'required = false' 이 파라미터는 필수가 아님 -> 검색어가 없는 경우에도 메서드 실행 가능
     public String list(@RequestParam(name = "searchKeyword", required = false) String searchKeyword,
-                       @RequestParam(name = "page", defaultValue = "1") int page, Model m) {
-
+                       @RequestParam(name = "page", defaultValue = "1") int page, Model m, HttpServletRequest request) {
+        // 세션에서 user_id 가져오기
+        HttpSession session = request.getSession();
+        UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
+        
         // 전체 페이지 수를 가져오는 메서드
         int getTotalPages = mateService.getTotalPages();
 
@@ -45,7 +51,7 @@ public class TouroMateController {
             selectedMateList = mateService.getSelectedMateList(page);
         }
 
-        System.out.println("touromates: " + selectedMateList);
+        System.out.println("Search keyword: " + searchKeyword);
 
         m.addAttribute("touromates", selectedMateList);
         m.addAttribute("totalPages", getTotalPages);
@@ -56,8 +62,16 @@ public class TouroMateController {
 
     // insert 페이지
     @PostMapping("/register-course")
-    public String registerCourse(@ModelAttribute TouroMateVO touroMateVO){
-        mateService.registerCourse(touroMateVO);
+    public String registerCourse(@ModelAttribute TouroMateVO touroMateVO, HttpServletRequest request){
+        //세션에서 user_id 가져오기
+        HttpSession session = request.getSession();
+        UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
+
+        System.out.println("userId:" + loggedInUser.getUser_id());
+
+        touroMateVO.setUser_id(loggedInUser.getUser_id());
+
+        mateService.registerTouroMateAndChat(touroMateVO);
         return "redirect:/touromate/touromate_list";
 
     }
