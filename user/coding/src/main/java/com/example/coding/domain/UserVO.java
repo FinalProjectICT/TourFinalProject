@@ -1,7 +1,5 @@
 package com.example.coding.domain;
 
-import java.util.Date;
-
 import lombok.Data;
 
 @Data
@@ -26,8 +24,8 @@ public class UserVO {
     private int     admin_authority;        // 관리자 권한 여부
     private int     user_login_authority;   // 로그인 여부
 
-    private Date    user_register_date;     // 회원 가입일
-    private Date    user_delete_date;       // 회운 탈퇴일
+    private String  user_register_date;     // 회원 가입일
+    private String  user_delete_date;       // 회원 탈퇴일
 
     private Long    img_detail_num;         // 이미지구분 번호
     private Long    img_num;                // 이미지 번호

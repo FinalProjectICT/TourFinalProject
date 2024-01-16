@@ -11,7 +11,6 @@ public class ImgDetailVO {
     private int     receipt_num;        // 영수증 번호
     private String  tour_num;           // 여행지 번호
     private String  user_id;            // 사용자 아이디
-
-    
+    private Long    img_num;            // 이미지 번호
 
 }

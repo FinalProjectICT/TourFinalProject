@@ -55,7 +55,7 @@
 
                 <h4>회원가입</h4>
                 <p>회원 정보를 입력해주세요.</p>
-                <form class="theme-form" action="insertUser" method="get">
+                <form class="theme-form" action="insertUser" method="post" enctype="multipart/form-data">
                   <div class="form-group">
                     <label class="col-form-label form-label-title">이름</label><span id="required" class="required">(필수입력사항)</span>
                     <div class="input-group">
@@ -289,12 +289,12 @@
                     <!-- 프로필 사진 왼쪽 박스 -->
                     <div class="profile-picture-container ">
                       <!-- 사진 미리보기 -->
-                      <div class="profile-picture-box row g-2">
-                        <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
-                        <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="img_name" accept="image/*" onchange="previewProfilePicture()" />
+                    <div class="profile-picture-box row g-2">
+                          <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
+                          <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="file" accept="image/*" onchange="previewProfilePicture()" />
+                        </div>
                       </div>
                     </div>
-                  </div>
 
                   <div class="form-group mb-0">
                     <div class="checkbox p-0">
