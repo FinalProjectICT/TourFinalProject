@@ -10,15 +10,23 @@ function Heading() {
   const [imagesG, setImages] = useState(images);
   const navigate = useNavigate();
   const { tourNum } = useParams();
-  const [tours, setTours] = useState({});
+  const [tours, setTours] = useState({
+    tour_content : "",
+    tour_addr : "",
+    tour_site_addr : "",
+    inquiry_num : "",
+    tour_tel : "",
+    
+  });
 
   const baseUrl = "http://localhost:8080";
 
+  console.log(JSON.stringify(tours))
   useEffect(() => {
     axios.get(baseUrl + "/tour-view/" + tourNum).then((result) => {
       const toursData = result.data;
       setTours({ ...toursData });
-      setImages([
+      setImages([ 
         `../${toursData.tour_img1_path}`,
         `../${toursData.tour_img2_path}`
       ]);
@@ -37,20 +45,16 @@ function Heading() {
                     "여행지 이름: " + 
                     `${tourName}`
     )) {
-      axios.delete(`${baseUrl}/tour-list/${tourNum}`).then((result) => {
-        handleSubmit(e);   
-      });
+      axios.delete(`${baseUrl}/tour-list/${tourNum}`)
+      navigate("/tour-list");
+
     }
 
   };
-
-  const ModifyTour = (e) =>{
+  const ModifyTour = async (e) =>{
     e.preventDefault();
-    axios
-    .get()
-    .then(()=>{
-      
-    });
+    await axios.put(`${baseUrl}/tour-view/modifyTour/`+ tourNum,tours);
+    navigate("/tour-list");
   };
 
   return (
@@ -107,7 +111,7 @@ function Heading() {
                 onChange={(e) => setTours({ ...tours, tour_site_addr: e.target.value })}
               />
             </div>
-            <div className="mb-3">
+            {/* <div className="mb-3">
               <label className="form-label-title ">
                 여행지 전화번호
               </label>
@@ -115,11 +119,11 @@ function Heading() {
                 style={{ height:'50px' }}
                 type="text"
                 className="form-control"
-                value={tours.inquiry_num || ''}
-                onChange={(e) => setTours({ ...tours, inquiry_num: e.target.value })}
+                value={tours.tour_tel || ''}
+                onChange={(e) => setTours({ ...tours, tour_tel: e.target.value })}
               />
               
-            </div>
+            </div> */}
             <div className="row">
               <div className="col" style={{paddingRight:'10px'}}>
                 <label className="form-label-title ">

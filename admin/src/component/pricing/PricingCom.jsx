@@ -65,6 +65,7 @@ function PricingCom() {
                         <br />
 
                         <div className="mb-3">
+                        <label className="form-label-title">ID</label>
                           <input
                             className="form-control"
                             type="text"

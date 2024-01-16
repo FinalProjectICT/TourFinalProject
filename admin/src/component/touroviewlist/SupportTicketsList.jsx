@@ -14,10 +14,20 @@ function SupportTicketsList() {
 
   const [touroviews, setTouroviews] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [originalTouroviews, setOriginalTouroviews] = useState([]); 
 
   const baseUrl = "http://localhost:8080";
   const navigate = useNavigate();
+
+    // 현재 페이지에 해당하는 아이템들을 추출
+    const indexOfLastItem = page * show;
+    const indexOfFirstItem = indexOfLastItem - show;
+    
+    const currentItems = touroviews.slice(indexOfFirstItem, indexOfLastItem);
+
   
+  
+  // 디테일 페이지 가기
   const detailTouroviewNum = (e,touroview_num) => {
     e.preventDefault(); // a 태그의 기본 기능 막기
     axios.get(`${baseUrl}/tour-list/touroviewNum/${touroview_num}`)
@@ -28,15 +38,43 @@ function SupportTicketsList() {
       console.error('에러 발생:', error);
     }); 
     navigate(`/pricing/${touroview_num}`);
-  }
+  };
 
+  // 페이지네이션
+  
+  // 후기 게시판 리스트 내에서 검색
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .get(`${baseUrl}/touroview-list/search_touro?search_touro=${inputValue}`)
+      .then((response) => {
+        const tourListArray = response.data;
+        console.log(tourListArray);
+        if (tourListArray.length === 0) {
+          // 검색 결과가 null이면 초기 리스트로 복원
+          setTouroviews([...originalTouroviews]);
+        } else {
+          // 아니면 검색 결과로 업데이트
+          setTouroviews(tourListArray);
+        }
+      })
+      .catch((error) => {
+        console.error('검색 오류:', error);
+      });
+  };
 
+  // 리스트 초기화
+  const forceUpdate = () => {
+    setTouroviews([]);
+  };
 
+  // 후기 게시판 리스트 페이지
   useEffect(() => {
-    axios.get(baseUrl+"/touroview-list/touroviewList").then((result) => {
+    axios.get(baseUrl+"/touroview-list/touroviewList")
+    .then((result) => {
       const touroviews = result.data;
-      console.log(touroviews);
       setTouroviews([...touroviews]);
+      setOriginalTouroviews([...touroviews]);
       console.log(touroviews);
     });
   }, []);
@@ -49,7 +87,7 @@ function SupportTicketsList() {
             <h3 className="crancy-table__title mb-0">Touroview</h3>
 
             <div className="crancy-table__right">
-              <form className="crancy-header__form-inner" id="dataTables_filter">
+              <form className="crancy-header__form-inner" id="dataTables_filter" onSubmit={handleSubmit}>
                 <button className="search-btn" type="submit">
                   <svg
                     width="18"
@@ -69,6 +107,8 @@ function SupportTicketsList() {
                   type="search"
                   placeholder="Search"
                   aria-controls="crancy-table__main"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
                 />
               </form>
               <SelectInput
@@ -117,7 +157,7 @@ function SupportTicketsList() {
                 </thead>
                 {/* <!-- crancy Table Body --> */}
                 <tbody className="crancy-table__body">
-                  {touroviews?.map((touroview) => (
+                  {currentItems?.map((touroview) => (
                         <tr key={touroview.touroview_num}>
                           <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <div className="crancy-table__product--id">
@@ -245,14 +285,17 @@ function SupportTicketsList() {
                       </a>
                     </li>
                     {Array.from(
-                      Array(Math.ceil(touroviews.length / show)).keys("n")
-                    ).map((id, index) => (
+                      { length: Math.min(10, Math.ceil(touroviews.length / show)) },
+                      (_, index) => page + index 
+                    )
+                    .filter((pageNumber) => pageNumber > 0 && pageNumber <= Math.ceil(touroviews.length / show)) 
+                    .map((pageNumber, index) => (
                       <li
                         className={`paginate_button page-item ${
-                          page === index + 1 ? "active" : ""
+                          page === pageNumber ? "active" : ""
                         }`}
-                        onClick={() => setPage(index + 1)}
-                        key={index + "key"}
+                        onClick={() => setPage(pageNumber)}
+                        key={pageNumber}
                       >
                         <a
                           aria-controls="crancy-table__main"
@@ -260,13 +303,13 @@ function SupportTicketsList() {
                           tabIndex="0"
                           className="page-link"
                         >
-                          {index + 1}
+                          {pageNumber}
                         </a>
                       </li>
                     ))}
                     <li
                       className={`paginate_button page-item next ${
-                        page === touroviews.length % show < 1 ? "disabled" : ""
+                        page === Math.ceil(touroviews.length / show) ? "disabled" : ""
                       }`}
                       id="crancy-table__main_next"
                       onClick={() =>

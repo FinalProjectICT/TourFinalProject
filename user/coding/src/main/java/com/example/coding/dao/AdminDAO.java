@@ -28,5 +28,13 @@ public interface AdminDAO {
     // 게시판 디테일
     public AdminVO touroViewNum(AdminVO vo);
 
+
+    // 여행지 수정 (이미지 제외)
+    public int modifyTour(AdminVO vo );
+
+    // 후기 게시판 리스트 내부에서 리스트 검색
+
+    public List<AdminVO> search_touro( String search_touro);
+
     
 }

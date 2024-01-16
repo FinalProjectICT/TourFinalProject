@@ -32,6 +32,7 @@ public class AdminVO {
     private String tourLati ;               // 위도 
     private String tourLongi;               // 경도
     private String tourStar;                // 여행지 별점
+    private String tourTel ;                // 여행지 전화번호
 
     private String tour_num;                // 여행지 번호 
     private String tour_name;               // 여행지 명 
@@ -107,7 +108,7 @@ public class AdminVO {
     private String like_count ;            // 좋아요 갯수
     private Integer report_num ;           // 신고 번호
     private String report_count ;          // 신고 갯수
-    
+    private String tour_tel ;               // 여행지 전화번호
 
     
     public static void main(String[] args) {

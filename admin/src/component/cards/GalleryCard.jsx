@@ -1,12 +1,10 @@
 import React from "react";
 
 function GalleryCard({ className, image, openImg, id }) {
-  console.log("Image:", image); // 콘솔에 이미지 출력
 
   // 이미지 경로 추출
   const imagePath = typeof image === 'string' ? image.replace(/\\/g, '/').replace('_0', '_') : image.path;
 
-  console.log("Image Path:", imagePath); // 콘솔에 수정된 이미지 경로 출력
 
   return (
     <div className={`${className ? className : "col-lg-3 col-md-6 col-12"}`}>

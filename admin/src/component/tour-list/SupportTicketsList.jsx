@@ -46,6 +46,7 @@ function SupportTicketsList() {
   //   navigate("/tour-view/${tourName}");
   // };
 
+  
   // 여행지 내부에서 검색
   const handleSubmit = (e) => {
     forceUpdate();
@@ -84,6 +85,7 @@ function SupportTicketsList() {
     setTours([]);
   };
 
+  // 여행지 리스트 자체 select
   useEffect(() => {
     axios.get(baseUrl+"/tour-list").then((result) => {
       const tours = result.data;
