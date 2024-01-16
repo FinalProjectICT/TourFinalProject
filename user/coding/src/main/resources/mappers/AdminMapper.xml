@@ -122,4 +122,35 @@
 	OR tvw.user_id LIKE CONCAT('%', #{user_id}, '%')
 	OR tvw.touroview_content LIKE CONCAT('%', #{touroview_content}, '%')
 	</select>
+
+	<!-- 푸터 가장 높은 별점 여행지 6개만 출력 -->
+	<select id = "footer_tour_list" resultType="AdminVO">
+	SELECT *
+	FROM `tour`
+	ORDER BY tour_star DESC
+	LIMIT 6;
+	</select>
+
+	<select id ="footer_toroview_list" resultType="AdminVO">
+	SELECT 
+		tvw.touroview_num touroview_num ,
+		tvw.user_id user_id,
+		tvw.tour_num tour_num,
+		tvw.touroview_content touroview_content,
+		l.like_count like_count ,
+		t.tour_name tour_name,
+		t.tour_num tour_num,
+		t.tour_star tour_star,
+		t.tour_img1_path tour_img1_path,
+		t.tour_img2_path tour_img2_path,
+		SUBSTRING(tvw.touroview_title, 1, 3) AS touroview_title,
+		SUBSTRING(t.tour_content, 1, 10) AS tour_content
+	FROM touroview tvw
+	LEFT OUTER JOIN `like` l ON l.touroview_num = tvw.touroview_num
+	LEFT OUTER JOIN `tour` t ON tvw.tour_num = t.tour_num
+	ORDER BY l.like_count DESC
+	LIMIT 4
+	</select>
+
+
 </mapper>

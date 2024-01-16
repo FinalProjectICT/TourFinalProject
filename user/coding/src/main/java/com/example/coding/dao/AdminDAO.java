@@ -36,5 +36,12 @@ public interface AdminDAO {
 
     public List<AdminVO> search_touro( String search_touro);
 
+
+    // 푸터 여행지 별점  가장 높은 6 얘들 출력
+    public List<AdminVO> footer_tour_list();
+
+    // 푸터 후기 게시판 좋아요 top4 출력
+    public List<AdminVO> footer_toroview_list();
+
     
 }

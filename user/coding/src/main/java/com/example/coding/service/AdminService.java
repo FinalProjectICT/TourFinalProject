@@ -31,6 +31,13 @@ public interface AdminService {
     // 후기 게시판 내부에서 검색 
     List<AdminVO> search_touro( String search_touro);
 
+
+    // 푸터 여행지 관한 select 
+    List<AdminVO> footer_tour_list();
+
     
+    // 푸터 후기 게시판 관한 select 
+    List<AdminVO> footer_toroview_list();
+
     
 }

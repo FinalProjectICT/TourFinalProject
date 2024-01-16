@@ -38,7 +38,7 @@
 <select id="selectOne" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.TourVO">
 	SELECT * 
 	FROM tour 
-	WHERE tour_num=#{tour_num}
+	WHERE tour_num=#{tour_num} 
 </select>
 
 <insert id="addWishList" parameterType="com.example.coding.domain.WishListVO">

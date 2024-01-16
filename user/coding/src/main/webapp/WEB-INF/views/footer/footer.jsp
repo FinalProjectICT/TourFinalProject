@@ -48,90 +48,42 @@ pageEncoding="UTF-8"%>
             <div class="footer-content">
               <div class="footer-place">
                 <div class="row">
+                  <!-- 반복 (여행지에서 가장 별점 높은 6개) --> 
                   <div class="col-4">
                     <div class="place rounded5">
-                      <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
-                      </a>
+
+                    </div>
+                  </div>
+                  
+                  <div class="col-4">
+                    <div class="place rounded5">
+
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="place rounded5">
-                      <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
-                      </a>
+
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="place rounded5">
-                      <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
-                      </a>
+ 
                     </div>
                   </div>
                   <div class="col-4">
                     <div class="place rounded5">
-                      <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
-                      </a>
+
                     </div>
                   </div>
+
                   <div class="col-4">
                     <div class="place rounded5">
                       <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
+
                       </a>
                     </div>
                   </div>
-                  <div class="col-4">
-                    <div class="place rounded5">
-                      <a href="#">
-                        <img
-                          src="../assets/images/tour/background/12.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                        <div class="overlay">
-                          <h6>여행지 명</h6>
-                        </div>
-                      </a>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -143,65 +95,31 @@ pageEncoding="UTF-8"%>
             <div class="footer-content">
               <div class="footer-blog row">
                 <div class="media"></div>
+                
+                <!-- 좋아요 수 많은 후기 게시판 4개 반복 -->
+
+
                 <div class="media col-6">
                   <div class="img-part rounded5">
-                    <a href=""
-                      ><img
-                        src="../assets/images/cab/blog-footer/2.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                    /></a>
-                  </div>
-                  <div class="media-body">
-                    <h5>일반 게시물</h5>
-                    <p>간략한 내용</p>
                   </div>
                 </div>
 
                 <div class="media col-6">
                   <div class="img-part rounded5">
-                    <a href=""
-                      ><img
-                        src="../assets/images/cab/blog-footer/2.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                    /></a>
-                  </div>
-                  <div class="media-body">
-                    <h5>일반 게시물</h5>
-                    <p>간략한 내용</p>
                   </div>
                 </div>
 
                 <div class="media col-6">
                   <div class="img-part rounded5">
-                    <a href=""
-                      ><img
-                        src="../assets/images/cab/blog-footer/2.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                    /></a>
-                  </div>
-                  <div class="media-body">
-                    <h5>일반 게시물</h5>
-                    <p>간략한 내용</p>
                   </div>
                 </div>
 
                 <div class="media col-6">
                   <div class="img-part rounded5">
-                    <a href=""
-                      ><img
-                        src="../assets/images/cab/blog-footer/2.jpg"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                    /></a>
-                  </div>
-                  <div class="media-body">
-                    <h5>일반 게시물</h5>
-                    <p>간략한 내용</p>
                   </div>
                 </div>
+
+
               </div>
             </div>
           </div>
@@ -210,7 +128,8 @@ pageEncoding="UTF-8"%>
     </div>
   </footer>
   <!-- footer end -->
-
+ <!-- 가장 별점 높은 6개 값 던지기 가져오기 -->
+    <script src="../assets/js/footer.js"></script>
 </body>
 
 </html>

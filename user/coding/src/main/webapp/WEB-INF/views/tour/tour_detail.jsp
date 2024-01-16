@@ -390,10 +390,9 @@ prefix="c" %>
               <div class="col-md-8 offset-md-2">
                 <div class="home-content pt-0 mix-layout mrg-cls">
                   <div>
-                    <h1>여행지 이름</h1>
+                    <h1>${TourData.tour_name}</h1>
                     <ul class="package-detail">
-                      <li>주소</li>
-                      <li>(상세 주소)</li>
+                      <li>${TourData.tour_addr}</li>
                     </ul>
                   </div>
                 </div>
@@ -494,10 +493,13 @@ prefix="c" %>
                       />
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="about-sec col-lg-6">
+                  <div class="row" id = num123>
+                    <div class="about-sec col-lg-6" id = num222>
                       <h6>소개문</h6>
-                      <p>${TourData.tour_content}</p>
+                      <p>${TourData.tour_content}...
+                      </p>
+
+
                     </div>
                     <div class="col-1"></div>
                     <div class="col-lg-5 row">
@@ -561,6 +563,7 @@ prefix="c" %>
                         aria-labelledby="headingOne"
                         data-bs-parent="#accordion"
                       >
+                        ${TourData.tour_content}
                         <div id="info_head_body" class="card-body">
                           <div class="highlight"></div>
                         </div>
@@ -2493,5 +2496,9 @@ prefix="c" %>
 
     <!-- 여행지 API 주변 관광 정보 & 여행지 API 상세 내용 js -->
     <script src="../assets/js/tourDetailData.js"></script>
+
+    <!-- 소개문 관련 js-->
+    <script src= "../assets/js/tour_detail.js"></script>
+
   </body>
 </html>
