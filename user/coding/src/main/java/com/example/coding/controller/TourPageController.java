@@ -47,18 +47,24 @@ public class TourPageController {
 							,@RequestParam(required = false, defaultValue = "1") int range 
 							,@RequestParam(required = false, defaultValue = "") String tour_cate_code 
 							,@RequestParam(required = false) String keyword
-							,@RequestParam(required = false) List<String> Loc
+							,@RequestParam(required = false, defaultValue = "" ) String Locs
 							,@ModelAttribute("search") Search search) throws Exception {
 
 		m.addAttribute("search", search);
 		search.setTour_cate_code(tour_cate_code);
 		search.setKeyword(keyword);
 
+		if (Locs != "" && Locs != null) {
+			String [] cate = Locs.split("/");
+			search.setLoc_cate_code(cate);
+		}else search.setLoc_cate_code(null);
+		
+
 		int listCnt = tourListService.getBoardListCnt(search);
 
 		search.pageInfo(page, range, listCnt);
 		m.addAttribute("paging", search);
-		System.out.println(search.toString() + '/' + search.getTour_cate_code()+ '/' +search.getKeyword());
+		System.out.println(search.toString());
 
 		List<TourVO> List = tourListService.getTourList(search);
 
@@ -74,6 +80,7 @@ public class TourPageController {
 	@RequestMapping(value = "/{tour_num}", method = {RequestMethod.GET})
 	public ModelAndView tourDetail(TourVO vo,  HttpServletRequest request) {
 		System.out.println(vo.getTour_num());
+		System.out.println(vo.getLoc_cate_code());
 		ModelAndView m = new ModelAndView();
 		TourVO toutData = tourListService.getTourData(vo);
 		String referer = request.getHeader("Referer");

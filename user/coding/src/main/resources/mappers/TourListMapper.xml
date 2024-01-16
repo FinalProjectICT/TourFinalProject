@@ -5,18 +5,22 @@
 <mapper namespace="com.example.coding.dao.TourListDAO">
 
 <select id="selectAll" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.Search">
-	SELECT *
+	SELECT tour_num, tour_img1_path, tour_name ,tour_addr, tour_star, tour_cate_code
 	FROM tour 
 	<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="tour_cate_code != null and tour_cate_code != '' ">
-				AND tour_cate_code like #{tour_cate_code}
-			</if>
-			<if test="keyword != null and keyword != '' ">
-				AND tour_name like  CONCAT('%',#{keyword},'%') 
-				OR tour_content like CONCAT('%',#{keyword},'%')
-			</if>
-		</trim>
-	
+		<if test="tour_cate_code != null and tour_cate_code != '' ">
+			AND tour_cate_code like #{tour_cate_code}
+		</if>
+		<if test="keyword != null and keyword != '' ">
+			AND tour_name like  CONCAT('%',#{keyword},'%') 
+			OR tour_content like CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="loc_cate_code != null">
+			<foreach collection="loc_cate_code" item="cate_data" open="AND (" close=")" separator="OR">
+			loc_cate_code like #{cate_data}
+			</foreach>
+		</if>
+	</trim>
 	ORDER BY tour_num DESC 
 	LIMIT #{startList}, #{listSize}
 </select>
@@ -25,15 +29,20 @@
 		SELECT count(*) as listCnt
 		FROM tour 
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-				<if test="tour_cate_code != null and tour_cate_code != '' ">
-					AND tour_cate_code like #{tour_cate_code}
-				</if>
-				<if test="keyword != null and keyword != '' ">
-					AND tour_name like CONCAT('%',#{keyword},'%') 
-					OR tour_content like CONCAT('%',#{keyword},'%')
-				</if>
+			<if test="tour_cate_code != null and tour_cate_code != '' ">
+				AND tour_cate_code like #{tour_cate_code}
+			</if>
+			<if test="keyword != null and keyword != '' ">
+				AND tour_name like CONCAT('%',#{keyword},'%') 
+				OR tour_content like CONCAT('%',#{keyword},'%')
+			</if>
+			<if test="loc_cate_code != null">
+				<foreach collection="loc_cate_code" item="cate_data" open="AND (" close=")" separator="OR">
+				loc_cate_code like #{cate_data}
+				</foreach>
+			</if>
 		</trim>
-	</select>
+</select>
 
 <select id="selectOne" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.TourVO">
 	SELECT * 

@@ -626,7 +626,7 @@ prefix="c" %>
                 <div class="left-sidebar filter-bottom-content">
                   <div id="fbox" class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
-                      <div class="filter-block col">
+                      <div class="filter-block col-5">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">지역별 분류</h6>
                           <div class="collection-collapse-block-content row">
@@ -718,6 +718,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="34.0"
+                                  value="34.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="34.0"
                                   >충청남도</label
@@ -730,6 +732,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="35.0"
+                                  value="35.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="35.0"
                                   >경상북도</label
@@ -742,6 +746,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="36.0"
+                                  value="36.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="36.0"
                                   >경상남도</label
@@ -754,6 +760,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="37.0"
+                                  value="37.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="37.0"
                                   >전라북도</label
@@ -766,6 +774,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="38.0"
+                                  value="38.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="38.0"
                                   >전라남도</label
@@ -778,6 +788,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="39.0"
+                                  value="39.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="39.0"
                                   >제주도</label
@@ -792,6 +804,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="4.0"
+                                  value="4.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="4.0"
                                   >대구</label>
@@ -803,6 +817,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="5.0"
+                                  value="5.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="5.0"
                                   >광주</label>
@@ -814,6 +830,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="6.0"
+                                  value="6.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="6.0"
                                   >부산</label>
@@ -825,6 +843,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="7.0"
+                                  value="7.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="7.0"
                                   >울산</label>
@@ -836,6 +856,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="8.0"
+                                  value="8.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="8.0"
                                   >세종</label>
@@ -844,7 +866,88 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
-                      <div class="filter-block col">
+                      <div class="filter-block col-3">
+                        <div class="collection-collapse-block open">
+                          <h6 class="collapse-block-title">별점별 분류</h6>
+                          <div class="collection-collapse-block-content">
+                            <div class="collection-brand-filter">
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="str5"
+                                />
+                                <label class="form-check-label" for="str5"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="str4"
+                                />
+                                <label class="form-check-label" for="str4"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="str3"
+                                />
+                                <label class="form-check-label" for="str3"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="str2"
+                                />
+                                <label class="form-check-label" for="str2"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="str1"
+                                />
+                                <label class="form-check-label" for="str1"
+                                  ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                              class="form-check collection-filter-checkbox"
+                            >
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="str0"
+                              />
+                              <label class="form-check-label" for="str0"
+                                ><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                              >
+                            </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="filter-block col-2">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">태그별 분류</h6>
                           <div class="collection-collapse-block-content">
@@ -1039,7 +1142,7 @@ prefix="c" %>
                           <h6 class="nowrap-cls">${TourData.tour_content }</h6>
                           <div class="include-sec">
                             <span>별점 ${TourData.tour_star}</span>
-                            <ul class="include">
+<!--                          <ul class="include">
                               <c:choose>
                                 <c:when test="${0 eq TourData.tour_star
                                 }">
@@ -1136,7 +1239,7 @@ prefix="c" %>
                                   </li>
                                 </c:otherwise>
                               </c:choose>
-                            </ul>
+                            </ul>-->  
                           </div>
 
                           <!--<div class="bottom-section">
@@ -1186,11 +1289,11 @@ prefix="c" %>
                   begin="${paging.startPage}"
                   end="${paging.endPage}"
                   var="testId"
-                >
+                ><!-- 검색 기록 저장을 위한  -->
                   <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
                     <a class="page-link" 
                     href="#" 
-                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.toString}')">
                     ${testId}</a>
                   </li>
                 </c:forEach>
