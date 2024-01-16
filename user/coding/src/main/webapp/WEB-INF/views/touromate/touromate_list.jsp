@@ -242,6 +242,7 @@ pageEncoding="UTF-8"%>
                         type="text"
                         class="form-control"
                         id="exampleFormControlInput1"
+                        name="searchKeyword"
                         placeholder="2글자 이상 입력하세요."
                       />
                     </div>
