@@ -1,5 +1,9 @@
+<%@ page import="java.sql.*"%>
+<%@ page import="java.util.Date" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -173,7 +177,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 col-lg-12">
-                    <form action="abc" method="post">
+                    <form action="/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
 
                       <!-- 이미지만 보여주는 테이블-->
                       <div class="image_section ">
@@ -232,21 +236,23 @@
                                 <div class="description-section">
                                     <div class="description-details">
                                         <div class="desc-box">
-                                            
                                             <div class="col-xl-3 col-lg-4" id="booking">
                                                 <div class="sticky-cls">
                                                     <div class="abcddessadsa">
                                                         <div class="single-sidebar">
-                                                            <div class="selection-section"> 
+                                                            <div class="selection-section">
+                                                              <!-- 작성 날짜 --> 
                                                                 <div class="price-part">
                                                                     <div class="left-part">
-                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert">
+                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="touroview_regdate" name="touroview_regdate">
                                                                     </div>
                                                                 </div>  
                                                                 <br/>
+                                                                <!-- 작성자-->
                                                                 <div class="price-part">
-                                                                    작성자<input type="text" class="writer-insert" id ="writerNumber" placeholder="작성자(세션값)">
+                                                                    작성자<input type="text" class="writer-insert" id ="user_id" name="user_id" value="${sessionScope.userId}" readonly>
                                                                 </div>
+                                                                <input type="hidden" id="userIdInput" name="user_id" value="${user_id}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -257,14 +263,15 @@
                                                 <input type="text" id="destinationInput" placeholder="search 후 선택 된 여행지 이름 띄워">
                                                 <br/>
                                                 <br/>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                <input type="text" class="form-control" id="touroview_title" name="touroview_title"
                                                 placeholder="게시글 제목 ">
                                                 <br/>
-                                                <textarea  class="form-control" id="exampleFormControlInput111"
-                                                placeholder="게시글 상세정보 " ></textarea>
+                                                <textarea  class="form-control" id="touroview_content" name="touroview_content"
+                                                placeholder="게시글 상세정보" ></textarea>
                                                 <br/>
+                                                <input type="hidden" id="selectedTourNum" name="tour_num" />
                                                 <div>
-                                                    <input type="submit" id = "info_btn" value=" 등록 " style="background-color: #d9dadb;">
+                                                    <input type="button" id ="searchButton" value="등록" style="background-color: #d9dadb;">
                                                 </div>
                                             </div>
                                         </div>
@@ -290,41 +297,32 @@
                                                 <form>
                                                     <div class="row w-100">
                                                         <div class="form-group col p-0">
-                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()"
-                                                                placeholder="여행지 검색 ">
-
-                                                                <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
-                                                                <ul id="searchResults"></ul>
+                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
+                                                                
+                                                            <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
+                                                            <ul id="searchResults">
+                                                              <c:forEach var="tour" items="${tourvo}">
+                                                                <li onclick="showDestinationInfo(${JSON.stringify(tour)})">
+                                                                    ${tour.tour_name} - ${tour.tour_addr}
+                                                                </li>
+                                                            </c:forEach>
+                                                          </ul>
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
                                                 </form>
                                             </div>
                                         </div>
-                                        <div class="menu-part page-section">search 버튼 누르면 떠야 되는 곳 </div>
+                                        <div class="menu-part page-section">
+                                          <!-- 선택한 여행지 정보 여기에 표시-->
+
+                                          <div id="selectedDestinationInfo">
+                                          </div>
+                                        </div>
                                     </div> 
                                     
                                     <br/>
-                                    <!-- 여행지  -->
-                                    <div class="desc-box">
-                                        <h4 class="content-title">여행지</h4>
-                                        <div class="menu-part page-section" id="rooms">
-                                            <table class="rooms-box">
-                                                <tr>
-                                                    <td>
-                                                        <h6 class="room-title">여행지 이름</h6>
-                                                        <a href="#">
-                                                            <img src="../assets/images/hotel/room/4.jpg"
-                                                                class="img-fluid blur-up lazyload" alt="">
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <h5>여행지 주소aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </h5>
-                                                        <h6>우편번호 ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ</h6>  
-                                                        <p>여행지 내용 </p>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                    
                                         </div>
                                     </div>
                                 </div>
@@ -592,67 +590,222 @@
     <!-- <script src="../assets/js/fileupload.js"></script> -->
 
     <script>
-        $('#datepicker').datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'dd mmmm'
-        });
-        $('#datepicker1').datepicker({
-            uiLibrary: 'bootstrap4',
-            format: 'dd mmmm'
-        });
-    </script>
-
-    <!-- 이미지 파일 업로드(미리보기)-->
-    <script>
-      function setThumbnail(event, previewImageId) {
-        var reader = new FileReader();
-
-        reader.onload = function(event){
-          var img = document.createElement("img");
-          img.setAttribute("src", event.target.result);
-          img.setAttribute("class", "image-box bg-img w-100");    // 이미지에 스타일 추가
-          document.getElementById(previewImageId).innerHTML = ''; // 초기화 필요 없음
-          document.getElementById(previewImageId).appendChild(img);
-        };
-
-        reader.readAsDataURL(event.target.files[0]);
-      }
-    </script>
-
-    <!-- 후기 게시판 db에 등록-->
-    <script>
-      // 폼이 서브밋될 때 실행될 함수
-      document.getElementById('about').addEventListener('submit',function(event){
-        // 기본 서브밋 동작 막기
-        event.preventDefault();
-
-        // Ajax 사용해 서버에 등록 데이터 전송
-        $.ajax({
-          type:   'POST',
-          url:    '/submitForm',
-          data: {
-            destination: $('#destinationInput').val(),
-            title:       $('exampleFormControlInput1').val(),
-            details:     $('exampleFormControlInput111').val()
-          },
-          success: function (response){
-            // 등록 성공 -> 서버에서 반환된 데이터에 따라 동작 수행
-            if(response.success) {
-              // 등록 성공 시 페이지 이동
-              window.location.href = 'touroview/touroview_detail/' + response.touroviewId;
-            } else {
-              // 등록 실패 시 사용자에게 오류 메시지
-              alert('등록에 실패했습니다.');
-            }
-          },
-          error: function(){
-            // Ajax 오류 처리
-            alert('서버와의 통신 중 오류가 발생했습니다.');
-          }
-        });
+      $('#datepicker').datepicker({
+          uiLibrary: 'bootstrap4',
+          format: 'dd mmmm'
       });
-    </script>
+      $('#datepicker1').datepicker({
+          uiLibrary: 'bootstrap4',
+          format: 'dd mmmm'
+      });
+  </script>
 
+  <!-- 이미지 파일 (미리보기)-->
+  <script>
+    function setThumbnail(event, previewImageId) {
+      var reader = new FileReader();
+
+      reader.onload = function(event){
+        var img = document.createElement("img");
+        img.setAttribute("src", event.target.result);
+        img.setAttribute("class", "image-box bg-img w-100");    // 이미지에 스타일 추가
+        document.getElementById(previewImageId).innerHTML = ''; // 초기화 필요 없음
+        document.getElementById(previewImageId).appendChild(img);
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+
+  <!-- 후기 게시판 db에 등록-->
+  <script>
+    $(document).ready(function(){
+      $("#searchButton").click(function(){
+        submitForm();
+      });
+      
+    });
+    // const formData = new FormData(document.getElementById("touroview"));
+    // console.log(formData);
+    
+    function submitForm(){
+      // 사용자의 userId를 가져와서 폼에 추가
+      var userId = "${user_id}";
+      document.getElementById("userIdInput").value = userId;
+
+      // 새로운 FormData 객체 생성
+      const formData = new FormData(document.getElementById("touroview"));
+
+      // // user_id를 formData에 추가
+      // formData.append('user_id', userId);
+      
+      // Ajax 사용해 서버에 등록 데이터 전송
+      $.ajax({
+        type:   'POST',
+        url:    'saveTouroview', // 서버로 데이터를 보낼 주소
+        data:   formData,
+        processData : false,
+        contentType : false,
+        success: function (response) {
+              // 등록 성공 시
+              alert('입력되었습니다.');
+
+            // response에서 user_id를 가져오고, 없으면 기본값 'defaultUserId' 사용
+            var userId = response && response.user_id ? response.user_id : 'defaultUserId';
+
+            // 페이지 이동
+            window.location.href = '/touroview/touroview_detail/' + userId;
+          },
+          error: function (xhr, status, error) {
+              // Ajax 오류 처리
+              alert('서버와의 통신 중 오류가 발생했습니다.' + error);
+              // 페이지 이동
+              window.location.href = '/touroview/touroview_insert'; // 오류 발생 시 이동할 페이지
+          }
+      });
+    }
+  </script>
+
+  <!-- 여행지 검색하기 -->
+  <script>
+    // 페이지 로드 시 초기 검색 결과 표시
+    $(document).ready(function(){
+      console.log("Document is ready.");
+
+      $("#searchButton").click(function() {
+        console.log("Search button clicked.");
+        searchDestinations();
+      });
+    });
+
+    // 여행지 검색 함수
+    function searchDestinations(){
+    var keyword = document.getElementById("searchInput").value;
+
+        // Ajax 사용해 서버에서 검색 결과 가져오기
+        $.ajax({
+            type: 'GET',
+            url: 'search',
+            data: {
+                keyword: keyword
+            },
+            success: function (results) {
+                // 성공 시 검색 결과를 동적으로 추가
+                appendSearchResults(results);
+            },
+            error: function () {
+                console.log("Ajax request failed.");
+                // 오류 처리
+                alert('서버와의 통신 중 오류가 발생했습니다.');
+            }
+        });
+    }
+
+    // 검색 결과를 동적으로 추가하는 함수
+    function appendSearchResults(results) {
+  var searchResultsList = document.getElementById("searchResults");
+  searchResultsList.innerHTML = ""; // 기존 결과 초기화
+
+  // 결과가 비어 있을 경우 메시지 추가
+      if (results.length === 0) {
+          var noResultsMessage = document.createElement("li");
+          noResultsMessage.textContent = "검색 결과가 없습니다.";
+          searchResultsList.appendChild(noResultsMessage);
+          return;
+      }
+
+      // 결과 동적 추가
+      for (let i = 0; i < results.length; i++) {
+          var resultItem = document.createElement("li");
+          resultItem.textContent = "[선택한 여행지] : " + results[i].tour_name + " - " + "[주소] :" + results[i].tour_addr;
+        
+        // 개행 문자 추가
+        if (i < results.length - 1) {
+            resultItem.textContent += "\n";
+        }
+          
+          // 클릭 이벤트 핸들러 추가
+          resultItem.onclick = function (index) {
+              return function () {
+                  // 선택한 여행지 정보 표시
+                  console.log("Result item clicked. Index: ", index);
+                  console.log("Results: ", results); // 여기서 results 배열을 확인
+                  showDestinationInfo(results[index]);
+
+                  // 여행지 이름을 입력란에 표시
+                  var destinationInput = document.getElementById("destinationInput");
+                  destinationInput.value = results[index].tour_name;
+              };
+          }(i);
+
+          searchResultsList.appendChild(resultItem);
+      }
+  }
+
+
+  // 선택한 여행지 정보를 표시하는 함수
+  function showDestinationInfo(destination){
+      console.log("Show destination info: ", destination);
+
+      // 여행지 번호를 hidden 필드에 설정
+      var tourNumInput = document.getElementById("selectedTourNum");
+      tourNumInput.value = destination.tour_num;
+
+      // 여행지 보이기
+      var selectedDestinationInfo = document.getElementById("selectedDestinationInfo");
+      var destinationInput = document.getElementById("destinationInput");
+      destination.value = destination.tour_name;
+
+      // 선택한 여행지 정보를 HTML로 구성하여 업데이트
+      selectedDestinationInfo.innerHTML = `
+        <table class="rooms-box">
+            <tr>
+                <td>
+                    <h6 class="room-title">여행지 이름</h6>
+                    <a href="#">
+                        <img src="../${'${destination.tour_img1_path}'}" class="img-fluid blur-up lazyload" alt="">
+                    </a>
+                </td>
+                <td>
+                    <h5>여행지 이름: ${'${destination.tour_name}'}</h5>
+                    <h6>주소: ${'${destination.tour_addr}'}</h6>
+                    <p>여행지 내용: ${'${destination.tour_content}'}</p>
+                </td>
+            </tr>
+        </table>
+    `;
+}
+  </script>
+  
+  <!-- 작성날짜 날짜 전송하기-->
+  <script>
+    document.getElementById("searchButton").addEventListener("click", function(){
+      // touroview_regdate 요소에서 날짜 값 가져오기
+      var touroviewRegdate = document.getElementById("touroview_regdate").value;
+      console.log(touroviewRegdate);
+
+      // 날짜가 비어 있거나 유효하지 않은 경우
+      if (!touroviewRegdate){
+        alert('날짜를 선택해주세요.');
+        return;
+      }
+
+      console.log("Date: ", touroviewRegdate);
+
+      // 폼 데이터를 FormData 객체로 생성
+      var formData = new FormData();
+      formData.append("touroview_regdate", touroviewRegdate);
+
+      // 서버로 데이터를 전송
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "saveTouroview", true);
+      xhr.send(formData);
+    });
+
+  </script>
+
+
+  
 
 
 </body>
