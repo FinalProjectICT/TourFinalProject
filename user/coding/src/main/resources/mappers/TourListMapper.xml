@@ -51,4 +51,15 @@
 	FROM wishlist 
 	WHERE user_id = #{user_id} AND tour_num = #{tour_num}
 </select>
+
+<insert id="newInquiry" parameterType="com.example.coding.domain.InquiryVO">
+	INSERT INTO inquiry (inquiry_title, inquiry_content, user_id, tour_num, inquiry_process)
+	VALUES (#{inquiry_title}, #{inquiry_content}, #{user_id}, #{tour_num}, 0)
+</insert>
+
+<update id="incTourInquiry_num" parameterType="com.example.coding.domain.TourVO">
+	UPDATE tour SET inquiry_count = #{inquiry_count} + 1
+	WHERE tour_num=#{tour_num}
+</update>
+
 </mapper>

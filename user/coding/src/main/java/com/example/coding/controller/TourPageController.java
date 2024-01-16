@@ -14,6 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.coding.service.TourListService;
 import com.example.coding.service.UserInfoService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.UserVO;
@@ -68,11 +72,17 @@ public class TourPageController {
 	 * - mapper - TourListMapper - selectOne
 	 */
 	@RequestMapping(value = "/{tour_num}", method = {RequestMethod.GET})
-	public ModelAndView tourDetail(TourVO vo) {
+	public ModelAndView tourDetail(TourVO vo,  HttpServletRequest request) {
 		System.out.println(vo.getTour_num());
 		ModelAndView m = new ModelAndView();
-		m.setViewName("/tour/tour_detail");
-		m.addObject("TourData", tourListService.getTourData(vo));
+		TourVO toutData = tourListService.getTourData(vo);
+		String referer = request.getHeader("Referer");
+		if(toutData != null){
+			m.setViewName("/tour/tour_detail");
+			m.addObject("TourData", toutData);
+			return m;
+		}else
+		m.setViewName("redirect:"+referer);
 		return m;
 	}
 
@@ -118,5 +128,18 @@ public class TourPageController {
 		return res;
 	}
 
+	/*****
+	 * 여행지 문의 작성
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value ="/inquiry", method={RequestMethod.POST})
+	@ResponseBody
+	public String newInquiry(@ModelAttribute("vo") InquiryVO vo) {
+		System.out.println(vo);
+		String res = tourListService.newInquiry(vo);
+		return res;
+	}
+	
 
 }

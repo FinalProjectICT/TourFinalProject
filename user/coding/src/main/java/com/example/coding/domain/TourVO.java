@@ -11,7 +11,7 @@ public class TourVO {
     private String tour_addr;       // 여행지 주소
     private String tour_postnum;    // 여행지 우편번호
     private String tour_site_addr;  // 여행지 사이트 주소
-    private Integer inquiry_num;    // 문의 번호
+    private Integer inquiry_count;    // 문의 번호
     private Integer loc_cate_code;  // 여행지 지역 코드
     private double tour_lati;       // 위도
     private double tour_longi;      // 경도

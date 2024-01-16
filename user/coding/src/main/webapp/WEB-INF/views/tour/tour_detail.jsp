@@ -53,7 +53,6 @@ prefix="c" %>
 
   <body>
     <!-- 세션 로그인 값 -->
-    <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
     <input type="hidden" value="${TourData.tour_lati}" id="tour_lati" />
     <input type="hidden" value="${TourData.tour_longi}" id="tour_longi" />
     <input
@@ -620,19 +619,19 @@ prefix="c" %>
                             }"
                               >
                                 <li class="not-include">
-                                  <i class="far fa-star"></i>
+                                  <h2><i class="far fa-star"></i></h2>
                                 </li>
                                 <li class="not-include">
-                                  <i class="far fa-star"></i>
+                                  <h2><i class="far fa-star"></i></h2>
                                 </li>
                                 <li class="not-include">
-                                  <i class="far fa-star"></i>
+                                  <h2><i class="far fa-star"></i></h2>
                                 </li>
                                 <li class="not-include">
-                                  <i class="far fa-star"></i>
+                                  <h2><i class="far fa-star"></i></h2>
                                 </li>
                                 <li class="not-include">
-                                  <i class="far fa-star"></i>
+                                  <h2><i class="far fa-star"></i></h2>
                                 </li>
                               </c:when>
                               <c:when
@@ -1000,7 +999,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">관광지</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
 
@@ -1033,7 +1032,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">관광지</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
 
@@ -1066,7 +1065,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">숙박업</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
 
@@ -1099,7 +1098,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">숙박업</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
 
@@ -1132,7 +1131,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">음식점</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
 
@@ -1165,7 +1164,7 @@ prefix="c" %>
                                 <h5>여행지 명</h5>
                               </div>
                             </div>
-                            <div class="label-offer">음식점</div>
+                            <div class="label-offer"></div>
                           </div>
                         </div>
                       </div>
@@ -2409,17 +2408,17 @@ prefix="c" %>
     >
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">문의</h5>
-            <!--<button
+          <form id="inquiry">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">문의</h5>
+              <!--<button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
             ></button>-->
-          </div>
-          <div class="modal-body dashboard-section">
-            <form>
+            </div>
+            <div class="modal-body dashboard-section">
               <div class="row">
                 <div class="form-group col-12">
                   <label for="old">여행지</label>
@@ -2432,35 +2431,44 @@ prefix="c" %>
                     type="hidden"
                     class="form-control"
                     value="${TourData.tour_num}"
+                    name="tour_num"
                     id="tour_num"
+                  />
+                  <input
+                    type="hidden"
+                    value="${sessionScope.loggedId}"
+                    name="user_id"
+                    id="loggedInUser"
                   />
                 </div>
                 <div class="form-group col-12">
                   <label for="new">제목</label>
-                  <input class="form-control" id="inquiry_title" />
+                  <input class="form-control" name="inquiry_title" />
                 </div>
                 <div class="form-group col-12">
                   <label for="comfirm">내용</label>
                   <textarea
                     class="form-control"
-                    id="inquiry_content"
+                    name="inquiry_content"
                     placeholder="문의 사항을 입력해주세요."
                     rows="3"
                   ></textarea>
                 </div>
               </div>
-            </form>
-          </div>
-          <div class="modal-footer dashboard-section">
-            <button type="button" class="btn btn-solid">작성</button>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              취소
-            </button>
-          </div>
+            </div>
+            <div class="modal-footer dashboard-section">
+              <button type="submit" class="btn btn-solid" id="btnInquiry">
+                작성
+              </button>
+              <button
+                type="reset"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                취소
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
