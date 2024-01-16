@@ -8,6 +8,7 @@
 	<!-- ******************* BoardDAO에 메소드명이랑 동일 ( id 값이 )  -->
 										<!-- 원래 : com.example.domain.BoardVO -->
 
+	<!-- 여행지 리스트 -->
 	<select id="tourList" resultType="AdminVO">
 		SELECT t.tour_name tourName, t.tour_num tourNum, c.check_num checkNum
 		FROM tour t
@@ -16,23 +17,24 @@
 
 	</select>
 	
+	<!-- 여행지 디테일 페이지-->
 	<select id="tourdetail" parameterType="AdminVO" resultType="AdminVO">
 	
 		SELECT *
 		FROM tour t
-		LEFT OUTER JOIN img_detail id
-								LEFT OUTER JOIN img ig
-								ON ig.img_num = id.img_num
-		ON id.tour_num = t.tour_num
+		LEFT OUTER JOIN img_detail id ON id.tour_num = t.tour_num
+		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
 		WHERE t.tour_num = #{tourNum}
 	</select>
 
+	<!-- 여행지 삭제 -->
 	<delete id="deleteNum" parameterType="AdminVO" >
 
 		DELETE FROM tour WHERE tour_num = #{tourNum}
 
 	</delete>
 
+	<!--여행지 등록 -->
 	<insert id="tourInsert" parameterType="AdminVO">
 
 		INSERT INTO tour (tour_num,tour_name, tour_addr, tour_content, tour_site_addr) 
@@ -40,6 +42,7 @@
 	
 	</insert>
 	
+	<!--유저 리스트 -->
 	<select id = "userList" parameterType="AdminVO" resultType="AdminVO">
 	SELECT 	u.user_id userId, 
 	u.user_name userName, 
@@ -63,6 +66,7 @@
 	</select>
 
 
+	<!-- 후기 게시판 리스트-->
 	<select  id="touroviewList" parameterType="AdminVO" resultType="AdminVO">
 		SELECT tvw.user_id user_id , 
 		tvw.touroview_content touroview_content, 
@@ -71,7 +75,7 @@
 		tvw.touroview_regdate touroview_regdate, 
 		tvw.touroview_update touroview_update
 		,tvw.touroview_title
-		,tr.tour_num tour_name
+		,tr.tour_name tour_name
 		,tvw.touroview_num touroview_num
 		FROM 	touroview tvw
 		LEFT  JOIN `like` li ON li.touroview_num = tvw.touroview_num
@@ -79,12 +83,43 @@
 		LEFT  JOIN `tour` tr ON tr.tour_num = tvw.tour_num
 	</select>
 
+	<!-- 후기 게시판 상세 디테일-->
 	<select id = "touroViewNum" parameterType="AdminVO" resultType="AdminVO">
 		SELECT * FROM touroview tvw
 		LEFT OUTER JOIN img_detail id ON id.touroview_num = tvw.touroview_num
 		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
+		LEFT OUTER JOIN tour tr ON tr.tour_num = tvw.tour_num
 		WHERE tvw.touroview_num = #{touroview_num}
 	</select>
 	
+	<!-- 여행지 이미지 제외 수정-->
+	<update id = "modifyTour" parameterType="AdminVO">
+	UPDATE tour tr
+	SET	tr.tour_content= #{tour_content},
+		tr.tour_addr = #{tour_addr},
+		tr.tour_site_addr = #{tour_site_addr}
+	WHERE tr.tour_num = #{tourNum}
 
+	</update>
+
+	<!-- 후기 게시판 내부에서 검색-->
+	<select id = "search_touro" parameterType="AdminVO" resultType="AdminVO">
+	SELECT tvw.user_id user_id,
+		tvw.touroview_content touroview_content,
+		li.like_count like_count,
+		rp.report_count report_count,
+		tvw.touroview_regdate touroview_regdate,
+		tvw.touroview_update touroview_update,
+		tvw.touroview_title touroview_title,
+		tr.tour_name tour_name,
+		tvw.touroview_num touroview_num
+	FROM touroview tvw
+	LEFT JOIN `like` li ON li.touroview_num = tvw.touroview_num
+	LEFT JOIN `report` rp ON rp.touroview_num = tvw.touroview_num
+	LEFT JOIN `tour` tr ON tr.tour_num = tvw.tour_num
+	WHERE tvw.touroview_title LIKE CONCAT('%', #{touroview_title}, '%')
+	OR tr.tour_name LIKE CONCAT('%', #{tour_name}, '%')
+	OR tvw.user_id LIKE CONCAT('%', #{user_id}, '%')
+	OR tvw.touroview_content LIKE CONCAT('%', #{touroview_content}, '%')
+	</select>
 </mapper>

@@ -25,6 +25,12 @@ public interface AdminService {
     // 후기 게시판 디테일
     AdminVO touroViewNum(AdminVO vo); 
 
+    // 여행지 이미지 제외 수정
+    public int modifyTour(AdminVO vo);
+
+    // 후기 게시판 내부에서 검색 
+    List<AdminVO> search_touro( String search_touro);
+
     
     
 }

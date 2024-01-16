@@ -14,6 +14,7 @@ function PricingCom() {
 
   const baseUrl = "http://localhost:8080";
 
+  // 기본
   useEffect(() => {
     axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num).then((result) => {
     const touroviews = result.data;
@@ -27,7 +28,9 @@ function PricingCom() {
   });
   }, []);
 
-
+  // 경로 에러 때문에 db에서 받아온 이미지 선언 
+  const imagePath1 = typeof touroviews.tour_img1_path === 'string' ? touroviews.tour_img1_path.replace(/\\/g, '/') : "";
+  const imagePath2 = typeof touroviews.tour_img2_path === 'string' ? touroviews.tour_img2_path.replace(/\\/g, '/') : "";
 
 
   return (
@@ -62,6 +65,7 @@ function PricingCom() {
                         <br />
 
                         <div className="mb-3">
+                        <label className="form-label-title">ID</label>
                           <input
                             className="form-control"
                             type="text"
@@ -99,33 +103,33 @@ function PricingCom() {
                           </label>
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <input
-                                style={{ height:'400px' }}
-                                type="text"
+                              <img
+                                style={{ height:'618px' ,border:'none', backgroundColor:"white" }}
                                 className="form-control"
                                 readOnly
-                                value={touroviews.img_name || ''}
+                                src={imagePath2 ? `../${imagePath2}` : '이미지가 없습니다.'}
+                                alt=""
                               />
                             </div>
                           </div>
 
-                          <div className="col-md-6">
-                            <div className="mb-3">
-                              <input
-                                style={{ height:'192px' }}
-                                type="text"
+                          <div className="col-md-6" >
+                            <div className="mb-3" >
+                              <img
+                                style={{ height:'300px' ,border:'none' , backgroundColor:"white" }}
                                 className="form-control"
                                 readOnly
-                                value={touroviews.img_name || ''}
+                                src={imagePath2 ? `../${imagePath1}` : '이미지가 없습니다.'}
+                                alt=""
                               />
                             </div>
                             <div className="mb-3">
-                              <input
-                                style={{ height:'192px' }}
-                                type="text"
+                              <img
+                                style={{ height:'300px' ,border:'none' , backgroundColor:"white"}}
                                 className="form-control"
                                 readOnly
-                                value={touroviews.img_name || ''}
+                                src={imagePath2 ? `../${imagePath2}` : '이미지가 없습니다.'}
+                                alt=""
                               />
                             </div>
                           </div>

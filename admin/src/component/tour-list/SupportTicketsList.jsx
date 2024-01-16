@@ -25,6 +25,8 @@ function SupportTicketsList() {
   const createTour = () => {
     navigate("/tour-register");
   };
+
+  // 여행지 상세 페이지 가는 함수 
   const detailTourNum = (e,tourNum) => {
     e.preventDefault(); // a 태그의 기본 기능 막기 
     axios.get(`${baseUrl}/tour-list/${tourNum}`)
@@ -44,6 +46,7 @@ function SupportTicketsList() {
   //   navigate("/tour-view/${tourName}");
   // };
 
+  
   // 여행지 내부에서 검색
   const handleSubmit = (e) => {
     forceUpdate();
@@ -82,6 +85,7 @@ function SupportTicketsList() {
     setTours([]);
   };
 
+  // 여행지 리스트 자체 select
   useEffect(() => {
     axios.get(baseUrl+"/tour-list").then((result) => {
       const tours = result.data;
