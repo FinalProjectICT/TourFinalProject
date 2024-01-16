@@ -70,5 +70,17 @@ public class AdminServiceImpl implements AdminService {
         return adminDAO.modifyTour(vo);
     }
 
+    // 푸터 여행지 select
+    public List<AdminVO> footer_tour_list(){
+        List<AdminVO> list = adminDAO.footer_tour_list();
+        return list;
+    }
+
+    // 푸터 후기 게시판 좋아요 top4
+    public List<AdminVO> footer_toroview_list(){
+        List<AdminVO> list = adminDAO.footer_toroview_list();
+        return list;
+    }
+    
     
 }
