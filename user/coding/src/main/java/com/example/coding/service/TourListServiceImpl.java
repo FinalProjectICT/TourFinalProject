@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import com.example.coding.dao.TourListDAO;
+import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.WishListVO;
@@ -38,6 +39,11 @@ public class TourListServiceImpl implements TourListService{
     @Override
     public String ckWishList(WishListVO vo) {
         return tourListDAO.ckWishList(vo);
+    }
+
+    @Override
+    public String newInquiry(InquiryVO vo) {
+        return tourListDAO.newInquiry(vo);
     }
 
 }

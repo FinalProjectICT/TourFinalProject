@@ -23,16 +23,26 @@
         SELECT COUNT(*) FROM touro_mate;
     </select>
 
-    <!-- insert 페이지 값 저장 -->
-    <insert id="registerCourse" parameterType="TouroMateVO">
-        INSERT INTO touro_mate (touro_mate_title, touro_mate_count, touro_mate_content,
-        touro_mate_name1, touro_mate_name2, touro_mate_name3,
-        touro_mate_addr1, touro_mate_addr2, touro_mate_addr3)
-        
-        VALUES (#{touro_mate_title}, #{touro_mate_count}, #{touro_mate_content},
-        #{touro_mate_name1}, #{touro_mate_name2}, #{touro_mate_name3},
-        #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3})
+    <insert id="registerTouroMateAndChat" parameterType="TouroMateVO">
+        <!-- 아래의 selectKey를 추가하여 touro_mate_num을 생성 -->
+        <selectKey keyProperty="touro_mate_num" resultType="int" order="BEFORE">
+            SELECT COALESCE(MAX(touro_mate_num), 0) + 1 FROM touro_mate
+        </selectKey>
+        <!-- 첫 번째 INSERT는 touro_mate에 값을 저장 -->
+        INSERT INTO touro_mate (touro_mate_num, user_id, touro_mate_title, touro_mate_count, touro_mate_content,
+            touro_mate_name1, touro_mate_name2, touro_mate_name3,
+            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3)
+        VALUES (#{touro_mate_num}, #{user_id}, #{touro_mate_title}, #{touro_mate_count}, #{touro_mate_content},
+            #{touro_mate_name1}, #{touro_mate_name2}, #{touro_mate_name3},
+            #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3});
     </insert>
+
+    <insert id="registerTouroMateChat" parameterType="TouroMateVO">
+        <!-- 두 번째 INSERT는 tour_mate_chat에 값을 저장 -->
+        INSERT INTO tour_mate_chat (touro_mate_num, user_id, chat_user_count, chat_in_out)
+        VALUES (#{touro_mate_num}, #{user_id}, #{touro_mate_count}, 0);
+    </insert>
+
 
     <!-- detail 페이지 -->
     <select id="getTouroMateById" resultType="TouroMateVO" parameterType="Object">
@@ -53,7 +63,7 @@
 
     <!-- 게시글 작성자 정보 가져오기 -->
     <select id="getAuthorInfo" resultType="UserVO" parameterType="String">
-        SELECT u.user_id, u.user_tel, u.user_email, u.user_gender, u.user_age,
+        SELECT DISTINCT u.user_id as user_id, u.user_tel, u.user_email, u.user_gender, u.user_age,
             u.user_prefer_type1, u.user_prefer_type2, u.user_prefer_type3
         FROM touro_mate tm
         INNER JOIN user u ON tm.user_id = u.user_id

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.WishListVO;
@@ -42,6 +43,14 @@ public class TourListDAOImpl implements TourListDAO{
         {
             return "0";
         }else return "1";
+    }
+
+    @Override
+    public String newInquiry(InquiryVO vo) {
+        int res = mybatis.insert("newInquiry", vo);
+        TourVO tvo = mybatis.selectOne("selectOne", vo);
+        mybatis.update("incTourInquiry_num", tvo);
+        return String.valueOf(res);
     }
 
 }

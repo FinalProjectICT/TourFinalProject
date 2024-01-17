@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
+import com.example.coding.service.ImgService;
 import com.example.coding.service.UserService;
 import com.example.coding.util.MD5Generator;
 
@@ -22,6 +24,9 @@ public class UserController {
     
 	@Autowired
 	private UserService userService;
+
+    @Autowired
+	private ImgService imgService;
 
 	// 회원가입
 	@RequestMapping("/insertUser") 
@@ -52,9 +57,19 @@ public class UserController {
 				ivo.setImg_name(img_name);
                 ivo.setImg_real_name(img_real_name);
                 ivo.setImg_path(img_path);
+                System.out.println("<<<<< 파일정보 덩어리 만들기 성공 >>>>>");
+
+                imgService.insertFile(ivo);
+                System.out.println("insertFile() 요청");
+
+                // 파일정보 img_detail에 담기
+                ImgDetailVO idvo = new ImgDetailVO();
+                idvo.setUser_id(vo.getUser_id());
+                idvo.setImg_num(imgService.selectNum());
+                System.out.println("아이디 : "+idvo.getUser_id()+"이미지번호 : "+idvo.getImg_num());
 
                 // 디비저장 시 파일정보 덩어리 추가
-				userService.insertUser(vo, ivo);
+				userService.insertUser(vo, ivo, idvo);
 				System.out.println("insertUser() 요청");
                 
 				
@@ -64,7 +79,7 @@ public class UserController {
            
         }else {
             // 파일첨부가 없는 경우
-            userService.insertUser(vo, null);
+            userService.insertUser(vo, null, null);
         }
 
 		return "redirect:login";

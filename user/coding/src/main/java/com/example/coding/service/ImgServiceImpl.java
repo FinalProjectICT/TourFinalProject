@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.ImgDAO;
+import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.domain.ImgVO;
 
 @Service
@@ -11,6 +12,9 @@ public class ImgServiceImpl implements ImgService {
 
     @Autowired
     ImgDAO imgDAO;
+
+    @Autowired
+    ImgDetailDAO imgDetailDAO;
 
     @Override
     public void     insertFile(ImgVO vo){
@@ -23,7 +27,7 @@ public class ImgServiceImpl implements ImgService {
     };
 
     @Override
-    public Long     selectId(){
-        return imgDAO.selectId();
+    public Long     selectNum(){
+        return imgDAO.selectNum();
     };
 }

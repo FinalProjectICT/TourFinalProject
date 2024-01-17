@@ -1,5 +1,6 @@
 package com.example.coding.dao;
 
+import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
 
@@ -38,4 +39,10 @@ public interface TouroMateDAO {
 
     // 게시글 작성자 정보 가져오기
     UserVO getAuthorInfo(String user_id);
+
+    // insert함과 동시에 tour_mate_chat 정보 저장
+    void registerTouroMateAndChat(TouroMateVO touroMateVO);
+
+    void registerTouroMateChat(TouroMateVO touroMateVO);
+      
 }

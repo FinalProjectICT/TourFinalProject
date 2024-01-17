@@ -72,6 +72,7 @@ prefix="c" %>
 
     <!-- 사용자 선호 여행 타입에 따른 지역별 추천 -->
     <script>
+
       $(function(){
           const socket = new WebSocket("ws://localhost:8765");
           const sessionId = $('#loggedInUser').val()
@@ -139,18 +140,20 @@ prefix="c" %>
                       }
                     // menu-bar를 나타내는 HTML 문자열 생성
                       const menuBarHTML = `
+
                           <div class="menu-bar">
-                              <a href="touro/${'${reco1.tour_num}'}">
-                                  <img src="../${'${reco1.imgPath}'}" class="img-fluid blur-up lazyload" alt=""/>
+                              <a href="touro/${"${reco1.tour_num}"}">
+                                  <img src="../${"${reco1.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
                               </a>
                               <div class="content">
-                                  <a href="touro/${'${reco1.tour_num}'}">
-                                      <h5>${'${reco1.tour_name}'}</h5>
+                                  <a href="touro/${"${reco1.tour_num}"}">
+                                      <h5>${"${reco1.tour_name}"}</h5>
                                   </a>
-                                  <p>${'${reco1.address}'}</p>
+                                  <p>${"${reco1.address}"}</p>
                               </div>
                           </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -188,17 +191,18 @@ prefix="c" %>
                     // menu-bar를 나타내는 HTML 문자열 생성
                       const menuBarHTML = `
                           <div class="menu-bar">
-                              <a href="touro/${'${reco2.tour_num}'}">
-                                  <img src="../${'${reco2.imgPath}'}" class="img-fluid blur-up lazyload" alt=""/>
+                              <a href="touro/${"${reco2.tour_num}"}">
+                                  <img src="../${"${reco2.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
                               </a>
                               <div class="content">
-                                  <a href="touro/${'${reco2.tour_num}'}">
-                                      <h5>${'${reco2.tour_name}'}</h5>
+                                  <a href="touro/${"${reco2.tour_num}"}">
+                                      <h5>${"${reco2.tour_name}"}</h5>
                                   </a>
-                                  <p>${'${reco2.address}'}</p>
+                                  <p>${"${reco2.address}"}</p>
                               </div>
                           </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -233,18 +237,20 @@ prefix="c" %>
                       }
                     // menu-bar를 나타내는 HTML 문자열 생성
                       const menuBarHTML = `
+
                           <div class="menu-bar">
-                              <a href="touro/${'${reco3.tour_num}'}">
-                                  <img src="../${'${reco3.imgPath}'}" class="img-fluid blur-up lazyload" alt=""/>
+                              <a href="touro/${"${reco3.tour_num}"}">
+                                  <img src="../${"${reco3.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
                               </a>
                               <div class="content">
-                                  <a href="touro/${'${reco3.tour_num}'}">
-                                      <h5>${'${reco3.tour_name}'}</h5>
+                                  <a href="touro/${"${reco3.tour_num}"}">
+                                      <h5>${"${reco3.tour_name}"}</h5>
                                   </a>
-                                  <p>${'${reco3.address}'}</p>
+                                  <p>${"${reco3.address}"}</p>
                               </div>
                           </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -331,24 +337,25 @@ prefix="c" %>
                       <div class="grid-item">
                         <div class="special-box p-0">
                             <div class="special-img">
-                              <a href="/touro/${'${reco1.tour_num}'}">
+                              <a href="/touro/${"${reco1.tour_num}"}">
                                 <img
-                                  src="../${'${reco1.imgPath}'}"
+                                  src="../${"${reco1.imgPath}"}"
                                   class="img-fluid blur-up lazyload bg-img"
                                   alt=""
                                   style="width:440px; height:300px;"
                                 />
                               </a>
                               <div class="content-inner">
-                                <a href="/touro/${'${reco1.tour_num}'}">
-                                  <h5>${'${reco1.tour_name}'}</h5>
+                                <a href="/touro/${"${reco1.tour_num}"}">
+                                  <h5>${"${reco1.tour_name}"}</h5>
                                 </a>
-                                <h6>${'${reco1.address}'}</h6>
+                                <h6>${"${reco1.address}"}</h6>
                               </div>
                             </div>
                           </div>
                         </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -383,27 +390,29 @@ prefix="c" %>
                       }
                     // menu-bar를 나타내는 HTML 문자열 생성
                     const menuBarHTML = `
+
                       <div class="grid-item">
                         <div class="special-box p-0">
                             <div class="special-img">
-                              <a href="/touro/${'${reco2.tour_num}'}">
+                              <a href="/touro/${"${reco2.tour_num}"}">
                                 <img
-                                  src="../${'${reco2.imgPath}'}"
+                                  src="../${"${reco2.imgPath}"}"
                                   class="img-fluid blur-up lazyload bg-img"
                                   alt=""
                                   style="width:440px; height:300px;"
                                 />
                               </a>
                               <div class="content-inner">
-                                <a href="/touro/${'${reco2.tour_num}'}">
-                                  <h5>${'${reco2.tour_name}'}</h5>
+                                <a href="/touro/${"${reco2.tour_num}"}">
+                                  <h5>${"${reco2.tour_name}"}</h5>
                                 </a>
-                                <h6>${'${reco2.address}'}</h6>
+                                <h6>${"${reco2.address}"}</h6>
                               </div>
                             </div>
                           </div>
                         </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -438,27 +447,29 @@ prefix="c" %>
                       }
                     // menu-bar를 나타내는 HTML 문자열 생성
                     const menuBarHTML = `
+
                       <div class="grid-item">
                         <div class="special-box p-0">
                             <div class="special-img">
-                              <a href="/touro/${'${reco3.tour_num}'}">
+                              <a href="/touro/${"${reco3.tour_num}"}">
                                 <img
-                                  src="../${'${reco3.imgPath}'}"
+                                  src="../${"${reco3.imgPath}"}"
                                   class="img-fluid blur-up lazyload bg-img"
                                   alt=""
                                   style="width:440px; height:300px;"
                                 />
                               </a>
                               <div class="content-inner">
-                                <a href="/touro/${'${reco3.tour_num}'}">
-                                  <h5>${'${reco3.tour_name}'}</h5>
+                                <a href="/touro/${"${reco3.tour_num}"}">
+                                  <h5>${"${reco3.tour_name}"}</h5>
                                 </a>
-                                <h6>${'${reco3.address}'}</h6>
+                                <h6>${"${reco3.address}"}</h6>
                               </div>
                             </div>
                           </div>
                         </div>
                       `;
+
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
@@ -566,6 +577,7 @@ prefix="c" %>
               console.log('Server closed connection');
           });
         }); // end script
+
     </script>
   </head>
 
@@ -758,7 +770,9 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>${userLoc.tour_cate_code_name} 추천 여행지 <span>Touro</span></h2>
+            <h2>
+              ${userLoc.tour_cate_code_name} 추천 여행지 <span>Touro</span>
+            </h2>
           </div>
           <div class="row">
             <div class="col">
@@ -776,7 +790,6 @@ prefix="c" %>
                     </div>
                     <div class="bottom-bar" id="reco1Box">
                       <!-- 추가추가 -->
-                      
                     </div>
                   </div>
                 </div>
@@ -810,7 +823,7 @@ prefix="c" %>
                       <div class="decorate">추천명</div>
                     </div>
                     <div class="bottom-bar" id="reco3Box">
-                        <!-- 추가추가  -->
+                      <!-- 추가추가  -->
                     </div>
                   </div>
                 </div>
@@ -1089,7 +1102,9 @@ prefix="c" %>
                       <div class="decorate">추천명</div>
                     </div>
                     <div
-                      class="product-wrapper-grid special-section grid-box ratio3_2" id="recoType1">
+                      class="product-wrapper-grid special-section grid-box ratio3_2"
+                      id="recoType1"
+                    >
                       <!-- 추가 -->
                     </div>
                   </div>
@@ -1108,8 +1123,10 @@ prefix="c" %>
                       <div class="decorate">추천명</div>
                     </div>
                     <div
-                      class="product-wrapper-grid special-section grid-box ratio3_2" id="recoType2">
-                     <!-- 추가 -->
+                      class="product-wrapper-grid special-section grid-box ratio3_2"
+                      id="recoType2"
+                    >
+                      <!-- 추가 -->
                     </div>
                   </div>
                 </div>
@@ -1127,8 +1144,10 @@ prefix="c" %>
                       <div class="decorate">추천명</div>
                     </div>
                     <div
-                      class="product-wrapper-grid special-section grid-box ratio3_2" id="recoType3">
-                    <!-- 추가 -->
+                      class="product-wrapper-grid special-section grid-box ratio3_2"
+                      id="recoType3"
+                    >
+                      <!-- 추가 -->
                     </div>
                   </div>
                 </div>

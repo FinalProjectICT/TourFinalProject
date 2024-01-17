@@ -121,7 +121,7 @@ const router = createBrowserRouter([
       {
         path: "/touroview-list",
         element: <TouroviewList />,
-      },
+      },  
       {
         path: "/teams",
         element: <Teams />,
@@ -136,6 +136,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/tour-view",
+        element: <Tourview />,
+      },
+      {
+        path: "/tour-view/modifyTour:tourNum",
         element: <Tourview />,
       },
       {

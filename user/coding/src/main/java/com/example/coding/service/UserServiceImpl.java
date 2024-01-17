@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.coding.dao.UserDAO;
-import com.example.coding.dao.ImgDAO;
+import com.example.coding.dao.ImgDetailDAO;
+import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.UserVO;
 
@@ -16,16 +17,22 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 
 	@Autowired
-	private ImgDAO FileDAO;
+	private ImgDetailDAO imgDetailDAO;
 	
 	@Transactional
-	public void insertUser(UserVO vo, ImgVO fvo) {
-		if( fvo != null ){
-			// 파일첨부가 있는 경우
-			FileDAO.insertFile(fvo);
-			vo.setImg_num( FileDAO.selectId() );
+	public void insertUser(UserVO vo, ImgVO ivo, ImgDetailVO idvo) {
+		// 파일첨부가 있는 경우
+		if( ivo != null ){
+			
+			// DB에 사용자 정보 입력
+			userDAO.insertUser(vo);
+			// ImgDetail 테이블에 정보 입력
+			imgDetailDAO.insertFile(idvo);
+
+		}else{
+			userDAO.insertUser(vo);
 		}
-		userDAO.insertUser(vo);
+		
 	}
 
 	@Override

@@ -44,7 +44,7 @@ function PricingCom() {
                 <div className="col-sm-12">
                   <div className="card">
                     <div className="card-header">
-                      <h5>상세 페이지</h5>
+                      <h5>상세 페이지11</h5>
                     </div>
                     <div className="card-body">
                       <form className="theme-form mega-form">
