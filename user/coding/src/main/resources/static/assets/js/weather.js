@@ -12,7 +12,7 @@ $(function(){
     '50' : 'fas fa-smog'
   };
   
-  var city1;
+  var city1;  
   var city2;
   var city3;
 
