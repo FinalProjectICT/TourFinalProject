@@ -1277,7 +1277,7 @@ prefix="c" %>
                       href="#"
                       aria-label="Previous"
                       onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}'
-                    ,'${search.tour_cate_code}', '${search.keyword}')"
+                    ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')"
                     >
                       <span aria-hidden="true">&laquo;</span>
                       <span class="sr-only">Previous</span>
@@ -1293,7 +1293,7 @@ prefix="c" %>
                   <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
                     <a class="page-link" 
                     href="#" 
-                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.toString}')">
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')">
                     ${testId}</a>
                   </li>
                 </c:forEach>
@@ -1303,7 +1303,7 @@ prefix="c" %>
                       class="page-link"
                       href="#"
                       aria-label="Next"
-                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')">
                       <span aria-hidden="true">&raquo;</span>
                       <span class="sr-only">Next</span>
                     </a>

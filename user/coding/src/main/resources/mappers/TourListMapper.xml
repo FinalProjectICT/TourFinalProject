@@ -5,20 +5,21 @@
 <mapper namespace="com.example.coding.dao.TourListDAO">
 
 <select id="selectAll" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.Search">
-	SELECT tour_num, tour_img1_path, tour_name ,tour_addr, tour_star, tour_cate_code
+	SELECT *
 	FROM tour 
 	<trim prefix="WHERE" prefixOverrides="AND|OR">
 		<if test="tour_cate_code != null and tour_cate_code != '' ">
 			AND tour_cate_code like #{tour_cate_code}
 		</if>
-		<if test="keyword != null and keyword != '' ">
-			AND tour_name like  CONCAT('%',#{keyword},'%') 
-			OR tour_content like CONCAT('%',#{keyword},'%')
-		</if>
-		<if test="loc_cate_code != null">
-			<foreach collection="loc_cate_code" item="cate_data" open="AND (" close=")" separator="OR">
-			loc_cate_code like #{cate_data}
+		<if test="loc_cate_code != null and loc_cate_code[0] != '' ">
+			AND loc_cate_code in
+			<foreach collection="loc_cate_code" item="cate_data" open="(" close=")" separator=",">
+				#{cate_data}
 			</foreach>
+		</if>
+		<if test="keyword != null and keyword != '' ">
+			AND tour_name like CONCAT('%',#{keyword},'%') 
+			OR tour_content like CONCAT('%',#{keyword},'%')
 		</if>
 	</trim>
 	ORDER BY tour_num DESC 
@@ -29,18 +30,19 @@
 		SELECT count(*) as listCnt
 		FROM tour 
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="tour_cate_code != null and tour_cate_code != '' ">
-				AND tour_cate_code like #{tour_cate_code}
-			</if>
-			<if test="keyword != null and keyword != '' ">
-				AND tour_name like CONCAT('%',#{keyword},'%') 
-				OR tour_content like CONCAT('%',#{keyword},'%')
-			</if>
-			<if test="loc_cate_code != null">
-				<foreach collection="loc_cate_code" item="cate_data" open="AND (" close=")" separator="OR">
-				loc_cate_code like #{cate_data}
-				</foreach>
-			</if>
+		<if test="tour_cate_code != null and tour_cate_code != '' "> 
+		AND tour_cate_code like #{tour_cate_code}
+		</if>
+		<if test="loc_cate_code[0] != null and loc_cate_code[0] != '' ">
+			AND loc_cate_code in
+			<foreach collection="loc_cate_code" item="cate_data" open="(" close=")" separator=",">
+				#{cate_data}
+			</foreach>
+		</if>
+		<if test="keyword != null and keyword != '' "> 
+		AND tour_name like CONCAT('%',#{keyword},'%') 
+		OR tour_content like CONCAT('%',#{keyword},'%')
+		</if>
 		</trim>
 </select>
 

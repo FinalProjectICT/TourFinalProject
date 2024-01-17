@@ -47,24 +47,22 @@ public class TourPageController {
 							,@RequestParam(required = false, defaultValue = "1") int range 
 							,@RequestParam(required = false, defaultValue = "") String tour_cate_code 
 							,@RequestParam(required = false) String keyword
-							,@RequestParam(required = false, defaultValue = "" ) String Locs
+							,@RequestParam(required = false, defaultValue = "") String Locs
 							,@ModelAttribute("search") Search search) throws Exception {
 
 		m.addAttribute("search", search);
 		search.setTour_cate_code(tour_cate_code);
 		search.setKeyword(keyword);
-
-		if (Locs != "" && Locs != null) {
-			String [] cate = Locs.split("/");
-			search.setLoc_cate_code(cate);
+		search.setLocs(Locs);
+		if (search.getLocs() != null && search.getLocs() != ""){
+			search.setLoc_cate_code(search.getLocs().split("/"));
 		}else search.setLoc_cate_code(null);
 		
-
 		int listCnt = tourListService.getBoardListCnt(search);
 
 		search.pageInfo(page, range, listCnt);
 		m.addAttribute("paging", search);
-		System.out.println(search.toString());
+		System.out.println(search.toString()+ " / " +  search.getLoc_cate_code()[0] );
 
 		List<TourVO> List = tourListService.getTourList(search);
 

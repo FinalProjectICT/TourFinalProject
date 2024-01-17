@@ -44,8 +44,8 @@ function fn_prev(
   url = url + "&range=" + range;
   url = url + "&listSize=" + listSize;
   url = url + "&tour_cate_code=" + tour_cate_code;
-  url = url + "&keyword=" + keyword + "&Locs=";
-  url = url + Locs;
+  url = url + "&keyword=" + keyword;
+  url = url + "&Locs=" + Locs;
   location.href = url;
 }
 
@@ -56,15 +56,16 @@ function fn_pagination(
   rangeSize,
   listSize,
   tour_cate_code,
-  keyword
+  keyword,
+  Locs
 ) {
   var url = "/touro/tour";
   url = url + "?page=" + page;
   url = url + "&range=" + range;
   url = url + "&listSize=" + listSize;
   url = url + "&tour_cate_code=" + tour_cate_code;
-  url = url + "&keyword=" + keyword + "&Locs=";
-  url = url + Locs;
+  url = url + "&keyword=" + keyword;
+  url = url + "&Locs=" + Locs;
   location.href = url;
 }
 
@@ -86,8 +87,8 @@ function fn_next(
   url = url + "&range=" + range;
   url = url + "&listSize=" + listSize;
   url = url + "&tour_cate_code=" + tour_cate_code;
-  url = url + "&keyword=" + keyword + "&Locs=";
-  url = url + Locs;
+  url = url + "&keyword=" + keyword;
+  url = url + "&Locs=" + Locs;
   location.href = url;
 }
 
