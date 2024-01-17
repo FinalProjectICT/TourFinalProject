@@ -874,6 +874,7 @@ prefix="c" %>
                           <h6 class="collapse-block-title">별점별 분류</h6>
                           <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
+<!-- 별점 0.0~1.0 / 1.1~2.0 ... -->
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -934,18 +935,7 @@ prefix="c" %>
                                   ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
-                              <div
-                              class="form-check collection-filter-checkbox"
-                            >
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="str0"
-                              />
-                              <label class="form-check-label" for="str0"
-                                ><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
-                              >
-                            </div>
+
                             </div>
                           </div>
                         </div>
