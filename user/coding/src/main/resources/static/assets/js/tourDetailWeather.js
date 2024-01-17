@@ -9,6 +9,7 @@ $(() => {
     tour_longi +
     "&appid=" +
     "{API key}";
+
   console.log(apiURI);
 
   const tourWeather = (city) => {
