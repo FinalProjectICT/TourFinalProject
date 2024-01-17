@@ -18,8 +18,7 @@
 			</foreach>
 		</if>
 		<if test="keyword != null and keyword != '' ">
-			AND tour_name like CONCAT('%',#{keyword},'%') 
-			OR tour_content like CONCAT('%',#{keyword},'%')
+			AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
 		</if>
 	</trim>
 	ORDER BY tour_num DESC 
@@ -40,8 +39,7 @@
 			</foreach>
 		</if>
 		<if test="keyword != null and keyword != '' "> 
-		AND tour_name like CONCAT('%',#{keyword},'%') 
-		OR tour_content like CONCAT('%',#{keyword},'%')
+		AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
 		</if>
 		</trim>
 </select>
