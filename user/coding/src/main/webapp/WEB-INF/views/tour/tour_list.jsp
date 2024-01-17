@@ -54,6 +54,9 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+    <!-- starRating css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/starRating.css" />
   </head>
 
   <body>
@@ -871,6 +874,7 @@ prefix="c" %>
                           <h6 class="collapse-block-title">별점별 분류</h6>
                           <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
+<!-- 별점 0.0~1.0 / 1.1~2.0 ... -->
                               <div
                                 class="form-check collection-filter-checkbox"
                               >
@@ -931,18 +935,7 @@ prefix="c" %>
                                   ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
-                              <div
-                              class="form-check collection-filter-checkbox"
-                            >
-                              <input
-                                type="checkbox"
-                                class="form-check-input"
-                                id="str0"
-                              />
-                              <label class="form-check-label" for="str0"
-                                ><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
-                              >
-                            </div>
+
                             </div>
                           </div>
                         </div>
@@ -1102,11 +1095,10 @@ prefix="c" %>
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
                 <!-- 여행지 리스트 객체 반복 시작 -->
-                <c:forEach items="${TourList }" var="TourData">
+                <c:forEach items="${TourList}" var="TourData">
                   <div
                     class="col-xl-3 col-lg-4 col-sm-6 a${TourData.tour_cate_code} grid-item wow fadeInUp"
-                    data-class="a${TourData.tour_cate_code}"
-                  >
+                    data-class="a${TourData.tour_cate_code}">
                     <div class="special-box p-0">
                       <div class="special-img">
                         <!-- tour_num으로 상세 페이지 구분 -->
@@ -1141,105 +1133,16 @@ prefix="c" %>
                         <div class="tour-detail">
                           <h6 class="nowrap-cls">${TourData.tour_content }</h6>
                           <div class="include-sec">
-                            <span>별점 ${TourData.tour_star}</span>
-<!--                          <ul class="include">
-                              <c:choose>
-                                <c:when test="${0 eq TourData.tour_star
-                                }">
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 0 and 1 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 1 and 2 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 3 and 4 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 4}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:otherwise>
-                                  <li>
-                                    <i class="far fa-star">?</i>
-                                  </li>
-                                </c:otherwise>
-                              </c:choose>
-                            </ul>-->  
+                            <span>별점 ${TourData.tour_star}</span> 
+                          </div>
+                          <div class="bottom-section">
+                            <input type="hidden" value=${TourData.tour_star} name="ratevalue" step="0.1" min="0" max="5" >
+                            <div class="rating-wrap">
+                              <div class="rating">
+                                <div class="overlay">
+                                </div>
+                              </div>
+                            </div>
                           </div>
 
                           <!--<div class="bottom-section">
@@ -1530,6 +1433,12 @@ prefix="c" %>
     </div>
     <!-- tap to top end -->
 
+    <!-- 챗봇 구역 시작 -->
+    <div style=" position: fixed; bottom : 50px; right: 80px; z-index : 8">
+      <a href="#" class="btn btn-curve btn-lower"> 대략적인 위치</a>
+    </div>
+    <!-- 챗봇 구역 끝 -->
+
     <!-- setting start -->
     <div class="theme-setting">
       <div class="dark">
@@ -1583,6 +1492,9 @@ prefix="c" %>
 
     <!-- 찜리스트 추가용 js-->
     <script src="../assets/js/addWishList.js"></script>
+
+    <!-- 별점용 js-->
+    <script src="../assets/js/starRating.js"></script>
 
     <script>
       $("#datepicker").datepicker({
