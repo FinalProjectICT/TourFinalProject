@@ -73,6 +73,12 @@ public class MainServiceImpl implements MainService{
     List<TourVO> result = maindao.getRecoType(vo);
     return result;
   }
+
+  // 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천
+  public List<TourVO> yesResult(Reco1VO vo) {
+    List<TourVO> result = maindao.yesResult(vo);
+    return result;
+  }
   
 }
                             
