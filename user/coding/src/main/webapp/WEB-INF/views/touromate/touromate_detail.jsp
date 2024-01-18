@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- pre-loader start -->
-    <div class="skeleton_loader">
+    <!-- <div class="skeleton_loader">
       <header class="light_header">
         <div class="container">
           <div class="row">
@@ -412,10 +412,10 @@ pageEncoding="UTF-8"%>
         </div>
       </section>
     </div>
-    <!-- pre-loader end -->
+    pre-loader end -->
 
     <!-- header start -->
-    <header class="light_header">
+    <!-- <header class="light_header">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -503,8 +503,12 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
     <!--  header end -->
+
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
 
     <!-- image section start -->
     <section class="pt-0 ratio2_3 zoom-gallery overlay-hover">

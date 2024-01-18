@@ -71,7 +71,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- header start -->
-    <header class="inner-page overlay-black">
+    <!-- <header class="inner-page overlay-black">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -164,9 +164,11 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
     <!--  header end -->
-
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
     <!-- breadcrumb start -->
     <section class="breadcrumb-section parallax-img pt-0">
       <img
@@ -226,9 +228,12 @@ pageEncoding="UTF-8"%>
                 <a href="javascript:void(0)" class="view-map me-0"
                   ><i class="fas fa-search"></i> 친구 찾기</a
                 >
-                <div class="collection-grid-view">
-                  <a href="/touromate/touromate_insert" class="btn btn-rounded color1">친구 찾기 쓰기</a>
-                </div>
+                <c:if test="${not empty sessionScope.loggedInUser}">
+                  <div class="collection-grid-view">
+                    <a href="/touromate/touromate_insert" class="btn btn-rounded color1">친구 찾기 쓰기</a>
+                  </div>
+                </c:if>
+               
               </div>
             </div>
           </div>
