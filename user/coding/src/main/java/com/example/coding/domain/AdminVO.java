@@ -48,7 +48,7 @@ public class AdminVO {
     private String tour_content ;           // 여행지 내용
     private String loc_cate_code ;          // 여행지 별점 
     private Integer wishlist_num;           // 찜 번호 
-    private Integer inquiry_num ;           // 여행지 전화 번호 
+    private Integer inquiry_num ;           // 문의  번호 
     private String tour_cate_code;          // 여행지 코드 
     private String tour_cate_name;          // 여행지 카테고리명
     private Integer imgDetail_num;          // 이미지 구분 
@@ -109,6 +109,14 @@ public class AdminVO {
     private Integer report_num ;           // 신고 번호
     private String report_count ;          // 신고 갯수
     private String tour_tel ;               // 여행지 전화번호
+
+
+
+    private String inquiry_title ;              //문의 제목
+    private String inquiry_content ;           //문의 내용
+    private String inquiry_process ;           //문의 답변여부
+    private String inquiry_regdate ;           //문의 등록일
+    
 
     
     public static void main(String[] args) {

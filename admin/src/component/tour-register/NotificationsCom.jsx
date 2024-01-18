@@ -22,7 +22,7 @@ function NotificationsCom({ isSettings }) {
   const [tour_content, setTour_content] = useState("");
   const [tour_site_addr, setTour_site_addr] = useState("");
   const [file,setFile] = useState()
-    const [imgSrc, setImgSrc] = useState(null); 
+  const [imgSrc, setImgSrc] = useState(null); 
 
   const baseUrl = "http://localhost:8080";
 
@@ -40,6 +40,7 @@ function NotificationsCom({ isSettings }) {
     navigate("/tour-list");
   };
 
+  
   const handleImageChange = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -51,7 +52,6 @@ function NotificationsCom({ isSettings }) {
       setFile(uploadFile)
       console.log(uploadFile)
       console.log('===useState===')
-      console.log(imgSrc)
     }
   }
 
