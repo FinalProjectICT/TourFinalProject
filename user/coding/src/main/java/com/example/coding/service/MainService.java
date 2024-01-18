@@ -36,5 +36,8 @@ public interface MainService {
   // 메인 유저 선호 1순위 지역에 대한 3순위 여행지 추천
   public List<TourVO> getRecoType3(Reco1VO vo);
 
+  // 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천
+  public List<TourVO> yesResult(Reco1VO vo);
+
   
 } 

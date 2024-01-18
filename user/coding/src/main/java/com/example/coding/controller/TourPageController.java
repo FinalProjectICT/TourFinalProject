@@ -14,6 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.coding.service.TourListService;
 import com.example.coding.service.UserInfoService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.UserVO;
@@ -43,18 +47,29 @@ public class TourPageController {
 							,@RequestParam(required = false, defaultValue = "1") int range 
 							,@RequestParam(required = false, defaultValue = "") String tour_cate_code 
 							,@RequestParam(required = false) String keyword
-							,@RequestParam(required = false) List<String> Loc
+							,@RequestParam(required = false, defaultValue = "") String Locs
+							,@RequestParam(required = false, defaultValue = "") String Star
 							,@ModelAttribute("search") Search search) throws Exception {
 
 		m.addAttribute("search", search);
 		search.setTour_cate_code(tour_cate_code);
 		search.setKeyword(keyword);
+		search.setLocs(Locs);
+		search.setStar(Star);
 
+		if (search.getLocs() != null && !(search.getLocs().equals(""))){
+			search.setLoc_cate_code(search.getLocs().split("/"));
+		}else search.setLoc_cate_code(null);
+
+		if(search.getStar() != null && !(search.getStar().equals(""))){
+			search.setTour_star(search.getStar().split("/"));
+		}else search.setTour_star(null);
+		
 		int listCnt = tourListService.getBoardListCnt(search);
 
 		search.pageInfo(page, range, listCnt);
 		m.addAttribute("paging", search);
-		System.out.println(search.toString() + '/' + search.getTour_cate_code()+ '/' +search.getKeyword());
+		System.out.println(search.toString());
 
 		List<TourVO> List = tourListService.getTourList(search);
 
@@ -68,11 +83,18 @@ public class TourPageController {
 	 * - mapper - TourListMapper - selectOne
 	 */
 	@RequestMapping(value = "/{tour_num}", method = {RequestMethod.GET})
-	public ModelAndView tourDetail(TourVO vo) {
+	public ModelAndView tourDetail(TourVO vo,  HttpServletRequest request) {
 		System.out.println(vo.getTour_num());
+		System.out.println(vo.getLoc_cate_code());
 		ModelAndView m = new ModelAndView();
-		m.setViewName("/tour/tour_detail");
-		m.addObject("TourData", tourListService.getTourData(vo));
+		TourVO toutData = tourListService.getTourData(vo);
+		String referer = request.getHeader("Referer");
+		if(toutData != null){
+			m.setViewName("/tour/tour_detail");
+			m.addObject("TourData", toutData);
+			return m;
+		}else
+		m.setViewName("redirect:"+referer);
 		return m;
 	}
 
@@ -118,5 +140,18 @@ public class TourPageController {
 		return res;
 	}
 
+	/*****
+	 * 여행지 문의 작성
+	 * @param vo
+	 * @return
+	 */
+	@RequestMapping(value ="/inquiry", method={RequestMethod.POST})
+	@ResponseBody
+	public String newInquiry(@ModelAttribute("vo") InquiryVO vo) {
+		System.out.println(vo);
+		String res = tourListService.newInquiry(vo);
+		return res;
+	}
+	
 
 }

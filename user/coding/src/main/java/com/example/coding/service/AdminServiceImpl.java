@@ -22,19 +22,24 @@ public class AdminServiceImpl implements AdminService {
         System.out.println("확인: " + list.size());
         return list;
     }
+    
+    // 후기 게시판 내부에서 search 
+    public List<AdminVO> search_touro(String search_touro){
+        List<AdminVO> list = adminDAO.search_touro(search_touro);
+        return list ; 
+    }
 
-    @Override
+    // 디테일
     public AdminVO tourdetail(AdminVO vo) {
         return adminDAO.tourdetail(vo);
     }
 
-    @Override
+    // 여행지 삭제
     public int deleteNum(AdminVO vo) {
         int result = adminDAO.deleteNum(vo);
         return result;
     }
 
-    @Override
     public int tourInsert(AdminVO vo) {
 
         return adminDAO.tourInsert(vo);
@@ -55,10 +60,33 @@ public class AdminServiceImpl implements AdminService {
     return viewList;
     }
     
-    @Override
     public AdminVO touroViewNum(AdminVO vo) {
         return adminDAO.touroViewNum(vo);
     }
 
+
+    // 여행지 이미지 제외 수정
+    public int modifyTour(AdminVO vo){
+        return adminDAO.modifyTour(vo);
+    }
+
+    // 푸터 여행지 select
+    public List<AdminVO> footer_tour_list(){
+        List<AdminVO> list = adminDAO.footer_tour_list();
+        return list;
+    }
+
+    // 푸터 후기 게시판 좋아요 top4
+    public List<AdminVO> footer_toroview_list(){
+        List<AdminVO> list = adminDAO.footer_toroview_list();
+        return list;
+    }
+
+    // 문의 리스트
+    public List<AdminVO> inquiry() {
+        List<AdminVO> list = adminDAO.inquiry();
+        System.out.println("확인: " + list.size());
+        return list;
+    }
     
 }

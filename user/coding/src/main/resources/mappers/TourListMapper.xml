@@ -8,37 +8,72 @@
 	SELECT *
 	FROM tour 
 	<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="tour_cate_code != null and tour_cate_code != '' ">
-				AND tour_cate_code like #{tour_cate_code}
-			</if>
-			<if test="keyword != null and keyword != '' ">
-				AND tour_name like  CONCAT('%',#{keyword},'%') 
-				OR tour_content like CONCAT('%',#{keyword},'%')
-			</if>
-		</trim>
-	
-	ORDER BY tour_num DESC 
+		<if test="tour_cate_code != null and tour_cate_code != '' ">
+			AND tour_cate_code like #{tour_cate_code}
+		</if>
+		<if test="loc_cate_code != null and loc_cate_code[0] != '' ">
+			AND loc_cate_code in
+			<foreach collection="loc_cate_code" item="cate_data" open="(" close=")" separator=",">
+				#{cate_data}
+			</foreach>
+		</if>
+		<if test="keyword != null and keyword != '' ">
+			AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
+		</if>
+		<if test="tour_star != null and tour_star[0] != '' ">
+		AND (
+			<foreach collection="tour_star" item="star_data" open="(" close=")" separator=" OR ">
+		 tour_star <![CDATA[ <= ]]>#{star_data} AND tour_star <![CDATA[ >= ]]>(#{star_data}
+		 <choose>
+		 	<when test="star_data == 1.0"> -1 </when>
+		 	<otherwise> -0.99 </otherwise>
+		 </choose>
+		)
+			</foreach>
+		)
+		</if>
+	</trim>
+	<choose>
+		<when test="tour_star != null and tour_star[0] != '' "> ORDER BY tour_star DESC </when>
+		<otherwise> ORDER BY tour_num </otherwise>
+	</choose>
 	LIMIT #{startList}, #{listSize}
 </select>
 
 <select id="tourListCnt" resultType="int" parameterType="com.example.coding.domain.Search">
 		SELECT count(*) as listCnt
-		FROM tour 
+		FROM tour
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
-				<if test="tour_cate_code != null and tour_cate_code != '' ">
-					AND tour_cate_code like #{tour_cate_code}
-				</if>
-				<if test="keyword != null and keyword != '' ">
-					AND tour_name like CONCAT('%',#{keyword},'%') 
-					OR tour_content like CONCAT('%',#{keyword},'%')
-				</if>
+		<if test="tour_cate_code != null and tour_cate_code != '' "> 
+		AND tour_cate_code like #{tour_cate_code}
+		</if>
+		<if test="loc_cate_code != null and loc_cate_code[0] != '' "> 
+		AND loc_cate_code in
+			<foreach collection="loc_cate_code" item="cate_data" open="(" close=")" separator=",">
+			#{cate_data}
+			</foreach>
+		</if>
+		<if test="keyword != null and keyword != '' "> 
+		AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
+		</if>
+		<if test="tour_star != null and tour_star[0] != '' ">
+		AND
+			<foreach collection="tour_star" item="star_data" open="(" close=")" separator="OR">
+		 tour_star <![CDATA[ <= ]]>#{star_data} AND tour_star <![CDATA[ >= ]]>(#{star_data}
+		 <choose>
+		 	<when test="star_data == 1.0"> -1 </when>
+		 	<otherwise> -0.99 </otherwise>
+		 </choose>
+		)
+			</foreach>
+		</if>
 		</trim>
-	</select>
+</select>
 
 <select id="selectOne" resultType="com.example.coding.domain.TourVO" parameterType="com.example.coding.domain.TourVO">
 	SELECT * 
 	FROM tour 
-	WHERE tour_num=#{tour_num}
+	WHERE tour_num=#{tour_num} 
 </select>
 
 <insert id="addWishList" parameterType="com.example.coding.domain.WishListVO">
@@ -51,4 +86,15 @@
 	FROM wishlist 
 	WHERE user_id = #{user_id} AND tour_num = #{tour_num}
 </select>
+
+<insert id="newInquiry" parameterType="com.example.coding.domain.InquiryVO">
+	INSERT INTO inquiry (inquiry_title, inquiry_content, user_id, tour_num, inquiry_process)
+	VALUES (#{inquiry_title}, #{inquiry_content}, #{user_id}, #{tour_num}, 0)
+</insert>
+
+<update id="incTourInquiry_num" parameterType="com.example.coding.domain.TourVO">
+	UPDATE tour SET inquiry_count = #{inquiry_count} + 1
+	WHERE tour_num=#{tour_num}
+</update>
+
 </mapper>

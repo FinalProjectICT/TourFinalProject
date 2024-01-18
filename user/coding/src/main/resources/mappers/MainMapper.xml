@@ -39,9 +39,11 @@
 
   <!-- 메인 유저 선호 1/2/3순위 여행지 타입에 대한 여행지 추천 -->
   <select id="getReco" parameterType="com.example.coding.domain.Reco1VO" resultType="com.example.coding.domain.TourVO">
-    SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path
+    SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path, loc_cate_code
     FROM tour
-    WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3}
+    WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3} 
+    OR tour_num = #{tour_num4} OR tour_num = #{tour_num5} OR tour_num = #{tour_num6} 
+    OR tour_num = #{tour_num7} OR tour_num = #{tour_num8} OR tour_num = #{tour_num9}
   </select>
 
 
@@ -58,14 +60,23 @@
     SELECT user_prefer_type1 tour_cate_code_name
     FROM user
     WHERE user_id = #{user_id}
-
   </select>
 
   <!-- 메인 유저 선호 1순위 지역에 대한 1/2/3순위 여행지 추천 -->
   <select id="getRecoType" parameterType="com.example.coding.domain.Reco1VO" resultType="com.example.coding.domain.TourVO">
-    SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path
+    SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path, loc_cate_code
     FROM tour
-    WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3}
+    WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3} 
+    OR tour_num = #{tour_num4} OR tour_num = #{tour_num5} OR tour_num = #{tour_num6} 
+    OR tour_num = #{tour_num7} OR tour_num = #{tour_num8} OR tour_num = #{tour_num9}
+  </select>
+
+  <!-- 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천 -->
+  <select id="yesResult" parameterType="com.example.coding.domain.Reco1VO" resultType="com.example.coding.domain.TourVO">
+    SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path, loc_cate_code
+    FROM tour
+    WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3} 
+    OR tour_num = #{tour_num4}
   </select>
 
   

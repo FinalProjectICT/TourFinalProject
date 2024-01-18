@@ -32,6 +32,7 @@ public class AdminVO {
     private String tourLati ;               // 위도 
     private String tourLongi;               // 경도
     private String tourStar;                // 여행지 별점
+    private String tourTel ;                // 여행지 전화번호
 
     private String tour_num;                // 여행지 번호 
     private String tour_name;               // 여행지 명 
@@ -47,7 +48,7 @@ public class AdminVO {
     private String tour_content ;           // 여행지 내용
     private String loc_cate_code ;          // 여행지 별점 
     private Integer wishlist_num;           // 찜 번호 
-    private Integer inquiry_num ;           // 여행지 전화 번호 
+    private Integer inquiry_num ;           // 문의  번호 
     private String tour_cate_code;          // 여행지 코드 
     private String tour_cate_name;          // 여행지 카테고리명
     private Integer imgDetail_num;          // 이미지 구분 
@@ -75,6 +76,8 @@ public class AdminVO {
     private Integer user_login_authority ;  // 로그인 여부
     private Date user_register_date ;       // 회원 가입 날짜 
     private Date user_delete_date ;         // 탈퇴 날짜
+    private String tour_img1_path;          // 여행지 이미지1
+    private String tour_img2_path;          // 여행지 이미지2
     
 
     private String userId;                 // 아이디
@@ -105,6 +108,14 @@ public class AdminVO {
     private String like_count ;            // 좋아요 갯수
     private Integer report_num ;           // 신고 번호
     private String report_count ;          // 신고 갯수
+    private String tour_tel ;               // 여행지 전화번호
+
+
+
+    private String inquiry_title ;              //문의 제목
+    private String inquiry_content ;           //문의 내용
+    private String inquiry_process ;           //문의 답변여부
+    private String inquiry_regdate ;           //문의 등록일
     
 
     

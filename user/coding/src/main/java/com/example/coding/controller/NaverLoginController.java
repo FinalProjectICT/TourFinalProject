@@ -3,6 +3,11 @@ package com.example.coding.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +15,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
+
 import com.example.coding.domain.NaverVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
+
+
+import com.example.coding.domain.NaverTokenResponse;
 
 
 @Controller
@@ -31,11 +40,14 @@ public class NaverLoginController {
     private final String naverTokenEndpoint = "https://nid.naver.com/oauth2.0/token";
     private final String naverUserInfoEndpoint = "https://openapi.naver.com/v1/nid/me";
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("user/naverLogin")
     public String naverLogin() {
         String naverAuthUrl = "https://nid.naver.com/oauth2.0/authorize?client_id=" + clientId +
-                             "&redirect_uri=" + redirectUri +
-                             "&response_type=code";
+                "&redirect_uri=" + redirectUri +
+                "&response_type=code";
         return "redirect:" + naverAuthUrl;
     }
 
@@ -70,6 +82,7 @@ public class NaverLoginController {
             // DB에서 사용자 정보 대조
             UserVO userVO = userService.socialLoginCheck("naver_"+user_id);
 
+
             // 사용자 정보가 DB에 없으면 회원가입 페이지로 이동
             if (userVO == null) {
                 // 사용자 정보를 Model에 담아서 social-sign-up페이지로 전달
@@ -101,3 +114,4 @@ public class NaverLoginController {
     }
 
 }
+

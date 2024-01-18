@@ -8,13 +8,53 @@ $(() => {
 
   var cate = $("#tour_cate_code").val();
 
-  console.log(tour_num + " / " + tour_lati + " / " + tour_longi);
+  var id = $("#loggedInUser").val();
+
+  //console.log(tour_num + " / " + tour_lati + " / " + tour_longi);
   // 해당 여행지 상세 정보
   getTourData(tour_num, cate);
   // 이미지 API
   getTourGallery(tour_num);
   // 주변 여행지 API
   getTourAccommodations(tour_lati, tour_longi, cate);
+  /*
+  var inq = $("#tour-q")
+    .children("div .modal-footer dashboard-section")
+    .find("button .btn-solid");
+  */
+  // 여행지 문의 작성
+  $(document).on("click", "#btnInquiry", (e) => {
+    e.preventDefault();
+    var inquiryForm = $("#inquiry").serialize();
+    var ck = "0";
+    var icon = $(this).children();
+    console.log(icon.attr("class"));
+
+    // 로그인 상태 구분
+    if (id != null && id != "") {
+      // 문의 작성 여부 확인용 조건
+      if (ck != 1) {
+        alert("문의 작성");
+        $.ajax({
+          url: "/touro/inquiry",
+          type: "post",
+          dataType: "json",
+          data: inquiryForm,
+          success: function (result) {
+            ck = result;
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+        $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+      } else {
+        alert("이미 문의 내역이 존재하는 여행지입니다.");
+      }
+    } else if (id == null || id == "") alert("로그인이 필요합니다.");
+
+    $("button[data-bs-dismiss=modal]").trigger("click");
+  });
 });
 
 // 위치에 따른 주변 여행지 API 데이터
@@ -32,7 +72,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
 
   if (cate == "12") {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=" +
       cate +
       "&mapX=" +
@@ -40,7 +80,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -54,13 +94,13 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
             $(ids[count])
               .children("a")
               .prop("href", "/touro/" + loc.contentid);
-            $(ids[count]).find("a img").prop("src", loc.firstimage);
+            if (loc.firstimage != "") {
+              $(ids[count]).find("a img").prop("src", loc.firstimage);
+            }
             $(ids[count]).children(".content-inner").text(loc.title);
+            $(ids[count]).next().text("관광지");
             count = count + 1;
           }
-          /** 
-          $("div #tour_img1 a").prop("href", img.originimgurl);
-          $("div #tour_img1 a img").prop("src", img.originimgurl);*/
         });
       },
       error(e) {
@@ -69,14 +109,14 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
     });
   } else {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=12" +
       "&mapX=" +
       tour_lati +
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -93,10 +133,8 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
             $(ids[count]).find("a img").prop("src", loc.firstimage);
           }
           $(ids[count]).children(".content-inner").text(loc.title);
+          $(ids[count]).next().text("관광지");
           count = count + 1;
-          /** 
-          $("div #tour_img1 a").prop("href", img.originimgurl);
-          $("div #tour_img1 a img").prop("src", img.originimgurl);*/
         });
       },
       error(e) {
@@ -107,7 +145,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
 
   if (cate == "32") {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=" +
       cate +
       "&mapX=" +
@@ -115,7 +153,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -129,8 +167,11 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
             $(ids[count])
               .children("a")
               .prop("href", "/touro/" + loc.contentid);
-            $(ids[count]).find("a img").prop("src", loc.firstimage);
+            if (loc.firstimage != "") {
+              $(ids[count]).find("a img").prop("src", loc.firstimage);
+            }
             $(ids[count]).children(".content-inner").text(loc.title);
+            $(ids[count]).next().text("숙박업");
             count = count + 1;
           }
           /** 
@@ -144,14 +185,14 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
     });
   } else {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=32" +
       "&mapX=" +
       tour_lati +
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -164,12 +205,12 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
           $(ids[count])
             .children("a")
             .prop("href", "/touro/" + loc.contentid);
-          $(ids[count]).find("a img").prop("src", loc.firstimage);
+          if (loc.firstimage != "") {
+            $(ids[count]).find("a img").prop("src", loc.firstimage);
+          }
           $(ids[count]).children(".content-inner").text(loc.title);
+          $(ids[count]).next().text("숙박업");
           count = count + 1;
-          /** 
-          $("div #tour_img1 a").prop("href", img.originimgurl);
-          $("div #tour_img1 a img").prop("src", img.originimgurl);*/
         });
       },
       error(e) {
@@ -180,7 +221,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
 
   if (cate == "39") {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=3&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=" +
       cate +
       "&mapX=" +
@@ -188,7 +229,7 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -202,8 +243,11 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
             $(ids[count])
               .children("a")
               .prop("href", "/touro/" + loc.contentid);
-            $(ids[count]).find("a img").prop("src", loc.firstimage);
+            if (loc.firstimage != "") {
+              $(ids[count]).find("a img").prop("src", loc.firstimage);
+            }
             $(ids[count]).children(".content-inner").text(loc.title);
+            $(ids[count]).next().text("음식점");
             count = count + 1;
           }
           /** 
@@ -217,14 +261,14 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
     });
   } else {
     var apiURI =
-      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json" +
+      "https://apis.data.go.kr/B551011/KorService1/locationBasedList1?numOfRows=2&pageNo=1&MobileOS=ETC&MobileApp=Touro&_type=json&arrange=O" +
       "&contentTypeId=39" +
       "&mapX=" +
       tour_lati +
       "&mapY=" +
       tour_longi +
       "&radius=20000" +
-      "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
+      "&serviceKey=aRoMlzYVu3EFwc8zi7gclb8VDPOjNqr0m6BfcLcXL3gebBiPZ4mXPM4XhtOboghDiVIOTzO4UDuJB4Lmy3jk5g%3D%3D";
 
     $.ajax({
       url: apiURI,
@@ -237,12 +281,12 @@ const getTourAccommodations = (tour_lati, tour_longi, cate) => {
           $(ids[count])
             .children("a")
             .prop("href", "/touro/" + loc.contentid);
-          $(ids[count]).find("a img").prop("src", loc.firstimage);
+          if (loc.firstimage != "") {
+            $(ids[count]).find("a img").prop("src", loc.firstimage);
+          }
           $(ids[count]).children(".content-inner").text(loc.title);
+          $(ids[count]).next().text("음식점");
           count = count + 1;
-          /** 
-          $("div #tour_img1 a").prop("href", img.originimgurl);
-          $("div #tour_img1 a img").prop("src", img.originimgurl);*/
         });
       },
       error(e) {
@@ -287,7 +331,6 @@ const getTourGallery = (tour_num) => {
           count = count + 1;
         });
         if (count != 6) {
-          console.log(count);
           for (; count < 6; count++) {
             $(ids[count]).hide();
           }
@@ -308,8 +351,9 @@ const getTourData = (tour_num, cate) => {
     tour_num +
     "&contentTypeId=" +
     cate +
-    "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%253D%253D";
+    "&serviceKey=diSO6Q1Dc2ausHMWxuu9mhBEQyHMJv4oUAFlWSytUCA9H9LU1sAfXLD6bApMVI91ZCgI86BJreDfAFF1aGa70w%3D%3D";
 
+  //console.log(apiURI);
   $.ajax({
     url: apiURI,
     dataType: "json",

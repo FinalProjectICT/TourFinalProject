@@ -13,4 +13,4 @@ pageEncoding="UTF-8"%>
 <body>
   <% response.sendRedirect("/touro"); %>
 </body>
-</html
+</html>
