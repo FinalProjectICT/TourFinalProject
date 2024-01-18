@@ -72,74 +72,81 @@ prefix="c" %>
 
     <!-- 사용자 선호 여행 타입에 따른 지역별 추천 -->
     <script>
+      $(function () {
+        const socket = new WebSocket("ws://localhost:8765");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-      $(function(){
-          const socket = new WebSocket("ws://localhost:8765");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results1:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          const info1 = JSON.parse(recommendedResults["info1"]);
+          const info2 = JSON.parse(recommendedResults["info2"]);
+          const info3 = JSON.parse(recommendedResults["info3"]);
+          console.log("info1", info1.length);
+          console.log("info2", info2);
+          console.log("info3", info3.length);
+          var tour_num1 = [];
+          var tour_num2 = [];
+          var tour_num3 = [];
+          for (var i = 0; i < info1.length; i++) {
+            tour_num1.push(info1[i]["tour_num"]);
+          }
+          for (var i = 0; i < info2.length; i++) {
+            tour_num2.push(info2[i]["tour_num"]);
+          }
+          for (var i = 0; i < info3.length; i++) {
+            tour_num3.push(info3[i]["tour_num"]);
+          }
+          console.log("1tour_num1", tour_num1);
+          console.log("2tour_num2", tour_num2);
+          console.log("3tour_num3", tour_num3);
+          // 1순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc1Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num1[0],
+              tour_num2: tour_num1[1],
+              tour_num3: tour_num1[2],
+              tour_num4: tour_num1[3],
+              tour_num5: tour_num1[4],
+              tour_num6: tour_num1[5],
+              tour_num7: tour_num1[6],
+              tour_num8: tour_num1[7],
+              tour_num9: tour_num1[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log("1순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco1Box");
+              let array = new Set();
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results1:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              const info1 = JSON.parse(recommendedResults["info1"])
-              const info2 = JSON.parse(recommendedResults["info2"])
-              const info3 = JSON.parse(recommendedResults["info3"])
-              console.log("info1",info1.length)
-              console.log("info2",info2)
-              console.log("info3",info3.length)
-              var tour_num1 = []
-              var tour_num2 = []
-              var tour_num3 = []
-              for(var i = 0; i < info1.length; i++){
-                tour_num1.push(info1[i]["tour_num"])
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num1.length));
               }
-              for(var i = 0; i < info2.length; i++){
-                tour_num2.push(info2[i]["tour_num"])
-              }
-              for(var i = 0; i < info3.length; i++){
-                tour_num3.push(info3[i]["tour_num"])
-              }
-              console.log("1tour_num1",tour_num1)
-              console.log("2tour_num2",tour_num2)
-              console.log("3tour_num3",tour_num3)
-              // 1순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc1Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num1[0], tour_num2 : tour_num1[1], tour_num3 : tour_num1[2], 
-                  tour_num4 : tour_num1[3], tour_num5 : tour_num1[4], tour_num6 : tour_num1[5], 
-                  tour_num7 : tour_num1[6], tour_num8 : tour_num1[7], tour_num9 : tour_num1[8] },
-                success : function(res){
-                  console.log("success");
-                  console.log("1순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco1Box');
-                  let array = new Set();
+              array = [...array];
+              console.log(array);
 
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num1.length));
-                  }
-                  array = [...array]
-                  console.log(array)
-
-                  for(let i = 0; i < 3; i++) {
-                      const reco1 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              for (let i = 0; i < 3; i++) {
+                const reco1 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
 
                           <div class="menu-bar">
                               <a href="touro/${"${reco1.tour_num}"}">
@@ -154,42 +161,49 @@ prefix="c" %>
                           </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
+          // 2순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc2Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num2[0],
+              tour_num2: tour_num2[1],
+              tour_num3: tour_num2[2],
+              tour_num4: tour_num2[3],
+              tour_num5: tour_num2[4],
+              tour_num6: tour_num2[5],
+              tour_num7: tour_num2[6],
+              tour_num8: tour_num2[7],
+              tour_num9: tour_num2[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log("2순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco2Box");
+              let array = new Set();
 
-              // 2순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc2Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num2[0], tour_num2 : tour_num2[1], tour_num3 : tour_num2[2], 
-                  tour_num4 : tour_num2[3], tour_num5 : tour_num2[4], tour_num6 : tour_num2[5], 
-                  tour_num7 : tour_num2[6], tour_num8 : tour_num2[7], tour_num9 : tour_num2[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log("2순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco2Box');
-                  let array = new Set();
-
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num2.length));
-                  }
-                  array = [...array]
-                  console.log("Array2",array)
-                  for(let i = 0; i < 3; i++) {
-                      const reco2 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num2.length));
+              }
+              array = [...array];
+              console.log("Array2", array);
+              for (let i = 0; i < 3; i++) {
+                const reco2 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="menu-bar">
                               <a href="touro/${"${reco2.tour_num}"}">
                                   <img src="../${"${reco2.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
@@ -203,40 +217,48 @@ prefix="c" %>
                           </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
+          // 3순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc3Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num3[0],
+              tour_num2: tour_num3[1],
+              tour_num3: tour_num3[2],
+              tour_num4: tour_num3[3],
+              tour_num5: tour_num3[4],
+              tour_num6: tour_num3[5],
+              tour_num7: tour_num3[6],
+              tour_num8: tour_num3[7],
+              tour_num9: tour_num3[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log("3순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco3Box");
+              let array = new Set();
 
-              // 3순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc3Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num3[0], tour_num2 : tour_num3[1], tour_num3 : tour_num3[2], tour_num4 : tour_num3[3]
-                  , tour_num5 : tour_num3[4], tour_num6 : tour_num3[5], tour_num7 : tour_num3[6], tour_num8 : tour_num3[7], tour_num9 : tour_num3[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log("3순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco3Box');
-                  let array = new Set();
-
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num3.length));
-                  }
-                  array = [...array]
-                  for(let i = 0; i < 3; i++) {
-                      const reco3 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num3.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco3 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
 
                           <div class="menu-bar">
                               <a href="touro/${"${reco3.tour_num}"}">
@@ -251,89 +273,94 @@ prefix="c" %>
                           </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
+        });
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
-          });
-
-          // Connection closed
-          socket.addEventListener('close', (event) => {
-              console.log('Server closed connection');
-          });
-        }); // end script
-     
+        // Connection closed
+        socket.addEventListener("close", (event) => {
+          console.log("Server closed connection");
+        });
+      }); // end script
     </script>
 
-    
     <!-- 사용자 선호 지역에 따른 여행지 타입별 추천 -->
     <script>
-      $(function(){
-          const socket = new WebSocket("ws://localhost:8854");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+      $(function () {
+        const socket = new WebSocket("ws://localhost:8854");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results2:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              const info1 = JSON.parse(recommendedResults["info1"])
-              const info2 = JSON.parse(recommendedResults["info2"])
-              const info3 = JSON.parse(recommendedResults["info3"])
-              console.log(info1)
-              console.log(info2)
-              console.log(info3)
-              var tour_num1 = []
-              var tour_num2 = []
-              var tour_num3 = []
-              for(var i = 0; i < info1.length; i++){
-                tour_num1.push(info1[i]["tour_num"])  // 9
-              }
-              for(var i = 0; i < info2.length; i++){
-                tour_num2.push(info2[i]["tour_num"])  // 10
-              }
-              for(var i = 0; i < info3.length; i++){
-                tour_num3.push(info3[i]["tour_num"])  // 10
-              }
-              
-              console.log("type",tour_num1)
-              // 1순위
-              $.ajax({
-                type : "GET",
-                url : 'preferType1Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num1[0], tour_num2 : tour_num1[1], tour_num3 : tour_num1[2], tour_num4 : tour_num1[3]
-                  , tour_num5 : tour_num1[4], tour_num6 : tour_num1[5], tour_num7 : tour_num1[6], tour_num8 : tour_num1[7], 
-                  tour_num9 : tour_num1[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log(res[0])
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#recoType1');
-                  let array = new Set();
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results2:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          const info1 = JSON.parse(recommendedResults["info1"]);
+          const info2 = JSON.parse(recommendedResults["info2"]);
+          const info3 = JSON.parse(recommendedResults["info3"]);
+          console.log(info1);
+          console.log(info2);
+          console.log(info3);
+          var tour_num1 = [];
+          var tour_num2 = [];
+          var tour_num3 = [];
+          for (var i = 0; i < info1.length; i++) {
+            tour_num1.push(info1[i]["tour_num"]); // 9
+          }
+          for (var i = 0; i < info2.length; i++) {
+            tour_num2.push(info2[i]["tour_num"]); // 10
+          }
+          for (var i = 0; i < info3.length; i++) {
+            tour_num3.push(info3[i]["tour_num"]); // 10
+          }
 
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * info1.length));
-                  }
-                  array = [...array]
-                  for(let i = 0; i < 3; i++) {
-                      const reco1 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+          console.log("type", tour_num1);
+          // 1순위
+          $.ajax({
+            type: "GET",
+            url: "preferType1Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num1[0],
+              tour_num2: tour_num1[1],
+              tour_num3: tour_num1[2],
+              tour_num4: tour_num1[3],
+              tour_num5: tour_num1[4],
+              tour_num6: tour_num1[5],
+              tour_num7: tour_num1[6],
+              tour_num8: tour_num1[7],
+              tour_num9: tour_num1[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log(res[0]);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#recoType1");
+              let array = new Set();
+
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * info1.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco1 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                       <div class="grid-item">
                         <div class="special-box p-0">
                             <div class="special-img">
@@ -356,40 +383,48 @@ prefix="c" %>
                         </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
+          // 2순위
+          $.ajax({
+            type: "GET",
+            url: "preferType2Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num2[0],
+              tour_num2: tour_num2[1],
+              tour_num3: tour_num2[2],
+              tour_num4: tour_num2[3],
+              tour_num5: tour_num2[4],
+              tour_num6: tour_num2[5],
+              tour_num7: tour_num2[6],
+              tour_num8: tour_num2[7],
+              tour_num9: tour_num2[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log(res[0]);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#recoType2");
+              let array = new Set();
 
-              // 2순위
-              $.ajax({
-                type : "GET",
-                url : 'preferType2Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num2[0], tour_num2 : tour_num2[1], tour_num3 : tour_num2[2], tour_num4 : tour_num2[3]
-                  , tour_num5 : tour_num2[4], tour_num6 : tour_num2[5], tour_num7 : tour_num2[6], tour_num8 : tour_num2[7], tour_num9 : tour_num2[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log(res[0])
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#recoType2');
-                  let array = new Set();
-
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * info2.length));
-                  }
-                  array = [...array]
-                  for(let i = 0; i < 3; i++) {
-                      const reco2 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                    const menuBarHTML = `
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * info2.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco2 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
 
                       <div class="grid-item">
                         <div class="special-box p-0">
@@ -413,40 +448,48 @@ prefix="c" %>
                         </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
+          // 3순위
+          $.ajax({
+            type: "GET",
+            url: "preferType3Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num3[0],
+              tour_num2: tour_num3[1],
+              tour_num3: tour_num3[2],
+              tour_num4: tour_num3[3],
+              tour_num5: tour_num3[4],
+              tour_num6: tour_num3[5],
+              tour_num7: tour_num3[6],
+              tour_num8: tour_num3[7],
+              tour_num9: tour_num3[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log(res[0]);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#recoType3");
+              let array = new Set();
 
-              // 3순위
-              $.ajax({
-                type : "GET",
-                url : 'preferType3Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num3[0], tour_num2 : tour_num3[1], tour_num3 : tour_num3[2], tour_num4 : tour_num3[3]
-                  , tour_num5 : tour_num3[4], tour_num6 : tour_num3[5], tour_num7 : tour_num3[6], tour_num8 : tour_num3[7], tour_num9 : tour_num3[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log(res[0])
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#recoType3');
-                  let array = new Set();
-
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * info3.length));
-                  }
-                  array = [...array]
-                  for(let i = 0; i < 3; i++) {
-                      const reco3 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                    const menuBarHTML = `
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * info3.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco3 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
 
                       <div class="grid-item">
                         <div class="special-box p-0">
@@ -470,91 +513,89 @@ prefix="c" %>
                         </div>
                       `;
 
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
+        });
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
-          });
-
-          // Connection closed
-          socket.addEventListener('close', (event) => {
-              console.log('Server closed connection');
-          });
-        }); // end script
-     
-    </script> 
+        // Connection closed
+        socket.addEventListener("close", (event) => {
+          console.log("Server closed connection");
+        });
+      }); // end script
+    </script>
 
     <!-- 사용자 기반 필터링 추천 -->
     <script>
-      $(function(){
-          const socket = new WebSocket("ws://localhost:8432");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+      $(function () {
+        const socket = new WebSocket("ws://localhost:8432");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results1:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              console.log(recommendedResults.length)
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results1:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          console.log(recommendedResults.length);
 
-              // 동적으로 구성될 데이터 객체
-              var data = {};
+          // 동적으로 구성될 데이터 객체
+          var data = {};
 
-              // recommendedResults 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
-              for (var i = 0; i < recommendedResults.length; i++) {
-                  var key = "tour_num" + (i + 1);
-                  data[key] = recommendedResults[i];
-              }
-              console.log("data", data)
-              // 긍정 게시물 추천 여행지 - 사용자 선호 지역 중에서
-              $.ajax({
-                type : "GET",
-                url : 'yesResult',
-                contentType : 'json',
-                data : data,
-                success : function(res){
-                  console.log("success");
-                  console.log("res" , res)
-                  console.log("res length", res.length)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#yesResult');
-                  let array = new Set();
+          // recommendedResults 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+          for (var i = 0; i < recommendedResults.length; i++) {
+            var key = "tour_num" + (i + 1);
+            data[key] = recommendedResults[i];
+          }
+          console.log("data", data);
+          // 긍정 게시물 추천 여행지 - 사용자 선호 지역 중에서
+          $.ajax({
+            type: "GET",
+            url: "yesResult",
+            contentType: "json",
+            data: data,
+            success: function (res) {
+              console.log("success");
+              console.log("res", res);
+              console.log("res length", res.length);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#yesResult");
+              let array = new Set();
 
-                  for(let i = 0; i < 4; i++) {
-                    const reco3 = {
-                      tour_num : res[i].tour_num,
-                      tour_name : res[i].tour_name,
-                      address : res[i].tour_addr,
-                      imgPath: res[i].tour_img1_path
-                    }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              for (let i = 0; i < 4; i++) {
+                const reco3 = {
+                  tour_num: res[i].tour_num,
+                  tour_name: res[i].tour_name,
+                  address: res[i].tour_addr,
+                  imgPath: res[i].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="col-lg-3 col-sm-6">
                             <div class="step-box">
                                 <div class="popular-box">
-                                  <a href="touro/${'${reco3.tour_num}'}">
+                                  <a href="touro/${"${reco3.tour_num}"}">
                                     <div class="popular_img">
-                                        <img src="../${'${reco3.imgPath}'}" alt=""
+                                        <img src="../${"${reco3.imgPath}"}" alt=""
                                             class="img-fluid blur-up lazyload bg-img"
                                             style="width:440px; height:300px;">
                                     </div>
                                     </a>
                                     <div class="special-content">
-                                        <a href="touro/${'${reco3.tour_num}'}">
-                                            <h5>${'${reco3.tour_name}'}</h5>
+                                        <a href="touro/${"${reco3.tour_num}"}">
+                                            <h5>${"${reco3.tour_name}"}</h5>
                                         </a>
                                         <div class="bottom-section">
                                             <div class="rating">
-                                                <span>${'${reco3.address}'}</span>
+                                                <span>${"${reco3.address}"}</span>
                                             </div>
                                             
                                         </div>
@@ -563,21 +604,19 @@ prefix="c" %>
                             </div>
                       </div>
                       `;
-                      
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                  
-                }
-              })// end ajax
-          });
 
-          // Connection closed
-          socket.addEventListener('close', (event) => {
-              console.log('Server closed connection');
-          });
-        }); // end script
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
+        });
 
+        // Connection closed
+        socket.addEventListener("close", (event) => {
+          console.log("Server closed connection");
+        });
+      }); // end script
     </script>
   </head>
 
@@ -838,13 +877,13 @@ prefix="c" %>
     <!-- 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천 -->
     <section class="process-steps section-b-space bg-white">
       <div class="container">
-          <div class="title-1">
-              <span class="title-label">deals</span>
-              <h2>top deals</h2>
-          </div>
-          <div class="step-bg ratio_square">
-              <div class="row popular-section" id="yesResult">
-                  <!-- <div class="col-lg-3 col-sm-6">
+        <div class="title-1">
+          <span class="title-label">deals</span>
+          <h2>top deals</h2>
+        </div>
+        <div class="step-bg ratio_square">
+          <div class="row popular-section" id="yesResult">
+            <!-- <div class="col-lg-3 col-sm-6">
                       <div class="step-box">
                           <div class="popular-box">
                               <div class="popular_img">
@@ -960,10 +999,10 @@ prefix="c" %>
                           </div>
                       </div>
                   </div> -->
-              </div>
           </div>
+        </div>
       </div>
-  </section>
+    </section>
     <!-- 연령대별 추천 끝 -->
 
     <!-- 계절에 따른 추천 설정 -->
@@ -1242,15 +1281,6 @@ prefix="c" %>
       </div>
     </section>
     <!-- 리뷰어 설정 끝 -->
-    <div
-      id="chat-circle"
-      class="btn btn-raised"
-      data-bs-toggle="modal"
-      data-bs-target="#chatLive"
-    >
-      <div id="chat-overlay"></div>
-      <i class="fas fa-user"></i>
-    </div>
 
     <!-- 사용자 페이지(Modal) 창 구성 시작 -->
     <div
@@ -1428,6 +1458,66 @@ prefix="c" %>
       </div>
     </div>
     <!-- tap to top end -->
+
+    <!-- 챗봇 버튼  --><!--
+    <div
+      data-bs-toggle="modal"
+      data-bs-target="#chatBot"
+      style="position: fixed; bottom: 20px; right: 70px; z-index: 8"
+    >
+      <a href="#" class="btn btn-curve btn-lower">
+        <img
+          src="../assets/images/logo/logo-icon.png"
+          class="img-fluid blur-up lazyload"
+          alt=""
+        />
+        챗봇 서비스</a
+      >
+      
+      <a href="#" class="btn btn-curve btn-lower">
+        <i class="fas fa-times"></i
+      ></a>
+    </div>-->
+
+    <!-- 챗봇 창 -->
+    <div
+      class="modal fade edit-profile-modal"
+      id="chatBot"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">챗봇 창</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body dashboard-section">
+            <div class="chat-box-overlay"></div>
+            <div class="chat-logs"></div>
+          </div>
+          <form>
+            <div class="modal-footer">
+              <input
+                type="text"
+                id="chat-input"
+                placeholder="Send a message..."
+              />
+              <button type="submit" class="chat-submit" id="chat-submit">
+                <i class="material-icons">send</i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <!-- setting start -->
     <div class="theme-setting">
