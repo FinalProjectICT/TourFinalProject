@@ -1,28 +1,13 @@
 import { useEffect,useState } from "react";
 import planeIcon from "../../assets/img/plane-icon.png";
-import { json } from "react-router-dom";
+import { Navigate, json } from "react-router-dom";
 
 
-function SupportNowModal({ isOpen, handleClose, inquirys, inqNum, title, content, userId, testArr }) {
-  // console.log("testArr", testArr['inquiry_title'])
-  //console.log("1번만");
-  //console.log("========================================")
-  const [titlearr, setTitlearr] =useState([testArr]); 
-  const abc = Object.keys(titlearr);
-  //console.log(titlearr,"차차차차");
-  //console.log(abc);
-
-  //console.log(title)
-  const title1 = [];
-
-  title1.push(testArr);
+function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, userId, testArr }) {
+  // console.log("inqNum", inqNum)
+  // console.log("content", continQuent)
 
   
-  //console.log(testArr);
-  console.log(title1.inquiry_num);
-
-
-
   return (
     <div
       className={`crancy-email__modal crancy-default__modal modal fade modal-bg ${
@@ -41,9 +26,6 @@ function SupportNowModal({ isOpen, handleClose, inquirys, inqNum, title, content
         }
       }}
     >
-      <select value={testArr}
-
-      ></select>
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content crancy-preview__modal-content">
           <div className="crancy-main-form">
@@ -87,7 +69,7 @@ function SupportNowModal({ isOpen, handleClose, inquirys, inqNum, title, content
                         placeholder="제목"
                         required="required"
                         readOnly
-                        value={title1} // 첫 번째 문의의 제목을 표시하려면
+                        value={title} // 첫 번째 문의의 제목을 표시하려면
                       />
                       
                     </div>
