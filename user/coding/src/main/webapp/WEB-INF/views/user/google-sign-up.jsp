@@ -54,44 +54,36 @@
               <div class="login-main">
 
                 <h4>회원가입</h4>
-                <p>회원 정보를 입력해주세요.</p>
+                <p>더 정확한 추천서비스를 위해 추가 정보를 입력해주세요.</p>
                 <form class="theme-form" action="insertUser" method="post" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">이름</label><span id="required" class="required">(필수입력사항)</span>
-                    <div class="input-group">
-                      <input class="form-control" type="text" id="user_name" name="user_name" placeholder="한글 5자 이내" required />
-                    </div>
-                    <div>
-                      <span id="nameError" class="error"></span>
-                    </div>
-                  </div>
-                  <!-- 아이디 -->
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">아이디</label><span id="required" class="required">(필수입력사항)</span>
-                    <div class="row g-2 align-items-center">
-                      <div class="col">
-                        <div class="form-input position-relative">
-                          <input class="form-control" type="text" id="user_id" name="user_id" placeholder="5자~10자 영어와 숫자조합" required />
+                  <!-- 이름 -->
+                  <input class="form-control" type="hidden" id="user_name" name="user_name" />
+                  <!-- 아이디/비밀번호(not null이라 아이디와 동일하게 설정) -->
+                  <input class="form-control" type="hidden" id="user_id" name="user_id" />
+                  <input class="form-control" type="hidden" id="user_pass" name="user_pass" />
+                  <!-- 전화번호 -->
+                  <input class="form-control" type="hidden" id="user_tel" name="user_tel" />
+                  <!-- 메일주소 -->
+                  <input class="form-control" type="hidden" id="user_email" name="user_email" />
+                  <!-- 성별 -->
+                  <input class="form-control" type="hidden" name="user_gender" id="user_gender" />
+                  <!-- 생년월일 -->
+                  <input class="form-control" type="hidden" id="birthdate" name="birthdate" style="width: 250px;" />
+                  <input class="form-control" type="hidden" id="user_age" name="user_age" placeholder="" style="width: 100px;" readonly required />
+                  
+                  <!-- <div class="form-group">
+                    <label class="col-form-label form-label-title">프로필 사진</label> -->
+
+                    <!-- 프로필 사진 왼쪽 박스 -->
+                    <!-- <div class="profile-picture-container "> -->
+                      <!-- 사진 미리보기 -->
+                    <!-- <div class="profile-picture-box row g-2">
+                          <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
+                          <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="file" accept="image/*" onchange="previewProfilePicture()" />
                         </div>
                       </div>
-                      <div class="col-auto">
-                        <input type="button" id="id_chk" class="btn btn-primary" value="중복확인">
-                        <!-- <button class="btn btn-primary" id="id_chk">중복확인</button> -->
-                      </div>
-                      <div>
-                        <span id="idError" class="error"></span>
-                      </div>
-                    </div>
-                  </div>
+                  </div> -->
 
-                  <!-- 비밀번호 -->
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">비밀번호</label><span id="required" class="required">(필수입력사항)</span>
-                    <div class="form-input position-relative">
-                      <input class="form-control" type="password" id="user_pass" name="user_pass" placeholder="4자이상 영어와 숫자조합" required />
-                      <span id="passError" class="error"></span>
-                    </div>
-                  </div>
 
                   <!-- 주소 -->
                   <div class="form-group">
@@ -109,54 +101,6 @@
                       <input class="form-control" type="text" id="sample6_address" name="address" placeholder="주소" readonly><br />
                       <input class="form-control" type="text" id="sample6_detailAddress" name="detailaddr" placeholder="상세주소">
                       <input type="text" id="sample6_extraAddress" name="user_addr" style="display:none;">
-                    </div>
-                  </div>
-
-                  <!-- 전화번호 -->
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">전화번호</label>
-                    <span id="required" class="required">(필수입력사항)</span>
-                    <div class="form-input position-relative">
-                      <input class="form-control" type="text" id="user_tel" name="user_tel" placeholder="-없이 숫자조합" required />
-                      <span id="telError" class="error"></span>
-                    </div>
-                  </div>
-
-                  <!-- 메일주소 -->
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">메일주소</label>
-                    <span id="required" class="required">(필수입력사항)</span>
-                    <input class="form-control" type="email" id="user_email" name="user_email" placeholder="touro@gmail.com" required />
-                  </div>
-
-                  <!-- 성별 -->
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">성별</label>
-                    <span id="required" class="required">(필수입력사항)</span>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="user_gender" id="user_gender" value="female" checked />
-                      <label class="form-check-label" for="female">여성</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="radio" name="user_gender" id="user_gender" value="male" checked />
-                      <label class="form-check-label" for="male">남성</label>
-                    </div>
-                  </div>
-
-                  <!-- 생년월일 -->
-                  <div class="form-group" style="display: flex; gap: 10px;">
-                    <div>
-                      <label class="col-form-label form-label-title">생년월일</label>
-                      <span id="required" class="required">(필수입력사항)</span>
-                      <div class="form-input position-relative">
-                        <input class="form-control" type="date" id="birthdate" name="birthdate" placeholder="생년월일" style="width: 250px;" />
-                      </div>
-                    </div>
-                    <div>
-                      <label class="col-form-label form-label-title">나이</label>
-                      <div class="form-input position-relative">
-                        <input class="form-control" type="text" id="user_age" name="user_age" placeholder="" style="width: 100px;" readonly required />
-                      </div>
                     </div>
                   </div>
 
@@ -282,20 +226,6 @@
                     </div>
                   </div>
 
-
-                  <div class="form-group">
-                    <label class="col-form-label form-label-title">프로필 사진</label>
-
-                    <!-- 프로필 사진 왼쪽 박스 -->
-                    <div class="profile-picture-container ">
-                      <!-- 사진 미리보기 -->
-                    <div class="profile-picture-box row g-2">
-                          <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" width = "100" height = "100" >
-                          <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="file" accept="image/*" onchange="previewProfilePicture()" />
-                        </div>
-                      </div>
-                  </div>
-
                   <div class="form-group mb-0">
                     <div class="checkbox p-0">
                       <input id="checkbox1" type="checkbox" />
@@ -307,19 +237,10 @@
 
               </form>
 
-                <!-- <h6 class="text-muted mt-4 or">간편 회원가입</h6>
-                <div class="social mt-4">
-                  <div class="row g-1 mb-2" style="text-align: center;">
-                    <a class="col-6" href="#" onclick="openPopup('naverLogin')">
-                      <img height="45" src="../assets/images/naver_login.PNG"/></a>
-                    <a class="col-6" href="kakaoLogin" target="_blank">
-                      <img height="45" src="../assets/images/kakao_login.PNG"/></a>
-                  </div>
-                </div> -->
-                <p class="mt-4 mb-0 text-center">
-                  이미 계정이 있으신가요?
-                  <a class="ms-2" href="login">로그인</a>
-                </p>
+              <p class="mt-4 mb-0 text-center">
+                이미 계정이 있으신가요?
+                <a class="ms-2" href="login">로그인</a>
+              </p>
 
               </div>
             </div>
@@ -343,38 +264,9 @@
       <!-- login js-->
       <!-- Plugin used-->
 
-      <!-- 생년월일을 나이로 변환 -->
+      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드22-->
       <script>
-        $(document).ready(function () {
-          // 생년월일 입력 시 나이 계산 함수
-          function calculateAge(birthdate) {
-            var today = new Date();
-            var birthDate = new Date(birthdate);
-            var age = today.getFullYear() - birthDate.getFullYear();
-      
-            // 생일이 지났는지 체크
-            var monthDiff = today.getMonth() - birthDate.getMonth();
-            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-              age--;
-            }
-      
-            return age;
-          }
-      
-          // 생년월일 입력이 변경되면 나이 계산 후 '나이' 칸에 값 설정
-          $('#birthdate').change(function () {
-            var birthdate = $(this).val();
-            var age = calculateAge(birthdate);
-      
-            // '나이' 칸에 값을 설정
-            $('#user_age').val(age);
-          });
-        });
-      </script>
-
-      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드-->
-      <script>
-        $(document).ready(function () {
+        $(function() {
           // 다른 select 박스에서 선택된 값을 비활성화하는 함수
           function disableSelectedValue(selectedValue, selectBoxes) {
             selectBoxes.each(function () {
@@ -481,17 +373,7 @@
       <!-- 유효성 검사 -->
       <script>
         $(function() { 
-            function validateId() {
-                var id = $("#user_id").val();
-                var idPattern = /^[a-zA-Z0-9]{5,10}$/;
-                if (!id.match(idPattern)) {
-                    $("#idError").text("아이디는 5자~10자의 영어와 숫자 조합이어야 합니다.");
-                } else {
-                    $("#idError").text("");
-                }
-            }
-        
-            function validatePassword() {
+                function validatePassword() {
                 var pwd = $("#user_pass").val();
                 var pwdPattern = /^[a-zA-Z0-9]{4,}$/;
                 if (!pwd.match(pwdPattern)) {
@@ -576,6 +458,58 @@
     
         });
       </script>
+
+      <script>
+        $(document).ready(function () {
+          
+          // naverUserInfoString이 비어 있지 않은지 확인
+          if ('${googleUserInfo}' !== '') {
+            var googleUserInfoString = '${googleUserInfo}';
+
+            // JSON 문자열을 JavaScript 객체로 파싱
+            var googleUserInfo = JSON.parse(googleUserInfoString);
+
+            // 생년월일로 나이 계산
+            function calculateAge(birthdate) {
+              var today = new Date();
+              var birthDate = new Date(birthdate);
+              var age = today.getFullYear() - birthDate.getFullYear();
+        
+              // 생일이 지났는지 체크
+              var monthDiff = today.getMonth() - birthDate.getMonth();
+              if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+              }
+        
+              return age;
+            }
+
+            // '-'를 제거하여 전화번호 설정
+            var user_tel = naverUserInfo.response.mobile.replace(/-/g, '');
+
+            // HTML 요소를 사용자 정보로 업데이트
+            $('#user_name').val(googleUserInfo.name);
+            $('#user_id').val("google_"+googleUserInfo.id);
+            $('#user_pass').val("google_"+googleUserInfo.id);
+            $('#user_tel').val("google_"+googleUserInfo.id);
+            $('#user_email').val(googleUserInfo.email);
+            $('#birthdate').val(googleUserInfo.birthyear+"-"+naverUserInfo.response.birthday);
+            $('#user_age').val(calculateAge($('#birthdate').val()));
+            $('#profilePicturePreview').attr('src', naverUserInfo.response.profile_image);
+            $('#profilePictureUpload').val(naverUserInfo.response.profile_image);
+
+            // 성별에 따라 값을 설정
+            if (naverUserInfo.response.gender === "M") {
+              $('#user_gender').val("male");
+            } else if (naverUserInfo.response.gender === "F") {
+              $('#user_gender').val("female");
+            }
+            
+
+          }
+        });
+      </script>
+
 
 
 
