@@ -1,20 +1,59 @@
-import React, { useState } from "react";
+import { useEffect,useState } from "react";
 import SelectInput from "../form/SelectInput";
 import { ticketsList } from "../../data/ticketsList";
 import { Link } from "react-router-dom";
 import SupportNowModal from "./SupportNowModal";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SupportTicketsList() {
   const [page, setPage] = useState(1);
   const [show, setShow] = useState(25);
   const [supportNow, setSupportNow] = useState(false);
+  const baseUrl = "http://localhost:8080";
+
+  const [inquirys,setInquirys] = useState([]);
+
+  // 문의 리스트 자체 select
+  useEffect(() => {
+    axios.get(baseUrl+"/inquiry").then((result) => {
+      const inquirys = result.data;
+      //console.log(typeof inquiry_num);
+      //console.log([inquirys]);
+      setInquirys([...inquirys]);
+      //console.log([inquirys.inquiry_num]);
+      //console.log(inquirys)
+    });
+  }, []);
+
+  
+ 
+  const [ inquiryIdx, setInquiryIdx ] = useState(0) ;
+  const [title, setTitle] = useState('')
+  const [content, setContent] = useState('')
+  const [userId, setUserId] = useState('')
+  const [inquNum, setInquNum] = useState('')
+  
+  const [inQu, setInQu] = useState({})
+
+  const list = [title,content,userId];
+
+  const xxxxx = { test :'test'}
 
   return (
     
     <div className="container-fluid p-0">
-       <SupportNowModal
+      <SupportNowModal
+        //inquirys = { inquirys[inquiryIdx] }
+        inquirys = {xxxxx}
+        testArr = {inquirys[inquiryIdx]}
+        title = {title}
+        content = {content}
+        userId = {userId}
+        inqNum={inquNum}
         isOpen={supportNow}
         handleClose={() => setSupportNow(false)}
+        // key = {inquirys[inquiryIdx].inquiry_num}
       />
       {/* <div className="col-xxl-9 col-lg-8 col-12"> */}
         <div className="crancy-table crancy-table__support mg-top-30">
@@ -83,187 +122,41 @@ function SupportTicketsList() {
                   </tr>
                 </thead>
                 <tbody className="crancy-table__body">
-                  <tr>
-                    <td>1</td>
-                    <td>관리자님..</td>
-                    <td>존</td>
-                    <td>2024-01-01</td>
+                {inquirys.map((inQ,idx) => (
+                  <tr key={inQ.inquiry_num} >
+                    <td>{inQ.inquiry_num}</td>
+                    <td>{inQ.inquiry_title}</td>
+                    <td>{inQ.user_id}</td>
+                    <td>{inQ.inquiry_regdate}</td>
                     <td>
+                    {inQ.inquiry_process == 1 ? (
+                    <a
+                      href="#"
+                      onClick={() => setSupportNow(true)}
+                      className="crancy-btn crancy-sbcolor">
+                    확인
+                    </a>  
+                    ) : (
                       <a
                         href="#"
-                        onClick={() => setSupportNow(true)}
-                        className="crancy-btn crancy-sbcolor">
-                      확인
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>확인 부탁드립니다</td>
-                    <td>마리</td>
-                    <td>2024-01-01</td>
-                    <td>
-                      <a
-                        href="#"
-                        onClick={() => setSupportNow(true)}
+                        onClick={() => { 
+                          
+                          setInquiryIdx(idx);
+                          setTitle(inquirys[inquiryIdx].inquiry_title)
+                          setContent(inquirys[inquiryIdx].inquiry_content)
+                          setUserId(inquirys[inquiryIdx].user_id)
+                          setInquNum(inquirys[inquiryIdx].inquiry_num)
+                          setInQu("inQ", inquirys[inquiryIdx])
+                          setSupportNow(true); 
+                        }}
                         className="crancy-btn crancy-ybcolor">
                       예정
                       </a>
+                    )}
                     </td>
                   </tr>
+                  ))}
                 </tbody>
-                
-                {/* <!-- crancy Table Body --> */}
-                {/* <tbody className="crancy-table__body">
-                  {ticketsList?.map((ticket, index) => {
-                    const current = page * show;
-                    const previous = current - show;
-                    if (
-                      previous > 0 &&
-                      index + 1 > previous &&
-                      index + 1 <= current
-                    ) {
-                      return (
-                        <tr key={index + "key"}>
-                          <td className="crancy-table__column-1 crancy-table__data-1">
-                            <div className="crancy-table__product--id">
-                              <p className="crany-table__product--number">
-                                <Link to="/ticket-details">#{ticket.id}</Link>
-                              </p>
-                            </div>
-                          </td>
-                          <td className="crancy-table__column-2 crancy-table__data-2">
-                            <h5 className="crancy-table__inner--title">
-                              <Link to="/ticket-details">{ticket.subject}</Link>
-                            </h5>
-                          </td>
-                          <td className="crancy-table__column-3 crancy-table__data-3">
-                            <p className="crancy-table__text crancy-table__time">
-                              {ticket.date}
-                            </p>
-                          </td>
-                          <td className="crancy-table__column-4 crancy-table__data-4">
-                            <h5 className="crancy-table__inner--title">
-                              {ticket.customer}
-                            </h5>
-                          </td>
-                          <td className="crancy-table__column-5 crancy-table__data-5">
-                            <div
-                              className={`crancy-table__status ${
-                                ticket.status === "Cancel"
-                                  ? "crancy-table__status--cancel"
-                                  : ticket.status === "Pending"
-                                  ? "crancy-table__status--pending"
-                                  : ""
-                              }`}
-                            >
-                              {ticket.status}
-                            </div>
-                          </td>
-                          <td className="crancy-table__column-6 crancy-table__data-6">
-                            <div className="crancy-flex-between">
-                              <h5 className="crancy-table__inner--title">High</h5>
-                              <div className="crancy-chatbox__toggle">
-                                <svg
-                                  width="6"
-                                  height="25"
-                                  viewBox="0 0 4 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 14)"
-                                  ></circle>
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 8)"
-                                  ></circle>
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 2)"
-                                  ></circle>
-                                </svg>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      );
-                    } else if (page == 1) {
-                      return (
-                        index < page * show && (
-                          <tr key={index + "key"}>
-                            <td className="crancy-table__column-1 crancy-table__data-1">
-                              <div className="crancy-table__product--id">
-                                <p className="crany-table__product--number">
-                                  <Link to="/ticket-details">#{ticket.id}</Link>
-                                </p>
-                              </div>
-                            </td>
-                            <td className="crancy-table__column-2 crancy-table__data-2">
-                              <h5 className="crancy-table__inner--title">
-                                <Link to="/ticket-details">{ticket.subject}</Link>
-                              </h5>
-                            </td>
-                            <td className="crancy-table__column-3 crancy-table__data-3">
-                              <p className="crancy-table__text crancy-table__time">
-                                {ticket.date}
-                              </p>
-                            </td>
-                            <td className="crancy-table__column-4 crancy-table__data-4">
-                              <h5 className="crancy-table__inner--title">
-                                {ticket.customer}
-                              </h5>
-                            </td>
-                            <td className="crancy-table__column-5 crancy-table__data-5">
-                              <div
-                                className={`crancy-table__status ${
-                                  ticket.status === "Cancel"
-                                    ? "crancy-table__status--cancel"
-                                    : ticket.status === "Pending"
-                                    ? "crancy-table__status--pending"
-                                    : ""
-                                }`}
-                              >
-                                {ticket.status}
-                              </div>
-                            </td>
-                            <td className="crancy-table__column-6 crancy-table__data-6">
-                              <div className="crancy-flex-between">
-                                <h5 className="crancy-table__inner--title">
-                                  High
-                                </h5>
-                                <div className="crancy-chatbox__toggle">
-                                  <svg
-                                    width="6"
-                                    height="25"
-                                    viewBox="0 0 4 16"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 14)"
-                                    ></circle>
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 8)"
-                                    ></circle>
-                                    <circle
-                                      r="2"
-                                      transform="matrix(1 0 0 -1 2 2)"
-                                    ></circle>
-                                  </svg>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        )
-                      );
-                    }
-                  })}
-                </tbody> */}
-                {/* <!-- End crancy Table Body --> */}
               </table>
               {/* <!-- End crancy Table --> */}
               <div className="crancy-table-bottom">

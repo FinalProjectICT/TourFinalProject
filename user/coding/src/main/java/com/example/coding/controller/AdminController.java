@@ -139,5 +139,14 @@ public class AdminController {
         adminService.modifyTour(tours);
 
     }
+
+    // 전체 여행지 리스트 띄우는 컨트롤러 (My batis)
+    @GetMapping("/inquiry")
+    public List<AdminVO> inquiry(Model m) {
+        List<AdminVO> list = adminService.inquiry();
+        System.out.println(list);
+        m.addAttribute("inquiry", list);
+        return list;
+        }
     
 }

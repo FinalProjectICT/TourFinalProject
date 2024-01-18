@@ -39,5 +39,8 @@ public interface AdminService {
     // 푸터 후기 게시판 관한 select 
     List<AdminVO> footer_toroview_list();
 
+    // 문의 리스트
+    List<AdminVO> inquiry();
+
     
 }

@@ -42,5 +42,8 @@ public interface AdminDAO {
     // 푸터 후기 게시판 좋아요 top4 출력
     public List<AdminVO> footer_toroview_list();
 
+    // 문의 리스트
+    public List<AdminVO> inquiry();
+
     
 }

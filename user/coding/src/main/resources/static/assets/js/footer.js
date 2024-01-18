@@ -49,7 +49,7 @@ $(function () {
                     </div>`
                 );
                 $(this).append(newElement);
-                console.log(newElement);
+                //console.log(newElement);
             });
         },
         error: function (err) {

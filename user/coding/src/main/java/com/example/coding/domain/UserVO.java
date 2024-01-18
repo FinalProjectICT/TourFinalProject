@@ -38,5 +38,6 @@ public class UserVO {
     private Long    naver_expires_in;
     private String  naver_scope;
     
+
     
 }

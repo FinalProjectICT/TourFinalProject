@@ -40,6 +40,7 @@ function NotificationsCom({ isSettings }) {
     navigate("/tour-list");
   };
 
+  
   const handleImageChange = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -49,10 +50,12 @@ function NotificationsCom({ isSettings }) {
       formData.append('file',uploadFile)
       setFile(uploadFile["name"])
       console.log('===useState===')
+
       console.log("FILE",uploadFile["name"])
 
       // setImgSrc()
       console.log(imgSrc)
+
     }
   }
 
