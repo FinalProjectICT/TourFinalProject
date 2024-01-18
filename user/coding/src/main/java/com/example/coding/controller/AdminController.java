@@ -1,7 +1,11 @@
 package com.example.coding.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,13 +15,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.coding.dao.AdminRepository;
 import com.example.coding.dao.AdminUserRepository;
 import com.example.coding.domain.AdminTourJpaVO;
 import com.example.coding.domain.AdminUserJpaVO;
 import com.example.coding.domain.AdminVO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.service.AdminService;
+import com.example.coding.util.MD5Generator;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -83,7 +91,10 @@ public class AdminController {
 
     // 여행지 등록 
     @PostMapping("/tour-register/tourInsert")
-    public void tourInsert(AdminVO vo) {
+    public void tourInsert(AdminVO vo, @RequestParam("img") MultipartFile multipartFile) {
+
+        String img_name = multipartFile.getOriginalFilename();
+        System.out.println(img_name);
         adminService.tourInsert(vo);
     }
 

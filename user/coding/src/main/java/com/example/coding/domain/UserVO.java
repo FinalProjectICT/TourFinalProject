@@ -29,6 +29,7 @@ public class UserVO {
 
     private Long    img_detail_num;         // 이미지구분 번호
     private Long    img_num;                // 이미지 번호
+    private String  img_real_name;          // 이미지 이름
 
     // 네이버 토큰 관련 필드 추가
     private String  naver_access_token;

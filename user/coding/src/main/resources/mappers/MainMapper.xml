@@ -6,7 +6,7 @@
 
 
   <!-- 유저별 선호 지역 가져오기 - 3개 - ajax -->
-  <select id="preferLoc" parameterType="com.example.coding.domain.UserVO" resultType="com.example.coding.domain.MainVO">
+  <select id="preferLoc" parameterType="UserVO" resultType="MainVO">
     SELECT
       loc1.loc_cate_name AS user_prefer_loc1,
       loc2.loc_cate_name AS user_prefer_loc2,
@@ -48,7 +48,7 @@
 
 
   <!-- 유저 선호 지역 이름 가져오기 -->
-  <select id="getUserInfoLoc" parameterType="com.example.coding.domain.MainVO" resultType="com.example.coding.domain.MainVO">
+  <select id="getUserInfoLoc" parameterType="MainVO" resultType="MainVO">
     SELECT l.loc_cate_name user_prefer_loc1_name
     FROM loc_cate l, user u
     WHERE u.user_id = #{user_id} AND loc_cate_code = u.user_prefer_loc1
@@ -56,14 +56,14 @@
   </select>
 
   <!-- 유저 선호 타입 이름 가져오기 -->
-  <select id="getUserInfo" parameterType="com.example.coding.domain.MainVO" resultType="com.example.coding.domain.MainVO">
+  <select id="getUserInfo" parameterType="MainVO" resultType="MainVO">
     SELECT user_prefer_type1 tour_cate_code_name
     FROM user
     WHERE user_id = #{user_id}
   </select>
 
   <!-- 메인 유저 선호 1순위 지역에 대한 1/2/3순위 여행지 추천 -->
-  <select id="getRecoType" parameterType="com.example.coding.domain.Reco1VO" resultType="com.example.coding.domain.TourVO">
+  <select id="getRecoType" parameterType="Reco1VO" resultType="TourVO">
     SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path, loc_cate_code
     FROM tour
     WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3} 
@@ -72,12 +72,39 @@
   </select>
 
   <!-- 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천 -->
-  <select id="yesResult" parameterType="com.example.coding.domain.Reco1VO" resultType="com.example.coding.domain.TourVO">
+  <select id="yesResult" parameterType="Reco1VO" resultType="TourVO">
     SELECT tour_num, tour_name, tour_addr, tour_img1_path, tour_img2_path, loc_cate_code
     FROM tour
     WHERE tour_num = #{tour_num1} OR tour_num = #{tour_num2} OR tour_num = #{tour_num3} 
     OR tour_num = #{tour_num4}
   </select>
+
+  <!-- 관리자 여행 찾기 게시판 리스트-->
+	<select  id="touromateList" parameterType="AdminTouroMateVO" resultType="AdminTouroMateVO">
+		SELECT tm.user_id user_id, 
+    tm.touro_mate_title touro_mate_title, 
+    tm.touro_mate_content touro_mate_content,
+    li.like_count like_count, 
+    tm.touro_mate_date touro_mate_date
+    ,tm.touro_mate_num touro_mate_num
+    FROM 	touro_mate tm
+    LEFT  JOIN `like` li ON li.touro_mate_num = tm.touro_mate_num
+	</select>
+
+   <!-- 관리자 touromate 검색-->
+	<select  id="searchMate" parameterType="AdminTouroMateVO" resultType="AdminTouroMateVO">
+		SELECT tm.user_id user_id, 
+    tm.touro_mate_title touro_mate_title, 
+    tm.touro_mate_content touro_mate_content,
+    li.like_count like_count, 
+    tm.touro_mate_date touro_mate_date
+    ,tm.touro_mate_num touro_mate_num
+    FROM 	touro_mate tm
+    LEFT  JOIN `like` li ON li.touro_mate_num = tm.touro_mate_num
+    WHERE tm.user_id LIKE CONCAT('%', #{user_id}, '%')
+    OR tm.touro_mate_title LIKE CONCAT('%', #{touro_mate_title}, '%')
+    OR tm.touro_mate_content LIKE CONCAT('%', #{touro_mate_content}, '%')
+	</select>
 
   
 </mapper>

@@ -1,13 +1,16 @@
 package com.example.coding.controller;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.coding.domain.AdminTouroMateVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
 import com.example.coding.domain.TourVO;
@@ -15,15 +18,8 @@ import com.example.coding.domain.UserVO;
 import com.example.coding.service.MainServiceImpl;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.websocket.server.ServerEndpoint;
 
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
-
 
 @Controller
 public class MainController {
@@ -118,7 +114,7 @@ public class MainController {
     String num7 = vo.getTour_num7().replaceAll("\\.0$", "");
     String num8 = vo.getTour_num8().replaceAll("\\.0$", "");
     String num9 = vo.getTour_num9().replaceAll("\\.0$", "");
-    // System.out.println(num1);
+    System.out.println("@"+num1);
     vo.setTour_num1(num1);
     vo.setTour_num2(num2);
     vo.setTour_num3(num3);
@@ -158,7 +154,7 @@ public class MainController {
     return result;
   }
 
-  // 메인 유저 선호 1순위 지역에 대한 1순위 여행지 추천
+  // 메인 유저 선호 2순위 지역에 대한 2순위 여행지 추천
   @RequestMapping("/preferType1Reco")
   @ResponseBody
   public List<TourVO> getRecoType1(Reco1VO vo) {
@@ -212,7 +208,7 @@ public class MainController {
     return result;
   }
 
-  // 메인 유저 선호 1순위 지역에 대한 1순위 여행지 추천
+  // 메인 유저 선호 3순위 지역에 대한 3순위 여행지 추천
   @RequestMapping("/preferType3Reco")
   @ResponseBody
   public List<TourVO> getRecoType3(Reco1VO vo) {
@@ -258,5 +254,9 @@ public class MainController {
     List<TourVO> result = mainServiceImpl.yesResult(vo);
     return result;
   }
+
+  
+
+  
 
 }

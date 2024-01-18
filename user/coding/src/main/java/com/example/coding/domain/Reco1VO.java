@@ -16,4 +16,5 @@ public class Reco1VO {
   private String tour_num9; // 9순위 tour_num
   private String tour_num10; // 10순위 tour_num
 
+
 }

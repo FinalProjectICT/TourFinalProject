@@ -33,7 +33,6 @@ public interface AdminDAO {
     public int modifyTour(AdminVO vo );
 
     // 후기 게시판 리스트 내부에서 리스트 검색
-
     public List<AdminVO> search_touro( String search_touro);
 
 

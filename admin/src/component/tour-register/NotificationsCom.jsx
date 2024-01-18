@@ -22,7 +22,7 @@ function NotificationsCom({ isSettings }) {
   const [tour_content, setTour_content] = useState("");
   const [tour_site_addr, setTour_site_addr] = useState("");
   const [file,setFile] = useState()
-    const [imgSrc, setImgSrc] = useState(null); 
+  const [imgSrc, setImgSrc] = useState(null); 
 
   const baseUrl = "http://localhost:8080";
 
@@ -43,14 +43,15 @@ function NotificationsCom({ isSettings }) {
   const handleImageChange = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    
-    
+  
     if(e.target.files){
       const uploadFile = e.target.files[0]
       formData.append('file',uploadFile)
-      setFile(uploadFile)
-      console.log(uploadFile)
+      setFile(uploadFile["name"])
       console.log('===useState===')
+      console.log("FILE",uploadFile["name"])
+
+      // setImgSrc()
       console.log(imgSrc)
     }
   }
@@ -64,7 +65,7 @@ function NotificationsCom({ isSettings }) {
       tour_addr:tour_addr,
       tour_content:tour_content,
       tour_site_addr:tour_site_addr,
-      img:imgSrc,
+      file:file,
     };
     alert(JSON.stringify(tour));
     axios.post(baseUrl+"/tour-register/tourInsert", null, { params: tour });
@@ -137,6 +138,7 @@ function NotificationsCom({ isSettings }) {
                                           id="image-upload"
                                           accept=".jpg,.jpeg,.png"
                                           onChange={handleImageChange}
+                                          name="file"
                                         />
                                       </div>
                                       {imgSrc && (

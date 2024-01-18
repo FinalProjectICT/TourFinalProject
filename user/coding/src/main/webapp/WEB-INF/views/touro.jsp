@@ -74,7 +74,7 @@ prefix="c" %>
     <script>
 
       $(function(){
-          const socket = new WebSocket("ws://localhost:8765");
+          const socket = new WebSocket("ws://175.114.130.25:8765");
           const sessionId = $('#loggedInUser').val()
           console.log(sessionId)
 
@@ -108,16 +108,22 @@ prefix="c" %>
                 tour_num3.push(info3[i]["tour_num"])
               }
               console.log("1tour_num1",tour_num1)
-              console.log("2tour_num2",tour_num2)
+              console.log("2tour_num2",tour_num2.length)
               console.log("3tour_num3",tour_num3)
+              // 동적으로 구성될 데이터 객체
+              var data1 = {};
+
+              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+              for (var i = 0; i < tour_num1.length; i++) {
+                  var key = "tour_num" + (i + 1);
+                  data1[key] = tour_num1[i];
+              }
               // 1순위
               $.ajax({
                 type : "GET",
                 url : 'preferLoc1Reco',
                 contentType : 'json',
-                data : {tour_num1 : tour_num1[0], tour_num2 : tour_num1[1], tour_num3 : tour_num1[2], 
-                  tour_num4 : tour_num1[3], tour_num5 : tour_num1[4], tour_num6 : tour_num1[5], 
-                  tour_num7 : tour_num1[6], tour_num8 : tour_num1[7], tour_num9 : tour_num1[8] },
+                data : data1,
                 success : function(res){
                   console.log("success");
                   console.log("1순위",res)
@@ -161,16 +167,22 @@ prefix="c" %>
                 }
               })// end ajax
 
+              // 동적으로 구성될 데이터 객체
+              var data2 = {};
+
+              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+              for (var i = 0; i < tour_num2.length; i++) {
+                  var key = "tour_num" + (i + 1);
+                  data2[key] = tour_num2[i];
+              }
               // 2순위
               $.ajax({
                 type : "GET",
                 url : 'preferLoc2Reco',
                 contentType : 'json',
-                data : {tour_num1 : tour_num2[0], tour_num2 : tour_num2[1], tour_num3 : tour_num2[2], 
-                  tour_num4 : tour_num2[3], tour_num5 : tour_num2[4], tour_num6 : tour_num2[5], 
-                  tour_num7 : tour_num2[6], tour_num8 : tour_num2[7], tour_num9 : tour_num2[8]},
+                data : data2,
                 success : function(res){
-                  console.log("success");
+                  console.log("2순위success");
                   console.log("2순위",res)
                   // 동적으로 menu-bar 추가
                   const bottomBar = $('#reco2Box');
@@ -180,7 +192,7 @@ prefix="c" %>
                     array.add(Math.trunc(Math.random() * tour_num2.length));
                   }
                   array = [...array]
-                  console.log("Array2",array)
+                  console.log("Array2",array[2])
                   for(let i = 0; i < 3; i++) {
                       const reco2 = {
                         tour_num : res[array[i]].tour_num,
@@ -191,32 +203,38 @@ prefix="c" %>
                     // menu-bar를 나타내는 HTML 문자열 생성
                       const menuBarHTML = `
                           <div class="menu-bar">
-                              <a href="touro/${"${reco2.tour_num}"}">
-                                  <img src="../${"${reco2.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
+                              <a href="touro/${'${reco2.tour_num}'}">
+                                  <img src="../${'${reco2.imgPath}'}" class="img-fluid blur-up lazyload" alt=""/>
                               </a>
                               <div class="content">
-                                  <a href="touro/${"${reco2.tour_num}"}">
-                                      <h5>${"${reco2.tour_name}"}</h5>
+                                  <a href="touro/${'${reco2.tour_num}'}">
+                                      <h5>${'${reco2.tour_name}'}</h5>
                                   </a>
-                                  <p>${"${reco2.address}"}</p>
+                                  <p>${'${reco2.address}'}</p>
                               </div>
                           </div>
                       `;
-
 
                       // 생성한 HTML 문자열을 bottom-bar에 추가
                       bottomBar.append(menuBarHTML);
                   }
                 }
               })// end ajax
+              
+              // 동적으로 구성될 데이터 객체
+              var data3 = {};
 
+              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+              for (var i = 0; i < tour_num3.length; i++) {
+                  var key = "tour_num" + (i + 1);
+                  data3[key] = tour_num3[i];
+              }
               // 3순위
               $.ajax({
                 type : "GET",
                 url : 'preferLoc3Reco',
                 contentType : 'json',
-                data : {tour_num1 : tour_num3[0], tour_num2 : tour_num3[1], tour_num3 : tour_num3[2], tour_num4 : tour_num3[3]
-                  , tour_num5 : tour_num3[4], tour_num6 : tour_num3[5], tour_num7 : tour_num3[6], tour_num8 : tour_num3[7], tour_num9 : tour_num3[8]},
+                data : data3,
                 success : function(res){
                   console.log("success");
                   console.log("3순위",res)
@@ -271,7 +289,7 @@ prefix="c" %>
     <!-- 사용자 선호 지역에 따른 여행지 타입별 추천 -->
     <script>
       $(function(){
-          const socket = new WebSocket("ws://localhost:8854");
+          const socket = new WebSocket("ws://175.114.130.25:8854");
           const sessionId = $('#loggedInUser').val()
           console.log(sessionId)
 
@@ -489,7 +507,7 @@ prefix="c" %>
     <!-- 사용자 기반 필터링 추천 -->
     <script>
       $(function(){
-          const socket = new WebSocket("ws://localhost:8432");
+          const socket = new WebSocket("ws://175.114.130.25:8432");
           const sessionId = $('#loggedInUser').val()
           console.log(sessionId)
 
@@ -593,7 +611,7 @@ prefix="c" %>
     </c:if>
     <!-- 세션이 비어있으면 병곤 아이디로 -->
     <c:if test="${empty sessionScope.loggedInUser}">
-      <input type="hidden" value="Byounggon" id="loggedInUser" />
+      <input type="hidden" value="dlwldus" id="loggedInUser" />
     </c:if>
 
     <!-- 로고, 배경 설정 (home_effect)-->
