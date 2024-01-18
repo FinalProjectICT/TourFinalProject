@@ -629,7 +629,7 @@ prefix="c" %>
                 <div class="left-sidebar filter-bottom-content">
                   <div id="fbox" class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
-                      <div class="filter-block col-5">
+                      <div class="filter-block col-8">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">지역별 분류</h6>
                           <div class="collection-collapse-block-content row">
@@ -869,7 +869,7 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
-                      <div class="filter-block col-3">
+                      <div class="filter-block col-4">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">별점별 분류</h6>
                           <div class="collection-collapse-block-content">
@@ -881,9 +881,11 @@ prefix="c" %>
                                 <input
                                   type="checkbox"
                                   class="form-check-input"
-                                  id="str5"
+                                  id="star5"
+                                  value="5.0"
+                                  name="star"
                                 />
-                                <label class="form-check-label" for="str5"
+                                <label class="form-check-label" for="star5"
                                   ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></label
                                 >
                               </div>
@@ -893,9 +895,11 @@ prefix="c" %>
                                 <input
                                   type="checkbox"
                                   class="form-check-input"
-                                  id="str4"
+                                  id="star4"
+                                  value="4.0"
+                                  name="star"
                                 />
-                                <label class="form-check-label" for="str4"
+                                <label class="form-check-label" for="star4"
                                   ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
@@ -905,9 +909,11 @@ prefix="c" %>
                                 <input
                                   type="checkbox"
                                   class="form-check-input"
-                                  id="str3"
+                                  id="star3"
+                                  value="3.0"
+                                  name="star"
                                 />
-                                <label class="form-check-label" for="str3"
+                                <label class="form-check-label" for="star3"
                                   ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
@@ -917,9 +923,11 @@ prefix="c" %>
                                 <input
                                   type="checkbox"
                                   class="form-check-input"
-                                  id="str2"
+                                  id="star2"
+                                  value="2.0"
+                                  name="star"
                                 />
-                                <label class="form-check-label" for="str2"
+                                <label class="form-check-label" for="star2"
                                   ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
@@ -929,9 +937,11 @@ prefix="c" %>
                                 <input
                                   type="checkbox"
                                   class="form-check-input"
-                                  id="str1"
+                                  id="star1"
+                                  value="1.0"
+                                  name="star"
                                 />
-                                <label class="form-check-label" for="str1"
+                                <label class="form-check-label" for="star1"
                                   ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
@@ -940,6 +950,7 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
+                      <!-- 
                       <div class="filter-block col-2">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">태그별 분류</h6>
@@ -997,6 +1008,7 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
+                      -->
                       <div class="text-end button_bottom">
                         <a
                           href="javascript:void(0)"
@@ -1180,7 +1192,7 @@ prefix="c" %>
                       href="#"
                       aria-label="Previous"
                       onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}'
-                    ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')"
+                    ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')"
                     >
                       <span aria-hidden="true">&laquo;</span>
                       <span class="sr-only">Previous</span>
@@ -1196,7 +1208,7 @@ prefix="c" %>
                   <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
                     <a class="page-link" 
                     href="#" 
-                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')">
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')">
                     ${testId}</a>
                   </li>
                 </c:forEach>
@@ -1206,7 +1218,7 @@ prefix="c" %>
                       class="page-link"
                       href="#"
                       aria-label="Next"
-                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}')">
+                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')">
                       <span aria-hidden="true">&raquo;</span>
                       <span class="sr-only">Next</span>
                     </a>

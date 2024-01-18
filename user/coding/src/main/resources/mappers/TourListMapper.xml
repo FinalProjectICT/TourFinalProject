@@ -20,26 +20,52 @@
 		<if test="keyword != null and keyword != '' ">
 			AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
 		</if>
+		<if test="tour_star != null and tour_star[0] != '' ">
+		AND (
+			<foreach collection="tour_star" item="star_data" open="(" close=")" separator=" OR ">
+		 tour_star <![CDATA[ <= ]]>#{star_data} AND tour_star <![CDATA[ >= ]]>(#{star_data}
+		 <choose>
+		 	<when test="star_data == 1.0"> -1 </when>
+		 	<otherwise> -0.99 </otherwise>
+		 </choose>
+		)
+			</foreach>
+		)
+		</if>
 	</trim>
-	ORDER BY tour_num DESC 
+	<choose>
+		<when test="tour_star != null and tour_star[0] != '' "> ORDER BY tour_star DESC </when>
+		<otherwise> ORDER BY tour_num </otherwise>
+	</choose>
 	LIMIT #{startList}, #{listSize}
 </select>
 
 <select id="tourListCnt" resultType="int" parameterType="com.example.coding.domain.Search">
 		SELECT count(*) as listCnt
-		FROM tour 
+		FROM tour
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 		<if test="tour_cate_code != null and tour_cate_code != '' "> 
 		AND tour_cate_code like #{tour_cate_code}
 		</if>
-		<if test="loc_cate_code[0] != null and loc_cate_code[0] != '' ">
-			AND loc_cate_code in
+		<if test="loc_cate_code != null and loc_cate_code[0] != '' "> 
+		AND loc_cate_code in
 			<foreach collection="loc_cate_code" item="cate_data" open="(" close=")" separator=",">
-				#{cate_data}
+			#{cate_data}
 			</foreach>
 		</if>
 		<if test="keyword != null and keyword != '' "> 
 		AND (tour_name like CONCAT('%',#{keyword},'%') OR tour_content like CONCAT('%',#{keyword},'%'))
+		</if>
+		<if test="tour_star != null and tour_star[0] != '' ">
+		AND
+			<foreach collection="tour_star" item="star_data" open="(" close=")" separator="OR">
+		 tour_star <![CDATA[ <= ]]>#{star_data} AND tour_star <![CDATA[ >= ]]>(#{star_data}
+		 <choose>
+		 	<when test="star_data == 1.0"> -1 </when>
+		 	<otherwise> -0.99 </otherwise>
+		 </choose>
+		)
+			</foreach>
 		</if>
 		</trim>
 </select>

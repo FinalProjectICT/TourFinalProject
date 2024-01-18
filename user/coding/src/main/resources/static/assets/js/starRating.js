@@ -6,7 +6,6 @@ let maskMax = 0; //오버레이 마스크 최대 너비
 window.addEventListener("DOMContentLoaded", () => {
   //별 이미지 SVG 개수만큼 생성
   $("div.content div.grid-item").each((idx, items) => {
-    console.log(items);
     for (let i = 0; i < maxStar; i++) {
       let el = document.createElement("div");
       //el.classList.add('star');
