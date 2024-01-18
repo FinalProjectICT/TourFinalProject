@@ -153,4 +153,10 @@
 	</select>
 
 
+	<!-- 문의 리스트 셀렉-->
+	<select id="inquiry" resultType="AdminVO"> 
+	SELECT *
+	FROM `inquiry` 
+	</select>
+
 </mapper>

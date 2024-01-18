@@ -81,6 +81,12 @@ public class AdminServiceImpl implements AdminService {
         List<AdminVO> list = adminDAO.footer_toroview_list();
         return list;
     }
-    
+
+    // 문의 리스트
+    public List<AdminVO> inquiry() {
+        List<AdminVO> list = adminDAO.inquiry();
+        System.out.println("확인: " + list.size());
+        return list;
+    }
     
 }
