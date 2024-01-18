@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- header start -->
-    <header class="inner-page overlay-black">
+    <!-- <header class="inner-page overlay-black">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -159,8 +159,12 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
     <!--  header end -->
+
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
 
     <!-- breadcrumb start -->
     <section class="breadcrumb-section parallax-img pt-0">
@@ -308,49 +312,51 @@ pageEncoding="UTF-8"%>
                     </div>
                   </div>
                 </div>
-                <div class="collection-grid-view">
-                  <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
-                    >글 쓰기</a
-                  >
-                  <!--<ul>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-2-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-3-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-4-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                  </ul>-->
-                </div>
+                <c:if test="${not empty sessionScope.loggedInUser}">
+                  <div class="collection-grid-view">
+                    <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
+                      >글 쓰기</a>
+                    <!--<ul>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="product-2-layout-view"
+                        >
+                          <ul class="filter-select">
+                            <li></li>
+                            <li></li>
+                          </ul>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="product-3-layout-view"
+                        >
+                          <ul class="filter-select">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                          </ul>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          href="javascript:void(0)"
+                          class="product-4-layout-view"
+                        >
+                          <ul class="filter-select">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                          </ul>
+                        </a>
+                      </li>
+                    </ul>-->
+                  </div>
+
+                </c:if>
               </div>
             </div>
           </div>

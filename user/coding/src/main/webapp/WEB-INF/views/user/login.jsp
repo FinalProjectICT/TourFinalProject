@@ -50,9 +50,9 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- pre-loader start -->
-    <div class="loader-wrapper img-gif">
+    <!-- <div class="loader-wrapper img-gif">
       <img src="../assets/images/loader.gif" alt="" />
-    </div>
+    </div> -->
     <!-- pre-loader end -->
 
   <!-- 해더 (로고, 탭메뉴 등 설정) -->
