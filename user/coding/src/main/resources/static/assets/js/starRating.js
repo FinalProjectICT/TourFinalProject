@@ -1,6 +1,6 @@
-const starSize = 22,
+const starSize = 25,
   maxStar = 5,
-  gutter = 2; //별 크기, 별 개수, 여백
+  gutter = 0; //별 크기, 별 개수, 여백
 let maskMax = 0; //오버레이 마스크 최대 너비
 
 window.addEventListener("DOMContentLoaded", () => {
