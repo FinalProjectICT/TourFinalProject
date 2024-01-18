@@ -33,28 +33,64 @@ function SupportTicketsList() {
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
   const [inquNum, setInquNum] = useState('')
+  const [inQu, setInQu] = useState('')
   
-  const [inQu, setInQu] = useState({})
+  const [showComponent, setShowComponent] = useState(false);
 
-  const list = [title,content,userId];
+  // 클릭했을 때, 비동기로 모달창 조건 true 변경 -> 문의글번호 인덱스 저장
+  const handleClick = async (idx) => {
+    setShowComponent(true);
+    await setInquiryIdx(idx)
+    console.log(inquiryIdx)
+    // setTitle(inquirys[inquiryIdx].inquiry_title)
+    // setContent(inquirys[inquiryIdx].inquiry_content)
+    // setUserId(inquirys[inquiryIdx].user_id)
+  };
 
-  const xxxxx = { test :'test'}
+  // 문의 게시글 인덱스가 있을 경우, 필요한 내용 title, content, userid에 저장
+  useEffect(() => {
+    // inquiryIdx가 유효한 범위 내에 있는지 확인
+    if (inquiryIdx >= 0 && inquiryIdx < inquirys.length) {
+      // console.log(inquiryIdx)
+      setTitle(inquirys[inquiryIdx].inquiry_title);
+      setContent(inquirys[inquiryIdx].inquiry_content);
+      setUserId(inquirys[inquiryIdx].user_id);
+      // setInQu(inquirys[inquiryIdx])
+    }
+  }, [inquiryIdx, inquirys]);
+
+
+  // 찐 모달창 불러오는 컴포넌트
+  // 단순히 찐 모달창 return하고, 각 props 넘겨주기
+  const SupportNowModals = () => {
+
+    return <SupportNowModal 
+    isOpen={showComponent} 
+    handleClose={() => setShowComponent(false)}
+    title = {title}
+    content = {content}
+    userId = {userId}
+    inQu={inQu}
+    
+    />
+  };
 
   return (
     
     <div className="container-fluid p-0">
-      <SupportNowModal
-        //inquirys = { inquirys[inquiryIdx] }
-        inquirys = {xxxxx}
-        testArr = {inquirys[inquiryIdx]}
-        title = {title}
-        content = {content}
-        userId = {userId}
-        inqNum={inquNum}
-        isOpen={supportNow}
-        handleClose={() => setSupportNow(false)}
-        // key = {inquirys[inquiryIdx].inquiry_num}
-      />
+      {/* 모달창 뜨게 하는 버튼을 눌렀을 때, 모달창 컴포넌트 띄우기 */}
+      {showComponent && <SupportNowModals />}
+      {/* {showComponent && (
+        <SupportNowModal
+          isOpen={showComponent}
+          handleClose={() => setShowComponent(false)}
+          title = {title}
+          content = {content}
+          userId = {userId}
+          inqNum={inquNum}
+          // 다른 props...
+        />
+      )} */}
       {/* <div className="col-xxl-9 col-lg-8 col-12"> */}
         <div className="crancy-table crancy-table__support mg-top-30">
           <div className="crancy-table__heading">
@@ -139,24 +175,17 @@ function SupportTicketsList() {
                     ) : (
                       <a
                         href="#"
-                        onClick={() => { 
-                          
-                          setInquiryIdx(idx);
-                          setTitle(inquirys[inquiryIdx].inquiry_title)
-                          setContent(inquirys[inquiryIdx].inquiry_content)
-                          setUserId(inquirys[inquiryIdx].user_id)
-                          setInquNum(inquirys[inquiryIdx].inquiry_num)
-                          setInQu("inQ", inquirys[inquiryIdx])
-                          setSupportNow(true); 
-                        }}
+                        onClick={() => handleClick(idx)}
                         className="crancy-btn crancy-ybcolor">
                       예정
                       </a>
+                      
                     )}
                     </td>
                   </tr>
                   ))}
                 </tbody>
+                
               </table>
               {/* <!-- End crancy Table --> */}
               <div className="crancy-table-bottom">

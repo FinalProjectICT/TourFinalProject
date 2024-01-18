@@ -52,7 +52,7 @@ function Header({ toggleMenu, menu }) {
                     <div className="logo crancy-sidebar-padding">
                       <a className="crancy-logo" href="index.html">
                         {/* <!-- Logo for Default --> */}
-                        <img className="crancy-logo__main" src={logo} alt="#" />
+                        <img className="crancy-logo__main" src={logo} alt="#" style={{ width: '180px'}}/>
                         <img
                           className="crancy-logo__main--dark"
                           src={logoWhite}
@@ -86,7 +86,7 @@ function Header({ toggleMenu, menu }) {
                   <div className="crancy-header__group">
                     <div className="crancy-header__group-two">
                       <div className="crancy-header__right">
-                        <Language
+                        {/* <Language
                           subNav={subNav}
                           setSubNav={setSubNav}
                           title="language"
@@ -95,11 +95,11 @@ function Header({ toggleMenu, menu }) {
                           subNav={subNav}
                           setSubNav={setSubNav}
                           title="currency"
-                        />
+                        /> */}
                         {/* <!-- Header Zoom --> */}
                         <FullScreenBtn />
                         <div className="crancy-header__options">
-                          <Alarm
+                          {/* <Alarm
                             subMenu={subNav}
                             setSubMenu={setSubNav}
                             title="alarm"
@@ -108,7 +108,7 @@ function Header({ toggleMenu, menu }) {
                             subNav={subNav}
                             setSubNav={setSubNav}
                             title="message"
-                          />
+                          /> */}
                           <div className="crancy-header__settings">
                             <button id="crancy-header__settings">
                               <Link to="/settings">

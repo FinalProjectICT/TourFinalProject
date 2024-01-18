@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SearchBar from "../user/SearchBar";
-
-
-
+import defaultImg from "../../../../user/coding/src/main/resources/static/assets/images/profile/default_profile.png"
 
 
 function UserCard({ user }) {
@@ -19,12 +17,15 @@ function UserCard({ user }) {
     return visibleDigits + blindedDigits;
   };
 
+  console.log("usr", user)
+
 
   return (
     <div className="col-xxl-3 col-lg-4 col-md-6 col-12">
     <div className="crancy-single-user mg-top-30">
       <div className="crancy-single-user__head">
-        <img src={user.imgRealName} alt="프로필~" />
+        {user.imgRealName ? <img src={user.imgRealName} alt="프로필~"/> : <img src={defaultImg} alt="프로필~" />}
+        
         <h4 className="crancy-single-user__title">
           {user.userName}
         </h4>

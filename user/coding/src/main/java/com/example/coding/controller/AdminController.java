@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -103,6 +104,15 @@ public class AdminController {
     @GetMapping("/user/userList")
     public List<AdminVO> userList(Model m) {
     List<AdminVO> userlist = adminService.userList();
+    // System.out.println(userlist);
+    for(AdminVO user : userlist){
+        if(user.getImgRealName() != null) {
+            String path = "../../../../user/coding/src/main/resources/static/assets/images/profile/";
+            String realName = user.getImgRealName();
+            FileSystemResource resource = new FileSystemResource(path + realName);
+            user.setImgRealName(resource);
+        }
+    }
     m.addAttribute("userList", userlist);
     return userlist;
     }
