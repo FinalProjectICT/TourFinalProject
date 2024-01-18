@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService {
 	public UserVO loginCheck(UserVO vo) {
 		return userDAO.loginCheck(vo);
 	}
+
+	@Override
+	public UserVO socialLoginCheck(String user_id) {
+		return userDAO.socialLoginCheck(user_id);
+	}
 }
