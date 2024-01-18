@@ -24,7 +24,7 @@ function UserCard({ user }) {
     <div className="col-xxl-3 col-lg-4 col-md-6 col-12">
     <div className="crancy-single-user mg-top-30">
       <div className="crancy-single-user__head">
-        <img src="" alt="" />
+        <img src={user.imgRealName} alt="프로필~" />
         <h4 className="crancy-single-user__title">
           {user.userName}
         </h4>

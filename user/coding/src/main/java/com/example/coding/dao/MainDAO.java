@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.example.coding.domain.AdminTouroMateVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
 import com.example.coding.domain.TourVO;
@@ -29,6 +30,13 @@ public interface MainDAO {
 
   // 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천
   public List<TourVO> yesResult(Reco1VO vo);
+
+  // 관리자 여행 친구 찾기 리스트 보여주기
+  public List<AdminTouroMateVO> touromateList();
+
+  // 관리자 touromate 검색
+  public List<AdminTouroMateVO> searchMate(String search_mate);
+
 
 
   

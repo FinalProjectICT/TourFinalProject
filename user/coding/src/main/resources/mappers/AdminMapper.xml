@@ -37,32 +37,37 @@
 	<!--여행지 등록 -->
 	<insert id="tourInsert" parameterType="AdminVO">
 
-		INSERT INTO tour (tour_num,tour_name, tour_addr, tour_content, tour_site_addr) 
-		VALUES (#{tour_num}, #{tour_name}, #{tour_addr}, #{tour_content}, #{tour_site_addr})
+		INSERT INTO tour (tour_num,tour_name, tour_addr, tour_content, tour_site_addr, tour_img1_path) 
+		VALUES (#{tour_num}, #{tour_name}, #{tour_addr}, #{tour_content}, #{tour_site_addr}, #{tour_img1_path})
 	
 	</insert>
 	
 	<!--유저 리스트 -->
 	<select id = "userList" parameterType="AdminVO" resultType="AdminVO">
-	SELECT 	u.user_id userId, 
-	u.user_name userName, 
-	u.user_pass userPass, 
-	u.user_tel userTel, 
-	u.user_email userEmail, 
-	u.user_addr userAddr, 
-	u.user_gender userGender, 
-	u.user_age userAge, 
-	u.user_prefer_type1 userPreferType1 , 
-	u.user_prefer_type2 userPreferType2 , 
-	u.user_prefer_type3 userPreferType3, 
-	u.user_prefer_loc1 userPreferLoc1, 
-	u.user_prefer_loc2 userPreferLoc2 ,     
-	u.user_prefer_loc3 userPreferLoc3,              
-	u.admin_authority  adminAuthority ,             
-	u.user_login_authority userLoginAuthority,         
-	u.user_register_date userRegisterDate,              
-	u.user_delete_date userDeleteDate
-	FROM `user`u;
+		SELECT 	u.user_id userId, 
+		u.user_name userName, 
+		u.user_pass userPass, 
+		u.user_tel userTel, 
+		u.user_email userEmail, 
+		u.user_addr userAddr, 
+		u.user_gender userGender, 
+		u.user_age userAge, 
+		u.user_prefer_type1 userPreferType1 , 
+		u.user_prefer_type2 userPreferType2 , 
+		u.user_prefer_type3 userPreferType3, 
+		u.user_prefer_loc1 userPreferLoc1, 
+		u.user_prefer_loc2 userPreferLoc2 ,     
+		u.user_prefer_loc3 userPreferLoc3,              
+		u.admin_authority  adminAuthority ,             
+		u.user_login_authority userLoginAuthority,         
+		u.user_register_date userRegisterDate,              
+		u.user_delete_date userDeleteDate,
+		i.img_real_name imgRealName
+		FROM `user` u
+		LEFT JOIN
+			`img_detail` imgde ON u.user_id = imgde.user_id
+		LEFT JOIN
+			`img` i ON imgde.img_num = i.img_num;
 	</select>
 
 

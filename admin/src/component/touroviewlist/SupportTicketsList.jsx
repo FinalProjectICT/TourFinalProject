@@ -135,15 +135,15 @@ function SupportTicketsList() {
                     <th className="crancy-tab le__column-1 crancy-table__h1">
                       회원 ID
                     </th>
-                    <th className="crancy-tab le__column-1 crancy-table__h1">
+                    <th className="crancy-tab le__column-2 crancy-table__h2">
                       여행지
                     </th>
-                    <th className="crancy-table__column-2 crancy-table__h2">
+                    <th className="crancy-table__column-3 crancy-table__h3">
                       제목
                     </th>
-                    <th className="crancy-table__column-3 crancy-table__h3">
+                    {/* <th className="crancy-table__column-3 crancy-table__h3">
                       내용
-                    </th>
+                    </th> */}
                     <th className="crancy-table__column-4 crancy-table__h4">
                       등록 및 수정 날짜
                     </th>
@@ -166,27 +166,27 @@ function SupportTicketsList() {
                               </p>
                             </div>
                           </td>
-                          <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
+                          <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <div className="crancy-table__product--id">
                               <p className="crany-table__product--number">
                                 <a to="/ticket-details">{touroview.tour_name?.toString()}</a>
                               </p>
                             </div>
                           </td>
-                          <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
-                            <h5 className="crancy-table__inner--title">
-                              <a to="/ticket-details">{touroview.touroview_title?.toString()}</a>
-                            </h5>
-                          </td>
                           <td className="crancy-table__column-3 crancy-table__data-3" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
+                            <p className="crancy-table__inner--title">
+                              <a to="/ticket-details">{touroview.touroview_title?.toString()}</a>
+                            </p>
+                          </td>
+                          {/* <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <p className="crancy-table__text crancy-table__time">
                               {touroview.touroview_content?.toString()}
                             </p>
-                          </td>
+                          </td> */}
                           <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
-                            <h5 className="crancy-table__inner--title">
+                            <p className="crancy-table__inner--title">
                             {touroview.touroview_update ? `${touroview.touroview_update}` : ` ${touroview.touroview_regdate}`}
-                            </h5>
+                            </p>
                           </td>
                           <td className="crancy-table__column-5 crancy-table__data-5" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
                             <div
@@ -203,7 +203,7 @@ function SupportTicketsList() {
                           </td>
                           <td className="crancy-table__column-6 crancy-table__data-6">
                             <div className="crancy-flex-between">
-                              <h5 className="crancy-table__status crancy-table__status--cancel">{touroview.report_count}</h5>
+                              <p className="crancy-table__status crancy-table__status--cancel">{touroview.report_count}</p>
                               <div className="crancy-chatbox__toggle">
                                 <svg
                                   width="6"

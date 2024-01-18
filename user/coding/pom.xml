@@ -117,6 +117,15 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
+
+		<!-- 리액트에서 Mysql에 이미지 등록 - 여행지 등록 -->
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		 <dependency>
+					<groupId>commons-io</groupId>
+					<artifactId>commons-io</artifactId>
+					<version>2.6</version>
+			</dependency>
+
 	</dependencies>
 
 	<build>
