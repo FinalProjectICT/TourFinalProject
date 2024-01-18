@@ -109,8 +109,8 @@ public class AdminController {
         if(user.getImgRealName() != null) {
             String path = "../../../../user/coding/src/main/resources/static/assets/images/profile/";
             String realName = user.getImgRealName();
-            FileSystemResource resource = new FileSystemResource(path + realName);
-            user.setImgRealName(resource);
+            // FileSystemResource resource = new FileSystemResource(path + realName);
+            // user.setImgRealName(resource);
         }
     }
     m.addAttribute("userList", userlist);
