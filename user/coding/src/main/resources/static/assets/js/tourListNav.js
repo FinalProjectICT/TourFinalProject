@@ -4,10 +4,10 @@ var LocArray = {};
 var StarArray = {};
 
 $("h6.collapse-block-title").attr("disabled", true);
-
 $(() => {
   // 지역 코드 분류 체크 확인
   $("div[name=Loc_cates]").each((idx, items) => {
+    // 누를시 false <-> true 처리
     $(items)
       .find("input[name=Loc]")
       .each((idx, item) => {
@@ -24,6 +24,7 @@ $(() => {
   // 별점 코드 분류 체크 확인
   $("input[name=star]").each((idx, item) => {
     StarArray[$(item).val()] = false;
+    // 누를시 false <-> true 처리
     $(item).on("click", () => {
       if (StarArray[$(item).val()] == false) {
         StarArray[$(item).val()] = true;
@@ -33,6 +34,8 @@ $(() => {
       console.log(StarArray[$(item).val()]);
     });
   });
+
+  console.log(`${search.locs}` + `${search.star}`);
 });
 
 //이전 버튼 이벤트
@@ -62,7 +65,7 @@ function fn_prev(
   location.href = url;
 }
 
-//페이지 번호 클릭
+// 페이지 번호 클릭 동작
 function fn_pagination(
   page,
   range,
@@ -109,7 +112,7 @@ function fn_next(
   location.href = url;
 }
 
-// 검색
+// 저장된 값들로 검색
 $(document).on("click", "#btnSearch", function (e) {
   e.preventDefault();
   var url = "/touro/tour";
@@ -134,4 +137,6 @@ $(() => {
   $("select#tour_cate_code")
     .val($("input#tour_cate_code").val())
     .prop("selected", true);
+
+  // 시간날때 선택 객체들도 설정되도록 하기
 });

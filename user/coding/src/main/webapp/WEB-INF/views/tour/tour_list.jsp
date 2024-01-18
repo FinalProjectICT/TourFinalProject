@@ -1445,12 +1445,6 @@ prefix="c" %>
     </div>
     <!-- tap to top end -->
 
-    <!-- 챗봇 구역 시작 -->
-    <div style=" position: fixed; bottom : 50px; right: 80px; z-index : 8">
-      <a href="#" class="btn btn-curve btn-lower"> 대략적인 위치</a>
-    </div>
-    <!-- 챗봇 구역 끝 -->
-
     <!-- setting start -->
     <div class="theme-setting">
       <div class="dark">
