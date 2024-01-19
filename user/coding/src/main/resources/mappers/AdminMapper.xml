@@ -161,7 +161,9 @@
 	<!-- 문의 리스트 셀렉-->
 	<select id="inquiry" resultType="AdminVO"> 
 	SELECT *
-	FROM `inquiry` 
+	FROM `inquiry` iq
+	LEFT OUTER JOIN `inquiry_review` iqr
+	ON  iq.inquiry_num = iqr.inquiry_num
 	</select>
 
 </mapper>
