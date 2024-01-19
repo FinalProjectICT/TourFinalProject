@@ -3,9 +3,10 @@ import planeIcon from "../../assets/img/plane-icon.png";
 import { Navigate, json } from "react-router-dom";
 
 
-function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, userId, testArr }) {
-  // console.log("inqNum", inqNum)
-  // console.log("content", continQuent)
+function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, userId, testArr,inquNum,inquiryReviewNum }) {
+
+  //console.log(inquiryReviewNum);
+
 
   
   return (
@@ -30,7 +31,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
         <div className="modal-content crancy-preview__modal-content">
           <div className="crancy-main-form">
            
-            <form action="#" method="post">
+            <form action="#" method="post" >
               <div className="row">
                 <div className="col-12">
                   <div className="crancy-main-form__top">
@@ -116,7 +117,9 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
                         name="subject"
                         placeholder="관리자 답변"
                         required="required"
+                        //value={}
                       ></textarea>
+
                     </div>
                     <div className="crancy-main-form__button">
                       <div className="crancy-main-form__options">
@@ -133,6 +136,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
                 </div>
               </div>
             </form>
+
           </div>
         </div>
       </div>

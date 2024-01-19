@@ -223,6 +223,7 @@ function NotificationsCom({ isSettings }) {
                               style={{ fontSize: '12px', padding: '5px 10px' }}>Cancel</button>
                             </div>
                           </form >
+                          
                         </div>
                       </div>
                     </div>
