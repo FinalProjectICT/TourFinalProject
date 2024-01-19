@@ -1,6 +1,10 @@
 package com.example.coding.controller;
 
 import java.io.File;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,13 +34,14 @@ public class UserController {
 
 	// 회원가입
 	@RequestMapping("/insertUser") 
-	public String insertUser(@RequestParam("file") MultipartFile file, UserVO vo) {
-		String img_name = file.getOriginalFilename();
-        System.out.println("originFilename : " + img_name);
-
-		if( img_name != null && !img_name.equals("") ){
+	public String insertUser(@RequestParam(name = "file", required = false) MultipartFile file, UserVO vo) {
+		try {
+            String defaultProfileImagePath = "static/assets/images/profile/default_profile.png";
+        
             // 파일첨부가 있는 경우
-            try{
+            if( file != null && !file.isEmpty() ){
+                String img_name = file.getOriginalFilename();
+                System.out.println("originFilename : " + img_name);
                 String img_real_name = new MD5Generator(img_name).toString();
 
                 // 시스템으로 자동으로 잡아주는 경로 설정
@@ -71,18 +76,40 @@ public class UserController {
                 // 디비저장 시 파일정보 덩어리 추가
 				userService.insertUser(vo, ivo, idvo);
 				System.out.println("insertUser() 요청");
-                
-				
-            }catch(Exception ex){
-                System.out.println("파일업로드 실패 : " + ex.getMessage());
-            }
-           
-        }else {
-            // 파일첨부가 없는 경우
-            userService.insertUser(vo, null, null);
-        }
+            }else {
+                // 파일첨부가 없는 경우
+                // 기본 이미지를 업로드할 수 있도록 경로 설정
+                String defaultImg_real_name = new MD5Generator(defaultProfileImagePath).toString();
+                String save_path = System.getProperty("user.dir") + "\\src\\main\\resources\\";
+                String img_path = save_path + defaultProfileImagePath;
+                System.out.println("img_path : " + img_path);
 
-		return "redirect:login";
+                // 기본 이미지 저장
+                InputStream defaultImageStream = getClass().getClassLoader().getResourceAsStream(defaultProfileImagePath);
+                Files.copy(defaultImageStream, Paths.get(img_path), StandardCopyOption.REPLACE_EXISTING);
+
+                // 디비저장을 위해서 파일정보 덩어리 만들기
+                ImgVO ivo = new ImgVO();
+                ivo.setImg_name("default_profile.png");
+                ivo.setImg_real_name(defaultImg_real_name);
+                ivo.setImg_path(img_path);
+                imgService.insertFile(ivo);
+    
+                // 파일정보 img_detail에 담기
+                ImgDetailVO idvo = new ImgDetailVO();
+                idvo.setUser_id(vo.getUser_id());
+                idvo.setImg_num(imgService.selectNum());
+    
+                // 디비저장 시 파일정보 덩어리 추가
+                userService.insertUser(vo, ivo, idvo);
+            }
+			return "redirect:login";
+        }catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("파일업로드 실패 : " + ex.getMessage());
+            return "redirect:/errorPage"; // 실패 시 처리할 페이지로 리다이렉트
+        }
+		
 	}
 
 	// id 중복체크

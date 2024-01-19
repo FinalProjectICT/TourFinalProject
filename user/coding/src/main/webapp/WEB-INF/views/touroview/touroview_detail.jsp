@@ -60,9 +60,11 @@ prefix="c" %>
   </head>
 
   <body>
-    <!-- header start -->
-    
-    <!--  header end -->
+
+
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section pt-0">

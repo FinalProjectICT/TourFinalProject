@@ -11,4 +11,6 @@ public interface UserService {
     public int idCheck(String user_id);
     // 로그인
     public UserVO loginCheck(UserVO vo);
+     // 소셜 로그인
+     public UserVO socialLoginCheck(String user_id);
 } 

@@ -12,32 +12,33 @@ $(function(){
     '50' : 'fas fa-smog'
   };
   
-  var city1;
+  var city1;  
   var city2;
   var city3;
 
+  // 로그인한 사용자의 아이디를 가져옴
   var user_id = $('#loggedInUser').val();
   console.log(user_id);
 
+  // 사용자가 설정한 선호 지역 정보를 가져옴
   $.ajax({
     type:'GET',
     data: {user_id : user_id},
     url:'preferLoc',
     success: function(res) {
+
+      // 사용자가 설정한 선호 지역 정보를 변수에 저장
       city1 = res.user_prefer_loc1
       city2 = res.user_prefer_loc2
       city3 = res.user_prefer_loc3
       console.log(res.user_prefer_loc1)
-      // console.log(res.user_prefer_loc2)
-      // console.log(res.user_prefer_loc3)
 
+      // 도시명을 영어로 변환
       city1 = convertCity(city1)
-      // console.log(convertCity(city1))
       city2 = convertCity(city2)
-      // console.log(convertCity(city2))
       city3 = convertCity(city3)
-      // console.log(convertCity(city3))
       
+      // 각 도시에 대한 날씨 정보를 가져와 화면에 표시
       getWeather1(city1)
       getWeather2(city2)
       getWeather3(city3)
@@ -49,6 +50,7 @@ $(function(){
 
   })
 
+  // 도시명을 영어로 변환하는 함수
   const convertCity = (city) => {
     switch (city) {
       case "제주도":
@@ -105,9 +107,12 @@ $(function(){
     }
   } 
 
+  // 각 도시에 대한 날씨 정보를 가져와 화면에 표시하는 함수
   const getWeather1 = (city) => {
     var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+"0846679e999ecbe4f288dc161ac8272a";
     console.log(apiURI)
+
+    // 가져온 날씨 정보를 화면에 표시
       $.ajax({
         url: apiURI,
         dataType: "json",
@@ -126,6 +131,7 @@ $(function(){
             var $temp_max = '최고 온도&nbsp;&nbsp;&nbsp;&nbsp;' + Math.floor(resp.main.temp_max- 273.15) + 'º';
             
 
+            // 가져온 날씨 정보를 화면에 표시
             $('.weather_icon').append('<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 150px; width : 150px;"></i>');
             $('.weather_description').prepend($weather_description);
             $('.current_temp').prepend($Temp);
@@ -173,9 +179,14 @@ $(function(){
       })
   }
 
+   // 각 도시에 대한 날씨 정보를 가져와 화면에 표시하는 함수
   const getWeather3 = (city) => {
+    
+    // OpenWeatherMap API를 통해 날씨 정보를 가져옴
     var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+"0846679e999ecbe4f288dc161ac8272a";
     console.log(apiURI)
+
+    // 가져온 날씨 정보를 화면에 표시
       $.ajax({
         url: apiURI,
         dataType: "json",
@@ -194,6 +205,7 @@ $(function(){
             var $temp_max = '최고 온도&nbsp;&nbsp;&nbsp;&nbsp;' + Math.floor(resp.main.temp_max- 273.15) + 'º';
             
 
+            // 가져온 날씨 정보를 화면에 표시
             $('.weather_icon2').append('<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 150px; width : 150px;"></i>');
             $('.weather_description2').prepend($weather_description);
             $('.current_temp2').prepend($Temp);

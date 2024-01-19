@@ -21,6 +21,8 @@ function NotificationsCom({ isSettings }) {
   const [tour_addr, setTour_addr] = useState("");
   const [tour_content, setTour_content] = useState("");
   const [tour_site_addr, setTour_site_addr] = useState("");
+  const [file,setFile] = useState()
+  const [imgSrc, setImgSrc] = useState(null); 
 
   const baseUrl = "http://localhost:8080";
 
@@ -31,10 +33,32 @@ function NotificationsCom({ isSettings }) {
       [name]: !activeNotification[name],
     });
   };
+
+  // 취소 
   const cancelTourList = (e) =>{
     e.preventDefault();
     navigate("/tour-list");
   };
+
+  
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+  
+    if(e.target.files){
+      const uploadFile = e.target.files[0]
+      formData.append('file',uploadFile)
+      setFile(uploadFile["name"])
+      console.log('===useState===')
+
+      console.log("FILE",uploadFile["name"])
+
+      // setImgSrc()
+      console.log(imgSrc)
+
+    }
+  }
+
 
   const submitTour = (e) =>{
     e.preventDefault();
@@ -44,6 +68,7 @@ function NotificationsCom({ isSettings }) {
       tour_addr:tour_addr,
       tour_content:tour_content,
       tour_site_addr:tour_site_addr,
+      file:file,
     };
     alert(JSON.stringify(tour));
     axios.post(baseUrl+"/tour-register/tourInsert", null, { params: tour });
@@ -51,7 +76,6 @@ function NotificationsCom({ isSettings }) {
 
     
   };
-
 
   return (
     <div className="row">
@@ -105,18 +129,28 @@ function NotificationsCom({ isSettings }) {
                                 </div>
 
                                 <div className="mb-3">
-                                  <label className="form-label-title ">
+                                    <label className="form-label-title ">
                                       이미지 업로드
                                     </label>
                                     <div className="bootstrap-tagsinput">
-                                    <div className="input-group">
-                                      <input
-                                        type="file"
-                                        className="form-control"
-                                        id="image-upload"
-                                      />
+                                      <div className="input-group">
+                                        <input
+                                          type="file" 
+                                          multiple
+                                          className="form-control"
+                                          id="image-upload"
+                                          accept=".jpg,.jpeg,.png"
+                                          onChange={handleImageChange}
+                                          name="file"
+                                        />
+                                      </div>
+                                      {imgSrc && (
+                                        <img src={imgSrc} 
+                                        alt="preview-img" 
+                                        style={{ width: "30%"}}
+                                        />
+                                      )}
                                     </div>
-                                  </div>
                                   <input
                                     className="form-control"
                                     type="text"

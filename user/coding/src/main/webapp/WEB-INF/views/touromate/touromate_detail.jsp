@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- pre-loader start -->
-    <div class="skeleton_loader">
+    <!-- <div class="skeleton_loader">
       <header class="light_header">
         <div class="container">
           <div class="row">
@@ -412,10 +412,10 @@ pageEncoding="UTF-8"%>
         </div>
       </section>
     </div>
-    <!-- pre-loader end -->
+    pre-loader end -->
 
     <!-- header start -->
-    <header class="light_header">
+    <!-- <header class="light_header">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -503,8 +503,12 @@ pageEncoding="UTF-8"%>
           </div>
         </div>
       </div>
-    </header>
+    </header> -->
     <!--  header end -->
+
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
 
     <!-- image section start -->
     <section class="pt-0 ratio2_3 zoom-gallery overlay-hover">
@@ -1420,7 +1424,7 @@ pageEncoding="UTF-8"%>
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">채팅 테스트</h5>
+            <h5 class="modal-title" id="exampleModalLabel">${touroMate.touro_mate_num}번 채팅방</h5>
             <button
               type="button"
               class="btn-close"
@@ -1432,22 +1436,79 @@ pageEncoding="UTF-8"%>
             <div class="chat-box-overlay"></div>
             <div class="chat-logs"></div>
           </div>
-          <form>
-            <div class="modal-footer">
-              <input
-                type="text"
-                id="chat-input"
-                placeholder="Send a message..."
-              />
-              <button type="submit" class="chat-submit" id="chat-submit">
-                <i class="material-icons">send</i>
-              </button>
-            </div>
-          </form>
+          <div class="modal-footer">
+            <input
+              type="text"
+              id="chat-input"
+              placeholder="Send a message..."
+            />
+            <button type="button" class="chat-submit" id="chat-submit">
+              <i class="material-icons">send</i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
     <!-- 채팅 양식 끝 -->
+    <!-- 채팅 스크립트 코드 -->
+    <!-- 채팅 스크립트 코드 -->
+    <script>
+      let ws;
+
+        $(document).ready(function () {
+            function openWebSocket() {
+                ws = new WebSocket('ws://localhost:8081/chat');
+
+                ws.onopen = function () {
+                    console.log('WebSocket Client Connected');
+                };
+
+                ws.onmessage = function (event) {
+                    const message = JSON.parse(event.data);
+                    // 받은 메시지를 모달에 표시하는 코드 추가
+                    $('.chat-logs').append(`<p>${message.userId} - ${message.message} - ${message.timestamp}</p>`);
+                };
+
+                ws.onclose = function (event) {
+                    console.log('WebSocket connection closed:', event);
+                };
+            }
+
+            // 클릭 이벤트에 직접 메시지 전송 함수 연결
+            $('#chat-submit').click(function () {
+                sendMessage();
+            });
+
+            // 폼의 submit 기본 동작 중지
+            $('#chatForm').submit(function (event) {
+                event.preventDefault();
+            });
+
+            function sendMessage() {
+              const inputMessage = $('#chat-input').val();
+              ws.send(JSON.stringify({ message: inputMessage }));
+              // 입력한 메시지를 모달에 표시하는 코드 추가
+              $('.chat-logs').append('<p>' + inputMessage + '</p>');
+              // 입력창 비우기
+              $('#chat-input').val('');
+          }
+
+            // 모달이 열릴 때 WebSocket 연결 시작
+            $('#chatLive').on('shown.bs.modal', function () {
+                openWebSocket();
+            });
+
+            // 모달이 닫힐 때 WebSocket 연결 종료
+            $('#chatLive').on('hidden.bs.modal', function () {
+                if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+                    ws.close();
+                }
+            });
+        });
+  </script>
+  
+
+  
 
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>

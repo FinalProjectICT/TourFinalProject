@@ -190,36 +190,41 @@ function Menu({ toggleMenu, menu }) {
               />
 
               {/* Touroview(후기 게시판) 목록 및 상세(미리보기) 사이드 메뉴 */}
-              <Dropdown
-                name="Touroview"
-                dropdown={dropdown}
-                setDropdown={handleDropdown}
-                img={
-                  <svg
-                    className="crancy-svg-icon"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M2 8L22 8M8 8V22M22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18L2 6C2 3.79086 3.79086 2 6 2L18 2C20.2091 2 22 3.79086 22 6Z"
+              <li className={location.pathname === "/touroview-list" ? "active" : ""}>
+                <Link className="collapsed" to="/touroview-list">
+                  <span className="menu-bar__text">
+                    <span className="crancy-menu-icon crancy-svg-icon__v1">
+                      <svg
+                        className="crancy-svg-icon"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                         d="M2 8L22 8M8 8V22M22 6V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18L2 6C2 3.79086 3.79086 2 6 2L18 2C20.2091 2 22 3.79086 22 6Z"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                    />
-                  </svg>
-                }
-                options={[
-                  { link: "touroview-list", title: "Touroview 목록" },
-                  // { link: "gallery", title: "Gallery" },
-                  // { link: "tour-view", title: "여행지 상세" },
-                  // { link: "faq", title: "Faq" },
-                  // { link: "calendar", title: "Calendar" },
-                  // { link: "error-page", title: "Error Page" },
-                ]}
-              />
+                        />
+                      </svg>
+                    </span>
+                    <span className="menu-bar__name">Touroview</span>
+                  </span>
+                  {/* <div className="crancy-menu-group">
+                    <span href="#">
+                      <img src={inboxEdit} />
+                    </span>
+                    <span href="#">
+                      <img src={inboxAuthor} />
+                    </span>
+                    <span className="menu-bar__count  crancy-color1__bg">
+                      5
+                    </span>
+                  </div> */}
+                </Link>
+              </li>
 
               {/* TouroMate(여행친구찾기 게시판) 사이드 메뉴 */}
               <li className={location.pathname === "/touromate-list" ? "active" : ""}>
@@ -295,7 +300,7 @@ function Menu({ toggleMenu, menu }) {
               
 
               {/* 1:1 문의 챗 사이드 메뉴 */}
-              <li className={location.pathname === "/inbox" ? "active" : ""}>
+              {/* <li className={location.pathname === "/inbox" ? "active" : ""}>
                 <Link className="collapsed" to="/inbox">
                   <span className="menu-bar__text">
                     <span className="crancy-menu-icon crancy-svg-icon__v1">
@@ -329,9 +334,9 @@ function Menu({ toggleMenu, menu }) {
                   </div>
                 </Link>
               </li>
+               */}
               
-              
-              <Dropdown
+              {/* <Dropdown
                 name="Author Pages"
                 dropdown={dropdown}
                 setDropdown={handleDropdown}
@@ -380,7 +385,7 @@ function Menu({ toggleMenu, menu }) {
                     <span className="menu-bar__name">Transaction</span>
                   </span>
                 </Link>
-              </li>
+              </li> */}
               {/* <li
                 className={
                   location.pathname === "/notifications" ? "active" : ""
@@ -409,7 +414,7 @@ function Menu({ toggleMenu, menu }) {
                   <span className="menu-bar__count  crancy-color1__bg">7</span>
                 </Link>
               </li> */}
-              <Dropdown
+              {/* <Dropdown
                 name="Apps"
                 dropdown={dropdown}
                 setDropdown={handleDropdown}
@@ -449,8 +454,8 @@ function Menu({ toggleMenu, menu }) {
               />
               <li
                 className={location.pathname === "/statistics" ? "active" : ""}
-              >
-                <Link className="collapsed" to="/statistics">
+              > */}
+                {/* <Link className="collapsed" to="/statistics">
                   <span className="menu-bar__text">
                     <span className="crancy-menu-icon crancy-svg-icon__v1">
                       <svg
@@ -476,9 +481,9 @@ function Menu({ toggleMenu, menu }) {
                     <span className="menu-bar__name">Statistics</span>
                   </span>
                 </Link>
-              </li>
+              </li> */}
               
-              <li className={location.pathname === "/history" ? "active" : ""}>
+              {/* <li className={location.pathname === "/history" ? "active" : ""}>
                 <Link className="collapsed" to="/history">
                   <span className="menu-bar__text">
                     <span className="crancy-menu-icon crancy-svg-icon__v1">
@@ -514,15 +519,15 @@ function Menu({ toggleMenu, menu }) {
                     <span className="menu-bar__name">History</span>
                   </span>
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
           {/* <!-- End Nav Menu --> */}
         </div>
 
-        <div className="crancy-sidebar-padding pd-btm-40">
+        {/* <div className="crancy-sidebar-padding pd-btm-40">
           <h4 className="admin-menu__title">Help</h4>
-          {/* <!-- Nav Menu --> */}
+          {/* <!-- Nav Menu --> 
           <div className="menu-bar">
             <ul className="menu-bar__one crancy-dashboard-menu" id="CrancyMenu">
               <li
@@ -696,8 +701,8 @@ function Menu({ toggleMenu, menu }) {
               </li>
             </ul>
           </div>
-          {/* <!-- End Nav Menu --> */}
-          {/* <!-- Support Card --> */}
+          {/* <!-- End Nav Menu --> 
+          <!-- Support Card -->
           <div
             className="crancy-support-card crancy-bg-cover"
             style={{ backgroundImage: `url(${bg})` }}
@@ -715,9 +720,10 @@ function Menu({ toggleMenu, menu }) {
             >
               Go To Help Center
             </Link>
-          </div>
+          </div> */}
+
           {/* <!-- End Support Card --> */}
-        </div>
+        {/* </div> */}
       </div>
     </div>
   );

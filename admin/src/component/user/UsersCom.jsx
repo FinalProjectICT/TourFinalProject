@@ -36,7 +36,6 @@ function UsersCom() {
     <div className="row">
        <SearchBar onSearch={handleSearch} />
       {currentItems.map((user) => (
-        
         <UserCard user={user} key={user.userId} />
       ))}
       <Pagination className={"crancy-pagination__v3"}

@@ -14,7 +14,6 @@ $(() => {
 
       var ck = "0";
       var icon = $(this).children();
-      console.log(icon.attr("class"));
 
       // 찜 상태 구분으로 중복 찜처리 방지
       if (id != null && id != "") {

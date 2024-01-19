@@ -50,9 +50,9 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- pre-loader start -->
-    <div class="loader-wrapper img-gif">
+    <!-- <div class="loader-wrapper img-gif">
       <img src="../assets/images/loader.gif" alt="" />
-    </div>
+    </div> -->
     <!-- pre-loader end -->
 
   <!-- 해더 (로고, 탭메뉴 등 설정) -->
@@ -107,10 +107,10 @@ pageEncoding="UTF-8"%>
               <div class="login-with">
                 <h6>SNS 간편로그인</h6>
                 <div class="row g-1 mb-2" style="text-align: center;">
-                  <a class="col-6" href="naverLogin" target="_blank">
-                    <img height="50" src="../assets/images/naver_login.PNG"/></a>
-                  <a class="col-6" href="kakaoLogin" target="_blank">
-                    <img height="50" src="../assets/images/kakao_login.PNG"/></a>
+                  <a class="col" href="naverLogin" target="_self">
+                    <img class="img-fluid" style="max-height: 70%; " src="../assets/images/naver_login.PNG"/></a>
+                  <a class="col" href="googleLogin" target="_blank">
+                    <img class="img-fluid" style="max-height: 70%; " src="../assets/images/google_login.PNG"/></a>
                 </div>
                 <div class="divider">
                   <h6>OR</h6>
@@ -222,5 +222,19 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 간편로그인 시 팝업창 띄우기 -->
+    <script>
+      function openPopup(url) {
+          var width = 500;
+          var height = 400;
+          var left = (window.innerWidth - width) / 2;
+          var top = (window.innerHeight - height) / 2;
+
+          var popup = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
+          return false;
+      }
+    </script>
+
   </body>
 </html>

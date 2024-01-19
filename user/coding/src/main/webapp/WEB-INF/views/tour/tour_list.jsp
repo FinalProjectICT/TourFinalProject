@@ -54,6 +54,9 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+    <!-- starRating css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/starRating.css" />
   </head>
 
   <body>
@@ -626,7 +629,7 @@ prefix="c" %>
                 <div class="left-sidebar filter-bottom-content">
                   <div id="fbox" class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
-                      <div class="filter-block col">
+                      <div class="filter-block col-8">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">지역별 분류</h6>
                           <div class="collection-collapse-block-content row">
@@ -718,6 +721,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="34.0"
+                                  value="34.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="34.0"
                                   >충청남도</label
@@ -730,6 +735,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="35.0"
+                                  value="35.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="35.0"
                                   >경상북도</label
@@ -742,6 +749,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="36.0"
+                                  value="36.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="36.0"
                                   >경상남도</label
@@ -754,6 +763,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="37.0"
+                                  value="37.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="37.0"
                                   >전라북도</label
@@ -766,6 +777,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="38.0"
+                                  value="38.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="38.0"
                                   >전라남도</label
@@ -778,6 +791,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="39.0"
+                                  value="39.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="39.0"
                                   >제주도</label
@@ -792,6 +807,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="4.0"
+                                  value="4.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="4.0"
                                   >대구</label>
@@ -803,6 +820,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="5.0"
+                                  value="5.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="5.0"
                                   >광주</label>
@@ -814,6 +833,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="6.0"
+                                  value="6.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="6.0"
                                   >부산</label>
@@ -825,6 +846,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="7.0"
+                                  value="7.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="7.0"
                                   >울산</label>
@@ -836,6 +859,8 @@ prefix="c" %>
                                   type="checkbox"
                                   class="form-check-input"
                                   id="8.0"
+                                  value="8.0"
+                                  name="Loc"
                                 />
                                 <label class="form-check-label" for="8.0"
                                   >세종</label>
@@ -844,7 +869,89 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
-                      <div class="filter-block col">
+                      <div class="filter-block col-4">
+                        <div class="collection-collapse-block open">
+                          <h6 class="collapse-block-title">별점별 분류</h6>
+                          <div class="collection-collapse-block-content">
+                            <div class="collection-brand-filter">
+<!-- 별점 0.0~1.0 / 1.1~2.0 ... -->
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="star5"
+                                  value="5.0"
+                                  name="star"
+                                />
+                                <label class="form-check-label" for="star5"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="star4"
+                                  value="4.0"
+                                  name="star"
+                                />
+                                <label class="form-check-label" for="star4"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="star3"
+                                  value="3.0"
+                                  name="star"
+                                />
+                                <label class="form-check-label" for="star3"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="star2"
+                                  value="2.0"
+                                  name="star"
+                                />
+                                <label class="form-check-label" for="star2"
+                                  ><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+                              <div
+                                class="form-check collection-filter-checkbox"
+                              >
+                                <input
+                                  type="checkbox"
+                                  class="form-check-input"
+                                  id="star1"
+                                  value="1.0"
+                                  name="star"
+                                />
+                                <label class="form-check-label" for="star1"
+                                  ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
+                                >
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- 
+                      <div class="filter-block col-2">
                         <div class="collection-collapse-block open">
                           <h6 class="collapse-block-title">태그별 분류</h6>
                           <div class="collection-collapse-block-content">
@@ -901,6 +1008,7 @@ prefix="c" %>
                           </div>
                         </div>
                       </div>
+                      -->
                       <div class="text-end button_bottom">
                         <a
                           href="javascript:void(0)"
@@ -999,11 +1107,10 @@ prefix="c" %>
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
                 <!-- 여행지 리스트 객체 반복 시작 -->
-                <c:forEach items="${TourList }" var="TourData">
+                <c:forEach items="${TourList}" var="TourData">
                   <div
                     class="col-xl-3 col-lg-4 col-sm-6 a${TourData.tour_cate_code} grid-item wow fadeInUp"
-                    data-class="a${TourData.tour_cate_code}"
-                  >
+                    data-class="a${TourData.tour_cate_code}">
                     <div class="special-box p-0">
                       <div class="special-img">
                         <!-- tour_num으로 상세 페이지 구분 -->
@@ -1038,105 +1145,16 @@ prefix="c" %>
                         <div class="tour-detail">
                           <h6 class="nowrap-cls">${TourData.tour_content }</h6>
                           <div class="include-sec">
-                            <span>별점 ${TourData.tour_star}</span>
-                            <ul class="include">
-                              <c:choose>
-                                <c:when test="${0 eq TourData.tour_star
-                                }">
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 0 and 1 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 1 and 2 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 3 and 4 > TourData.tour_star}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li class="not-include">
-                                    <i class="far fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:when test="${TourData.tour_star > 4}">
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                  <li>
-                                    <i class="fas fa-star"></i>
-                                  </li>
-                                </c:when>
-                                <c:otherwise>
-                                  <li>
-                                    <i class="far fa-star">?</i>
-                                  </li>
-                                </c:otherwise>
-                              </c:choose>
-                            </ul>
+                            <span>별점 ${TourData.tour_star}</span> 
+                          </div>
+                          <div class="bottom-section">
+                            <input type="hidden" value=${TourData.tour_star} name="ratevalue" step="0.1" min="0" max="5" >
+                            <div class="rating-wrap">
+                              <div class="rating">
+                                <div class="overlay">
+                                </div>
+                              </div>
+                            </div>
                           </div>
 
                           <!--<div class="bottom-section">
@@ -1174,7 +1192,7 @@ prefix="c" %>
                       href="#"
                       aria-label="Previous"
                       onClick="fn_prev('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}'
-                    ,'${search.tour_cate_code}', '${search.keyword}')"
+                    ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')"
                     >
                       <span aria-hidden="true">&laquo;</span>
                       <span class="sr-only">Previous</span>
@@ -1186,11 +1204,11 @@ prefix="c" %>
                   begin="${paging.startPage}"
                   end="${paging.endPage}"
                   var="testId"
-                >
+                ><!-- 검색 기록 저장을 위한  -->
                   <li class="page-item <c:out value="${paging.page == testId ? 'active' : ''}"/> ">
                     <a class="page-link" 
                     href="#" 
-                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                    onClick="fn_pagination('${testId}','${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')">
                     ${testId}</a>
                   </li>
                 </c:forEach>
@@ -1200,7 +1218,7 @@ prefix="c" %>
                       class="page-link"
                       href="#"
                       aria-label="Next"
-                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}')">
+                      onClick="fn_next('${paging.page}', '${paging.range}', '${paging.rangeSize}', '${paging.listSize}' ,'${search.tour_cate_code}', '${search.keyword}', '${search.locs}', '${search.star}')">
                       <span aria-hidden="true">&raquo;</span>
                       <span class="sr-only">Next</span>
                     </a>
@@ -1480,6 +1498,9 @@ prefix="c" %>
 
     <!-- 찜리스트 추가용 js-->
     <script src="../assets/js/addWishList.js"></script>
+
+    <!-- 별점용 js-->
+    <script src="../assets/js/starRating.js"></script>
 
     <script>
       $("#datepicker").datepicker({

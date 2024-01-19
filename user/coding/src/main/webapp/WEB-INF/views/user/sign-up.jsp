@@ -294,7 +294,7 @@
                           <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="file" accept="image/*" onchange="previewProfilePicture()" />
                         </div>
                       </div>
-                    </div>
+                  </div>
 
                   <div class="form-group mb-0">
                     <div class="checkbox p-0">
@@ -307,15 +307,15 @@
 
               </form>
 
-                <h6 class="text-muted mt-4 or">간편 회원가입</h6>
+                <!-- <h6 class="text-muted mt-4 or">간편 회원가입</h6>
                 <div class="social mt-4">
                   <div class="row g-1 mb-2" style="text-align: center;">
-                    <a class="col-6" href="naverLogin" target="_blank">
+                    <a class="col-6" href="#" onclick="openPopup('naverLogin')">
                       <img height="45" src="../assets/images/naver_login.PNG"/></a>
                     <a class="col-6" href="kakaoLogin" target="_blank">
                       <img height="45" src="../assets/images/kakao_login.PNG"/></a>
                   </div>
-                </div>
+                </div> -->
                 <p class="mt-4 mb-0 text-center">
                   이미 계정이 있으신가요?
                   <a class="ms-2" href="login">로그인</a>
@@ -373,33 +373,6 @@
       </script>
 
       <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드-->
-      <!-- <script>
-        $(document).ready(function () {
-          // 다른 select 박스에서 선택된 값을 비활성화하는 함수
-          function disableSelectedValue(selectedValue, selectBoxes) {
-            selectBoxes.each(function () {
-              // $(this).find('option').prop('disabled', false);
-              $(this).find('option[value="' + selectedValue + '"]').prop('disabled', true);
-            });
-          }
-      
-          // user_prefer_type select 박스 처리
-          $('select[name^="user_prefer_type"]').change(function () {
-            var selectedValue = $(this).val();
-            var selectBoxes = $('select[name^="user_prefer_type"]').not(this);
-            disableSelectedValue(selectedValue, selectBoxes);
-          });
-      
-          // user_prefer_loc select 박스 처리
-          $('select[name^="user_prefer_loc"]').change(function () {
-            var selectedValue = $(this).val();
-            var selectBoxes = $('select[name^="user_prefer_loc"]').not(this);
-            disableSelectedValue(selectedValue, selectBoxes);
-          });
-        });
-      </script> -->
-
-      <!-- 여행지 취향 중복 선택 제거 자바스크립트 코드22-->
       <script>
         $(document).ready(function () {
           // 다른 select 박스에서 선택된 값을 비활성화하는 함수
@@ -603,6 +576,8 @@
     
         });
       </script>
+
+
 
     </div>
   </body>
