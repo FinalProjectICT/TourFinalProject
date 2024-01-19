@@ -47,11 +47,31 @@ Author URI: https://themeforest.net/user/pixelstrap
 /*=====================
 01. General css start
 ==========================*/
+@font-face {
+  font-family: 'NPSfontRegular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontRegular.woff2') format('woff2');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontExtraBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
 body {
-  font-family: Nunito, sans-serif;
+  font-family: NPSfontRegular, sans-serif;
   position: relative;
   background: white;
-  font-size: 14px;
+  font-size: 18px;
   color: black; }
 
 h1,
@@ -60,19 +80,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Nunito, sans-serif;
+  font-family: NPSfontExtraBold, sans-serif;
   font-weight: normal; }
 
 h1 {
-  font-size: calc(26px + (50 - 26) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 700;
+  font-size: calc(52px + (50 - 26) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 800;
   letter-spacing: 0.03em;
   line-height: 1.1;
   text-transform: uppercase; }
 
 h2 {
-  font-size: calc(22px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 700;
+  font-size: calc(42px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 800;
   letter-spacing: 0.001em;
   line-height: 32px;
   text-transform: capitalize;
@@ -80,27 +100,29 @@ h2 {
 
 h3 {
   font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2;
   color: black; }
 
 h4 {
   font-size: calc(18px + (22 - 18) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2;
   text-transform: capitalize; }
 
 h5 {
   font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-family: NPSfontRegular;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2; }
 
 h6 {
   font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-family: NPSfontRegular;
+  font-weight: normal;
   line-height: 1.2;
   letter-spacing: 0.03em; }
 
@@ -110,10 +132,11 @@ ul {
 
 li {
   display: inline-block;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.03em; }
 
 p {
+  font-family: NPSfontRegular;
   font-size: 14px;
   line-height: 18px;
   color: #bcbcbc;
@@ -518,19 +541,19 @@ section,
 .title-3 {
   text-align: center; }
   .title-3 .title-label {
-    font-size: 14px;
+    font-size: 20px;
     color: white;
     background-color: #7fb4d4;
     text-transform: capitalize;
-    padding: 4px 18px 6px;
+    padding: 6px 18px 6px;
     line-height: 1;
-    font-family: Work Sans;
-    font-weight: 600; }
+    font-family: NPSfontBold, sans-serif;
+    font-weight: 700; }
   .title-3 h2 {
-    font-size: calc(20px + (30 - 20) * ((100vw - 320px) / (1920 - 320)));
+    font-size: calc(40px + (30 - 20) * ((100vw - 320px) / (1920 - 320)));
     margin-top: 20px;
-    margin-bottom: 90px;
-    font-weight: 800;
+    margin-bottom: 30px;
+    font-weight: 700;
     position: relative; }
     .title-3 h2 span {
       font-family: Vampiro One, cursive;
@@ -543,6 +566,9 @@ section,
       top: 50%;
       z-index: -1;
       font-weight: 400; }
+    .title-3 h5 {
+      margin-bottom: 90px;
+    }
   .title-3.detail-title .title-label {
     font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320))); }
   .title-3.detail-title h2 {
@@ -731,10 +757,12 @@ header {
         padding: 6px 12px; }
         header .menu .header-right .user i {
           color: #00a2f7;
-          font-size: 12px; }
+          font-size: 18px; }
         header .menu .header-right .user.user-light {
           background-color: rgba(255, 255, 255, 0.14); }
           header .menu .header-right .user.user-light i {
+            color: white; }
+          header .menu .header-right .user.user-light a {
             color: white; }
         header .menu .header-right .user.bg_dark {
           background-color: #7fb4d4; }
@@ -2039,7 +2067,7 @@ section .black-layer {
     .home_effect .effect_image .effect_content h1 {
       font-size: 580%;
       color: white;
-      font-weight: 900;
+      font-family: 'NPSfontExtraBold';
       display: inline-block; }
 
 .home_effect canvas {
@@ -2937,6 +2965,7 @@ section .black-layer {
     right: 5px; }
 
 .testimonial_section {
+  text-align: center;
   overflow: hidden; }
   .testimonial_section .testimonial .top-part {
     display: -webkit-box;
@@ -6756,7 +6785,7 @@ section .black-layer {
             .process-steps .step-bg .popular-section .step-box .popular-box .special-content .bottom-section .rating span {
               color: #9a9a9a;
               font-size: 12px;
-              font-weight: 700;
+              font-family: NPSfontRegular;
                }
             .process-steps .step-bg .popular-section .step-box .popular-box .special-content .bottom-section .price {
               display: -webkit-box;
@@ -15406,8 +15435,8 @@ header {
         header .main-navbar .nav-menu > li > a {
           display: block;
           color: white;
-          font-size: 14px;
-          font-weight: 900;
+          font-size: 22px;
+          font-family: 'NPSfontExtraBold';
           line-height: 23px;
           text-decoration: none;
           text-transform: uppercase;
@@ -17776,7 +17805,7 @@ body.rtl {
     margin-right: 8.33333%; }
   .rtl .offset-xl-2 {
     margin-left: 0;
-    margin-right: 16.66667%; }
+    margin-right: 0; }
   .rtl .offset-xl-3 {
     margin-left: 0;
     margin-right: 25%; } }
@@ -19615,6 +19644,8 @@ body.dark {
     .highlight-section .highlight-box .content-sec p {
       width: 90%; }
   .title-3 h2 {
+    margin-bottom: 20px; }
+  .title-3 h5 {
     margin-bottom: 50px; }
   .menu-section .menu-box .bottom-bar .menu-bar {
     padding-bottom: 20px;
@@ -19722,6 +19753,8 @@ body.dark {
   .title-2 p {
     margin-bottom: 50px; }
   .title-3 h2 {
+    margin-bottom: 20px; }
+  .title-3 h5 {
     margin-bottom: 70px; }
   .title-3.detail-title p {
     max-width: 90%; }
@@ -19813,6 +19846,7 @@ body.dark {
       -webkit-transform: translateY(-50%);
               transform: translateY(-50%); }
       .home_effect .effect_image .effect_content h1 {
+        font-family: 'NPSfontExtraBold';
         font-size: calc(40px + (70 - 40) * ((100vw - 320px) / (1920 - 320))) !important;
         text-shadow: 2px 2px 8px #548cc7; }
   .app-section .app-content .title {
@@ -20369,6 +20403,9 @@ body.dark {
   .title-2 p {
     margin-bottom: 50px; }
   .title-3 h2 {
+    margin-top: 15px;
+    margin-bottom: 20px; }
+  .title-3 h5 {
     margin-top: 15px;
     margin-bottom: 10px; }
   .title-3.detail-title p {
@@ -21296,6 +21333,8 @@ body.dark {
   .title-2 p {
     margin-bottom: 30px; }
   .title-3 h2 {
+    margin-bottom: 20px; }
+  .title-3 h5 {
     margin-bottom: 30px; }
   .home_effect .effect_image img {
     bottom: -70px; }
@@ -22107,6 +22146,8 @@ body.dark {
   .title-2 p {
     margin-bottom: 20px; }
   .title-3 h2 {
+    margin-bottom: 20px; }
+  .title-3 h5 {
     margin-bottom: 20px; }
   .title-3 .title-label {
     padding: 3px 14px; }

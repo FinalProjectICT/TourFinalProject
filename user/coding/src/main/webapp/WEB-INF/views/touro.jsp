@@ -622,7 +622,7 @@ prefix="c" %>
     <section class="home_effect effect-cls pt-0">
       <div class="snow" count="30"></div>
       <div class="effect_image">
-        <img src="" alt="" />
+        <img src="../assets/images/tour/background/2.png" alt="">
         <div class="effect_content">
           <div>
             <h1>TOURO</h1>
@@ -793,8 +793,9 @@ prefix="c" %>
           <div class="title-3">
             <span class="title-label">touro</span>
             <h2>
-              ${userLoc.tour_cate_code_name} 추천 여행지 <span>Touro</span>
+              ${sessionScope.loggedId}님의 맞춤 여행지 <span>Touro</span>
             </h2>
+            <h5>${sessionScope.loggedId}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
           </div>
           <div class="row">
             <div class="col">
@@ -807,7 +808,7 @@ prefix="c" %>
                         class="img-fluid blur-up lazyload"
                         alt=""
                       />
-                      <h2>1</h2>
+                      <h2>여행지 추천</h2>
                       <!-- <div class="decorate">제주도</div> -->
                     </div>
                     <div class="bottom-bar" id="reco1Box">
@@ -825,7 +826,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div class="bottom-bar" id="reco2Box">
                       <!-- 추가추가 -->
@@ -842,7 +843,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div class="bottom-bar" id="reco3Box">
                       <!-- 추가추가  -->
@@ -860,9 +861,10 @@ prefix="c" %>
     <!-- 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천 -->
     <section class="process-steps section-b-space bg-white">
       <div class="container">
-        <div class="title-1">
-          <span class="title-label">deals</span>
-          <h2>top deals</h2>
+        <div class="title-3">
+          <span class="title-label">touro</span>
+          <h2>소문난 여행지 추천</h2>
+          <h5>회원님들의 긍정적인 후기로 소문난 여행지를 골라 담았습니다!</h5>
         </div>
         <div class="step-bg ratio_square">
           <div class="row popular-section" id="yesResult">
@@ -1004,6 +1006,7 @@ prefix="c" %>
               <div class="title-3">
                 <span class="title-label">Touro</span>
                 <h2>계절에 따른 추천 여행지<span>touro</span></h2>
+                <h5>계절의 정취를 가득 담은 여행지를 골라 담았습니다!</h5>
               </div>
               <div class="slider-4 no-arrow">
                 <c:forEach var="winter" items="${winter}">
@@ -1107,7 +1110,8 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>회원 맞춤 여행지 <span>Touro</span></h2>
+            <h2>${sessionScope.loggedId}님의 최애 지역 여행지 <span>Touro</span></h2>
+            <h5>${sessionScope.loggedId}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1121,7 +1125,7 @@ prefix="c" %>
                         alt=""
                       />
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1142,7 +1146,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1163,7 +1167,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1189,8 +1193,9 @@ prefix="c" %>
     <section class="testimonial-section">
       <div class="container">
         <div class="title-3">
-          <span class="title-label"> Touro Recommend </span>
+          <span class="title-label"> Touro </span>
           <h2>베스트 리뷰어<span>customer</span></h2>
+          <h5>aa</h5>
         </div>
 
         <div>
