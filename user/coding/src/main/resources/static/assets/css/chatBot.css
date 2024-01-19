@@ -1,0 +1,77 @@
+/* 수정해야함 */
+#chatButton {
+  width: 70px;
+  height: 30px;
+  position: fixed;
+  right: -20px;
+  bottom: 100px;
+  background-color: #7fb4d4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px 0 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  z-index: 10;
+  text-align: center;
+  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-left: 15px;
+  font-size: 20px;
+}
+
+#chatContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: none;
+  position: fixed;
+  right: 0;
+  bottom: 100px;
+  width: 300px;
+  height: 400px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px 10px 10px 10px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+#chatContent {
+  padding: 10px;
+  overflow-y: auto;
+  height: calc(100% - 80px);
+  align-items: center;
+}
+
+#chatContent .testimonial.user {
+  padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+}
+
+#chatContent img {
+  width: 20px;
+  height: 20px;
+}
+
+#chatInput {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+#chatContainer button {
+  align-self: center;
+  width: calc(98% / 2);
+  padding-bottom: 10px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
