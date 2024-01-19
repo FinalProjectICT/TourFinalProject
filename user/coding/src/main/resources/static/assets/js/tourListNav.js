@@ -34,8 +34,6 @@ $(() => {
       console.log(StarArray[$(item).val()]);
     });
   });
-
-  console.log(`${search.locs}` + `${search.star}`);
 });
 
 //이전 버튼 이벤트
