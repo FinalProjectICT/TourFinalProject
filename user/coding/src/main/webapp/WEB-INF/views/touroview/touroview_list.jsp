@@ -65,101 +65,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- header start -->
-    <header class="inner-page overlay-black">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="menu">
-              <div class="brand-logo">
-                <a href="/touro">
-                  <img
-                    src="../assets/images/icon/footer-logo.png"
-                    alt=""
-                    class="img-fluid blur-up lazyload"
-                  />
-                </a>
-              </div>
-              <nav>
-                <div class="main-navbar">
-                  <div id="mainnav">
-                    <div class="toggle-nav">
-                      <i class="fa fa-bars sidebar-bar"></i>
-                    </div>
-                    <div class="menu-overlay"></div>
-                    <ul class="nav-menu">
-                      <li class="back-btn">
-                        <div class="mobile-back text-end">
-                          <span>Back</span>
-                          <i
-                            aria-hidden="true"
-                            class="fa fa-angle-right ps-2"
-                          ></i>
-                        </div>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/tour/tour_list
-                        " class="nav-link">Tour</a>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touromate/touromate_list" class="nav-link"
-                          >Touromate</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touroview/touroview_list" class="nav-link"
-                          >Touroview</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/user/img_change" class="nav-link"
-                          >ImgChange</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-              <ul class="header-right">
-                <li class="front-setting rounded5">
-                  <select>
-                    <option value="volvo">한국어</option>
-                    <option value="saab">영어</option>
-                  </select>
-                </li>
-                <li class="user user-light rounded5">
-                  <a href="/user/login">
-                    <i class="fas fa-user"> 로그인</i>
-                  </a>
-                </li>
-                <li class="setting">
-                  <a href="#">
-                    <i class="fas fa-cog"></i>
-                  </a>
-                  <ul class="setting-open">
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">USD</option>
-                        <option value="saab">EUR</option>
-                        <option value="opel">INR</option>
-                        <option value="audi">AUD</option>
-                      </select>
-                    </li>
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">ENG</option>
-                        <option value="saab">FRE</option>
-                        <option value="opel">SPA</option>
-                        <option value="audi">DUT</option>
-                      </select>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    
     <!--  header end -->
 
     <!-- breadcrumb start -->
@@ -308,53 +214,16 @@ pageEncoding="UTF-8"%>
                     </div>
                   </div>
                 </div>
+              <c:if test="${not empty sessionScope.loggedInUser}">
                 <div class="collection-grid-view">
                   <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
                     >글 쓰기</a
                   >
-                  <!--<ul>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-2-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-3-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="javascript:void(0)"
-                        class="product-4-layout-view"
-                      >
-                        <ul class="filter-select">
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                          <li></li>
-                        </ul>
-                      </a>
-                    </li>
-                  </ul>-->
-                </div>
               </div>
+              </c:if>
             </div>
           </div>
-
+          <!-- 키워드 검색 폼 -->
           <div class="col-xl-12 onclick-map">
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
@@ -369,16 +238,24 @@ pageEncoding="UTF-8"%>
                       />
                     </div>
                   </div>
-                  <a href="#" class="btn btn-rounded color1">Search</a>
+                  <button type="submit" class="btn btn-rounded color1">Search</a>
                 </form>
               </div>
             </div>
           </div>
 
+          <!-- 페이징 처리와 동적으로 게시글 목록 보여주는 부분-->
           <div class="col-lg-12 ratio3_2">
-            <!-- 이게 반복 메이비.... -->
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
+
+              <!-- 현재 페이지에 대한 시작 및 끝 인덱스 계산 -->
+                <c:set var="itemsPerPage" value="12" />
+                <c:set var="startIndex" value="${currentPage * itemsPerPage}" />
+                <c:set var="endIndex" value="${(currentPage + 1) * itemsPerPage < touroviewList.size() ? (currentPage + 1) * itemsPerPage : touroviewList.size()}" />
+
+                <!-- 게시글 목록을 동적으로 생성-->
+                <c:forEach var="touroview" items="${touroviewList.subList(startIndex, endIndex)}">
                 <div
                   class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
                   data-class="popular"
@@ -386,7 +263,7 @@ pageEncoding="UTF-8"%>
                   <div class="special-box p-0">
                     <!-- 이미지 select 값 -->
                     <div class="special-img">
-                      <a href="/touroview/touroview_detail">
+                      <a href="/touroview/touroview_detail?id=${touroview.touroview_num}">
                         <img
                           src="../assets/images/tour/tour/7.jpg"
                           class="img-fluid blur-up lazyload bg-img"
@@ -408,59 +285,55 @@ pageEncoding="UTF-8"%>
                       </div>
                     </div>
                     <div class="special-content">
-                      <a href="tour-single-6.html">
-                        <h5>게시글 제목</h5>
+                      <a href="/touroview/touroview_detail">
+                        <h5>${touroview.touroview_title}</h5>
                       </a>
                       <div class="tour-detail">
                         <div class="include-sec">
-                          <div>게시글 내용....</div>
+                          <div>${touroview.touroview_content}</div>
                         </div>
                         <div class="bottom-section">
                           <div class="price">
-                            <span>작성자</span>
+                            <span>${touroview.user_id}</span>
                             <br />
-                            <span>등록일</span>
+                            <span>${touroview.touroview_regdate}</span>
                             <br />
-                            <span>수정일</span>
+                            <span>${touroview.touroview_update}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- 좋아요 개수 라벨 -->
-                    <div class="label-offer">좋아요 개수 top5</div>
                   </div>
                 </div>
+              </c:forEach>
               </div>
             </div>
+
+            <!-- 페이징 부분-->
             <nav
-              aria-label="Page navigation example"
-              class="pagination-section mt-0"
-            >
+              aria-label="Page navigation example" class="pagination-section mt-0">
               <ul class="pagination">
+                <!-- 이전 페이지 이동 버튼-->
                 <li class="page-item">
-                  <a
-                    class="page-link"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                  >
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0)">1</a>
-                </li>
+                <!-- 페이징 번호 동적으로 생성 -->
+                <c:forEach begin="0" end="${touroviewPage - 1}" varStatus="status">
+                    <li class="page-item ${status.index == currentPage ? 'active' : ''}">
+                      <a class="page-link" href="/touroview/touroview_list?page=${status.index}">
+                        ${status.index + 1}
+                      </a>
+                  </li>
+                </c:forEach>
+
                 <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
+                  <a class="page-link" href="/touroview/touroview_list?page=${currentPage + 1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </li>
               </ul>
             </nav>
@@ -737,5 +610,7 @@ pageEncoding="UTF-8"%>
       });
       new WOW().init();
     </script>
-  </body>
+
+
+</body>
 </html>

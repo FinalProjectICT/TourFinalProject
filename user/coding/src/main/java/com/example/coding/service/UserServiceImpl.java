@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ImgDetailDAO imgDetailDAO;
-	
+
 	@Transactional
 	public void insertUser(UserVO vo, ImgVO ivo, ImgDetailVO idvo) {
 		// 파일첨부가 있는 경우

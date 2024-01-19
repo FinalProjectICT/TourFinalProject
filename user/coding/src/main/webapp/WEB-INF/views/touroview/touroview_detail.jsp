@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,101 +61,7 @@ pageEncoding="UTF-8"%>
 
   <body>
     <!-- header start -->
-    <header class="light_header">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="menu">
-              <div class="brand-logo">
-                <a href="/touro">
-                  <img
-                    src="../assets/images/icon/footer-logo.png"
-                    alt=""
-                    class="img-fluid blur-up lazyload"
-                  />
-                </a>
-              </div>
-              <nav>
-                <div class="main-navbar">
-                  <div id="mainnav">
-                    <div class="toggle-nav">
-                      <i class="fa fa-bars sidebar-bar"></i>
-                    </div>
-                    <div class="menu-overlay"></div>
-                    <ul class="nav-menu">
-                      <li class="back-btn">
-                        <div class="mobile-back text-end">
-                          <span>Back</span>
-                          <i
-                            aria-hidden="true"
-                            class="fa fa-angle-right ps-2"
-                          ></i>
-                        </div>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/tour/tour_list
-                        " class="nav-link">Tour</a>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touromate/touromate_list" class="nav-link"
-                          >Touromate</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touroview/touroview_list" class="nav-link"
-                          >Touroview</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/user/img_change" class="nav-link"
-                          >ImgChange</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-              <ul class="header-right">
-                <li class="front-setting rounded5">
-                  <select>
-                    <option value="volvo">한국어</option>
-                    <option value="saab">영어</option>
-                  </select>
-                </li>
-                <li class="user user-light rounded5">
-                  <a href="/user/login">
-                    <i class="fas fa-user"> 로그인</i>
-                  </a>
-                </li>
-                <li class="setting">
-                  <a href="#">
-                    <i class="fas fa-cog"></i>
-                  </a>
-                  <ul class="setting-open">
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">USD</option>
-                        <option value="saab">EUR</option>
-                        <option value="opel">INR</option>
-                        <option value="audi">AUD</option>
-                      </select>
-                    </li>
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">ENG</option>
-                        <option value="saab">FRE</option>
-                        <option value="opel">SPA</option>
-                        <option value="audi">DUT</option>
-                      </select>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
+    
     <!--  header end -->
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
@@ -172,7 +78,7 @@ pageEncoding="UTF-8"%>
               <div class="hotel-name">
                 <div class="left-part">
                   <div class="top">
-                    <h2>게시글 제목</h2>
+                    <h2 th:text="${touroviewVO.touroview_title}">게시물 제목</h2>
                     <div class="share-buttons">
                       <a href="#" class="btn btn-solid"
                         ><i class="far fa-heart"></i> 하트</a
@@ -264,9 +170,8 @@ pageEncoding="UTF-8"%>
                 <!-- 게시글  -->
                 <div class="desc-box">
                   <div class="about page-section menu-part" id="about">
-                    <p>게시글 상세 정보</p>
+                    <p>${touroviewVO.touroview_content} 게시글 상세 정보</p>
                   </div>
-                </div>
                 <!-- 여행지  -->
                 <div class="desc-box">
                   <h4 class="content-title">여행지</h4>
@@ -285,28 +190,30 @@ pageEncoding="UTF-8"%>
                         </td>
                         <td>
                           <h5>
-                            여행지
-                            주소aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                            여행지 주소
+                            <span
+                              th:if="${tourVO != null}"
+                              th:text="${tourVO.tour_addr}"
+                            ></span>
                           </h5>
                           <h6>
                             우편번호
-                            ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ
+                            <span
+                              th:if="${tourVO != null}"
+                              th:text="${tourVO.tour_postnum}"
+                            ></span>
                           </h6>
-                          <p>여행지 내용</p>
+                          <p
+                            th:if="${touroview != null}"
+                            th:text="${touroview.touroview_content}"
+                          >
+                            여행지 내용
+                          </p>
                         </td>
                       </tr>
                     </table>
                   </div>
                 </div>
-                <!-- 게시물 여행지 코스 찍는 테이블 ( 지도 ) -->
-                <!-- <div class="desc-box">
-                                <h4 class="content-title">location</h4>
-                                <div class="menu-part page-section map" id="location">
-                                    <iframe
-                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147718689!2d-74.11976358820196!3d40.69740344169578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1568001991098!5m2!1sen!2sin"
-                                        style="border:0;" allowfullscreen=""></iframe>
-                                </div>
-                            </div> -->
 
                 <!-- 리뷰 테이블  -->
                 <div class="desc-box">

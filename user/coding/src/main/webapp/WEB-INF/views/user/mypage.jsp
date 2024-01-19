@@ -109,8 +109,8 @@ pageEncoding="UTF-8"%>
                     />
                   </div>
                   <div class="profile-detail">
-                    <h5>사용자</h5>
-                    <h6>mark.enderess@mail.com</h6>
+                    <h5 th:text="${userVO.user_addr}"></h5>
+                    <h6 th:text="${userVO.user_email}"></h6>
                   </div>
                 </div>
                 <!-- 왼쪽 카테고리 메뉴 -->
@@ -168,7 +168,7 @@ pageEncoding="UTF-8"%>
                 <div class="tab-pane fade show active" id="dashboard">
                   <div class="dashboard-main">
                     <div class="dashboard-intro">
-                      <h5>어서오세요! <span>사용자</span></h5>
+                      <h5>어서오세요! <span>사용자 ${userVO.user_name}</span></h5>
                       <p>인사말</p>
                       <div class="complete-profile">
                         <div class="row">
@@ -318,47 +318,51 @@ pageEncoding="UTF-8"%>
                         <!-- 아이디 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>아이디</span>
-                          <span>[사용자 받아오기]</span>
+                          <span>${userVO.user_id}</span>
                         </li>
                         <!-- 생년월일 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>생년월일</span>
-                          <span>[생일일자 받아오기]</span>
+                          <span>${userVO.user_age}</span>
                         </li>
                         <!-- 성별 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>성별</span>
-                          <span>[성별 받아오기]</span>
+                          <span>${userVO.user_gender}</span>
                         </li>
                         <!-- 전화번호 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>전화번호</span>
-                          <span>[전화번호 받아오기]</span>
+                          <span>${userVO.user_tel}</span>
                         </li>
                         <!-- 메일주소 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>메일 주소</span>
-                          <span>[메일 주소 가져오기]</span>
+                          <span>${userVO.user_email}</span>
                         </li>
                         <!-- 주소 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>주소</span>
-                          <span>[주소 가져오기]</span>
+                          <span>${userVO.user_addr}</span>
                         </li>
                         <!-- 비밀번호 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>비밀번호</span>
-                          <span>[비밀번호 주소 가져오기]</span>
+                          <span>${userVO.user_pass}</span>
                         </li>
                         <!-- 여행지 취향 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>여행지 취향</span>
-                          <span>[여행지 취향 받아오기]</span>
+                          <span>${userVO.user_prefer_loc1}</span>
+                          <span>${userVO.user_prefer_loc2}</span>
+                          <span>${userVO.user_prefer_loc3}</span>
                         </li>
                         <!-- 여행 취향 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>선호 여행 유형</span>
-                          <span>[선호 여행 유형 받아오기]</span>
+                          <span>${userVO.user_prefer_type1}</span>
+                          <span>${userVO.user_prefer_type2}</span>
+                          <span>${userVO.user_prefer_type3}</span>
                         </li>
                       </ul>
                     </div>
@@ -1286,7 +1290,7 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputState">여행지취향</label>
-                  <select id="inputState" class="form-control">
+                  <select id="inputState1" class="form-control">
                     <option selected>선택</option>
                     <option>관광지</option>
                     <option>음식점</option>
@@ -1295,7 +1299,7 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputZip">여행 취향</label>
-                  <select id="inputState" class="form-control">
+                  <select id="inputState2" class="form-control">
                     <option selected>선택</option>
                     <option>서울</option>
                     <option>인천</option>
