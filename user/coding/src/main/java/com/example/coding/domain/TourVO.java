@@ -19,6 +19,10 @@ public class TourVO {
     private String tour_sigungucode;// API 용
     private String tour_img1_path;  // 이미지 1
     private String tour_img2_path;  // 이미지 2
+
     private String keyword;         // keyword 받아오기
+    
+    private TourVO tourVO;          // detail에서 여행지 주소, 우편번호 받아오려고
+
 
 }

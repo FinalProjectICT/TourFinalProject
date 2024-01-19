@@ -5,6 +5,7 @@
 <!-- *************************** dao interface 경로+이름 -->
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
+<!-- touroview_insert-->
 <!-- 후기 게시물 db저장-->
 <insert id="saveTouroview">
         INSERT INTO touroview (user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
@@ -18,10 +19,23 @@
 </insert> -->
 
 
+<!-- touroview_detail-->
 <!-- detail페이지 db 목록 불러오기-->
-<select id="getTouroviewByUserId" parameterType="String" resultType="TouroviewVO">
-        SELECT * FROM touroview WHERE user_id = #{user_id}
+<select id="getTouroviewList" resultType="TouroviewVO">
+    SELECT * 
+    FROM touroview
+    <where>
+        <if test="searchKeyword != null and searchKeyword.length() > 0">
+            AND touroview_title LIKE CONCAT('%', #{searchKeyword}, '%')
+        </if>
+    </where>
 </select>
+
+<!-- 모든 페이지 수 가져오기-->
+<select id="getTotalPages" resultType="int">
+        SELECT COUNT(*)
+        FROM touroview;
+    </select>
 
 <!-- 여행지 검색-->
 <select id="findByKeyword" parameterType="TourVO" resultType="TourVO"> 
@@ -30,6 +44,17 @@
     WHERE tour_name LIKE CONCAT('%', #{keyword}, '%') OR tour_addr LIKE CONCAT('%', #{keyword}, '%');
 </select>
 
+<!-- TourVO에서 여행지 우편번호, 주소 받아오기 -->
+<select id="getTourById" resultType="TourVO">
+    SELECT *
+    FROM tour
+    WHERE tour_num = #{tour_num}
+</select>
+
+
+
+
+<!-- touroview_-->
 <!-- 게시물 수정-->
 <update id="updateTouroview" parameterType="TouroviewVO">
         UPDATE touroview
@@ -45,5 +70,3 @@
 </delete>
 
 </mapper>
-
-

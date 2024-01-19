@@ -64,6 +64,7 @@ pageEncoding="UTF-8"%>
   </head>
 
   <body>
+
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
@@ -214,17 +215,16 @@ pageEncoding="UTF-8"%>
                     </div>
                   </div>
                 </div>
-                <c:if test="${not empty sessionScope.loggedInUser}">
-                  <div class="collection-grid-view">
-                    <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
-                      >글 쓰기</a>
-                  </div>
-
-                </c:if>
+              <c:if test="${not empty sessionScope.loggedInUser}">
+                <div class="collection-grid-view">
+                  <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
+                    >글 쓰기</a
+                  >
               </div>
+              </c:if>
             </div>
           </div>
-
+          <!-- 키워드 검색 폼 -->
           <div class="col-xl-12 onclick-map">
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
@@ -239,16 +239,24 @@ pageEncoding="UTF-8"%>
                       />
                     </div>
                   </div>
-                  <a href="#" class="btn btn-rounded color1">Search</a>
+                  <button type="submit" class="btn btn-rounded color1">Search</a>
                 </form>
               </div>
             </div>
           </div>
 
+          <!-- 페이징 처리와 동적으로 게시글 목록 보여주는 부분-->
           <div class="col-lg-12 ratio3_2">
-            <!-- 이게 반복 메이비.... -->
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
+
+              <!-- 현재 페이지에 대한 시작 및 끝 인덱스 계산 -->
+                <c:set var="itemsPerPage" value="12" />
+                <c:set var="startIndex" value="${currentPage * itemsPerPage}" />
+                <c:set var="endIndex" value="${(currentPage + 1) * itemsPerPage < touroviewList.size() ? (currentPage + 1) * itemsPerPage : touroviewList.size()}" />
+
+                <!-- 게시글 목록을 동적으로 생성-->
+                <c:forEach var="touroview" items="${touroviewList.subList(startIndex, endIndex)}">
                 <div
                   class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp"
                   data-class="popular"
@@ -256,7 +264,7 @@ pageEncoding="UTF-8"%>
                   <div class="special-box p-0">
                     <!-- 이미지 select 값 -->
                     <div class="special-img">
-                      <a href="/touroview/touroview_detail">
+                      <a href="/touroview/touroview_detail?id=${touroview.touroview_num}">
                         <img
                           src="../assets/images/tour/tour/7.jpg"
                           class="img-fluid blur-up lazyload bg-img"
@@ -278,59 +286,55 @@ pageEncoding="UTF-8"%>
                       </div>
                     </div>
                     <div class="special-content">
-                      <a href="tour-single-6.html">
-                        <h5>게시글 제목</h5>
+                      <a href="/touroview/touroview_detail">
+                        <h5>${touroview.touroview_title}</h5>
                       </a>
                       <div class="tour-detail">
                         <div class="include-sec">
-                          <div>게시글 내용....</div>
+                          <div>${touroview.touroview_content}</div>
                         </div>
                         <div class="bottom-section">
                           <div class="price">
-                            <span>작성자</span>
+                            <span>${touroview.user_id}</span>
                             <br />
-                            <span>등록일</span>
+                            <span>${touroview.touroview_regdate}</span>
                             <br />
-                            <span>수정일</span>
+                            <span>${touroview.touroview_update}</span>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- 좋아요 개수 라벨 -->
-                    <div class="label-offer">좋아요 개수 top5</div>
                   </div>
                 </div>
+              </c:forEach>
               </div>
             </div>
+
+            <!-- 페이징 부분-->
             <nav
-              aria-label="Page navigation example"
-              class="pagination-section mt-0"
-            >
+              aria-label="Page navigation example" class="pagination-section mt-0">
               <ul class="pagination">
+                <!-- 이전 페이지 이동 버튼-->
                 <li class="page-item">
-                  <a
-                    class="page-link"
-                    href="javascript:void(0)"
-                    aria-label="Previous"
-                  >
+                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
-                <li class="page-item active">
-                  <a class="page-link" href="javascript:void(0)">1</a>
-                </li>
+                <!-- 페이징 번호 동적으로 생성 -->
+                <c:forEach begin="0" end="${touroviewPage - 1}" varStatus="status">
+                    <li class="page-item ${status.index == currentPage ? 'active' : ''}">
+                      <a class="page-link" href="/touroview/touroview_list?page=${status.index}">
+                        ${status.index + 1}
+                      </a>
+                  </li>
+                </c:forEach>
+
                 <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">2</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)">3</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#" aria-label="Next">
+                  <a class="page-link" href="/touroview/touroview_list?page=${currentPage + 1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                  </a>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </li>
               </ul>
             </nav>
@@ -607,5 +611,7 @@ pageEncoding="UTF-8"%>
       });
       new WOW().init();
     </script>
-  </body>
+
+
+</body>
 </html>
