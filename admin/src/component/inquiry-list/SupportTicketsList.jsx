@@ -34,6 +34,7 @@ function SupportTicketsList() {
   const [userId, setUserId] = useState('')
   const [inquNum, setInquNum] = useState('')
   const [inQu, setInQu] = useState('')
+  const [inquiryReview, setInquiryReview] = useState('');
 
   const [inquiryReviewNum, setInquiryReviewNum] = useState('')
   
@@ -59,6 +60,7 @@ function SupportTicketsList() {
       setUserId(inquirys[inquiryIdx].user_id);
       setInquNum(inquirys[inquiryIdx].inquiry_num);
       setInquiryReviewNum(inquirys.inquiry_review_num);
+      setInquiryReview(inquirys[inquiryIdx].inquiry_review_content)
       // setInQu(inquirys[inquiryIdx])
     }
   }, [inquiryIdx, inquirys]);
@@ -77,9 +79,12 @@ function SupportTicketsList() {
     inQu={inQu}
     inquNum={inquNum}
     inquiryReviewNum={inquiryReviewNum}
+    inquiryReview={inquiryReview}
     
     />
+    
   };
+  
 
   return (
     

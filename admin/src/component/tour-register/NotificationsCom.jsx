@@ -44,34 +44,61 @@ function NotificationsCom({ isSettings }) {
   const handleImageChange = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    const uploadFile = e.target.files[0]
   
-    if(e.target.files){
-      const uploadFile = e.target.files[0]
-      formData.append('file',uploadFile)
+    if(uploadFile){
+      var preview = document.getElementById('preview');
+      preview.src = URL.createObjectURL(uploadFile)
+      console.log(uploadFile)
+      formData.append('mutipartFile',uploadFile)
       setFile(uploadFile["name"])
       console.log('===useState===')
-
+      
       console.log("FILE",uploadFile["name"])
-
+      
       // setImgSrc()
-      console.log(imgSrc)
-
+      
     }
+    setImgSrc(uploadFile)
+    console.log(imgSrc)
   }
 
+  const handleDelete= () =>{
+    setImgSrc('')
+    var preview = document.getElementById('preview');
+    var imageUpload = document.getElementById('image-upload');
+    preview.src = ''
+    imageUpload.value = ''
+}
 
-  const submitTour = (e) =>{
+  const submitTour = async (e) =>{
     e.preventDefault();
-    let tour ={
-      tour_num:tour_num,
-      tour_name:tour_name,
-      tour_addr:tour_addr,
-      tour_content:tour_content,
-      tour_site_addr:tour_site_addr,
-      file:file,
-    };
-    alert(JSON.stringify(tour));
-    axios.post(baseUrl+"/tour-register/tourInsert", null, { params: tour });
+    var imageURL = ''
+    if(imgSrc != '') {
+      let formData = new FormData();
+      formData.append('tour_num', tour_num);
+      formData.append('tour_name', tour_name);
+      formData.append('tour_addr', tour_addr);
+      formData.append('tour_content', tour_content);
+      formData.append('tour_site_addr', tour_site_addr);
+      formData.append('mutipartFile', imgSrc);
+      formData.append('file', file);
+      const result = await axios.post(baseUrl+"/tour-register/tourInsert", formData, {
+        headers : 'Content-Type: multipart/form-data'
+      });
+      imageURL = result.data
+
+    }
+    // let tour ={
+    //   tour_num:tour_num,
+    //   tour_name:tour_name,
+    //   tour_addr:tour_addr,
+    //   tour_content:tour_content,
+    //   tour_site_addr:tour_site_addr,
+    //   imgSrc : imgSrc,
+    //   file:file,
+    // };
+    // alert(JSON.stringify(tour));
     navigate("/tour-list");
 
     
@@ -136,7 +163,6 @@ function NotificationsCom({ isSettings }) {
                                       <div className="input-group">
                                         <input
                                           type="file" 
-                                          multiple
                                           className="form-control"
                                           id="image-upload"
                                           accept=".jpg,.jpeg,.png"
@@ -144,12 +170,16 @@ function NotificationsCom({ isSettings }) {
                                           name="file"
                                         />
                                       </div>
-                                      {imgSrc && (
-                                        <img src={imgSrc} 
+                                      
+                                        <div style={{display: imgSrc ? 'grid':'none'}}>
+                                        <span onClick={handleDelete} style={{cursor:'pointer'}}>&times;</span>
+                                        <img src={''} 
+                                        id='preview'
                                         alt="preview-img" 
                                         style={{ width: "30%"}}
                                         />
-                                      )}
+                                        </div>
+                                      
                                     </div>
                                   <input
                                     className="form-control"

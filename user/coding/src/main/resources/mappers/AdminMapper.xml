@@ -160,10 +160,13 @@
 
 	<!-- 문의 리스트 셀렉-->
 	<select id="inquiry" resultType="AdminVO"> 
-	SELECT *
-	FROM `inquiry` iq
-	LEFT OUTER JOIN `inquiry_review` iqr
-	ON  iq.inquiry_num = iqr.inquiry_num
+		SELECT iq.inquiry_num inquiry_num, iq.user_id user_id, iq.inquiry_title inquiry_title,
+		iq.inquiry_content inquiry_content, iq.inquiry_process inquiry_process,
+		iq.tour_num tour_num, iq.inquiry_regdate inquiry_regdate,
+		iqr.inquiry_review_num inquiry_review_num, iqr.inquiry_review_content inquiry_review_content
+		FROM `inquiry` iq
+		LEFT OUTER JOIN `inquiry_review` iqr
+		ON  iq.inquiry_num = iqr.inquiry_num
 	</select>
 
 </mapper>
