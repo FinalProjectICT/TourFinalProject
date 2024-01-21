@@ -10,6 +10,8 @@ function UserCard({ user }) {
   // 관리자 인지 유저인지 
   const isAdmin = user.adminAuthority === 0;
 
+  
+
   // 번호 블라인드 처리 함수
   const blindPhoneNumber = (phoneNumber) => {
     const visibleDigits = phoneNumber.slice(0, -4);
@@ -17,14 +19,15 @@ function UserCard({ user }) {
     return visibleDigits + blindedDigits;
   };
 
-  console.log("usr", user)
-
-
+  console.log("usr", user.imgRealName)
+  const imagePath = user.imgRealName;
+  console.log(imagePath)
   return (
     <div className="col-xxl-3 col-lg-4 col-md-6 col-12">
     <div className="crancy-single-user mg-top-30">
       <div className="crancy-single-user__head">
-        {user.imgRealName ? <img src={user.imgRealName} alt="프로필~"/> : <img src={defaultImg} alt="프로필~" />}
+        {/* 질문할 것 */}
+        {user.imgRealName ? <img src="" alt="프로필~"/> : <img src={defaultImg} alt="프로필~" />}
         
         <h4 className="crancy-single-user__title">
           {user.userName}

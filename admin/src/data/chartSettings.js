@@ -1,81 +1,70 @@
 const myChart_seven = {
   data: {
     labels: [
-      "1",
+      "하",
       "2",
       "3",
       "4",
       "5",
       "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
-      "19",
-      "20",
-      "21",
-      "22",
-      "23",
-      "24",
+      
     ],
     datasets: [
       {
         label: "Total Sells",
         data: [
-          20, 10, 20, 5, 30, 10, 20, 40, 30, 45, 50, 40, 60, 50, 20, 45, 60, 40,
-          35, 30, 25, 30, 25, 20,
+          // 20, 10, 20, 5, 30, 
         ],
         borderColor: "#0A82FD",
         pointRadius: 0,
         borderWidth: 2,
         fill: true,
-        fillColor: "#fff",
+        fillColor: "#000",
       },
     ],
   },
 
   options: {
-    layout: {
-      padding: {
-        bottom: -20,
-        left: -20,
-      },
-    },
+    // layout: {
+    //   padding: {
+    //     bottom: -20,
+    //     left: -20,
+    //   },
+    // },
     maintainAspectRatio: false,
     responsive: true,
     scales: {
+     
       x: {
-        display: false,
-        grid: {
-          display: false,
-          drawBorder: false,
-        },
-        ticks: {
-          display: false,
-        },
-        suggestedMax: 10,
-        suggestedMin: 30,
+        // display: false,
+        // grid: {
+        //   display: false,
+        //   drawBorder: false,
+        // },
+        // ticks: {
+        //   display: false,
+        // },
+        // suggestedMax: 10,
+        // suggestedMin: 30,
+        // beginAtZero: true,
+        // type: 'time',
+        // time : {
+        //   unit: 'month'
+        // }
       },
 
       y: {
-        display: false,
-        grid: {
-          display: false,
-          drawBorder: false,
-        },
-        ticks: {
-          display: false,
-        },
-        suggestedMax: 10,
-        suggestedMin: 30,
+        // display: false,
+        // grid: {
+        //   display: false,
+        //   drawBorder: false,
+        // },
+        // ticks: {
+        //   display: false,
+        // },
+        // suggestedMax: 10,
+        // suggestedMin: 30,
+        beginAtZero: true
       },
     },
 

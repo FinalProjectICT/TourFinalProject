@@ -3,6 +3,7 @@ package com.example.coding.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Base64;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -92,29 +93,52 @@ public class AdminController {
 
     // 여행지 등록 
     @PostMapping("/tour-register/tourInsert")
-    public void tourInsert(AdminVO vo, @RequestParam("img") MultipartFile multipartFile) {
+    public void tourInsert(AdminVO vo, @RequestParam("mutipartFile") MultipartFile mutipartFile) {
 
-        String img_name = multipartFile.getOriginalFilename();
-        System.out.println(img_name);
-        adminService.tourInsert(vo);
-    }
+        try {
+            String img_name = mutipartFile.getOriginalFilename();
+            System.out.println("originFilename : " + img_name);
+            String img_real_name = new MD5Generator(img_name).toString();
+
+            // 시스템으로 자동으로 잡아주는 경로 설정
+            // 생성되는 폴더의 위치를 확인 후 추후 변경
+            // => static 폴더 밑으로 이동해야 사용자가 그 파일에 접근 가능
+            String save_path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\tourimg";
+            if( !new File(save_path).exists() ){
+                new File(save_path).mkdir();
+            } 
+            String img_path = save_path + "\\" + img_real_name;
+            System.out.println("filepath : " + img_path);
+
+            // 파일저장
+            mutipartFile.transferTo(new File(img_path));
+            
+            // 디비저장을 위해서 파일정보 덩어리 만들기
+            vo.setTour_img1_path("tourimg\\" + img_real_name);
+            System.out.println("<<<<< 파일정보 덩어리 만들기 성공 >>>>>");
+            adminService.tourInsert(vo);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            System.out.println("파일업로드 실패 : " + ex.getMessage());
+        }
+}
 
     
     // 전체 회원 전체 리스트 띄우는 컨트롤러 (My batis)
     @GetMapping("/user/userList")
     public List<AdminVO> userList(Model m) {
-    List<AdminVO> userlist = adminService.userList();
-    // System.out.println(userlist);
-    for(AdminVO user : userlist){
-        if(user.getImgRealName() != null) {
-            String path = "../../../../user/coding/src/main/resources/static/assets/images/profile/";
-            String realName = user.getImgRealName();
-            // FileSystemResource resource = new FileSystemResource(path + realName);
-            // user.setImgRealName(resource);
+        List<AdminVO> userlist = adminService.userList();
+        // System.out.println(userlist);
+        for(AdminVO user : userlist){
+            if(user.getImgRealName() != null) {
+                String path = "../../../../user/coding/src/main/resources/static/assets/images/profile/";
+                String realName = user.getImgRealName();
+                // FileSystemResource resource = new FileSystemResource(path + realName);
+                // user.setImgRealName(resource);
+            }
         }
-    }
-    m.addAttribute("userList", userlist);
-    return userlist;
+        m.addAttribute("userList", userlist);
+        return userlist;
     }
 
     // 유저 목록 페이지 내부에 search 값 리스트 띄우는 컨트롤러 (JPA)
@@ -150,13 +174,13 @@ public class AdminController {
 
     }
 
-    // 전체 여행지 리스트 띄우는 컨트롤러 (My batis)
+    // 문의 게시글
     @GetMapping("/inquiry")
     public List<AdminVO> inquiry(Model m) {
         List<AdminVO> list = adminService.inquiry();
         System.out.println(list);
         m.addAttribute("inquiry", list);
         return list;
-        }
+    }
     
 }
