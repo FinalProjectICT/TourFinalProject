@@ -73,12 +73,22 @@
                 </div>
               </nav>
               <ul class="header-right">
-                <li class="user user-light rounded5">
-                  <a href="/user/mypage">
-                    <i class="fa fa-address-book"></i>
-                    마이페이지
-                  </a>
-                </li>
+               <c:if test="${empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/login">
+                      <i class="fa fa-address-book"></i>
+                      마이페이지
+                    </a>
+                  </li>
+                </c:if>
+                <c:if test="${not empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/mypage">
+                      <i class="fa fa-address-book"></i>
+                      마이페이지
+                    </a>
+                  </li>
+                </c:if>
                 <!-- 세션이 비어 있으면 로그인 버튼으로 -->
                 <c:if test="${empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">

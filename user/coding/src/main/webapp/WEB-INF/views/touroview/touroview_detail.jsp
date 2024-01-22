@@ -60,8 +60,6 @@ prefix="c" %>
   </head>
 
   <body>
-
-
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
@@ -80,20 +78,27 @@ prefix="c" %>
               <div class="hotel-name">
                 <div class="left-part">
                   <div class="top">
-                    <h2 th:text="${touroviewVO.touroview_title}">게시물 제목</h2>
+                    <h2>${touroviewVO.touroview_title}</h2>
                     <div class="share-buttons">
-                      <a href="#" class="btn btn-solid"
+                      <href="#" class="btn btn-solid"
                         ><i class="far fa-heart"></i> 하트</a
                       >
                     </div>
                   </div>
                 </div>
                 <div class="right-part">
+                <!-- 신고 버튼 -->
                   <a
                     href="hotel-booking.html"
                     class="btn btn-rounded btn-sm color1"
                     >신고
                   </a>
+                  <!-- 수정 버튼 -->
+                  <c:if test="${isAuthor}">
+                  <a href="${pageContext.request.contextPath}/touroview/touroview_update_delete?touroview_num=${touroviewVO.touroview_num}&action=update"
+                    class="btn btn-rounded btn-sm color1">수정</a>
+                  </c:if>
+
                 </div>
               </div>
             </div>
@@ -172,8 +177,9 @@ prefix="c" %>
                 <!-- 게시글  -->
                 <div class="desc-box">
                   <div class="about page-section menu-part" id="about">
-                    <p>${touroviewVO.touroview_content} 게시글 상세 정보</p>
+                    <p>${touroviewVO.touroview_content}</p>
                   </div>
+                </div>
                 <!-- 여행지  -->
                 <div class="desc-box">
                   <h4 class="content-title">여행지</h4>
@@ -181,36 +187,19 @@ prefix="c" %>
                     <table class="rooms-box">
                       <tr>
                         <td>
-                          <h6 class="room-title">여행지 이름</h6>
+                          <h6 class="room-title">${tourVO.tour_name}</h6>
                           <a href="#">
                             <img
-                              src="../assets/images/hotel/room/4.jpg"
+                              src="${tourVO.tour_img1_path}"
                               class="img-fluid blur-up lazyload"
                               alt=""
                             />
                           </a>
                         </td>
                         <td>
-                          <h5>
-                            여행지 주소
-                            <span
-                              th:if="${tourVO != null}"
-                              th:text="${tourVO.tour_addr}"
-                            ></span>
-                          </h5>
-                          <h6>
-                            우편번호
-                            <span
-                              th:if="${tourVO != null}"
-                              th:text="${tourVO.tour_postnum}"
-                            ></span>
-                          </h6>
-                          <p
-                            th:if="${touroview != null}"
-                            th:text="${touroview.touroview_content}"
-                          >
-                            여행지 내용
-                          </p>
+                          <h5>${tourVO.tour_addr}</h5>
+                          <h6>${tourVO.tour_postnum}</h6>
+                          <p>${tourVO.tour_content}</p>
                         </td>
                       </tr>
                     </table>
@@ -275,19 +264,19 @@ prefix="c" %>
                 <div class="selection-section">
                   <div class="price-part">
                     <div class="left-part">
-                      <span> 작성 날짜</span>
+                      <span>${touroviewVO.touroview_regdate}</span>
                     </div>
                     <div class="right-part">
-                      <h6>작성자</h6>
+                      <h6>${touroviewVO.user_id}</h6>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
-                <p><i class="fas fa-phone-alt"></i> 작성자 휴대폰 번호</p>
+                <p><i class="fas fa-phone-alt"></i>${userVO.user_tel}</p>
                 <a href="#">
-                  <p><i class="fas fa-envelope"></i> 작성자 이메일</p>
+                  <p><i class="fas fa-envelope"></i>${userVO.user_email}</p>
                 </a>
                 <div class="social-box"></div>
               </div>
