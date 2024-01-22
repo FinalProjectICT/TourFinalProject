@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.coding.service.TourListService;
 import com.example.coding.service.UserInfoService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import net.minidev.json.JSONObject;
 
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
@@ -152,6 +156,35 @@ public class TourPageController {
 		String res = tourListService.newInquiry(vo);
 		return res;
 	}
-	
 
+	// 웹 소켓 연결 테스트 자리
+	@RequestMapping(value ="/chatBot", method={RequestMethod.POST})
+	@ResponseBody
+	public String chatBot(@RequestBody String jsonString) {
+        try {
+            // 전달된 String 형태의 json값을 다시 변환
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            // 전달 값 변수 저장
+            String userStr = jsonNode.path("userStr").asText();
+            String userId = jsonNode.path("userId").asText();
+
+
+			// 이곳에서 소캣 연결
+			String botStr = "챗봇 응답";
+			String botAct = "챗봇 동작";
+			
+            // 소켓에서 반환된 결과를 json 형태로 전달
+			JSONObject botAnser = new JSONObject();
+			botAnser.put("botStr", botStr);
+			botAnser.put("botAct", botAct);
+
+			// 결과 페이지로 전달
+            return botAnser.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error processing request";
+        }
+    }
 }
