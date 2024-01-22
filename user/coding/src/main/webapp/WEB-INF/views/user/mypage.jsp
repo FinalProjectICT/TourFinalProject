@@ -109,8 +109,9 @@ pageEncoding="UTF-8"%>
                     />
                   </div>
                   <div class="profile-detail">
-                    <h5 th:text="${userVO.user_addr}"></h5>
-                    <h6 th:text="${userVO.user_email}"></h6>
+                    <h5>${sessionScope.loggedId}</h5>
+                    <h5>${userVO.user_addr}</h5>
+                    <h6>${userVO.user_email}</h6>
                   </div>
                 </div>
                 <!-- 왼쪽 카테고리 메뉴 -->
@@ -149,14 +150,6 @@ pageEncoding="UTF-8"%>
                         >작성한 문의 내역</a
                       >
                     </li>
-                    <li class="nav-item">
-                      <a
-                        data-bs-toggle="tab"
-                        class="nav-link"
-                        href="#one-one inquiries"
-                        >1:1 문의</a
-                      >
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -168,7 +161,8 @@ pageEncoding="UTF-8"%>
                 <div class="tab-pane fade show active" id="dashboard">
                   <div class="dashboard-main">
                     <div class="dashboard-intro">
-                      <h5>어서오세요! <span>사용자 ${userVO.user_name}</span></h5>
+                    <h5>어서오세요! ${sessionScope.loggedId}</h5>
+
                       <p>인사말</p>
                       <div class="complete-profile">
                         <div class="row">
@@ -318,7 +312,7 @@ pageEncoding="UTF-8"%>
                         <!-- 아이디 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>아이디</span>
-                          <span>${userVO.user_id}</span>
+                          <span>${sessionScope.loggedId}</span>
                         </li>
                         <!-- 생년월일 -->
                         <li class="d-flex justify-content-between mb-4">
@@ -628,6 +622,20 @@ pageEncoding="UTF-8"%>
                         </span>
                       </div>
                     </div>
+
+
+                    <div id="map"></div>
+                    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1a31af6306655331640942e32b2f74d3"></script>
+                    <script>
+                      const container = document.getElementById('map');
+                      const options = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667),
+                        level: 3
+                      };
+                      const map = new kakao.maps.Map(container, options);
+                    </script>
+
+
                     <div
                       class="product-wrapper-grid ratio3_2 special-section grid-box"
                     >

@@ -63,7 +63,7 @@
                         <div class="hotel-name">
                             <div class="left-part">
                                 <div class="top">
-                                    <h2>게시글 제목 </h2>
+                                    <h2>${touroviewVO.touroview_title}</h2>
                                 </div>
                             </div>
                         </div>
@@ -80,8 +80,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 col-lg-8">
-                    <form action="abc" method="post">
-                    
+                    <form action="${pageContext.request.contextPath}/touroview/touroview_update_delete" method="post">
+
                                 <!-- 이미지만 보여주는 테이블-->
                                 <div class="image_section ">
                                     <div class="row">
@@ -150,13 +150,14 @@
                                                             <div class="selection-section"> 
                                                                 <div class="price-part">
                                                                     <div class="left-part">
-                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert">
+                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert"
+                                                                    value="${touroviewVO.touroview_regdate}">
 
                                                                     </div>
                                                                 </div>  
                                                                 <br/>
                                                                 <div class="price-part">
-                                                                    작성자<input type="text" class="writer-insert" id ="writerNumber" placeholder="작성자(세션값)">
+                                                                    작성자<input type="text" class="writer-insert" id ="user_id" name="user_id" value="${sessionScope.userId}"readonly>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -165,21 +166,23 @@
                                             </div>  
 
                                             <div class="about page-section menu-part" id="about" style="width: 1406px;">
-                                                <input type="text" id="destinationInput" placeholder="search 후 선택 된 여행지 이름 띄워">
+                                                <input type="text" id="destinationInput" value="${tourVO.tour_name}">
                                                 <br/>
                                                 <br/>
+                                                <!-- 게시글 제목 -->
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                placeholder="게시글 제목 ">
+                                                        value="${touroviewVO.touroview_title}">
                                                 <br/>
+                                                <!-- 게시글 내용 -->
                                                 <textarea  class="form-control" id="exampleFormControlInput111"
-                                                placeholder="게시글 상세정보 " ></textarea>
+                                                >${touroviewVO.touroview_content}</textarea>
                                                 <br/>
                                                 <div>
-                                                    <input type="submit" id = "modi" value=" 수정 " style="background-color: #4734d9;">
+                                                    <input type="submit" id = "modi" value=" 수정 " style="background-color: #E6E6E6;">
                                                 </div>
                                                 <br/>
                                                 <div>
-                                                    <input type="submit" id = "del" value=" 삭제 " style="background-color: #c42759;">
+                                                    <input type="submit" id = "del" value=" 삭제 " style="background-color: #E6E6E6;" onclick="deleteTouroview()">
                                                 </div>
 
                                             </div>
@@ -260,6 +263,42 @@
             uiLibrary: 'bootstrap4',
             format: 'dd mmmm'
         });
+    </script>
+
+    <!-- 여행지 제목 받기 -->
+    <script>
+  var tourName = '${tourVO.tour_name}';
+    </script>
+
+
+    // 게시글 삭제 
+    <script>
+        function deleteTouroview(){
+            // 삭제 여부 사용자에게 확인
+            var isConfirmed = confirm("정말로 삭제하시겠습니까?");
+            
+            // 사용자가 확인 선택한 경우 삭제 요청 진행
+            if (isConfirmed){
+                // 삭제할 후기 번호
+                var touroviewNum = "${touroviewVO.touroview_num}";
+
+                // ajax를 사용해서 서버에 삭제 요청
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "${pageContext.request.contextPath}/touroview/deleteTouroview", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4 && xhr.status === 200){
+                        // 삭제 성공 시
+                        window.location.href = "${pageContext.request.contextPath}/touroview/touroview_list";
+
+                    } else if (xhr.readyState === 4 && xhr.status !== 200){
+                        // 삭제 실패 시 사용자에게 알림
+                        alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                    }
+                };
+                xhr.send("touroviewNum=" + touroviewNum);
+            }
+        }
     </script>
 
 </body>
