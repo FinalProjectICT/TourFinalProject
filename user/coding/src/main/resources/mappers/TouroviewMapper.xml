@@ -52,6 +52,19 @@
 </select>
 
 
+<!-- detail (TouroviewVO) 페이지 -->
+<select id="getTouroviewById" resultType="TouroviewVO">
+    SELECT * 
+    FROM touroview 
+    WHERE touroview_num = #{touroview_num}
+</select>
+
+<!-- 여행지 번호를 이용하여 해당 여행지(TourVO) 정보를 가져오기 -->
+<select id="getTourByTouroviewId" resultType="TourVO">
+    SELECT * 
+    FROM tour 
+    WHERE tour_num = #{touroview_num}
+</select>
 
 
 <!-- touroview_-->
