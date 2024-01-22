@@ -1,5 +1,6 @@
 // #exampleModalLabel
 // 사용자 모달에 정보 넣기
+// 일단 자리에 설정된 아이디로 정보를 가져옴("userInfo_(사용자 아이디)")
 $(function () {
   $("a[id^=userInfo_]").on("click", function (event) {
     var id = event.currentTarget.id;

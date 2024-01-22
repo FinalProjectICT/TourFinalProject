@@ -13,6 +13,6 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoDAO userInfoDAO;
 
     public UserVO getUserInfo(UserVO vo){
-        return userInfoDAO.getUserInfo(vo);
+        return userInfoDAO.selectUser(vo);
     };
 }
