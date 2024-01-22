@@ -69,6 +69,9 @@ pageEncoding="UTF-8"%>
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         
 </head>
 
@@ -143,26 +146,45 @@ pageEncoding="UTF-8"%>
                                                 </div>
                                                 <div class="card">
                                                     <div class="card-header" id="h_two">
-                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two"
-                                                            aria-expanded="true" aria-controls="two">
+                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two" aria-expanded="true" aria-controls="two">
                                                             <label for='r_two'>
-                                                                <input class="radio_animated ms-0" type='radio' id='r_two'
-                                                                    name='occupation' value='Working' required /> 이미지 업로드
+                                                                <input class="radio_animated ms-0" type='radio' id='r_two' name='occupation' value='Working' required /> 이미지 업로드
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div id="two" class="collapse" aria-labelledby="h_two"
-                                                        data-bs-parent="#accordionExample">
+                                                    <div id="two" class="collapse" aria-labelledby="h_two" data-bs-parent="#accordionExample">
                                                         <div class="card-body">
-                                                                <div class="dropzone" id="singleFileUpload">
-                                                                    <div class="dz-message needsclick">
-                                                                        <i class="icon-cloud-up"></i>
-                                                                        <h6>Drop files here or click to upload.</h6>
-                                                                    </div>
-                                                                </div>
+                                                            <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple="">
+                                                            <div id="imagePreviewContainer" class="d-flex">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>   
+                                                <script>
+                                                    $(document).ready(function () {
+                                                        $("#fileUpload").on("change", function () {
+                                                            displayImagePreview(this);
+                                                        });
+                                            
+                                                        function displayImagePreview(input) {
+                                                            var imagePreviewContainer = $("#imagePreviewContainer");
+                                                            imagePreviewContainer.find(".preview-container").empty(); // 기존 미리 보기 초기화
+                                            
+                                                            if (input.files) {
+                                                                var files = input.files;
+                                                                for (var i = 0; i < Math.min(files.length, 3); i++) { // 최대 3개까지만 표시
+                                                                    var reader = new FileReader();
+                                                                    reader.onload = function (e) {
+                                                                        var img = $("<img>").attr("src", e.target.result).addClass("preview-image");
+                                                                        var previewDiv = $("<div>").addClass("preview-container").append(img);
+                                                                        imagePreviewContainer.append(previewDiv);
+                                                                    };
+                                                                    reader.readAsDataURL(files[i]);
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                </script>
                                             </div>
                                         </div>
                                     </div>

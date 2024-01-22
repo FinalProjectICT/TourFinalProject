@@ -61,7 +61,7 @@
                           <a
                             class="nav-link"
                             data-bs-toggle="modal"
-                            data-bs-target="#chatLive"
+                            data-bs-target="#image-change"
                             href="#"
                             class="btn btn-rounded btn-sm color1"
                             data-touro-mate-num="${touroMate.touro_mate_num}"
@@ -74,7 +74,7 @@
               </nav>
               <ul class="header-right">
                 <li class="user user-light rounded5">
-                  <a href="/touroview/mypage">
+                  <a href="/user/mypage">
                     <i class="fa fa-address-book"></i>
                     마이페이지
                   </a>
@@ -127,7 +127,7 @@
     </header>
     <!--  해더 끝 -->
      <!-- 이미지 변환 (Modal) 구성 시작-->
-     <div class="modal fade edit-profile-modal" id="chatLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade edit-profile-modal" id="image-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content" style="width: 80vw; max-width: 1800px; height: 80vh; max-height: 1000px;">
               <div class="modal-header">
