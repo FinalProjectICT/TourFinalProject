@@ -74,7 +74,7 @@
               </nav>
               <ul class="header-right">
                 <li class="user user-light rounded5">
-                  <a href="/touroview/mypage">
+                  <a href="/user/mypage">
                     <i class="fa fa-address-book"></i>
                     마이페이지
                   </a>
