@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c" %>
 <html lang="ko">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -57,455 +57,19 @@ pageEncoding="UTF-8"%>
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
 
-      <!-- latest jquery-->
-      <script src="../assets/js/jquery-3.5.1.min.js"></script>
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
-      <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
+    <script
+      type="text/javascript"
+      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"
+    ></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
   </head>
 
   <body>
-    <!-- pre-loader start -->
-    <!-- <div class="skeleton_loader">
-      <header class="light_header">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="menu">
-                <div class="brand-logo">
-                  <a href="/touro">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </a>
-                </div>
-                <nav>
-                  <div class="main-navbar">
-                    <div id="mainnav">
-                      <div class="toggle-nav">
-                        <i class="fa fa-bars sidebar-bar"></i>
-                      </div>
-                      <div class="menu-overlay"></div>
-                      <ul class="nav-menu">
-                        <li class="back-btn">
-                          <div class="mobile-back text-end">
-                            <span>Back</span>
-                            <i
-                              aria-hidden="true"
-                              class="fa fa-angle-right ps-2"
-                            ></i>
-                          </div>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/tour/tour_list" class="nav-link">Tour</a>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touromate/touromate_list" class="nav-link"
-                            >Touromate</a
-                          >
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touroview/touroview_list" class="nav-link"
-                            >Touroview</a
-                          >
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/user/img_change" class="nav-link"
-                            >ImgChange</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
-                <ul class="header-right">
-                  <li class="front-setting rounded5">
-                    <select>
-                      <option value="volvo">한국어</option>
-                      <option value="saab">영어</option>
-                    </select>
-                  </li>
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fas fa-user"> 로그인</i>
-                    </a>
-                  </li>
-                  <li class="setting">
-                    <a href="#">
-                      <i class="fas fa-cog"></i>
-                    </a>
-                    <ul class="setting-open">
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">USD</option>
-                          <option value="saab">EUR</option>
-                          <option value="opel">INR</option>
-                          <option value="audi">AUD</option>
-                        </select>
-                      </li>
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">ENG</option>
-                          <option value="saab">FRE</option>
-                          <option value="opel">SPA</option>
-                          <option value="audi">DUT</option>
-                        </select>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      <div class="order-food-section"></div>
-      <section class="single-section small-section bg-inner">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="hotel_title_section">
-                <div class="hotel-name">
-                  <div class="left-part">
-                    <div class="top">
-                      <h2></h2>
-                      <div class="rating"></div>
-                      <div class="share-buttons">
-                        <div class="ldr-btn"></div>
-                        <div class="ldr-btn"></div>
-                      </div>
-                    </div>
-                    <p></p>
-                    <div class="facility-detail">
-                      <div></div>
-                      <div></div>
-                    </div>
-                  </div>
-                  <div class="right-part">
-                    <h2 class="price"></h2>
-                    <div class="ldr-btn d-none d-sm-block"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-9 col-lg-8">
-              <div class="image_section">
-                <div class="row">
-                  <div class="col-sm-8 left">
-                    <div class="ldr-img"></div>
-                  </div>
-                  <div class="col-sm-4 right d-none d-sm-block">
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="ldr-img"></div>
-                        <div class="ldr-img"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="description-section tab-section">
-                <div class="menu-top">
-                  <ul class="nav nav-tabs">
-                    <li>
-                      <a class=""></a>
-                    </li>
-                    <li>
-                      <a class=""></a>
-                    </li>
-                    <li>
-                      <a class=""></a>
-                    </li>
-                    <li>
-                      <a class=""></a>
-                    </li>
-                    <li>
-                      <a class=""></a>
-                    </li>
-                    <li>
-                      <a class=""></a>
-                    </li>
-                  </ul>
-                  <div class="description-details tab-content">
-                    <div class="menu-part tab-pane fade show active">
-                      <table class="rooms-box">
-                        <tr>
-                          <td>
-                            <h6 class="room-title"></h6>
-                            <div class="zoom-gallery"></div>
-                          </td>
-                          <td>
-                            <div class="room-detail">
-                              <div class="row">
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="price-details">
-                              <div>
-                                <h6></h6>
-                                <h5></h5>
-                                <div class="ldr-btn"></div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6 class="room-title"></h6>
-                            <div class="zoom-gallery"></div>
-                          </td>
-                          <td>
-                            <div class="room-detail">
-                              <div class="row">
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="price-details">
-                              <div>
-                                <h6></h6>
-                                <h5></h5>
-                                <div class="ldr-btn"></div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <h6 class="room-title"></h6>
-                            <div class="zoom-gallery"></div>
-                          </td>
-                          <td>
-                            <div class="room-detail">
-                              <div class="row">
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                                <div class="col-6 p-0">
-                                  <h6></h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li></li>
-                                      <li></li>
-                                      <li></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td>
-                            <div class="price-details">
-                              <div>
-                                <h6></h6>
-                                <h5></h5>
-                                <div class="ldr-btn"></div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-3 col-lg-4">
-              <div class="">
-                <div class="single-sidebar">
-                  <div class="selection-section">
-                    <div class="overlay-map"></div>
-                    <div class="price-part">
-                      <div class="left-part">
-                        <div class="ldr-link"></div>
-                        <span class="mt-2"></span>
-                        <span></span>
-                      </div>
-                      <div class="right-part">
-                        <span></span>
-                        <p></p>
-                        <h6></h6>
-                      </div>
-                    </div>
-                    <div class="book-btn-section">
-                      <div class="ldr-input"></div>
-                      <div class="ldr-input"></div>
-                      <div class="ldr-input"></div>
-                      <div class="ldr-input"></div>
-                      <div class="ldr-btn"></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="single-sidebar">
-                  <h6 class="contact-title"></h6>
-                  <p class="address">
-                    <span></span>
-                    <span></span>
-                  </p>
-                  <p class="address">
-                    <span></span>
-                  </p>
-                  <p class="address">
-                    <span></span>
-                  </p>
-                  <div class="social-box"></div>
-                  <div class="bottom_sec">
-                    <h6></h6>
-                    <h6></h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    pre-loader end -->
-
-    <!-- header start -->
-    <!-- <header class="light_header">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="menu">
-              <div class="brand-logo">
-                <a href="/jsp/main">
-                  <img
-                    src="../assets/images/icon/footer-logo.png"
-                    alt=""
-                    class="img-fluid blur-up lazyload"
-                  />
-                </a>
-              </div>
-              <nav>
-                <div class="main-navbar">
-                  <div id="mainnav">
-                    <div class="toggle-nav">
-                      <i class="fa fa-bars sidebar-bar"></i>
-                    </div>
-                    <div class="menu-overlay"></div>
-                    <ul class="nav-menu">
-                      <li class="back-btn">
-                        <div class="mobile-back text-end">
-                          <span>Back</span>
-                          <i
-                            aria-hidden="true"
-                            class="fa fa-angle-right ps-2"
-                          ></i>
-                        </div>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/jsp/TourList#" class="nav-link">Tour</a>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/jsp/TouroMate_list" class="nav-link"
-                          >Touromate</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/jsp/TouroView_list" class="nav-link"
-                          >Touroview</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-              <ul class="header-right">
-                <li class="front-setting rounded5">
-                  <select>
-                    <option value="volvo">한국어</option>
-                    <option value="saab">영어</option>
-                  </select>
-                </li>
-                <li class="user user-light rounded5">
-                  <a href="/jsp/login-copy">
-                    <i class="fas fa-user"> 로그인</i>
-                  </a>
-                </li>
-                <li class="setting">
-                  <a href="#">
-                    <i class="fas fa-cog"></i>
-                  </a>
-                  <ul class="setting-open">
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">USD</option>
-                        <option value="saab">EUR</option>
-                        <option value="opel">INR</option>
-                        <option value="audi">AUD</option>
-                      </select>
-                    </li>
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">ENG</option>
-                        <option value="saab">FRE</option>
-                        <option value="opel">SPA</option>
-                        <option value="audi">DUT</option>
-                      </select>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header> -->
-    <!--  header end -->
-
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
@@ -703,85 +267,96 @@ pageEncoding="UTF-8"%>
                   </div>
                   <div class="about menu-part tab-pane fade" id="about">
                     <h6>${touroMate.touro_mate_content}</h6>
-                    <p>
-                     
-                    </p>
+                    <p></p>
                   </div>
                   <div class="menu-part tab-pane fade map" id="location">
-                    <div id="map" style="width: 100%; height: 420px; margin-bottom: -5px;">
-                      <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
+                    <div
+                      id="map"
+                      style="width: 100%; height: 420px; margin-bottom: -5px"
+                    >
+                      <script
+                        type="text/javascript"
+                        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"
+                      ></script>
                       <script>
-                        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-                                mapOption = {
-                                  center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-                                  level: 3 // 지도의 확대 레벨
-                                };
-                      
+                        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+                          mapOption = {
+                            center: new kakao.maps.LatLng(
+                              33.450701,
+                              126.570667
+                            ), // 지도의 중심좌표
+                            level: 3, // 지도의 확대 레벨
+                          };
+
                         // 지도를 생성합니다
                         var map = new kakao.maps.Map(mapContainer, mapOption);
-                      
+
                         // 주소-좌표 변환 객체를 생성합니다
                         var geocoder = new kakao.maps.services.Geocoder();
 
                         // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
                         var bounds = new kakao.maps.LatLngBounds();
-                      
-                        var positions = [
-                            {
-                                title: '${touroMate.touro_mate_name1}',
-                                address: '${touroMate.touro_mate_addr1}'
-                            },
-                            {
-                                title: '${touroMate.touro_mate_name2}',
-                                address: '${touroMate.touro_mate_addr2}'
-                            },
-                            {
-                                title: '${touroMate.touro_mate_name3}',
-                                address: '${touroMate.touro_mate_addr3}'
-                            },
 
+                        var positions = [
+                          {
+                            title: "${touroMate.touro_mate_name1}",
+                            address: "${touroMate.touro_mate_addr1}",
+                          },
+                          {
+                            title: "${touroMate.touro_mate_name2}",
+                            address: "${touroMate.touro_mate_addr2}",
+                          },
+                          {
+                            title: "${touroMate.touro_mate_name3}",
+                            address: "${touroMate.touro_mate_addr3}",
+                          },
                         ];
-                      
-                        
-                      
+
                         positions.forEach(function (position) {
                           // 주소로 좌표를 검색합니다
-                          geocoder.addressSearch(position.address, function(result, status) {
-                      
-                            // 정상적으로 검색이 완료됐으면
-                            if (status === kakao.maps.services.Status.OK) {
-                      
-                              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                      
-                              // 결과값으로 받은 위치를 마커로 표시합니다
-                              var marker = new kakao.maps.Marker({
-                                map: map,
-                                position: coords
-                              });
-                              marker.setMap(map); //추가한 코드
-                      
-                              // LatLngBounds 객체에 좌표를 추가합니다
-                              bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
-                      
-                              // 인포윈도우로 장소에 대한 설명을 표시합니다
-                              var infowindow = new kakao.maps.InfoWindow({
-                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + position.title + '</div>'
-                              });
-                              infowindow.open(map, marker);
-                      
-                              // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                              // map.setCenter(coords); //제거한 코드
-                              setBounds(); //추가한 코드
+                          geocoder.addressSearch(
+                            position.address,
+                            function (result, status) {
+                              // 정상적으로 검색이 완료됐으면
+                              if (status === kakao.maps.services.Status.OK) {
+                                var coords = new kakao.maps.LatLng(
+                                  result[0].y,
+                                  result[0].x
+                                );
+
+                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                var marker = new kakao.maps.Marker({
+                                  map: map,
+                                  position: coords,
+                                });
+                                marker.setMap(map); //추가한 코드
+
+                                // LatLngBounds 객체에 좌표를 추가합니다
+                                bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
+
+                                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                var infowindow = new kakao.maps.InfoWindow({
+                                  content:
+                                    '<div style="width:150px;text-align:center;padding:6px 0;">' +
+                                    position.title +
+                                    "</div>",
+                                });
+                                infowindow.open(map, marker);
+
+                                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                // map.setCenter(coords); //제거한 코드
+                                setBounds(); //추가한 코드
+                              }
                             }
-                          });
+                          );
                         });
-                        function setBounds() { //추가한 함수
+                        function setBounds() {
+                          //추가한 함수
                           // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
                           // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
                           map.setBounds(bounds);
                         }
                       </script>
-
                     </div>
                   </div>
                 </div>
@@ -1029,14 +604,21 @@ pageEncoding="UTF-8"%>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
                 <p class="address">
-                  <i class="fas fa-map-marker-alt"></i>아이디: ${authorInfo.user_id}
+                  <i class="fas fa-map-marker-alt"></i>아이디:
+                  ${authorInfo.user_id}
                 </p>
-                <p><i class="fas fa-phone-alt"></i>전화번호:  ${authorInfo.user_tel}</p>
+                <p>
+                  <i class="fas fa-phone-alt"></i>전화번호:
+                  ${authorInfo.user_tel}
+                </p>
                 <a href="#">
-                  <p><i class="fas fa-envelope"></i>메일: ${authorInfo.user_email}</p>
+                  <p>
+                    <i class="fas fa-envelope"></i>메일:
+                    ${authorInfo.user_email}
+                  </p>
                 </a>
                 <div class="social-box">
-                  <p>나이: ${authorInfo.user_age} </p>
+                  <p>나이: ${authorInfo.user_age}</p>
                   <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
                   <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
                   <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
@@ -1044,10 +626,11 @@ pageEncoding="UTF-8"%>
               </div>
               <div class="single-sidebar">
                 <div class="selection-section">
-                  <div class="price-part">   
+                  <div class="price-part">
                     <div class="left-part">
                       <span class="mt-2"
-                        ><i class="fas fa-check"></i>채팅 참여 인원: ${touroMate.touro_mate_count}</span
+                        ><i class="fas fa-check"></i>채팅 참여 인원:
+                        ${touroMate.touro_mate_count}</span
                       >
                       <span><i class="fas fa-check"></i>[남은 인원 수]</span>
                     </div>
@@ -1424,7 +1007,9 @@ pageEncoding="UTF-8"%>
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">${touroMate.touro_mate_num}번 채팅방</h5>
+            <h5 class="modal-title" id="exampleModalLabel">
+              ${touroMate.touro_mate_num}번 채팅방
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -1454,61 +1039,78 @@ pageEncoding="UTF-8"%>
     <!-- 채팅 스크립트 코드 -->
     <script>
       let ws;
-
-        $(document).ready(function () {
-            function openWebSocket() {
-                ws = new WebSocket('ws://localhost:8081/chat');
-
-                ws.onopen = function () {
-                    console.log('WebSocket Client Connected');
-                };
-
-                ws.onmessage = function (event) {
-                    const message = JSON.parse(event.data);
-                    // 받은 메시지를 모달에 표시하는 코드 추가
-                    $('.chat-logs').append(`<p>${message.userId} - ${message.message} - ${message.timestamp}</p>`);
-                };
-
-                ws.onclose = function (event) {
-                    console.log('WebSocket connection closed:', event);
-                };
-            }
-
-            // 클릭 이벤트에 직접 메시지 전송 함수 연결
-            $('#chat-submit').click(function () {
-                sendMessage();
-            });
-
-            // 폼의 submit 기본 동작 중지
-            $('#chatForm').submit(function (event) {
-                event.preventDefault();
-            });
-
-            function sendMessage() {
-              const inputMessage = $('#chat-input').val();
-              ws.send(JSON.stringify({ message: inputMessage }));
-              // 입력한 메시지를 모달에 표시하는 코드 추가
-              $('.chat-logs').append('<p>' + inputMessage + '</p>');
-              // 입력창 비우기
-              $('#chat-input').val('');
+    
+      $(document).ready(function () {
+        function openWebSocket() {
+          // 이미 WebSocket이 열려있는 경우 다시 연결하지 않음
+          if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+            return;
           }
-
-            // 모달이 열릴 때 WebSocket 연결 시작
-            $('#chatLive').on('shown.bs.modal', function () {
-                openWebSocket();
-            });
-
-            // 모달이 닫힐 때 WebSocket 연결 종료
-            $('#chatLive').on('hidden.bs.modal', function () {
-                if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-                    ws.close();
-                }
-            });
+    
+          ws = new WebSocket('ws://localhost:8081/chat');
+    
+          ws.onopen = function () {
+            console.log('WebSocket Client Connected');
+          };
+    
+          ws.onmessage = function (event) {
+            const message = JSON.parse(event.data);
+            if (message.type === 'chat' && message.message.trim() !== '') {
+              // 받은 메시지를 모달에 표시하는 코드 추가
+              appendMessageToChat(message.message, message.userId);
+            }
+          };
+    
+          ws.onclose = function (event) {
+            console.log('WebSocket connection closed:', event);
+          };
+        }
+    
+        // 클릭 이벤트에 직접 메시지 전송 함수 연결
+        $('#chat-submit').click(function () {
+          sendMessage();
         });
-  </script>
-  
-
-  
+    
+        // 폼의 submit 기본 동작 중지
+        $('#chatForm').submit(function (event) {
+          event.preventDefault();
+        });
+    
+        function sendMessage() {
+          const inputMessage = $('#chat-input').val().trim(); // 입력값에서 앞뒤 공백을 제거
+          console.log('Sending message:', inputMessage); // 추가된 로그
+          if (inputMessage !== '') {
+            ws.send(JSON.stringify({ type: 'chat', message: inputMessage }));
+            // 입력한 메시지를 모달에 표시하는 코드 추가
+            appendMessageToChat(inputMessage, 'user'); // 'user'는 사용자가 작성한 메시지임을 나타내는 임의의 값
+            // 입력창 비우기
+            $('#chat-input').val('');
+          }
+        }
+    
+        function appendMessageToChat(message, userType) {
+          console.log("Appending message:", message);
+    
+          // 오른쪽 또는 왼쪽에 메시지를 추가하는 코드
+          const alignmentClass = userType === 'user' ? 'text-right' : 'text-left';
+          const messageElement = $('<p>').text(message).addClass(alignmentClass);
+          $('.chat-logs').append(messageElement);
+        }
+    
+        // 모달이 열릴 때 WebSocket 연결 시작
+        $('#chatLive').on('shown.bs.modal', function () {
+          openWebSocket();
+        });
+    
+        // 모달이 닫힐 때 WebSocket 연결 종료
+        $('#chatLive').on('hidden.bs.modal', function () {
+          if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+            ws.close();
+          }
+        });
+      });
+    </script>
+     
 
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>
