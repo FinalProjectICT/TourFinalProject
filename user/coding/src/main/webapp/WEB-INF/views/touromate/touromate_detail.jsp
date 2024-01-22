@@ -646,6 +646,27 @@ prefix="c" %>
                       >채팅 참가하기</a
                     >
                   </div>
+                  <script>
+                    $('#chat-circle').click(function () {
+                      // 게시글 번호 가져오기
+                      var touroMateNum = $(this).data('touro-mate-num');
+
+                      // AJAX를 이용하여 채팅 참가 요청 보내기
+                      $.ajax({
+                        type: 'POST',
+                        url: '/touromate/joinChat',
+                        data: { touro_mate_num: touroMateNum },
+                        success: function (response) {
+                            // 서버에서의 응답 처리
+                            alert(response); // 혹은 다른 적절한 동작 수행
+                        },
+                        error: function (error) {
+                            // 에러 처리
+                            console.error('Error joining chat:', error);
+                        }
+                    });
+                  });
+                </script>
                 </div>
               </div>
               <div class="single-sidebar">
@@ -1039,6 +1060,7 @@ prefix="c" %>
     <!-- 채팅 스크립트 코드 -->
     <script>
       let ws;
+      
     
       $(document).ready(function () {
         function openWebSocket() {
@@ -1114,6 +1136,12 @@ prefix="c" %>
           if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
             ws.close();
           }
+        });
+
+        $('#chat-input').keydown(function (event) {
+            if (event.which === 13) { // Enter 키의 keyCode는 13
+                sendMessage();
+            }
         });
       });
     </script>

@@ -70,4 +70,16 @@
         WHERE tm.user_id = #{userId}
     </select>
 
+    <!-- 채팅 참가 버튼이 눌렸을 때, 유저 값 tour_mate_chat_user 에 저장 -->
+    <insert id="joinChat" parameterType="TouroMateChatUserVO">
+        INSERT INTO tour_mate_chat_user (chat_num, user_id)
+        VALUES (#{chat_num}, #{user_id});
+    </insert>
+
+    <!-- 이미 참여한 유저인지 확인하는 쿼리 -->
+    <select id="checkUserInChat" resultType="int" parameterType="Map">
+        SELECT COUNT(*) FROM tour_mate_chat_user
+        WHERE user_id = #{user_id} AND chat_num = #{chat_num}
+    </select>
+
 </mapper>
