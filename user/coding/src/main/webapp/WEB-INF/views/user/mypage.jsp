@@ -609,7 +609,7 @@ pageEncoding="UTF-8"%>
                         class="dashboard-title col"
                         style="justify-content: right"
                       >
-                        <button>영수증 앱 리뷰</button>
+                        <a href="user/appReview">영수증 앱 리뷰</a>
                       </div>
                       <div
                         class="dashboard-title col"
@@ -1738,6 +1738,9 @@ pageEncoding="UTF-8"%>
 
     <!-- lazyload js-->
     <script src="../assets/js/lazysizes.min.js"></script>
+    
+        <!-- 휴대폰 영수증 리뷰 앱 관련 js-->
+    <script src="../assets/js/moblieApp.js"></script>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>

@@ -22,7 +22,7 @@ function SupportTicketsList() {
       //console.log([inquirys]);
       setInquirys([...inquirys]);
       //console.log([inquirys.inquiry_num]);
-      //console.log(inquirys)
+      //console.log(inquirys);
     });
   }, []);
 
@@ -34,6 +34,9 @@ function SupportTicketsList() {
   const [userId, setUserId] = useState('')
   const [inquNum, setInquNum] = useState('')
   const [inQu, setInQu] = useState('')
+  const [inquiryReview, setInquiryReview] = useState('');
+
+  const [inquiryReviewNum, setInquiryReviewNum] = useState('')
   
   const [showComponent, setShowComponent] = useState(false);
 
@@ -41,7 +44,7 @@ function SupportTicketsList() {
   const handleClick = async (idx) => {
     setShowComponent(true);
     await setInquiryIdx(idx)
-    console.log(inquiryIdx)
+    //console.log(inquiryIdx)
     // setTitle(inquirys[inquiryIdx].inquiry_title)
     // setContent(inquirys[inquiryIdx].inquiry_content)
     // setUserId(inquirys[inquiryIdx].user_id)
@@ -55,6 +58,9 @@ function SupportTicketsList() {
       setTitle(inquirys[inquiryIdx].inquiry_title);
       setContent(inquirys[inquiryIdx].inquiry_content);
       setUserId(inquirys[inquiryIdx].user_id);
+      setInquNum(inquirys[inquiryIdx].inquiry_num);
+      setInquiryReviewNum(inquirys.inquiry_review_num);
+      setInquiryReview(inquirys[inquiryIdx].inquiry_review_content)
       // setInQu(inquirys[inquiryIdx])
     }
   }, [inquiryIdx, inquirys]);
@@ -71,9 +77,14 @@ function SupportTicketsList() {
     content = {content}
     userId = {userId}
     inQu={inQu}
+    inquNum={inquNum}
+    inquiryReviewNum={inquiryReviewNum}
+    inquiryReview={inquiryReview}
     
     />
+    
   };
+  
 
   return (
     
@@ -168,7 +179,7 @@ function SupportTicketsList() {
                     {inQ.inquiry_process == 1 ? (
                     <a
                       href="#"
-                      onClick={() => setSupportNow(true)}
+                      onClick={() => handleClick(idx)}
                       className="crancy-btn crancy-sbcolor">
                     확인
                     </a>  
@@ -182,6 +193,11 @@ function SupportTicketsList() {
                       
                     )}
                     </td>
+                    {/* <td>
+                        <input type="hidden" className="abcd" />
+                        {inQ.inquiry_content}
+                        {inQ.inquiry_review_num}
+                    </td> */}
                   </tr>
                   ))}
                 </tbody>

@@ -64,6 +64,11 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color5.css" />
+
+    <!-- chatBot css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chatBot.css" />
+
+    <!-- footer용 js -->
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -72,79 +77,79 @@ prefix="c" %>
 
     <!-- 사용자 선호 여행 타입에 따른 지역별 추천 -->
     <script>
-      $(function(){
-          const socket = new WebSocket("ws://175.114.130.25:8765");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+      $(function () {
+        const socket = new WebSocket("ws://175.114.130.25:8765");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results1:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              const info1 = JSON.parse(recommendedResults["info1"])
-              const info2 = JSON.parse(recommendedResults["info2"])
-              const info3 = JSON.parse(recommendedResults["info3"])
-              console.log("info1",info1.length)
-              console.log("info2",info2)
-              console.log("info3",info3.length)
-              var tour_num1 = []
-              var tour_num2 = []
-              var tour_num3 = []
-              for(var i = 0; i < info1.length; i++){
-                tour_num1.push(info1[i]["tour_num"])
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results1:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          const info1 = JSON.parse(recommendedResults["info1"]);
+          const info2 = JSON.parse(recommendedResults["info2"]);
+          const info3 = JSON.parse(recommendedResults["info3"]);
+          console.log("info1", info1.length);
+          console.log("info2", info2);
+          console.log("info3", info3.length);
+          var tour_num1 = [];
+          var tour_num2 = [];
+          var tour_num3 = [];
+          for (var i = 0; i < info1.length; i++) {
+            tour_num1.push(info1[i]["tour_num"]);
+          }
+          for (var i = 0; i < info2.length; i++) {
+            tour_num2.push(info2[i]["tour_num"]);
+          }
+          for (var i = 0; i < info3.length; i++) {
+            tour_num3.push(info3[i]["tour_num"]);
+          }
+          console.log("1tour_num1", tour_num1);
+          console.log("2tour_num2", tour_num2.length);
+          console.log("3tour_num3", tour_num3);
+          // 동적으로 구성될 데이터 객체
+          var data1 = {};
+
+          // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+          for (var i = 0; i < tour_num1.length; i++) {
+            var key = "tour_num" + (i + 1);
+            data1[key] = tour_num1[i];
+          }
+          // 1순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc1Reco",
+            contentType: "json",
+            data: data1,
+            success: function (res) {
+              console.log("success");
+              console.log("1순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco1Box");
+              let array = new Set();
+
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num1.length));
               }
-              for(var i = 0; i < info2.length; i++){
-                tour_num2.push(info2[i]["tour_num"])
-              }
-              for(var i = 0; i < info3.length; i++){
-                tour_num3.push(info3[i]["tour_num"])
-              }
-              console.log("1tour_num1",tour_num1)
-              console.log("2tour_num2",tour_num2.length)
-              console.log("3tour_num3",tour_num3)
-              // 동적으로 구성될 데이터 객체
-              var data1 = {};
+              array = [...array];
+              console.log(array);
 
-              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
-              for (var i = 0; i < tour_num1.length; i++) {
-                  var key = "tour_num" + (i + 1);
-                  data1[key] = tour_num1[i];
-              }
-              // 1순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc1Reco',
-                contentType : 'json',
-                data : data1,
-                success : function(res){
-                  console.log("success");
-                  console.log("1순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco1Box');
-                  let array = new Set();
-
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num1.length));
-                  }
-                  array = [...array]
-                  console.log(array)
-
-                  for(let i = 0; i < 3; i++) {
-                      const reco1 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              for (let i = 0; i < 3; i++) {
+                const reco1 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="menu-bar">
                               <a href="touro/${"${reco1.tour_num}"}">
                                   <img src="../${"${reco1.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
@@ -158,100 +163,100 @@ prefix="c" %>
                           </div>
                       `;
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
-
-              // 동적으로 구성될 데이터 객체
-              var data2 = {};
-
-              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
-              for (var i = 0; i < tour_num2.length; i++) {
-                  var key = "tour_num" + (i + 1);
-                  data2[key] = tour_num2[i];
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
               }
-              // 2순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc2Reco',
-                contentType : 'json',
-                data : data2,
-                success : function(res){
-                  console.log("2순위success");
-                  console.log("2순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco2Box');
-                  let array = new Set();
+            },
+          }); // end ajax
 
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num2.length));
-                  }
-                  array = [...array]
-                  console.log("Array2",array[2])
-                  for(let i = 0; i < 3; i++) {
-                      const reco2 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+          // 동적으로 구성될 데이터 객체
+          var data2 = {};
+
+          // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+          for (var i = 0; i < tour_num2.length; i++) {
+            var key = "tour_num" + (i + 1);
+            data2[key] = tour_num2[i];
+          }
+          // 2순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc2Reco",
+            contentType: "json",
+            data: data2,
+            success: function (res) {
+              console.log("2순위success");
+              console.log("2순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco2Box");
+              let array = new Set();
+
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num2.length));
+              }
+              array = [...array];
+              console.log("Array2", array[2]);
+              for (let i = 0; i < 3; i++) {
+                const reco2 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="menu-bar">
-                              <a href="touro/${'${reco2.tour_num}'}">
-                                  <img src="../${'${reco2.imgPath}'}" class="img-fluid blur-up lazyload" alt=""/>
+                              <a href="touro/${"${reco2.tour_num}"}">
+                                  <img src="../${"${reco2.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
                               </a>
                               <div class="content">
-                                  <a href="touro/${'${reco2.tour_num}'}">
-                                      <h5>${'${reco2.tour_name}'}</h5>
+                                  <a href="touro/${"${reco2.tour_num}"}">
+                                      <h5>${"${reco2.tour_name}"}</h5>
                                   </a>
-                                  <p>${'${reco2.address}'}</p>
+                                  <p>${"${reco2.address}"}</p>
                               </div>
                           </div>
                       `;
 
-                      // 생성한 HTML 문자열을 bottom-bar에 추가
-                      bottomBar.append(menuBarHTML);
-                  }
-                }
-              })// end ajax
-              
-              // 동적으로 구성될 데이터 객체
-              var data3 = {};
-
-              // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
-              for (var i = 0; i < tour_num3.length; i++) {
-                  var key = "tour_num" + (i + 1);
-                  data3[key] = tour_num3[i];
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
               }
-              // 3순위
-              $.ajax({
-                type : "GET",
-                url : 'preferLoc3Reco',
-                contentType : 'json',
-                data : data3,
-                success : function(res){
-                  console.log("success");
-                  console.log("3순위",res)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#reco3Box');
-                  let array = new Set();
+            },
+          }); // end ajax
 
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * tour_num3.length));
-                  }
-                  array = [...array]
-                  for(let i = 0; i < 3; i++) {
-                      const reco3 = {
-                        tour_num : res[array[i]].tour_num,
-                        tour_name : res[array[i]].tour_name,
-                        address : res[array[i]].tour_addr,
-                        imgPath: res[array[i]].tour_img1_path
-                      }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+          // 동적으로 구성될 데이터 객체
+          var data3 = {};
+
+          // tour_num2 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+          for (var i = 0; i < tour_num3.length; i++) {
+            var key = "tour_num" + (i + 1);
+            data3[key] = tour_num3[i];
+          }
+          // 3순위
+          $.ajax({
+            type: "GET",
+            url: "preferLoc3Reco",
+            contentType: "json",
+            data: data3,
+            success: function (res) {
+              console.log("success");
+              console.log("3순위", res);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#reco3Box");
+              let array = new Set();
+
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * tour_num3.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco3 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="menu-bar">
                               <a href="touro/${"${reco3.tour_num}"}">
                                   <img src="../${"${reco3.imgPath}"}" class="img-fluid blur-up lazyload" alt=""/>
@@ -281,69 +286,77 @@ prefix="c" %>
 
     <!-- 사용자 선호 지역에 따른 여행지 타입별 추천 -->
     <script>
-      $(function(){
-          const socket = new WebSocket("ws://175.114.130.25:8854");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+      $(function () {
+        const socket = new WebSocket("ws://175.114.130.25:8854");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results2:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              const info1 = JSON.parse(recommendedResults["info1"])
-              const info2 = JSON.parse(recommendedResults["info2"])
-              const info3 = JSON.parse(recommendedResults["info3"])
-              console.log(info1)
-              console.log(info2)
-              console.log(info3)
-              var tour_num1 = []
-              var tour_num2 = []
-              var tour_num3 = []
-              for(var i = 0; i < info1.length; i++){
-                tour_num1.push(info1[i]["tour_num"])  // 9
-              }
-              for(var i = 0; i < info2.length; i++){
-                tour_num2.push(info2[i]["tour_num"])  // 10
-              }
-              for(var i = 0; i < info3.length; i++){
-                tour_num3.push(info3[i]["tour_num"])  // 10
-              }
-              console.log("type",tour_num1)
-              // 1순위
-              $.ajax({
-                type : "GET",
-                url : 'preferType1Reco',
-                contentType : 'json',
-                data : {tour_num1 : tour_num1[0], tour_num2 : tour_num1[1], tour_num3 : tour_num1[2], tour_num4 : tour_num1[3]
-                  , tour_num5 : tour_num1[4], tour_num6 : tour_num1[5], tour_num7 : tour_num1[6], tour_num8 : tour_num1[7], 
-                  tour_num9 : tour_num1[8]},
-                success : function(res){
-                  console.log("success");
-                  console.log(res[0])
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#recoType1');
-                  let array = new Set();
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results2:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          const info1 = JSON.parse(recommendedResults["info1"]);
+          const info2 = JSON.parse(recommendedResults["info2"]);
+          const info3 = JSON.parse(recommendedResults["info3"]);
+          console.log(info1);
+          console.log(info2);
+          console.log(info3);
+          var tour_num1 = [];
+          var tour_num2 = [];
+          var tour_num3 = [];
+          for (var i = 0; i < info1.length; i++) {
+            tour_num1.push(info1[i]["tour_num"]); // 9
+          }
+          for (var i = 0; i < info2.length; i++) {
+            tour_num2.push(info2[i]["tour_num"]); // 10
+          }
+          for (var i = 0; i < info3.length; i++) {
+            tour_num3.push(info3[i]["tour_num"]); // 10
+          }
+          console.log("type", tour_num1);
+          // 1순위
+          $.ajax({
+            type: "GET",
+            url: "preferType1Reco",
+            contentType: "json",
+            data: {
+              tour_num1: tour_num1[0],
+              tour_num2: tour_num1[1],
+              tour_num3: tour_num1[2],
+              tour_num4: tour_num1[3],
+              tour_num5: tour_num1[4],
+              tour_num6: tour_num1[5],
+              tour_num7: tour_num1[6],
+              tour_num8: tour_num1[7],
+              tour_num9: tour_num1[8],
+            },
+            success: function (res) {
+              console.log("success");
+              console.log(res[0]);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#recoType1");
+              let array = new Set();
 
-                  while (array.size < 3) {
-                    array.add(Math.trunc(Math.random() * info1.length));
-                  }
-                array = [...array];
-                for (let i = 0; i < 3; i++) {
-                  const reco1 = {
-                    tour_num: res[array[i]].tour_num,
-                    tour_name: res[array[i]].tour_name,
-                    address: res[array[i]].tour_addr,
-                    imgPath: res[array[i]].tour_img1_path,
-                  };
-                  // menu-bar를 나타내는 HTML 문자열 생성
-                  const menuBarHTML = `
+              while (array.size < 3) {
+                array.add(Math.trunc(Math.random() * info1.length));
+              }
+              array = [...array];
+              for (let i = 0; i < 3; i++) {
+                const reco1 = {
+                  tour_num: res[array[i]].tour_num,
+                  tour_name: res[array[i]].tour_name,
+                  address: res[array[i]].tour_addr,
+                  imgPath: res[array[i]].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                         <div class="grid-item">
                           <div class="special-box p-0">
                               <div class="special-img">
@@ -366,11 +379,11 @@ prefix="c" %>
                           </div>
                         `;
 
-                  // 생성한 HTML 문자열을 bottom-bar에 추가
-                  bottomBar.append(menuBarHTML);
-                }
-              },
-            }); // end ajax
+                // 생성한 HTML 문자열을 bottom-bar에 추가
+                bottomBar.append(menuBarHTML);
+              }
+            },
+          }); // end ajax
 
           // 2순위
           $.ajax({
@@ -512,56 +525,56 @@ prefix="c" %>
 
     <!-- 사용자 기반 필터링 추천 -->
     <script>
-      $(function(){
-          const socket = new WebSocket("ws://175.114.130.25:8432");
-          const sessionId = $('#loggedInUser').val()
-          console.log(sessionId)
+      $(function () {
+        const socket = new WebSocket("ws://175.114.130.25:8432");
+        const sessionId = $("#loggedInUser").val();
+        console.log(sessionId);
 
-          // Connection opened
-          socket.addEventListener('open', (event) => {
-              console.log('Connected to server');
-              socket.send(sessionId)
-          });
+        // Connection opened
+        socket.addEventListener("open", (event) => {
+          console.log("Connected to server");
+          socket.send(sessionId);
+        });
 
-          // Listen for messages
-          socket.addEventListener('message', (event) => {
-              const recommendedResults = JSON.parse(event.data);
-              console.log('Received recommended results1:', recommendedResults);
-              // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
-              console.log(recommendedResults.length)
+        // Listen for messages
+        socket.addEventListener("message", (event) => {
+          const recommendedResults = JSON.parse(event.data);
+          console.log("Received recommended results1:", recommendedResults);
+          // 여기서 받은 결과를 화면에 표시하거나 추가 로직 수행
+          console.log(recommendedResults.length);
 
-              // 동적으로 구성될 데이터 객체
-              var data = {};
+          // 동적으로 구성될 데이터 객체
+          var data = {};
 
-              // recommendedResults 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
-              for (var i = 0; i < recommendedResults.length; i++) {
-                  var key = "tour_num" + (i + 1);
-                  data[key] = recommendedResults[i];
-              }
-              console.log("data", data)
-              // 긍정 게시물 추천 여행지 - 사용자 선호 지역 중에서
-              $.ajax({
-                type : "GET",
-                url : 'yesResult',
-                contentType : 'json',
-                data : data,
-                success : function(res){
-                  console.log("success");
-                  console.log("res" , res)
-                  console.log("res length", res.length)
-                  // 동적으로 menu-bar 추가
-                  const bottomBar = $('#yesResult');
-                  let array = new Set();
+          // recommendedResults 배열에 있는 각 값을 tour_num1, tour_num2, ..., tour_numN으로 매핑하여 객체에 추가
+          for (var i = 0; i < recommendedResults.length; i++) {
+            var key = "tour_num" + (i + 1);
+            data[key] = recommendedResults[i];
+          }
+          console.log("data", data);
+          // 긍정 게시물 추천 여행지 - 사용자 선호 지역 중에서
+          $.ajax({
+            type: "GET",
+            url: "yesResult",
+            contentType: "json",
+            data: data,
+            success: function (res) {
+              console.log("success");
+              console.log("res", res);
+              console.log("res length", res.length);
+              // 동적으로 menu-bar 추가
+              const bottomBar = $("#yesResult");
+              let array = new Set();
 
-                  for(let i = 0; i < 4; i++) {
-                    const reco3 = {
-                      tour_num : res[i].tour_num,
-                      tour_name : res[i].tour_name,
-                      address : res[i].tour_addr,
-                      imgPath: res[i].tour_img1_path
-                    }
-                    // menu-bar를 나타내는 HTML 문자열 생성
-                      const menuBarHTML = `
+              for (let i = 0; i < 4; i++) {
+                const reco3 = {
+                  tour_num: res[i].tour_num,
+                  tour_name: res[i].tour_name,
+                  address: res[i].tour_addr,
+                  imgPath: res[i].tour_img1_path,
+                };
+                // menu-bar를 나타내는 HTML 문자열 생성
+                const menuBarHTML = `
                           <div class="col-lg-3 col-sm-6">
                             <div class="step-box">
                                 <div class="popular-box">
@@ -622,7 +635,7 @@ prefix="c" %>
     <section class="home_effect effect-cls pt-0">
       <div class="snow" count="30"></div>
       <div class="effect_image">
-        <img src="" alt="" />
+        <img src="../assets/images/tour/background/2.png" alt="">
         <div class="effect_content">
           <div>
             <h1>TOURO</h1>
@@ -793,8 +806,9 @@ prefix="c" %>
           <div class="title-3">
             <span class="title-label">touro</span>
             <h2>
-              ${userLoc.tour_cate_code_name} 추천 여행지 <span>Touro</span>
+              ${sessionScope.loggedId}님의 맞춤 여행지 <span>Touro</span>
             </h2>
+            <h5>${sessionScope.loggedId}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
           </div>
           <div class="row">
             <div class="col">
@@ -807,7 +821,7 @@ prefix="c" %>
                         class="img-fluid blur-up lazyload"
                         alt=""
                       />
-                      <h2>1</h2>
+                      <h2>여행지 추천</h2>
                       <!-- <div class="decorate">제주도</div> -->
                     </div>
                     <div class="bottom-bar" id="reco1Box">
@@ -825,7 +839,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div class="bottom-bar" id="reco2Box">
                       <!-- 추가추가 -->
@@ -842,7 +856,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div class="bottom-bar" id="reco3Box">
                       <!-- 추가추가  -->
@@ -860,9 +874,10 @@ prefix="c" %>
     <!-- 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천 -->
     <section class="process-steps section-b-space bg-white">
       <div class="container">
-        <div class="title-1">
-          <span class="title-label">deals</span>
-          <h2>top deals</h2>
+        <div class="title-3">
+          <span class="title-label">touro</span>
+          <h2>소문난 여행지 추천</h2>
+          <h5>회원님들의 긍정적인 후기로 소문난 여행지를 골라 담았습니다!</h5>
         </div>
         <div class="step-bg ratio_square">
           <div class="row popular-section" id="yesResult">
@@ -1004,6 +1019,7 @@ prefix="c" %>
               <div class="title-3">
                 <span class="title-label">Touro</span>
                 <h2>계절에 따른 추천 여행지<span>touro</span></h2>
+                <h5>계절의 정취를 가득 담은 여행지를 골라 담았습니다!</h5>
               </div>
               <div class="slider-4 no-arrow">
                 <c:forEach var="winter" items="${winter}">
@@ -1107,7 +1123,8 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>회원 맞춤 여행지 <span>Touro</span></h2>
+            <h2>${sessionScope.loggedId}님의 최애 지역 여행지 <span>Touro</span></h2>
+            <h5>${sessionScope.loggedId}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1121,7 +1138,7 @@ prefix="c" %>
                         alt=""
                       />
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1142,7 +1159,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1163,7 +1180,7 @@ prefix="c" %>
                           alt=""
                       /></a>
                       <h2>여행지 추천</h2>
-                      <div class="decorate">추천명</div>
+                      <div class="decorate"></div>
                     </div>
                     <div
                       class="product-wrapper-grid special-section grid-box ratio3_2"
@@ -1189,8 +1206,9 @@ prefix="c" %>
     <section class="testimonial-section">
       <div class="container">
         <div class="title-3">
-          <span class="title-label"> Touro Recommend </span>
+          <span class="title-label"> Touro </span>
           <h2>베스트 리뷰어<span>customer</span></h2>
+          <h5>aa</h5>
         </div>
 
         <div>
@@ -1389,47 +1407,6 @@ prefix="c" %>
     </div>
     <!-- 사용자 페이지 창 구성 끝 -->
 
-    <!-- 채팅 양식 (Modal) 구성 시작-->
-    <div
-      class="modal fade edit-profile-modal"
-      id="chatLive"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">채팅 테스트</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body dashboard-section">
-            <div class="chat-box-overlay"></div>
-            <div class="chat-logs"></div>
-          </div>
-          <form>
-            <div class="modal-footer">
-              <input
-                type="text"
-                id="chat-input"
-                placeholder="Send a message..."
-              />
-              <button type="submit" class="chat-submit" id="chat-submit">
-                <i class="material-icons">send</i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- 채팅 양식 끝 -->
-
     <!-- footer start -->
     <%@ include file='./footer/footer.jsp' %>
     <!-- footer end -->
@@ -1441,66 +1418,6 @@ prefix="c" %>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- 챗봇 버튼  --><!--
-    <div
-      data-bs-toggle="modal"
-      data-bs-target="#chatBot"
-      style="position: fixed; bottom: 20px; right: 70px; z-index: 8"
-    >
-      <a href="#" class="btn btn-curve btn-lower">
-        <img
-          src="../assets/images/logo/logo-icon.png"
-          class="img-fluid blur-up lazyload"
-          alt=""
-        />
-        챗봇 서비스</a
-      >
-      
-      <a href="#" class="btn btn-curve btn-lower">
-        <i class="fas fa-times"></i
-      ></a>
-    </div>-->
-
-    <!-- 챗봇 창 -->
-    <div
-      class="modal fade edit-profile-modal"
-      id="chatBot"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">챗봇 창</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body dashboard-section">
-            <div class="chat-box-overlay"></div>
-            <div class="chat-logs"></div>
-          </div>
-          <form>
-            <div class="modal-footer">
-              <input
-                type="text"
-                id="chat-input"
-                placeholder="Send a message..."
-              />
-              <button type="submit" class="chat-submit" id="chat-submit">
-                <i class="material-icons">send</i>
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
 
     <!-- setting start -->
     <div class="theme-setting">
@@ -1524,6 +1441,19 @@ prefix="c" %>
       </div>
     </div>
     <!-- setting end -->
+
+    <!-- 챗봇 구역  -->
+    <button id="chatButton"><i class="far fa-question-circle"></i></button>
+
+    <div class="testimonial-section row" id="chatContainer">
+      <div class="" id="chatContent">
+        <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
+      </div>
+      <input type="text" id="chatInput" placeholder="메시지 입력" />
+      <button type="button" class="btn btn-outline-primary">A</button>
+      <button type="button" class="btn btn-outline-primary">B</button>
+    </div>
+    <!-- 챗봇 구역  -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
@@ -1549,6 +1479,9 @@ prefix="c" %>
 
     <!-- 날씨 가져오기 -->
     <script src="../assets/js/weather.js"></script>
+
+    <!-- 동작 가져오기 -->
+    <script src="../assets/js/chatBot.js"></script>
 
     <!-- 추천 1 -->
     <!-- <script src="../assets/js/reco1.js"></script> -->

@@ -47,11 +47,31 @@ Author URI: https://themeforest.net/user/pixelstrap
 /*=====================
 01. General css start
 ==========================*/
+@font-face {
+  font-family: 'NPSfontRegular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontRegular.woff2') format('woff2');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontExtraBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
 body {
-  font-family: Nunito, sans-serif;
+  font-family: NPSfontBold, sans-serif;
   position: relative;
   background: white;
-  font-size: 14px;
+  font-size: 18px;
   color: black; }
 
 h1,
@@ -60,19 +80,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Nunito, sans-serif;
+  font-family: NPSfontRegular, sans-serif;
   font-weight: normal; }
 
 h1 {
-  font-size: calc(26px + (50 - 26) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 700;
+  font-size: calc(52px + (50 - 26) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 800;
   letter-spacing: 0.03em;
   line-height: 1.1;
   text-transform: uppercase; }
 
 h2 {
-  font-size: calc(22px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 700;
+  font-size: calc(42px + (36 - 22) * ((100vw - 320px) / (1920 - 320)));
+  font-weight: 800;
   letter-spacing: 0.001em;
   line-height: 32px;
   text-transform: capitalize;
@@ -80,27 +100,30 @@ h2 {
 
 h3 {
   font-size: calc(20px + (24 - 20) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2;
   color: black; }
 
 h4 {
   font-size: calc(18px + (22 - 18) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-family: NPSfontRegular;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2;
   text-transform: capitalize; }
 
 h5 {
   font-size: calc(16px + (20 - 16) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-family: NPSfontRegular;
+  font-weight: normal;
   letter-spacing: 0.03em;
   line-height: 1.2; }
 
 h6 {
   font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
-  font-weight: 400;
+  font-family: NPSfontRegular;
+  font-weight: normal;
   line-height: 1.2;
   letter-spacing: 0.03em; }
 
@@ -110,10 +133,11 @@ ul {
 
 li {
   display: inline-block;
-  font-size: 14px;
+  font-size: 18px;
   letter-spacing: 0.03em; }
 
 p {
+  font-family: NPSfontRegular;
   font-size: 14px;
   line-height: 18px;
   color: #bcbcbc;
@@ -731,10 +755,12 @@ header {
         padding: 6px 12px; }
         header .menu .header-right .user i {
           color: #00a2f7;
-          font-size: 12px; }
+          font-size: 18px; }
         header .menu .header-right .user.user-light {
           background-color: rgba(255, 255, 255, 0.14); }
           header .menu .header-right .user.user-light i {
+            color: white; }
+          header .menu .header-right .user.user-light a {
             color: white; }
         header .menu .header-right .user.bg_dark {
           background-color: #ef3f3e; }
@@ -1568,7 +1594,7 @@ section .black-layer {
           padding: 0; }
       .home_section .home .home-content.mix-layout h1 {
         font-size: calc(18px + (60 - 18) * ((100vw - 320px) / (1920 - 320)));
-        font-family: Nunito, Nunito;
+        font-family: NPSfontBold, NPSfontBold;
         margin-bottom: calc(5px + (30 - 5) * ((100vw - 320px) / (1920 - 320)));
         position: relative; }
         .home_section .home .home-content.mix-layout h1 span {
@@ -5730,7 +5756,7 @@ section .black-layer {
       position: absolute;
       top: -20px;
       right: 0;
-      font-family: Nunito;
+      font-family: NPSfontBold;
       letter-spacing: 0.05em; }
   .food-banner .food-content .strip-cls {
     position: relative;
@@ -9249,7 +9275,6 @@ section .black-layer {
       font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320)));
       line-height: 1.6; }
     .single-section .description-section .description-details .menu-part.about .about-sec h4 {
-      font-weight: 700;
       margin-bottom: 10px; }
     .single-section .description-section .description-details .menu-part.about .about-sec h6 {
       color: black; }
@@ -15406,8 +15431,8 @@ header {
         header .main-navbar .nav-menu > li > a {
           display: block;
           color: white;
-          font-size: 14px;
-          font-weight: 900;
+          font-size: 24px;
+          font-weight: 800;
           line-height: 23px;
           text-decoration: none;
           text-transform: uppercase;

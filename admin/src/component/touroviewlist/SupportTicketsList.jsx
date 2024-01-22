@@ -8,6 +8,8 @@ import axios from "axios";
 function SupportTicketsList() {
   const [page, setPage] = useState(1);
   const [show, setShow] = useState(25);
+  const [isBlind, setIsBlind] = useState(false); 
+  
 
   const current = page * show;
   const previous = current - show;
@@ -18,6 +20,17 @@ function SupportTicketsList() {
 
   const baseUrl = "http://localhost:8080";
   const navigate = useNavigate();
+
+  // 게시물 블라인드 처리하기
+  const handleButtonClick = (touroview_num) => {
+    // setIsBlind(!isBlind);
+    axios.post(`${baseUrl}/touroview/blind/${touroview_num}`)
+    .then(() => {
+      setIsBlind(prevState => !prevState); // 상태 업데이트 
+      console.log("success")
+    })
+    .catch((err) => console.log(err))
+  };
 
     // 현재 페이지에 해당하는 아이템들을 추출
     const indexOfLastItem = page * show;
@@ -37,7 +50,7 @@ function SupportTicketsList() {
     .catch((error) => {
       console.error('에러 발생:', error);
     }); 
-    navigate(`/pricing/${touroview_num}`);
+    navigate(`/touroview/${touroview_num}`);
   };
 
   // 페이지네이션
@@ -189,43 +202,22 @@ function SupportTicketsList() {
                             </p>
                           </td>
                           <td className="crancy-table__column-5 crancy-table__data-5" onClick={(e) => detailTouroviewNum(e, touroview.touroview_num)}>
-                            <div
-                              className={`crancy-table__status ${
-                                touroview.status === "Cancel"
-                                  ? "crancy-table__status--cancel"
-                                  : touroview.status === "Pending"
-                                  ? "crancy-table__status--pending"
-                                  : ""
-                              }`}
-                            >
+                           
                               {touroview.like_count}
-                            </div>
                           </td>
                           <td className="crancy-table__column-6 crancy-table__data-6">
                             <div className="crancy-flex-between">
-                              <p className="crancy-table__status crancy-table__status--cancel">{touroview.report_count}</p>
-                              <div className="crancy-chatbox__toggle">
-                                <svg
-                                  width="6"
-                                  height="25"
-                                  viewBox="0 0 4 16"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 14)"
-                                  ></circle>
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 8)"
-                                  ></circle>
-                                  <circle
-                                    r="2"
-                                    transform="matrix(1 0 0 -1 2 2)"
-                                  ></circle>
-                                </svg>
-                              </div>
+                              {touroview.report_count >= 3 
+                              ?
+                              <div> 
+                              <p className="crancy-table__status crancy-table__status--cancel" style={{cursor:"pointer"}} onClick={() => handleButtonClick(touroview.touroview_num)}>블라인드</p>
+                                {/* {isBlind && (
+                                  <div>
+                                    <p>ok</p>
+                                  </div>
+                                )} */}
+                                </div>
+                              : <p className="crancy-table__status crancy-table__status--pending">{touroview.report_count}</p>}
                             </div>
                           </td>
                         </tr>

@@ -106,5 +106,105 @@
     OR tm.touro_mate_content LIKE CONCAT('%', #{touro_mate_content}, '%')
 	</select>
 
-  
+  <!-- 관리자 대시보드 - 회원수 가져오기 -->
+  <select id="userCount" resultType="Integer">
+    SELECT count(*) FROM USER;
+  </select>
+
+  <!-- 관리자 대시보드 - 여행친구찾기 게시글 수 가져오기 -->
+  <select id="touroviewCount" resultType="Integer">
+    SELECT count(*) FROM touro_mate;
+  </select>
+
+  <!-- 관리자 대시보드 - 후기 게시글 수 가져오기 -->
+  <select id="reviewCount" resultType="Integer">
+    SELECT count(*) FROM touroview;
+  </select>
+
+  <!-- 관리자 대시보드 - 영수증 리뷰 수 가져오기 -->
+  <select id="receiptReviewCount" resultType="Integer">
+    SELECT count(*) FROM receipt;
+  </select>
+
+  <!-- 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계 -->
+  <select id="locPrefer" resultType="MainAdminVO"> 
+    SELECT
+      locCode,
+      COUNT(*) AS locCount,
+      locName,
+      totalCount
+    FROM (
+      SELECT
+        user_id,
+        user_prefer_loc1 AS locCode,
+        l.loc_cate_name AS locName
+      FROM USER u, loc_cate l
+      WHERE u.user_prefer_loc1 = l.loc_cate_code
+      UNION ALL
+      SELECT
+        user_id,
+        user_prefer_loc2,
+        l.loc_cate_name
+      FROM USER u, loc_cate l
+      WHERE u.user_prefer_loc2 = l.loc_cate_code
+      UNION ALL
+      SELECT
+        user_id,
+        user_prefer_loc3,
+        l.loc_cate_name
+      FROM USER u, loc_cate l
+      WHERE u.user_prefer_loc3 = l.loc_cate_code
+    ) AS unpivoted_data
+    JOIN (
+      SELECT
+        COUNT(*) AS totalCount
+      FROM (
+        SELECT
+          user_id,
+          user_prefer_loc1 AS locCode,
+          l.loc_cate_name AS locName
+        FROM USER u, loc_cate l
+        WHERE u.user_prefer_loc1 = l.loc_cate_code
+        UNION ALL
+        SELECT
+          user_id,
+          user_prefer_loc2,
+          l.loc_cate_name
+        FROM USER u, loc_cate l
+        WHERE u.user_prefer_loc2 = l.loc_cate_code
+        UNION ALL
+        SELECT
+          user_id,
+          user_prefer_loc3,
+          l.loc_cate_name
+        FROM USER u, loc_cate l
+        WHERE u.user_prefer_loc3 = l.loc_cate_code
+      ) AS totalCountQuery
+    ) AS totalData ON 1=1
+    GROUP BY locCode, locName, totalCount
+    ORDER BY locCount DESC
+    LIMIT 4;
+  </select>
+
+  <!-- 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리 -->
+  <update id="touroviewBlind" parameterType="TouroviewVO">
+    UPDATE touroview SET touroview_title = '블라인드 처리된 글입니다.'
+    , touroview_content = '블라인드 처리된 글입니다.'
+    WHERE touroview_num = #{touroview_num}
+  </update>
+
+  <!-- 관리자 문의 답변 보내기 - DB 저장 -->
+  <insert id="inquiryReview" parameterType="AdminVO">
+    INSERT INTO inquiry_review(inquiry_review_content,inquiry_num) VALUES(#{inquiry_review_content},#{inquiry_num})
+  </insert>
+
+  <!-- 관리자 문의 답변하면 -> inquiry_process = 1로 변경 -->
+  <update id="inquiryProcess" parameterType="AdminVO">
+    UPDATE inquiry SET inquiry_process = 1 WHERE inquiry_num = #{inquiry_num}
+  </update>
+
+  <!-- 관리자 문의 답변 보내기 - DB 수정 -->
+  <update id="inquiryReviewUpdate" parameterType="AdminVO">
+    UPDATE inquiry_review SET inquiry_review_content = #{inquiry_review_content} WHERE inquiry_num = #{inquiry_num}
+  </update>
 </mapper>

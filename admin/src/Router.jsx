@@ -148,7 +148,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "/pricing/:touroview_num",
+        path: "/touroview/:touroview_num",
         element: <Pricing />,
       },
       

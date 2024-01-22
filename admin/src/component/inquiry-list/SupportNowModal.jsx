@@ -1,13 +1,59 @@
 import { useEffect,useState } from "react";
 import planeIcon from "../../assets/img/plane-icon.png";
 import { Navigate, json } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
+function SupportNowModal({ isOpen, handleClose, inQu, inqNum, 
+  title, content, userId, testArr,inquNum,inquiryReviewNum, inquiryReview }) {
 
-function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, userId, testArr }) {
-  // console.log("inqNum", inqNum)
-  // console.log("content", continQuent)
+  //console.log(inquiryReviewNum);
+  const navigate = useNavigate();
 
-  
+  const baseUrl = "http://localhost:8080";
+  const [inquiryRe, setInquiryRe] = useState("");
+  const [inquiryUp, setInquiryUp] = useState(inquiryReview);
+
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setInquiryRe(e.target.value);
+  }
+
+  // 답변 등록
+  let param = {
+    inquiry_review_content : inquiryRe,
+    inquiry_num : inquNum
+  }
+  console.log("갑들",inquiryRe,"  ",inquNum);
+
+  const sendRe = () => { 
+    axios.post(baseUrl+"/inquiry/inquiryReview",param)
+    .then(console.log("success"))
+    .catch(err => console.log(err))
+
+    axios.post(baseUrl+"/inquiry/inquiryProcess", param)
+    .then(console.log("sucess"))
+    .catch(err => console.log(err))
+
+  }
+  // 답변 수정
+  const handleUpdateChange = (e) => {
+    setInquiryUp(e.target.value);
+  }
+  let updateparam = {
+    inquiry_review_content : inquiryUp,
+    inquiry_num : inquNum
+  }
+  const updateRe = () => {
+    axios.post(baseUrl+"/inquiry/inquiryReviewUpdate",updateparam)
+    .then(() => {
+      setInquiryUp(updateparam.inquiry_review_content);
+    })
+    .catch(err => console.log(err))
+
+  }
+ 
+
   return (
     <div
       className={`crancy-email__modal crancy-default__modal modal fade modal-bg ${
@@ -30,7 +76,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
         <div className="modal-content crancy-preview__modal-content">
           <div className="crancy-main-form">
            
-            <form action="#" method="post">
+            <form action="#" method="post" >
               <div className="row">
                 <div className="col-12">
                   <div className="crancy-main-form__top">
@@ -110,22 +156,44 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
                     </div> */}
                     
                     <div className="crancy-main-form__group">
-                      <textarea
-                        className="crancy-main-form__textarea"
-                        type="text"
-                        name="subject"
-                        placeholder="관리자 답변"
-                        required="required"
-                      ></textarea>
+                      {inquiryReview !== null 
+                      ?<textarea
+                      className="crancy-main-form__textarea"
+                      type="text"
+                      name="subject"
+                      placeholder="관리자 답변"
+                      required="required"
+                      value={inquiryUp}
+                      onChange={handleUpdateChange}
+                    ></textarea>
+                      :<textarea
+                      className="crancy-main-form__textarea"
+                      type="text"
+                      name="subject"
+                      placeholder="관리자 답변"
+                      required="required"
+                      value={inquiryRe}
+                      onChange={handleInputChange}
+                    ></textarea>
+                      }
                     </div>
+
                     <div className="crancy-main-form__button">
                       <div className="crancy-main-form__options">
                       </div>
                       <div className="crancy-main-form__button">
-                        <button type="submit">
+                      {inquiryReview === null 
+                      ? <button type="button" onClick={sendRe}>
                           <img src={planeIcon} alt="" />
-                          Send Message
+                          답변 등록
                         </button>
+                        :
+                        <button type="button" onClick={updateRe}>
+                          <img src={planeIcon} alt="" />
+                          답변 수정
+                        </button>
+                        }
+                        
                       </div>
                     </div>
                   </div>
@@ -133,6 +201,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum, title, content, us
                 </div>
               </div>
             </form>
+
           </div>
         </div>
       </div>
