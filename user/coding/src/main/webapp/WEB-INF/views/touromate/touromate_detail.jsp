@@ -1042,7 +1042,6 @@ prefix="c" %>
     
       $(document).ready(function () {
         function openWebSocket() {
-          // 이미 WebSocket이 열려있는 경우 다시 연결하지 않음
           if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
             return;
           }
@@ -1077,26 +1076,34 @@ prefix="c" %>
         });
     
         function sendMessage() {
-          const inputMessage = $('#chat-input').val().trim(); // 입력값에서 앞뒤 공백을 제거
-          console.log('Sending message:', inputMessage); // 추가된 로그
+          const inputMessage = $('#chat-input').val().trim();
+          console.log('Sending message:', inputMessage);
           if (inputMessage !== '') {
-            ws.send(JSON.stringify({ type: 'chat', message: inputMessage }));
-            // 입력한 메시지를 모달에 표시하는 코드 추가
-            appendMessageToChat(inputMessage, 'user'); // 'user'는 사용자가 작성한 메시지임을 나타내는 임의의 값
-            // 입력창 비우기
+            const userId = '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+            ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId }));
             $('#chat-input').val('');
           }
         }
     
-        function appendMessageToChat(message, userType) {
+        function appendMessageToChat(message, userId) {
           console.log("Appending message:", message);
-    
-          // 오른쪽 또는 왼쪽에 메시지를 추가하는 코드
-          const alignmentClass = userType === 'user' ? 'text-right' : 'text-left';
-          const messageElement = $('<p>').text(message).addClass(alignmentClass);
+          console.log("userid: " + userId);
+
+          const displayedUserId = `${'${userId}'}:`;
+          const messageElement = $('<p>').html(`<strong>${'${displayedUserId}'}</strong>${'${message}'}`);
+
+          console.log("Message Element:", messageElement);
+
+          // 추가한 부분: 메시지 추가 직전에 내용을 확인합니다.
+          console.log("Before appending, chat logs content:", $('.chat-logs').html());
+
+          // 확인: 실제로 .chat-logs에 메시지를 추가합니다.
           $('.chat-logs').append(messageElement);
+
+          // 추가한 부분: 메시지 추가 직후에 내용을 확인합니다.
+          console.log("After appending, chat logs content:", $('.chat-logs').html());
         }
-    
+
         // 모달이 열릴 때 WebSocket 연결 시작
         $('#chatLive').on('shown.bs.modal', function () {
           openWebSocket();
@@ -1110,7 +1117,9 @@ prefix="c" %>
         });
       });
     </script>
-     
+    
+    
+    
 
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>
