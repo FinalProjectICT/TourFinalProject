@@ -643,29 +643,32 @@ prefix="c" %>
                       data-bs-target="#chatLive"
                       href="#"
                       class="btn btn-rounded btn-sm color1"
+                      data-touro-mate-num="${touroMate.touro_mate_num}"
                       >채팅 참가하기</a
                     >
                   </div>
                   <script>
                     $('#chat-circle').click(function () {
-                      // 게시글 번호 가져오기
-                      var touroMateNum = $(this).data('touro-mate-num');
+                        // 게시글 번호 가져오기
+                        var touroMateNum = $(this).data('touro-mate-num');
+                        console.log('게시글번호 ', touroMateNum);
+                        // AJAX를 이용하여 채팅 참가 요청 보내기
+                        $.ajax({
+                            type: 'POST',
+                            url: '/touromate/joinChat',
+                            data: { touro_mate_num: touroMateNum },
+                            success: function (response) {
+                                // 서버에서의 응답 처리
+                                console.log('Server Response:', response);
 
-                      // AJAX를 이용하여 채팅 참가 요청 보내기
-                      $.ajax({
-                        type: 'POST',
-                        url: '/touromate/joinChat',
-                        data: { touro_mate_num: touroMateNum },
-                        success: function (response) {
-                            // 서버에서의 응답 처리
-                            alert(response); // 혹은 다른 적절한 동작 수행
-                        },
-                        error: function (error) {
-                            // 에러 처리
-                            console.error('Error joining chat:', error);
-                        }
+                                alert(response);
+                            },
+                            error: function (error) {
+                                // 에러 처리
+                                console.error('Error joining chat:', error);
+                            }
+                        });
                     });
-                  });
                 </script>
                 </div>
               </div>

@@ -68,6 +68,19 @@ pageEncoding="UTF-8"%>
         .hAddr-add {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+
+        .image-grid {
+        display: flex;
+        justify-content: center;
+    }
+
+        .image-preview-container {
+            width: 250px;
+            height: 200px;
+            background-color: lightblue;
+            margin-right: 10px;
+            overflow: hidden;  /* Ensure the image does not overflow the container */
+        }
     </style>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -155,36 +168,41 @@ pageEncoding="UTF-8"%>
                                                     <div id="two" class="collapse" aria-labelledby="h_two" data-bs-parent="#accordionExample">
                                                         <div class="card-body">
                                                             <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple="">
-                                                            <div id="imagePreviewContainer" class="d-flex">
-                                                            </div>
+                                                        </br>
+                                                        <div style="display: flex; justify-content: center;">
+                                                            <div id="imagePreviewContainer1" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer2" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer3" class="image-preview-container"></div>
+                                                        </div>
+                                                        <script>
+                                                            document.getElementById('fileUpload').addEventListener('change', function (e) {
+                                                                const previewContainers = document.querySelectorAll('.image-preview-container');
+                                                                const files = e.target.files;
+                                                
+                                                                for (let i = 0; i < previewContainers.length; i++) {
+                                                                    if (files[i]) {
+                                                                        const reader = new FileReader();
+                                                
+                                                                        reader.onload = function (e) {
+                                                                            const img = document.createElement('img');
+                                                                            img.src = e.target.result;
+                                                                            img.alt = 'Image Preview';
+                                                                            img.style.width = '100%';  // Adjust the image width to fill the container
+                                                                            img.style.height = '100%'; // Adjust the image height to fill the container
+                                                                            previewContainers[i].innerHTML = '';
+                                                                            previewContainers[i].appendChild(img);
+                                                                        };
+                                                
+                                                                        reader.readAsDataURL(files[i]);
+                                                                    } else {
+                                                                        previewContainers[i].innerHTML = ''; // Clear the preview if no file is selected
+                                                                    }
+                                                                }
+                                                            });
+                                                        </script>
                                                         </div>
                                                     </div>
                                                 </div>   
-                                                <script>
-                                                    $(document).ready(function () {
-                                                        $("#fileUpload").on("change", function () {
-                                                            displayImagePreview(this);
-                                                        });
-                                            
-                                                        function displayImagePreview(input) {
-                                                            var imagePreviewContainer = $("#imagePreviewContainer");
-                                                            imagePreviewContainer.find(".preview-container").empty(); // 기존 미리 보기 초기화
-                                            
-                                                            if (input.files) {
-                                                                var files = input.files;
-                                                                for (var i = 0; i < Math.min(files.length, 3); i++) { // 최대 3개까지만 표시
-                                                                    var reader = new FileReader();
-                                                                    reader.onload = function (e) {
-                                                                        var img = $("<img>").attr("src", e.target.result).addClass("preview-image");
-                                                                        var previewDiv = $("<div>").addClass("preview-container").append(img);
-                                                                        imagePreviewContainer.append(previewDiv);
-                                                                    };
-                                                                    reader.readAsDataURL(files[i]);
-                                                                }
-                                                            }
-                                                        }
-                                                    });
-                                                </script>
                                             </div>
                                         </div>
                                     </div>
