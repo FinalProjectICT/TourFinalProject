@@ -30,6 +30,7 @@ function HistoryCard({
       chartRef.current.update();
     }
   }, []);
+  // console.log(chartData.data)
   return (
     <div
       className={` ${

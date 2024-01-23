@@ -271,7 +271,7 @@ function Map() {
               <div className="mg-top-20 crancy-progress-list--group">
                 <ul className="crancy-progress-list crancy-progress-list__space crancy-progress-list__inline">
                 {mapData.map((country, index) => (
-                  <li>
+                  <li key={index}>
                     <span className="crancy-progress-list__color crancy-color1__bg"></span>
                     <p>
                       <span>{getCountryName(country)}</span> <b>:</b> {percentage[index]}%
@@ -279,7 +279,6 @@ function Map() {
                   </li>
                 ))}
                 </ul>
-                
               </div>
             </div>
           </div>

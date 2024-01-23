@@ -26,8 +26,11 @@ function SupportTicketsList() {
     });
   }, []);
 
-  
- 
+  const parentComponent = () => {
+    return <SupportTicketsList />
+  }
+
+
   const [ inquiryIdx, setInquiryIdx ] = useState(0) ;
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -80,6 +83,7 @@ function SupportTicketsList() {
     inquNum={inquNum}
     inquiryReviewNum={inquiryReviewNum}
     inquiryReview={inquiryReview}
+    parentComponent={parentComponent}
     
     />
     

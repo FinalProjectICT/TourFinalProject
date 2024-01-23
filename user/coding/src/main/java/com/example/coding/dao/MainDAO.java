@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.coding.domain.AdminTouroMateVO;
 import com.example.coding.domain.AdminVO;
+import com.example.coding.domain.ChartVO;
 import com.example.coding.domain.MainAdminVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
@@ -43,14 +44,26 @@ public interface MainDAO {
   // 관리자 대시보드 - 회원수 가져오기
   public Integer userCount();
 
+  // 관리자 대시보드 - 회원수 차트 값...
+  public List<ChartVO> usercountGraph();
+
   // 관리자 대시보드 - 여행친구찾기 게시글 수 가져오기
   public Integer touroviewCount();
+
+  // 관리자 대시보드 - 여행친구 찾기 게시글 차트 값...
+  public List<ChartVO> touromateCountGraph();
 
   // 관리자 대시보드 - 후기 게시글 수 가져오기
   public Integer reviewCount();
 
+  // 관리자 대시보드 - 여행후기 게시글 차트 값...
+  public List<ChartVO> touroviewCountGraph();
+
   // 관리자 대시보드 - 영수증 리뷰 수 가져오기
   public Integer receiptReviewCount();
+
+  // 관리자 대시보드 - 영수증 리뷰 차트 값...
+  public List<ChartVO> receiptCountGraph();
 
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계
   public List<MainAdminVO> locPrefer();
@@ -66,6 +79,16 @@ public interface MainDAO {
 
   // 관리자 문의 답변 수정하기 - DB 수정
   public void inquiryReviewUpdate(AdminVO vo);
+
+  // 관리자 대시보드 - 인기 게시물 가져오기
+  public List<AdminVO> popularPost();
+
+  // 관리자 대시보드 - 인기 여행지 가져오기
+  public List<AdminVO> popularTour();
+
+  
+
+  
 
 
 
