@@ -625,7 +625,7 @@ prefix="c" %>
               </div>
             </div>
           </div>
-          <div class="col-lg-12 ratio3_2">
+          <div class="col-lg-12 ratio_square">
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
                 <!-- 여행지 리스트 객체 반복 시작 -->
@@ -634,7 +634,7 @@ prefix="c" %>
                     class="col-xl-3 col-lg-4 col-sm-6 a${TourData.tour_cate_code} grid-item wow fadeInUp"
                     data-class="a${TourData.tour_cate_code}">
                     <div class="special-box p-0">
-                      <div class="special-img">
+                      <div class="special-img" style="height: 200px;">
                         <!-- tour_num으로 상세 페이지 구분 -->
                         <a href="/touro/${TourData.tour_num}">
                           <img
@@ -656,7 +656,7 @@ prefix="c" %>
                           </a>
                         </div>
                       </div>
-                      <div class="special-content">
+                      <div class="special-content" style="height: 220px;">
                         <a href="tour-single-6.html">
                           <h5>
                             ${TourData.tour_name}<span
@@ -665,11 +665,11 @@ prefix="c" %>
                           </h5>
                         </a>
                         <div class="tour-detail">
-                          <h6 class="nowrap-cls">${TourData.tour_content }</h6>
-                          <div class="include-sec">
-                            <span>별점 ${TourData.tour_star}</span> 
-                          </div>
+                          <h6 class="nowrap-cls">${TourData.tour_content}</h6>
                           <div class="bottom-section">
+                            <div class="include-sec">
+                              <span>별점 ${TourData.tour_star}</span> 
+                            </div>
                             <input type="hidden" value=${TourData.tour_star} name="ratevalue" step="0.1" min="0" max="5" >
                             <div class="rating-wrap">
                               <div class="rating">
@@ -748,7 +748,7 @@ prefix="c" %>
                 </c:if>
               </ul>
             </nav>
-            <p>${paging.listCnt}개의 여행지 데이터</p> 
+            <p>총 ${paging.listCnt}개의 여행지정보</p> 
           </div>
         </div>
       </div>

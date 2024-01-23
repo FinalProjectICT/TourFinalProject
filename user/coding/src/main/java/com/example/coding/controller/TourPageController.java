@@ -157,7 +157,7 @@ public class TourPageController {
 		return res;
 	}
 
-	// 웹 소켓 연결 테스트 자리
+	// 웹 소켓 전달 값 처리
 	@RequestMapping(value ="/chatBot", method={RequestMethod.POST})
 	@ResponseBody
 	public String chatBot(@RequestBody String jsonString) {
@@ -167,21 +167,16 @@ public class TourPageController {
             JsonNode jsonNode = objectMapper.readTree(jsonString);
 
             // 전달 값 변수 저장
-            String userStr = jsonNode.path("userStr").asText();
-            String userId = jsonNode.path("userId").asText();
-
-
-			// 이곳에서 소캣 연결
-			String botStr = "챗봇 응답";
-			String botAct = "챗봇 동작";
+			String userStr = jsonNode.path("userStr").asText();
+			String userId = jsonNode.path("userId").asText();
 			
-            // 소켓에서 반환된 결과를 json 형태로 전달
-			JSONObject botAnser = new JSONObject();
-			botAnser.put("botStr", botStr);
-			botAnser.put("botAct", botAct);
-
 			// 결과 페이지로 전달
+			JSONObject botAnser = new JSONObject();
+			botAnser.put("requestion", userStr);
+			botAnser.put("loginfo", userId);
+			System.out.println(botAnser.getAsString("requestion"));
             return botAnser.toString();
+
         } catch (Exception e) {
             e.printStackTrace();
             return "Error processing request";

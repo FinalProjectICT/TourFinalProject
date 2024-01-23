@@ -33,10 +33,7 @@
 		)
 		</if>
 	</trim>
-	<choose>
-		<when test="tour_star != null and tour_star[0] != '' "> ORDER BY tour_star DESC </when>
-		<otherwise> ORDER BY tour_num </otherwise>
-	</choose>
+	ORDER BY tour_star DESC
 	LIMIT #{startList}, #{listSize}
 </select>
 
