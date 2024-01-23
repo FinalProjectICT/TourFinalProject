@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>Touro</title>
 
     <!--Google font-->
     <link
@@ -650,7 +650,7 @@ prefix="c" %>
       <div class="container">
         <div class="row">
           <div class="col">
-            <div
+            <div class="col-6 col-md-4"
               style="
                 background-color: rgb(255, 255, 255);
                 padding: 25px;
@@ -658,7 +658,7 @@ prefix="c" %>
                 height: 150px;
                 width: 50%;
               "
-            >
+              >
               <div style="float: left">
                 <div class="weather_icon"></div>
               </div>
@@ -684,7 +684,7 @@ prefix="c" %>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-6 col-md-4">
             <div
               style="
                 background-color: rgb(255, 255, 255);
@@ -719,7 +719,7 @@ prefix="c" %>
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-6 col-md-4">
             <div
               style="
                 background-color: rgb(255, 255, 255);
@@ -805,11 +805,12 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>${sessionScope.loggedId}님의 맞춤 여행지 <span>Touro</span></h2>
-            <h5>
-              ${sessionScope.loggedId}님의 취향을 가득 담은 여행지를 골라
-              담았습니다!
-            </h5>
+
+            <h2>
+              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지 <span>Touro</span>
+            </h2>
+            <h5>${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
+
           </div>
           <div class="row">
             <div class="col">
@@ -1124,13 +1125,10 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>
-              ${sessionScope.loggedId}님의 최애 지역 여행지 <span>Touro</span>
-            </h2>
-            <h5>
-              ${sessionScope.loggedId}님의 1순위 선호 지역에 관한 여행지를 골라
-              담았습니다!
-            </h5>
+
+            <h2>${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지 <span>Touro</span></h2>
+            <h5>${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
+
           </div>
           <div class="row">
             <div class="col">
@@ -1426,7 +1424,7 @@ prefix="c" %>
     <!-- tap to top end -->
 
     <!-- setting start -->
-    <div class="theme-setting">
+    <!-- <div class="theme-setting">
       <div class="dark">
         <input class="tgl tgl-skewed" id="dark" type="checkbox" />
         <label
@@ -1445,7 +1443,7 @@ prefix="c" %>
           for="rtl"
         ></label>
       </div>
-    </div>
+    </div> -->
     <!-- setting end -->
 
     <!-- 챗봇 구역 시작 -->

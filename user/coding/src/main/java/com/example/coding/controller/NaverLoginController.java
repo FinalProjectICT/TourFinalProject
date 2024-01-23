@@ -3,11 +3,6 @@ package com.example.coding.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +17,6 @@ import com.example.coding.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
-
-
-import com.example.coding.domain.NaverTokenResponse;
 
 
 @Controller
@@ -81,7 +73,6 @@ public class NaverLoginController {
 
             // DB에서 사용자 정보 대조
             UserVO userVO = userService.socialLoginCheck("naver_"+user_id);
-
 
             // 사용자 정보가 DB에 없으면 회원가입 페이지로 이동
             if (userVO == null) {
