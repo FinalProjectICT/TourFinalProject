@@ -50,6 +50,26 @@
   padding-right: 0;
   width: 100px;
   display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.user .right-part {
+  margin-right: 5%;
+}
+
+#chatContent .testimonial.botq {
+  padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.bota {
+  padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
 }
 
 #chatContent img {

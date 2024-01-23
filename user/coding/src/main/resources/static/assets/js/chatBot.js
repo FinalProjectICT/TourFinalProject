@@ -1,12 +1,23 @@
 $(() => {
-  // 로그인 값 저장
+  const webSocket = new WebSocket("ws://175.114.130.7:8764");
   let sessionId = "";
   if ($("#loggedInUser").val() != null && $("#loggedInUser").val() != "") {
     sessionId = $("#loggedInUser").val();
   }
 
+  webSocket.onmessage = async (event) => {
+    anser = event.data;
+    ansdata = JSON.parse(anser);
+
+    divBotAns(ansdata);
+    setTimeout(divBotAct(ansdata), 3000);
+  };
+
+  webSocket.onopen = () => {
+    console.log("소캣 연결");
+  };
+
   // 버튼 동작
-  console.log($("#chatContainer").css("display"));
   $("#chatButton").on("click", () => {
     $("#chatContainer").toggle();
     if ($("#chatContainer").css("display") != "none") {
@@ -44,38 +55,49 @@ $(() => {
         url: "/touro/chatBot",
         type: "POST",
         dataType: "JSON",
-        async: false,
         timeout: 5000,
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(chatJson),
         success: function (respons) {
-          var res = JSON.parse(JSON.stringify(respons));
-          console.log(res.botStr);
-
-          $("#chatContent").append(
-            `<div class="testimonial user">
-              <div class="row g-0 justify-content-md-start mb-2">
-                <div class="left-part col-ms-4 col-xl-1">
-                  <img src="../assets/images/profile/default_profile.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
-                </div>
-                <div class="right-part col-lg-auto">` +
-              res.botStr +
-              `</div></div>
-              <div class="card mb-3 style="width: 10px">
-                <div class="card-body">
-                  <p>` +
-              res.botAct +
-              `</p></div></div></div>`
-          );
+          webSocket.send(JSON.stringify(respons));
         },
         error: function (err) {
           console.log(err);
         },
       });
 
-      //응답 전까지 엔터 동작 막기
-
       $("#chatInput").val("");
     }
   });
+
+  webSocket.onclose = () => {
+    console.log("소캣 종료");
+  };
 });
+
+// 응답 양식
+function divBotAns(ansdata) {
+  $("#chatContent").append(
+    `<div class="testimonial botq">
+      <div class="row g-0 justify-content-md-start mb-2">
+        <div class="left-part col-ms-4 col-xl-1">
+          <img src="../assets/images/profile/default_profile.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
+        </div>
+        <div class="right-part col-lg-auto">` +
+      ansdata.say +
+      `</div>
+      </div>
+      </div>`
+  );
+}
+
+function divBotAct(ansdata) {
+  $("#chatContent").append(
+    `<div class="testimonial bota">
+    <div class="card mb-3 style="width: 10px">
+      <div class="card-body">
+        <p>` +
+      ansdata.act +
+      `</p></div></div></div>`
+  );
+}
