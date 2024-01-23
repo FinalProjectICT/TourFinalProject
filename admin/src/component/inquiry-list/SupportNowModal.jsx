@@ -3,9 +3,10 @@ import planeIcon from "../../assets/img/plane-icon.png";
 import { Navigate, json } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import SupportTicketsList from "./SupportTicketsList";
 
 function SupportNowModal({ isOpen, handleClose, inQu, inqNum, 
-  title, content, userId, testArr,inquNum,inquiryReviewNum, inquiryReview }) {
+  title, content, userId, testArr,inquNum,inquiryReviewNum, inquiryReview, parentComponent }) {
 
   //console.log(inquiryReviewNum);
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum,
     e.preventDefault();
     setInquiryRe(e.target.value);
   }
+
 
   // 답변 등록
   let param = {
@@ -48,6 +50,7 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum,
     axios.post(baseUrl+"/inquiry/inquiryReviewUpdate",updateparam)
     .then(() => {
       setInquiryUp(updateparam.inquiry_review_content);
+      parentComponent
     })
     .catch(err => console.log(err))
 

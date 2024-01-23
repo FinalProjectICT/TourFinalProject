@@ -1,13 +1,43 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SelectInput from "../form/SelectInput";
 import { productActivity } from "../../data/productActivity";
 import ProductInfo from "../cards/ProductInfo";
 import calenderIcon from "../../assets/img/calendar-icon.svg";
 import SelectBox from "../form/SelectBox";
+import axios from "axios";
 
 function ProductActivity() {
   const [page, setPage] = useState(1);
   const [show, setShow] = useState(4);
+  const [popular, setPopular] = useState([]);
+
+  const navigate = useNavigate();
+
+  
+  // 디테일 페이지 가기
+  const detailTouroviewNum = (e,touroview_num) => {
+    e.preventDefault(); // a 태그의 기본 기능 막기
+    axios.get(`${baseUrl}/tour-list/touroviewNum/${touroview_num}`)
+    .then((result) => {
+      const tourDetails = result.data;
+    })
+    .catch((error) => {
+      console.error('에러 발생:', error);
+    }); 
+    navigate(`/touroview/${touroview_num}`);
+  };
+
+  const baseUrl = "http://localhost:8080";
+
+  useEffect(() => {
+    axios.get(baseUrl + "/touroview/popularPost")
+    .then((result) => {
+      const populars = result.data;
+      setPopular([...populars]);
+    })
+    .catch(err => console.log(err))
+  })
 
   return (
     <div className="crancy-table mg-top-30">
@@ -104,21 +134,50 @@ function ProductActivity() {
                   게시물 번호
                 </th>
                 <th className="crancy-table__column-2 crancy-table__h2">
-                  여행지 명
+                  회원ID
                 </th>
                 <th className="crancy-table__column-3 crancy-table__h3">
-                  조회수
+                  여행지 명
                 </th>
                 <th className="crancy-table__column-4 crancy-table__h4">
                   좋아요 수
-                </th>
-                <th className="crancy-table__column-5 crancy-table__h5">
-                  블라인드
                 </th>
               </tr>
             </thead>
             {/* <!-- crancy Table Body --> */}
             {/* 좋아요 수 기반 게시물 불러와서 여기에 붙이기 */}
+            <tbody className="crancy-table__body">
+              {popular?.map((post) => (
+                    <tr key={post.touroview_num}>
+                      <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, post.touroview_num)}>
+                        <div className="crancy-table__product--id">
+                          <p className="crany-table__product--number">
+                            <a to="/ticket-details">{post.touroview_num?.toString()}</a>
+                          </p>
+                        </div>
+                      </td>
+                      <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouroviewNum(e, post.touroview_num)}>
+                        <div className="crancy-table__product--id">
+                          <p className="crany-table__product--number">
+                            <a to="/ticket-details">{post.user_id?.toString()}</a>
+                          </p>
+                        </div>
+                      </td>
+                      <td className="crancy-table__column-3 crancy-table__data-3" onClick={(e) => detailTouroviewNum(e, post.touroview_num)}>
+                        <p className="crancy-table__inner--title">
+                          <a to="/ticket-details">{post.tour_name?.toString()}</a>
+                        </p>
+                      </td>
+                      <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouroviewNum(e, post.touroview_num)}>
+                        <p className="crancy-table__text crancy-table__time">
+                          {post.like_count?.toString()}
+                        </p>
+                      </td>
+                     
+                    </tr>
+                ))}
+                </tbody>
+                {/* <!-- End crancy Table Body --> */}
             {/* <tbody className="crancy-table__body">
               {productActivity?.map((product, index) => {
                 const current = page * show;

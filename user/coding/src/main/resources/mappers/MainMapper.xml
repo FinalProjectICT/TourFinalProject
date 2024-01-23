@@ -207,4 +207,72 @@
   <update id="inquiryReviewUpdate" parameterType="AdminVO">
     UPDATE inquiry_review SET inquiry_review_content = #{inquiry_review_content} WHERE inquiry_num = #{inquiry_num}
   </update>
+
+
+  <!-- 관리자 대시보드 - 인기 게시물 가져오기 -->
+  <select id="popularPost" resultType="AdminVO">
+    SELECT tv.touroview_num touroview_num, t.tour_name tour_name, tv.user_id user_id, li.like_count like_count
+    FROM  touroview tv INNER JOIN `like` li ON tv.touroview_num = li.touroview_num 
+    INNER JOIN tour t ON tv.tour_num = t.tour_num LEFT JOIN report r ON tv.touroview_num = r.touroview_num 
+    WHERE r.report_count &lt; 3 OR r.report_count IS NULL
+    ORDER BY li.like_count 
+  </select>
+
+  <!-- 관리자 대시보드 - 인기 여행지 가져오기 -->
+  <select id="popularTour" resultType="AdminVO">
+    SELECT t.tour_num tour_num, count(wl.tour_num) wish_count, t.tour_img1_path tour_img1_path, t.tour_name tour_name, t.tour_cate_name tour_cate_name
+    FROM wishlist wl INNER JOIN tour t ON wl.tour_num = t.tour_num
+    GROUP BY wl.tour_num 
+    ORDER BY wish_count DESC
+    LIMIT 5;
+  </select>
+
+  <!-- 관리자 대시보드 - 회원수 차트 값... -->
+  <select id="usercountGraph" resultType="ChartVO">
+    SELECT DATE_FORMAT(user_register_date, '%y.%m') AS month,
+	    Count(DATE_FORMAT(user_register_date, '%y.%m')) AS count_month
+    FROM USER
+    WHERE user_register_date &gt; CURDATE() - INTERVAL 6 month
+    GROUP BY
+        month
+    ORDER BY
+        month
+  </select>
+
+  <!-- 관리자 대시보드 - 여행후기 게시글 차트 값... -->
+  <select id="touroviewCountGraph" resultType="ChartVO">
+    SELECT DATE_FORMAT(touroview_regdate, '%y.%m') AS MONTH,
+    Count(DATE_FORMAT(touroview_regdate, '%y.%m')) AS count_month
+    FROM touroview
+    WHERE touroview_regdate &gt; CURDATE() - INTERVAL 6 MONTH
+    GROUP BY
+        MONTH
+    ORDER BY
+        MONTH;
+  </select>
+
+  <!-- 관리자 대시보드 - 여행친구 찾기 게시글 차트 값... -->
+  <select id="touromateCountGraph" resultType="ChartVO">
+    SELECT DATE_FORMAT(touro_mate_date, '%y.%m') AS MONTH,
+    Count(DATE_FORMAT(touro_mate_date, '%y.%m')) AS count_month
+    FROM touro_mate
+    WHERE touro_mate_date &gt; CURDATE() - INTERVAL 6 MONTH
+    GROUP BY
+        MONTH
+    ORDER BY
+        MONTH;
+  </select>
+
+
+  <select id="receiptCountGraph">
+    SELECT DATE_FORMAT(receipt_date, '%y.%m') AS MONTH,
+    Count(DATE_FORMAT(receipt_date, '%y.%m')) AS count_month
+    FROM receipt
+    WHERE receipt_date &gt; CURDATE() - INTERVAL 6 MONTH
+    GROUP BY
+        MONTH
+    ORDER BY
+        MONTH;
+  </select>
+
 </mapper>

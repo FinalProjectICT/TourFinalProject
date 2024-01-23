@@ -164,6 +164,7 @@ function NotificationsCom({ isSettings }) {
                                         <input
                                           type="file" 
                                           className="form-control"
+                                          multiple
                                           id="image-upload"
                                           accept=".jpg,.jpeg,.png"
                                           onChange={handleImageChange}
