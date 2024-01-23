@@ -100,7 +100,7 @@
                     </a>
                 </c:if>
                 <!-- 세션이 비어 있지 않으면 로그아웃 버튼으로 -->
-                <c:if test="  ${not empty sessionScope.loggedInUser}">
+                <c:if test="${not empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
                     <a href="/user/logout">
                       <i class="fas fa-sign-out-alt">로그아웃</i>
