@@ -9,6 +9,7 @@ public interface MyPageDAO {
 
     // mypage 사용자 정보 가져오기
     public UserVO getUserProfile(String userId);
+
     
 } 
 

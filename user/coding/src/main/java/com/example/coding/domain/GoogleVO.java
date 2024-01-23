@@ -24,6 +24,9 @@ public class GoogleVO {
     @JsonProperty("family_name")
     private String familyName;
 
+    @JsonProperty("picture")
+    private String picture;
+
     @JsonProperty("birthday")
     private String birthday;
 

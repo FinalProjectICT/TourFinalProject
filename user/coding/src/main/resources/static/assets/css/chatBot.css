@@ -28,8 +28,8 @@
   position: fixed;
   right: 0;
   bottom: 100px;
-  width: 300px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px 10px 10px 10px;
@@ -40,11 +40,32 @@
 #chatContent {
   padding: 10px;
   overflow-y: auto;
-  height: calc(100% - 80px);
+  height: calc(100% - 90px);
   align-items: center;
+  word-break: break-all;
 }
 
 #chatContent .testimonial.user {
+  padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.user .right-part {
+  margin-right: 5%;
+}
+
+#chatContent .testimonial.botq {
+  padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.bota {
   padding-bottom: 20px;
   padding-right: 0;
   width: 100px;

@@ -4,14 +4,13 @@ package com.example.coding.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.TouroviewDAO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
+import com.example.coding.domain.UserVO;
 
 
 @Service
@@ -24,7 +23,7 @@ public class TouroviewServiceImpl implements TouroviewService{
         this.touroviewDAO = touroviewDAO;
     }
 
-    // ------------------------------------ touroview_insert
+    // ----------------------------------------------------- touroview_insert
     // 여행지 검색
     @Override
     public List<TourVO> findByKeyword(TourVO vo) {
@@ -68,22 +67,39 @@ public class TouroviewServiceImpl implements TouroviewService{
         return totalPages;
     }
 
-    // ---------------------------------------------- touroview_detail
+    // ----------------------------------------------------- touroview_detail
+    // 게시물 id로(TouroviewVO) 게시물 가져오기(detail)
     @Override
-    // 게시물 id로 게시물 가져오기(detail)
     public TouroviewVO getTouroviewById(int touroview_num){
-        // 해당 게시물 id 가져오기
+
         return touroviewDAO.getTouroviewById(touroview_num);
     }
 
+
+
+    // 여행지(TourVO) 번호를 이용하여 해당 여행지 정보를 가져오기
     @Override
-   // 여행지 번호를 이용하여 해당 여행지 정보를 가져오기
    public TourVO getTourByTouroviewId(int touroview_num){
-        return touroviewDAO.getTourByTouroviewId(touroview_num);
+        return touroviewDAO.getTourByTouroviewId(touroview_num); 
    }
     
 
-    // ------------------------------------------ 수정, 삭제
+
+    // 작성자(사용자) 정보 가져오기
+    @Override
+    public UserVO getUserByTouroviewId(int touroview_num){
+        return touroviewDAO.getUserByTouroviewId(touroview_num);
+    }
+
+    // 후기 게시물 리뷰 정보 가져오기
+    @Override
+    public TouroviewReviewVO getTouroviewReviewByTouroviewId(int touroview_num){
+        return touroviewDAO.getTouroviewReviewByTouroviewId(touroview_num);
+    }
+
+
+
+    // ----------------------------------------------------- touroview_update_delete
     // 후기 게시물 수정
     @Override
     public void updateTouroview(TouroviewVO touroviewVO){

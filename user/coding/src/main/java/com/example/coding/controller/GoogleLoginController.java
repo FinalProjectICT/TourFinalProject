@@ -74,7 +74,7 @@ public class GoogleLoginController {
             // 사용자 정보가 DB에 없으면 회원가입 페이지로 이동
             if (userVO == null) {
                 // 사용자 정보를 Model에 담아서 social-sign-up 페이지로 전달
-                model.addAttribute("googleUserInfo", userInfoResponse);
+                model.addAttribute("googleUserInfo", googleUserInfo);
                 return "user/google-sign-up";
             }
 
@@ -94,10 +94,10 @@ public class GoogleLoginController {
     @GetMapping("/user/google-sign-up")
     public String socialSignUpPage(@RequestParam("googleUserInfo") String googleUserInfo, Model model) {
         // 사용자 정보 활용
-        System.out.println(googleUserInfo);
+        System.out.println("넘겨받은 googleUserInfo 값: " + googleUserInfo.toString());
         model.addAttribute("googleUserInfo", googleUserInfo);
         System.out.println("모델 컨트롤러 : " + googleUserInfo);
 
-        return "user/google-sign-up"; // 적절한 페이지로 수정
+        return "user/google-sign-up";
     }
 }

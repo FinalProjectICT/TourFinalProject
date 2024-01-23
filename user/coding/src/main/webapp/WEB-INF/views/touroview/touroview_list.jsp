@@ -264,7 +264,7 @@ pageEncoding="UTF-8"%>
                   <div class="special-box p-0">
                     <!-- 이미지 select 값 -->
                     <div class="special-img">
-                      <a href="/touroview/touroview_detail?id=${touroview.touroview_num}">
+                      <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <img
                           src="../assets/images/tour/tour/7.jpg"
                           class="img-fluid blur-up lazyload bg-img"
@@ -286,7 +286,7 @@ pageEncoding="UTF-8"%>
                       </div>
                     </div>
                     <div class="special-content">
-                      <a href="/touroview/touroview_detail">
+                      <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <h5>${touroview.touroview_title}</h5>
                       </a>
                       <div class="tour-detail">
@@ -346,12 +346,12 @@ pageEncoding="UTF-8"%>
 
     <!-- footer start -->
     <footer>
-      <div class="footer section-b-space section-t-space">
-        <div class="container">
-          <div class="row order-row">
-            <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
-                <h5>Touro</h5>
+  <div class="footer section-b-space section-t-space">
+     <div class="container">
+        <div class="row order-row">
+           <div class="col-xl-2 col-md-2 order-cls">
+            <div class="footer-title mobile-title">
+              <h5>Touro</h5>
               </div>
               <div class="footer-content">
                 <div class="contact-detail">
