@@ -152,7 +152,7 @@ prefix="c" %>
                   class="menu-part about tab-pane fade show active"
                   id="highlight"
                 >
-                  <div class="row">
+                  <div class="row row-cols-3">
                     <div class="about-sec col-lg-6">
                       <div>
                         <br />
@@ -176,6 +176,34 @@ prefix="c" %>
                       <div class="about-sec">
                         <h4>${TourData.tour_addr}</h4>
                       </div>
+                      <div class="row col-11" id = num222>
+                        <h6>소개문</h6>
+                        <p>${TourData.tour_content}...
+                        </p>
+                      </div>
+                      <div class="row">
+                        <div class="col btn-group-showcase">
+                          <a
+                            href="#"
+                            class="btn btn-rounded btn-secondary col-1  "
+                            data-bs-toggle=""
+                            data-placement=""
+                            title="${TourData.tour_num}"
+                            data-original-title="Add_to_Wishlist"
+                          >
+                            <i class="far fa-heart"></i
+                          ></a>
+                          <a
+                            href="#"
+                            class="btn btn-rounded color2 col-4"
+                            data-bs-toggle="modal"
+                            data-bs-target="#tour-q"
+                            title=""
+                          >
+                            문의하기
+                          </a>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="detail-img card col-lg-6">
@@ -186,13 +214,11 @@ prefix="c" %>
                       />
                     </div>
                   </div>
-                  <div class="row" id = num123>
+                  <!-- <div class="row" id = num123>
                     <div class="about-sec col-lg-6" id = num222>
                       <h6>소개문</h6>
                       <p>${TourData.tour_content}...
                       </p>
-
-
                     </div>
                     <div class="col-1"></div>
                     <div class="col-lg-5 row">
@@ -219,7 +245,7 @@ prefix="c" %>
                         </a>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
 
                 <!-- 상세 정보 -->
@@ -246,9 +272,11 @@ prefix="c" %>
                         aria-labelledby="headingOne"
                         data-bs-parent="#accordion"
                       >
-                        ${TourData.tour_content}
+                        
                         <div id="info_head_body" class="card-body">
-                          <div class="highlight"></div>
+                          <div class="highlight">
+                            ${TourData.tour_content}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -869,9 +897,9 @@ prefix="c" %>
                   <form>
                     <div class="row">
                       <div class="form-group col-10">
-                        <label for="exampleFormControlTextarea1"
-                          >리뷰 작성</label
-                        >
+                        <label for="exampleFormControlTextarea1">
+                          리뷰 작성
+                        </label>
                         <textarea
                           class="form-control"
                           id="exampleFormControlTextarea1"
@@ -945,8 +973,7 @@ prefix="c" %>
                           <button
                             type="button"
                             onclick="window.location.href='tour-layout-2';"
-                            class="btn btn-rounded color1"
-                          >
+                            class="btn btn-rounded color1">
                             리뷰 작성
                           </button>
                         </div>
