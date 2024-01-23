@@ -145,7 +145,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body dashboard-section d-flex justify-content-center align-items-center">
-                  <section class="w-100">
+                  <section class="w-400" style="height: 500px;">
                       <div class="image-section">
                           <!-- 내용이 중앙에 오도록 수정 -->
                           <div class="image-container row">

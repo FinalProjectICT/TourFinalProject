@@ -111,18 +111,24 @@ public class TouroMateController {
     // 채팅 버튼 클릭 시 tour_mate_chat_user 테이블 저장
     @PostMapping("/joinChat")
     @ResponseBody
-    public String joinChat(@RequestParam int touro_mate_num, HttpServletRequest request){
-        //세션에서 user_id 가져오기
+    public String joinChat(@RequestParam int touro_mate_num, HttpServletRequest request) {
+        // 세션에서 user_id 가져오기
         HttpSession session = request.getSession();
         UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
 
-        if (loggedInUser != null) {
-            // 채팅 참가하기 서비스 호출
-            mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
-            return "채팅 참가 성공";
-        } else {
-            return "로그인이 필요합니다.";
+        try {
+            if (loggedInUser != null) {
+                System.out.println("Joining chat for user: " + loggedInUser.getUser_id() + ", touro_mate_num: " + touro_mate_num);
+                // 채팅 참가하기 서비스 호출
+                mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
+                return "채팅 참가 성공";
+            } else {
+                return "로그인이 필요합니다.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "채팅 참가 중 오류 발생";
+        }
     }
 
-    }
 }
