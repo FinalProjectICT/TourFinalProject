@@ -61,7 +61,7 @@
                           <a
                             class="nav-link"
                             data-bs-toggle="modal"
-                            data-bs-target="#chatLive"
+                            data-bs-target="#image-change"
                             href="#"
                             class="btn btn-rounded btn-sm color1"
                             data-touro-mate-num="${touroMate.touro_mate_num}"
@@ -73,12 +73,22 @@
                 </div>
               </nav>
               <ul class="header-right">
-                <li class="user user-light rounded5">
-                  <a href="/user/mypage">
-                    <i class="fa fa-address-book"></i>
-                    마이페이지
-                  </a>
-                </li>
+               <c:if test="${empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/login">
+                      <i class="fa fa-address-book"></i>
+                      마이페이지
+                    </a>
+                  </li>
+                </c:if>
+                <c:if test="${not empty sessionScope.loggedInUser}">
+                  <li class="user user-light rounded5">
+                    <a href="/user/mypage">
+                      <i class="fa fa-address-book"></i>
+                      마이페이지
+                    </a>
+                  </li>
+                </c:if>
                 <!-- 세션이 비어 있으면 로그인 버튼으로 -->
                 <c:if test="${empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
@@ -127,7 +137,7 @@
     </header>
     <!--  해더 끝 -->
      <!-- 이미지 변환 (Modal) 구성 시작-->
-     <div class="modal fade edit-profile-modal" id="chatLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade edit-profile-modal" id="image-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content" style="width: 80vw; max-width: 1800px; height: 80vh; max-height: 1000px;">
               <div class="modal-header">
@@ -135,7 +145,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body dashboard-section d-flex justify-content-center align-items-center">
-                  <section class="w-100">
+                  <section class="w-400" style="height: 500px;">
                       <div class="image-section">
                           <!-- 내용이 중앙에 오도록 수정 -->
                           <div class="image-container row">

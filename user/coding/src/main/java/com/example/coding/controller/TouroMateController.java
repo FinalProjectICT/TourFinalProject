@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
@@ -63,25 +64,28 @@ public class TouroMateController {
         m.addAttribute("touromates", selectedMateList);
         m.addAttribute("totalPages", getTotalPages);
         m.addAttribute("currentPage", page);
+        m.addAttribute("loggedInUserId", loggedInUser != null ? loggedInUser.getUser_id() : null);
 
         return "touromate/touromate_list";
-}
+    }
 
     // insert 페이지
     @PostMapping("/register-course")
     public String registerCourse(@ModelAttribute TouroMateVO touroMateVO, 
-                                @RequestParam int touro_mate_num, 
                                 HttpServletRequest request){
         //세션에서 user_id 가져오기
         HttpSession session = request.getSession();
         UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
 
         System.out.println("userId:" + loggedInUser.getUser_id());
-        System.out.println("touro_mate_num:" + touro_mate_num);
 
         touroMateVO.setUser_id(loggedInUser.getUser_id());
 
         mateService.registerTouroMateAndChat(touroMateVO);
+
+        int touro_mate_num = touroMateVO.getTouro_mate_num();
+        System.out.println("touro_mate_num:" + touro_mate_num);
+        
         return "redirect:/touromate/touromate_list";
 
     }
@@ -104,6 +108,27 @@ public class TouroMateController {
         m.addAttribute("authorInfo", authorInfo);
     }
 
+    // 채팅 버튼 클릭 시 tour_mate_chat_user 테이블 저장
+    @PostMapping("/joinChat")
+    @ResponseBody
+    public String joinChat(@RequestParam int touro_mate_num, HttpServletRequest request) {
+        // 세션에서 user_id 가져오기
+        HttpSession session = request.getSession();
+        UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
+
+        try {
+            if (loggedInUser != null) {
+                System.out.println("Joining chat for user: " + loggedInUser.getUser_id() + ", touro_mate_num: " + touro_mate_num);
+                // 채팅 참가하기 서비스 호출
+                mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
+                return "채팅 참가 성공";
+            } else {
+                return "로그인이 필요합니다.";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "채팅 참가 중 오류 발생";
+        }
+    }
 
 }
-

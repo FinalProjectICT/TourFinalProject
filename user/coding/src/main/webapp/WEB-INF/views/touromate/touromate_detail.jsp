@@ -643,9 +643,33 @@ prefix="c" %>
                       data-bs-target="#chatLive"
                       href="#"
                       class="btn btn-rounded btn-sm color1"
+                      data-touro-mate-num="${touroMate.touro_mate_num}"
                       >채팅 참가하기</a
                     >
                   </div>
+                  <script>
+                    $('#chat-circle').click(function () {
+                        // 게시글 번호 가져오기
+                        var touroMateNum = $(this).data('touro-mate-num');
+                        console.log('게시글번호 ', touroMateNum);
+                        // AJAX를 이용하여 채팅 참가 요청 보내기
+                        $.ajax({
+                            type: 'POST',
+                            url: '/touromate/joinChat',
+                            data: { touro_mate_num: touroMateNum },
+                            success: function (response) {
+                                // 서버에서의 응답 처리
+                                console.log('Server Response:', response);
+
+                                alert(response);
+                            },
+                            error: function (error) {
+                                // 에러 처리
+                                console.error('Error joining chat:', error);
+                            }
+                        });
+                    });
+                </script>
                 </div>
               </div>
               <div class="single-sidebar">
@@ -1039,79 +1063,104 @@ prefix="c" %>
     <!-- 채팅 스크립트 코드 -->
     <script>
       let ws;
-    
+  
       $(document).ready(function () {
-        function openWebSocket() {
-          // 이미 WebSocket이 열려있는 경우 다시 연결하지 않음
-          if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-            return;
+          function openWebSocket() {
+              if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+                  return;
+              }
+  
+              ws = new WebSocket('ws://localhost:8081/chat');
+  
+              ws.onopen = function () {
+                  console.log('WebSocket Client Connected');
+              };
+  
+              ws.onmessage = function (event) {
+                  const message = JSON.parse(event.data);
+                  if (message.type === 'chat' && message.message.trim() !== '') {
+                      // 받은 메시지를 모달에 표시하는 코드 추가
+                      appendMessageToChat(message.message, message.userId, message.timestamp);
+                  }
+              };
+  
+              ws.onclose = function (event) {
+                  console.log('WebSocket connection closed:', event);
+              };
           }
-    
-          ws = new WebSocket('ws://localhost:8081/chat');
-    
-          ws.onopen = function () {
-            console.log('WebSocket Client Connected');
-          };
-    
-          ws.onmessage = function (event) {
-            const message = JSON.parse(event.data);
-            if (message.type === 'chat' && message.message.trim() !== '') {
-              // 받은 메시지를 모달에 표시하는 코드 추가
-              appendMessageToChat(message.message, message.userId);
-            }
-          };
-    
-          ws.onclose = function (event) {
-            console.log('WebSocket connection closed:', event);
-          };
-        }
-    
-        // 클릭 이벤트에 직접 메시지 전송 함수 연결
-        $('#chat-submit').click(function () {
-          sendMessage();
-        });
-    
-        // 폼의 submit 기본 동작 중지
-        $('#chatForm').submit(function (event) {
-          event.preventDefault();
-        });
-    
-        function sendMessage() {
-          const inputMessage = $('#chat-input').val().trim(); // 입력값에서 앞뒤 공백을 제거
-          console.log('Sending message:', inputMessage); // 추가된 로그
-          if (inputMessage !== '') {
-            ws.send(JSON.stringify({ type: 'chat', message: inputMessage }));
-            // 입력한 메시지를 모달에 표시하는 코드 추가
-            appendMessageToChat(inputMessage, 'user'); // 'user'는 사용자가 작성한 메시지임을 나타내는 임의의 값
-            // 입력창 비우기
-            $('#chat-input').val('');
+  
+          // 클릭 이벤트에 직접 메시지 전송 함수 연결
+          $('#chat-submit').click(function () {
+              sendMessage();
+          });
+  
+          // 폼의 submit 기본 동작 중지
+          $('#chatForm').submit(function (event) {
+              event.preventDefault();
+          });
+  
+          function sendMessage() {
+              const inputMessage = $('#chat-input').val().trim();
+              console.log('Sending message:', inputMessage);
+              if (inputMessage !== '') {
+                  const userId = '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId }));
+                  $('#chat-input').val('');
+              }
           }
-        }
-    
-        function appendMessageToChat(message, userType) {
-          console.log("Appending message:", message);
-    
-          // 오른쪽 또는 왼쪽에 메시지를 추가하는 코드
-          const alignmentClass = userType === 'user' ? 'text-right' : 'text-left';
-          const messageElement = $('<p>').text(message).addClass(alignmentClass);
-          $('.chat-logs').append(messageElement);
-        }
-    
-        // 모달이 열릴 때 WebSocket 연결 시작
-        $('#chatLive').on('shown.bs.modal', function () {
-          openWebSocket();
-        });
-    
-        // 모달이 닫힐 때 WebSocket 연결 종료
-        $('#chatLive').on('hidden.bs.modal', function () {
-          if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-            ws.close();
+  
+          function appendMessageToChat(message, userId, timestamp) {
+              console.log("Appending message:", message);
+              console.log("userid: " + userId);
+  
+              const displayedUserId = `${'${userId}'}:`;
+              const displayedTimestamp = `${'${timestamp}'}`;
+              const messageElement = $('<p>').html(`<strong>${'${displayedUserId}'}</strong>${'${message}'}<p style='font-size:8px'>${'${displayedTimestamp}'}</p>`);
+  
+              console.log("Message Element:", messageElement);
+  
+              // 확인: 실제로 .chat-logs에 메시지를 추가합니다.
+              const chatLogs = $('.chat-logs');
+              const isCurrentUser = userId === '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+  
+              if (isCurrentUser) {
+                  // 본인이 보낸 경우
+                  messageElement.addClass('right'); // 오른쪽 정렬 클래스 추가
+              } else {
+                  // 다른 사용자가 보낸 경우
+                  messageElement.addClass('left'); // 왼쪽 정렬 클래스 추가
+              }
+  
+              // 추가한 부분: 메시지 추가 직전에 내용을 확인합니다.
+              console.log("Before appending, chat logs content:", chatLogs.html());
+  
+              // 실제로 .chat-logs에 메시지를 추가합니다.
+              chatLogs.append(messageElement);
+  
+              // 추가한 부분: 메시지 추가 직후에 내용을 확인합니다.
+              console.log("After appending, chat logs content:", chatLogs.html());
           }
-        });
+  
+          // 모달이 열릴 때 WebSocket 연결 시작
+          $('#chatLive').on('shown.bs.modal', function () {
+              openWebSocket();
+          });
+  
+          // 모달이 닫힐 때 WebSocket 연결 종료
+          $('#chatLive').on('hidden.bs.modal', function () {
+              if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
+                  ws.close();
+              }
+          });
+  
+          $('#chat-input').keydown(function (event) {
+              if (event.which === 13) { // Enter 키의 keyCode는 13
+                  sendMessage();
+              }
+          });
       });
     </script>
-     
-
+  
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>
     <script src="../assets/js/zoom-gallery.js"></script>
@@ -1141,5 +1190,22 @@ prefix="c" %>
         format: "dd mmmm",
       });
     </script>
+
+<style>
+  .chat-logs p {
+      margin: 5px 0;
+  }
+
+  .chat-logs .left {
+      text-align: left;
+      color: #333; /* 다른 사용자의 색상 */
+  }
+
+  .chat-logs .right {
+      text-align: right;
+      color: #007bff; /* 본인의 색상 */
+  }
+</style>
+
   </body>
 </html>

@@ -68,7 +68,23 @@ pageEncoding="UTF-8"%>
         .hAddr-add {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+
+        .image-grid {
+        display: flex;
+        justify-content: center;
+    }
+
+        .image-preview-container {
+            width: 250px;
+            height: 200px;
+            background-color: lightblue;
+            margin-right: 10px;
+            overflow: hidden;  /* Ensure the image does not overflow the container */
+        }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         
 </head>
 
@@ -143,26 +159,50 @@ pageEncoding="UTF-8"%>
                                                 </div>
                                                 <div class="card">
                                                     <div class="card-header" id="h_two">
-                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two"
-                                                            aria-expanded="true" aria-controls="two">
+                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two" aria-expanded="true" aria-controls="two">
                                                             <label for='r_two'>
-                                                                <input class="radio_animated ms-0" type='radio' id='r_two'
-                                                                    name='occupation' value='Working' required /> 이미지 업로드
+                                                                <input class="radio_animated ms-0" type='radio' id='r_two' name='occupation' value='Working' required /> 이미지 업로드
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div id="two" class="collapse" aria-labelledby="h_two"
-                                                        data-bs-parent="#accordionExample">
+                                                    <div id="two" class="collapse" aria-labelledby="h_two" data-bs-parent="#accordionExample">
                                                         <div class="card-body">
-                                                                <div class="dropzone" id="singleFileUpload">
-                                                                    <div class="dz-message needsclick">
-                                                                        <i class="icon-cloud-up"></i>
-                                                                        <h6>Drop files here or click to upload.</h6>
-                                                                    </div>
-                                                                </div>
+                                                            <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple="">
+                                                        </br>
+                                                        <div style="display: flex; justify-content: center;">
+                                                            <div id="imagePreviewContainer1" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer2" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer3" class="image-preview-container"></div>
+                                                        </div>
+                                                        <script>
+                                                            document.getElementById('fileUpload').addEventListener('change', function (e) {
+                                                                const previewContainers = document.querySelectorAll('.image-preview-container');
+                                                                const files = e.target.files;
+                                                
+                                                                for (let i = 0; i < previewContainers.length; i++) {
+                                                                    if (files[i]) {
+                                                                        const reader = new FileReader();
+                                                
+                                                                        reader.onload = function (e) {
+                                                                            const img = document.createElement('img');
+                                                                            img.src = e.target.result;
+                                                                            img.alt = 'Image Preview';
+                                                                            img.style.width = '100%';  // Adjust the image width to fill the container
+                                                                            img.style.height = '100%'; // Adjust the image height to fill the container
+                                                                            previewContainers[i].innerHTML = '';
+                                                                            previewContainers[i].appendChild(img);
+                                                                        };
+                                                
+                                                                        reader.readAsDataURL(files[i]);
+                                                                    } else {
+                                                                        previewContainers[i].innerHTML = ''; // Clear the preview if no file is selected
+                                                                    }
+                                                                }
+                                                            });
+                                                        </script>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>   
                                             </div>
                                         </div>
                                     </div>

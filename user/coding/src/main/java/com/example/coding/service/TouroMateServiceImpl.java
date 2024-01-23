@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.TouroMateDAO;
+import com.example.coding.domain.TouroMateChatUserVO;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
@@ -91,4 +92,25 @@ public class TouroMateServiceImpl implements TouroMateService {
         TouromateDAO.registerTouroMateAndChat(touroMateVO);
         TouromateDAO.registerTouroMateChat(touroMateVO);
     }
+
+    // 채팅 참가하기 버튼을 눌렀을 때, tour_mate_chat_user 테이블에 값 저장
+    @Transactional
+    @Override
+    public void joinChat(String user_id, int touro_mate_num) {
+        String chat_num = String.valueOf(touro_mate_num);
+
+        // 이미 참여한 유저인지 확인
+        int userCountInChat = TouromateDAO.checkUserInChat(user_id, chat_num);
+
+        if (userCountInChat == 0) {
+            // 참여하지 않은 경우에만 저장
+            TouroMateChatUserVO chatUserVO = new TouroMateChatUserVO();
+            chatUserVO.setUser_id(user_id);
+            chatUserVO.setChat_num(chat_num);
+    
+            // tour_mate_chat_user 테이블에 값 저장
+            TouromateDAO.joinChat(chatUserVO);
+        }
+    }
+    
 }
