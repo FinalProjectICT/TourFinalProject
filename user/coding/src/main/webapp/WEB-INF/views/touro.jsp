@@ -646,7 +646,7 @@ prefix="c" %>
     <!-- 로고, 배경 설정 끝 -->
 
     <!-- 검색창 설정 -->
-    <section class="section-b-space pt-5" style="padding-bottom: 48px">
+    <section class="section-b-space pt-5" style="padding-bottom: 60px">
       <div class="container">
         <div class="row">
           <!--<div class="col">
@@ -775,11 +775,10 @@ prefix="c" %>
                         type="text"
                         class="form-control"
                         placeholder="다른 도움이 필요하신가요?"
-                      />
-                      <img
-                        src="../assets/images/icon/search.png"
-                        class="img-fluid blur-up lazyload"
+                      /><img
+                        src="../assets/images/icon/chatbot_b.png"
                         alt=""
+                        style="height: 80px"
                       />
                     </div>
                   </div>
@@ -1229,7 +1228,7 @@ prefix="c" %>
               <div class="testimonial">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Byounggon"
+                    id="userInfo_bmh5544"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1244,22 +1243,7 @@ prefix="c" %>
                 </div>
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Daehoon"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_Hangil"
+                    id="userInfo_chunsikjjang"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1275,6 +1259,21 @@ prefix="c" %>
                 <div class="left-part col-2">
                   <a
                     id="userInfo_Hangil"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profile"
+                    href="#"
+                  >
+                    <img
+                      src="../assets/images/avtar/1.jpg"
+                      class="img-fluid blur-up lazyload"
+                      alt=""
+                    />
+                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                  </a>
+                </div>
+                <div class="left-part col-2">
+                  <a
+                    id="userInfo_wldusfl"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1321,7 +1320,8 @@ prefix="c" %>
                 <div class="profile-top">
                   <div class="profile-image">
                     <img
-                      src="../assets/images/avtar/1.jpg"
+                      id="modalProfileImg"
+                      src="../assets/images/profile/default_profile.png"
                       class="img-fluid blur-up lazyloaded"
                       alt=""
                     />
@@ -1455,15 +1455,21 @@ prefix="c" %>
     <!-- setting end -->
 
     <!-- 챗봇 구역 시작 -->
-    <button id="chatButton"><i class="far fa-question-circle"></i></button>
+    <button id="chatButton">
+      <img
+        src="../assets/images/icon/chatbot_r.png"
+        class="img-fluid blur-up lazyloaded bg-img"
+        alt=""
+      />
+    </button>
 
     <div class="testimonial-section row" id="chatContainer">
-      <div class="" id="chatContent">
+      <div class="ratio_square" id="chatContent">
         <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
       </div>
       <input type="text" id="chatInput" placeholder="챗봇 입력창" />
-      <button type="button" class="btn btn-outline-info">예제</button>
-      <button type="button" class="btn btn-outline-info">키워드</button>
+      <button type="button" class="btn btn-outline-primary">예제</button>
+      <button type="button" class="btn btn-outline-primary">닫기</button>
     </div>
     <!-- 챗봇 구역 끝 -->
 
