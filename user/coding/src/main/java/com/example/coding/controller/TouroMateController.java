@@ -129,6 +129,6 @@ public class TouroMateController {
             e.printStackTrace();
             return "채팅 참가 중 오류 발생";
         }
-    }
+    } 
 
 }

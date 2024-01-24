@@ -640,7 +640,7 @@ prefix="c" %>
                       id="chat-circle"
                       class="btn btn-raised"
                       data-bs-toggle="modal"
-                      
+                       
                       href="#"
                       class="btn btn-rounded btn-sm color1"
                       data-touro-mate-num="${touroMate.touro_mate_num}"

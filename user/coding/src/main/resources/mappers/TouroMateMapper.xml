@@ -93,4 +93,4 @@
         WHERE touro_mate_num = #{touro_mate_num}
     </select>
 
-</mapper>
+</mapper> 
