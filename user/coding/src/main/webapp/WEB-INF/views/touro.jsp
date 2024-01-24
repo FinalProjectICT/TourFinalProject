@@ -651,9 +651,7 @@ prefix="c" %>
       <div class="container">
         <div class="row">
           <div class="col">
-
             <div class="col-6 col-md-4"
-
               style="
                 background-color: rgb(255, 255, 255);
                 padding: 25px;
@@ -661,7 +659,7 @@ prefix="c" %>
                 height: 150px;
                 width: 50%;
               "
-
+              >
               <div style="float: left">
                 <div class="weather_icon"></div>
               </div>
@@ -687,12 +685,8 @@ prefix="c" %>
               </div>
             </div>
           </div>
-
-          <div class="col">
-            
           <div class="col-6 col-md-4">
             <div
-
               style="
                 background-color: rgb(255, 255, 255);
                 padding: 25px;
@@ -701,7 +695,6 @@ prefix="c" %>
                 width: 50%;
               "
             >
-            <!-- 날씨 정보 보이는 곳 -2 -->
               <div style="float: left">
                 <div class="weather_icon1"></div>
               </div>
@@ -727,13 +720,8 @@ prefix="c" %>
               </div>
             </div>
           </div>
-
-          <div class="col">
-           
-
           <div class="col-6 col-md-4">
             <div
-
               style="
                 background-color: rgb(255, 255, 255);
                 padding: 25px;
@@ -742,7 +730,6 @@ prefix="c" %>
                 width: 50%;
               "
             >
-            <!-- 날씨 정보 보이는 곳 -3 -->
               <div style="float: left">
                 <div class="weather_icon2"></div>
               </div>
