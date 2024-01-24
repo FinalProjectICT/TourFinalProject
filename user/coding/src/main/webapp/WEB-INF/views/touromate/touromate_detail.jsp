@@ -1051,7 +1051,7 @@ prefix="c" %>
               id="chat-input"
               placeholder="Send a message..."
             />
-            <button type="button" class="chat-submit" id="chat-submit">
+            <button type="button" class="chat-submit" id="chat-submit" data-touro-mate-num="${touroMate.touro_mate_num}">
               <i class="material-icons">send</i>
             </button>
           </div>
@@ -1102,9 +1102,13 @@ prefix="c" %>
           function sendMessage() {
               const inputMessage = $('#chat-input').val().trim();
               console.log('Sending message:', inputMessage);
-              if (inputMessage !== '') {
+
+              //게시글 번호 가져오기
+              const postId = $('#chat-submit').data('touro-mate-num');
+
+              if (inputMessage !== '' && postId ) {
                   const userId = '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
-                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId }));
+                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId, postId: postId }));
                   $('#chat-input').val('');
               }
           }
