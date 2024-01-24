@@ -614,7 +614,6 @@ prefix="c" %>
         });
       }); // end script
     </script>
-
   </head>
 
   <body>
@@ -647,11 +646,10 @@ prefix="c" %>
     <!-- 로고, 배경 설정 끝 -->
 
     <!-- 검색창 설정 -->
-    <section class="section-b-space pt-5">
+    <section class="section-b-space pt-5" style="padding-bottom: 48px">
       <div class="container">
         <div class="row">
-          <div class="col">
-
+          <!--<div class="col">
             <div class="col-6 col-md-4"
 
               style="
@@ -701,7 +699,6 @@ prefix="c" %>
                 width: 50%;
               "
             >
-            <!-- 날씨 정보 보이는 곳 -2 -->
               <div style="float: left">
                 <div class="weather_icon1"></div>
               </div>
@@ -742,7 +739,6 @@ prefix="c" %>
                 width: 50%;
               "
             >
-            <!-- 날씨 정보 보이는 곳 -3 -->
               <div style="float: left">
                 <div class="weather_icon2"></div>
               </div>
@@ -767,40 +763,30 @@ prefix="c" %>
                 <div class="city2" style="font-size: 13pt"></div>
               </div>
             </div>
-          </div>
-          <!-- <div class="search_section">
-              <div class="book-table single-table input-radius-cls">
-                <div class="table-form classic-form p-0">
-                  <form>
-                    <div class="row w-100">
-                      <div class="form-group col-3 p-0">
-                        <select
-                          type=""
-                          class="btn-rounded form-control"
-                          id="exampleFormControlInput1"
-                        >
-                          <option value="1">구분</option>
-                          <option value="2">설정</option>
-                        </select>
-                      </div>
-                      <div class="form-group col-7 p-0">
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="검색어 입력"
-                        />
-                        <img
-                          src="../assets/images/icon/table-no.png"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                        />
-                      </div>
+          </div> -->
+          <div class="search_section">
+            <div class="book-table single-table input-radius-cls">
+              <div class="table-form classic-form p-0">
+                <form id="notuse" onSubmit="return false;">
+                  <div class="row w-100">
+                    <div class="form-group col-8 offset-xl-2">
+                      <input
+                        id="mainInput"
+                        type="text"
+                        class="form-control"
+                        placeholder="다른 도움이 필요하신가요?"
+                      />
+                      <img
+                        src="../assets/images/icon/search.png"
+                        class="img-fluid blur-up lazyload"
+                        alt=""
+                      />
                     </div>
-                    <a href="#" class="btn btn-rounded col-2 color1">검색</a>
-                  </form>
-                </div>
+                  </div>
+                </form>
               </div>
-            </div> -->
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -821,10 +807,13 @@ prefix="c" %>
             <span class="title-label">touro</span>
 
             <h2>
-              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지 <span>Touro</span>
+              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지
+              <span>Touro</span>
             </h2>
-            <h5>${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
-
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은
+              여행지를 골라 담았습니다!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1140,9 +1129,14 @@ prefix="c" %>
           <div class="title-3">
             <span class="title-label">touro</span>
 
-            <h2>${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지 <span>Touro</span></h2>
-            <h5>${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
-
+            <h2>
+              ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
+              <span>Touro</span>
+            </h2>
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
+              여행지를 골라 담았습니다!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1467,9 +1461,9 @@ prefix="c" %>
       <div class="" id="chatContent">
         <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
       </div>
-      <input type="text" id="chatInput" placeholder="메시지 입력" />
-      <button type="button" class="btn btn-outline-primary">A</button>
-      <button type="button" class="btn btn-outline-primary">B</button>
+      <input type="text" id="chatInput" placeholder="챗봇 입력창" />
+      <button type="button" class="btn btn-outline-info">예제</button>
+      <button type="button" class="btn btn-outline-info">키워드</button>
     </div>
     <!-- 챗봇 구역 끝 -->
 
