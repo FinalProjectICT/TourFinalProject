@@ -31,6 +31,6 @@ public interface TouroMateService {
     // 여행친구찾기와 채팅 테이블에 값 동시에 저장하는 메서드
     void registerTouroMateAndChat(TouroMateVO touroMateVO);
 
-    void joinChat(String user_id, int touro_mate_num);
+    String joinChat(String user_id, int touro_mate_num);
     
 }

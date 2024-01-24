@@ -120,8 +120,8 @@ public class TouroMateController {
             if (loggedInUser != null) {
                 System.out.println("Joining chat for user: " + loggedInUser.getUser_id() + ", touro_mate_num: " + touro_mate_num);
                 // 채팅 참가하기 서비스 호출
-                mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
-                return "채팅 참가 성공";
+                String result = mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
+                return result;
             } else {
                 return "로그인이 필요합니다.";
             }

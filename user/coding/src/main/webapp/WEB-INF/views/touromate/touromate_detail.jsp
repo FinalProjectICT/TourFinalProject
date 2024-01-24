@@ -640,7 +640,7 @@ prefix="c" %>
                       id="chat-circle"
                       class="btn btn-raised"
                       data-bs-toggle="modal"
-                      data-bs-target="#chatLive"
+                      
                       href="#"
                       class="btn btn-rounded btn-sm color1"
                       data-touro-mate-num="${touroMate.touro_mate_num}"
@@ -649,26 +649,36 @@ prefix="c" %>
                   </div>
                   <script>
                     $('#chat-circle').click(function () {
-                        // 게시글 번호 가져오기
-                        var touroMateNum = $(this).data('touro-mate-num');
-                        console.log('게시글번호 ', touroMateNum);
-                        // AJAX를 이용하여 채팅 참가 요청 보내기
-                        $.ajax({
-                            type: 'POST',
-                            url: '/touromate/joinChat',
-                            data: { touro_mate_num: touroMateNum },
-                            success: function (response) {
-                                // 서버에서의 응답 처리
-                                console.log('Server Response:', response);
+                      // 게시글 번호 가져오기
+                      var touroMateNum = $(this).data('touro-mate-num');
+                      console.log('게시글번호 ', touroMateNum);
+                      // AJAX를 이용하여 채팅 참가 요청 보내기
+                      $.ajax({
+                          type: 'POST',
+                          url: '/touromate/joinChat',
+                          data: { touro_mate_num: touroMateNum },
+                          success: function (response) {
+                              // 서버에서의 응답 처리
+                              console.log('Server Response:', response);
 
-                                alert(response);
-                            },
-                            error: function (error) {
-                                // 에러 처리
-                                console.error('Error joining chat:', error);
-                            }
-                        });
-                    });
+                              // 응답에 따라 모달 띄우기 또는 띄우지 않기
+                              if (response === '채팅 참가 성공') {
+                                  // 채팅 참가 성공 시 모달 띄우기
+                                  alert(response);
+                                  $('#modalMessage').text(response);
+                                  $('#chatLive').modal('show');
+                              } else {
+                                  // 채팅 참가 실패 시 알림창 띄우기
+                                  alert(response);
+                              }
+                          },
+                          error: function (error) {
+                              // 에러 처리
+                              console.error('Error joining chat:', error);
+                          }
+                      });
+                  });
+
                 </script>
                 </div>
               </div>
