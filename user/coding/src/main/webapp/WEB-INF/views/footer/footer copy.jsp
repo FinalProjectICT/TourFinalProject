@@ -7,12 +7,17 @@ pageEncoding="UTF-8"%>
 <body>
 
   <!-- footer start -->
-  <footer>
+  <footer class="effect-cls-up footer-bg">
+    <!-- <img
+      src="../assets/images/tour/background/13.jpg"
+      class="img-fluid blur-up lazyload bg-img"
+      alt=""
+    /> -->
     <div class="footer section-b-space section-t-space">
-       <div class="container">
-          <div class="row order-row">
-             <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
+      <div class="container">
+        <div class="row order-row">
+          <div class="col-xl-2 col-md-2 order-cls">
+            <div class="footer-title mobile-title">
               <h5>Touro</h5>
             </div>
             <div class="footer-content">
