@@ -97,7 +97,6 @@
     </select>
 
 
-</mapper>
 
     <select id="getCurrentChatUsers" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM tour_mate_chat_user
@@ -111,4 +110,3 @@
     </select>
 
 </mapper> 
-
