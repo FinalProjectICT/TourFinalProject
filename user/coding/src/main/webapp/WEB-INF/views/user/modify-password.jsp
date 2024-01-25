@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>로그인</title>
+    <title>비밀번호 찾기</title>
 
     <!--Google font-->
     <link
@@ -68,16 +68,16 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content">
         <div>
-          <h2>login</h2>
+          <h2>비밀번호 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">login</li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">forgot-password</li>
             </ol>
           </nav>
         </div>
       </div>
-      <div class="title-breadcrumb">Rica</div>
+      <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
 
@@ -102,64 +102,22 @@ pageEncoding="UTF-8"%>
           <div class="offset-lg-3 col-lg-6 offset-sm-2 col-sm-8 col-12">
             <div class="account-sign-in">
               <div class="title">
-                <h3>로그인</h3>
+                <h3>비밀번호 초기화</h3>
+                <h6>새롭게 변경할 비밀번호를 입력해주세요</h6>
               </div>
-              <div class="login-with">
-                <h6>SNS 간편로그인</h6>
-                <div class="row g-1 mb-2" style="text-align: center;">
-                  <a class="col" href="naverLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/naver_login.PNG"/></a>
-                  <a class="col" href="googleLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/google_login.PNG"/></a>
-                </div>
-                <div class="divider">
-                  <h6>OR</h6>
-                </div>
-              </div>
-              <form action="loginCheck" method="post">
+              
+              <form action="modify-password" method="POST">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">아이디</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="user_id"
-                    name="user_id"
-                    aria-describedby="emailHelp"
-                    placeholder="ID"
-                  />
-                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                    anyone else.</small> -->
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">비밀번호</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="user_pass"
-                    name="user_pass"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="row">
-                  <a class="col" href="forget-password" target="_self">
-                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
-                  </a>
+                  <label class="col-form-label form-label-title ">새 비밀번호 설정</label>
+                  <input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="새 비밀번호">
+                  <input type="hidden" name="user_email" value="${user_email }">
                 </div>
                 <div class="button-bottom">
                   <button type="submit" class="w-100 btn btn-solid" >
-                    로그인
+                    비밀번호 변경
                   </button>
                 </div>
               </form>
-               
-              <div class="divider">
-                <h6>or</h6>
-              </div>
-              <div class="button-bottom">
-                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'sign-up' ">
-                  회원가입
-                </button>
-              </div>
               
             </div>
           </div>

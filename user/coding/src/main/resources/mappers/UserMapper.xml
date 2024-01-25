@@ -16,20 +16,37 @@
 
       <!-- 아이디 중복 체크 -->
 	<select id='idCheck' parameterType="string" resultType="int">
-        SELECT COUNT(*)  cnt FROM USER WHERE user_id = #{user_id}
+            SELECT COUNT(*)  cnt
+            FROM USER
+            WHERE user_id = #{user_id}
       </select>
 
       <!-- 사용자 로그인 검증 -->
 	<select id='loginCheck' parameterType="UserVO" resultType="UserVO">
-   		SELECT *
+            SELECT *
             FROM USER
             WHERE user_id = #{user_id} AND user_pass = #{user_pass}
 	</select>
 
+      <!-- 소셜 로그인 검증 -->
       <select id='socialLoginCheck' parameterType="String" resultType="UserVO">
             SELECT *
             FROM USER
             WHERE user_id = #{user_id}
 	</select>
+
+      <!-- 인증메일 체크 -->
+	<select id='selectUser' parameterType="String" resultType="UserVO">
+            SELECT *
+            FROM USER
+            WHERE user_email = #{user_email}
+      </select>
+
+      <update id="updatePassword" parameterType="UserVO">
+		UPDATE user
+		SET user_pass = #{user_pass}
+		WHERE user_email = #{user_email}
+	</update>
+
 
 </mapper>

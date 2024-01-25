@@ -10,4 +10,6 @@ public interface UserDAO {
     public int idCheck(String user_id);
     public UserVO loginCheck(UserVO vo);
     public UserVO socialLoginCheck(String user_id);
+    public UserVO selectUser(String user_email);
+    public int updatePassword(UserVO vo);
 }
