@@ -59,5 +59,5 @@ public interface TouroMateDAO {
 
     int getMaxChatUsers(int touro_mate_num);
 
-      
+       
 }
