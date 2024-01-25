@@ -1,12 +1,11 @@
 /* 수정해야함 */
 #chatButton {
-  width: 70px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   position: fixed;
-  right: -20px;
+  right: 10px;
   bottom: 100px;
-  background-color: #7fb4d4;
-  color: #fff;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   border-radius: 5px 0 0 5px;
@@ -18,6 +17,7 @@
   padding-bottom: 30px;
   padding-top: 10px;
   padding-left: 15px;
+  padding-right: 20px;
   font-size: 20px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 #chatContent .testimonial.user {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   padding-right: 0;
   width: 100px;
   display: contents;
@@ -66,15 +66,15 @@
 }
 
 #chatContent .testimonial.bota {
-  padding-bottom: 20px;
+  padding-bottom: 30px;
   padding-right: 0;
   width: 100px;
   display: contents;
 }
 
 #chatContent img {
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
 }
 
 #chatInput {

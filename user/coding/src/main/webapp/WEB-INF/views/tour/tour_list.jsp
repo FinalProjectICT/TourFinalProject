@@ -656,7 +656,7 @@ prefix="c" %>
                           </a>
                         </div>
                       </div>
-                      <div class="special-content" style="height: 220px;">
+                      <div class="special-content" style="height: 250px;">
                         <a href="tour-single-6.html">
                           <h5>
                             ${TourData.tour_name}<span
