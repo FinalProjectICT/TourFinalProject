@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.example.coding.dao.ImgDAO;
+import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.dao.TouroMateDAO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateChatUserVO;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
@@ -18,13 +22,22 @@ import jakarta.transaction.Transactional;
 @Service
 public class TouroMateServiceImpl implements TouroMateService {
 
-    private final TouroMateDAO TouromateDAO;
+    // private final TouroMateDAO TouromateDAO;
 
-    // 생성자를 통한 의존성 주입
+    // // 생성자를 통한 의존성 주입
+    // @Autowired
+    // public TouroMateServiceImpl(@Qualifier("touroMateDAO") TouroMateDAO TouromateDAO){
+    //     this.TouromateDAO = TouromateDAO;
+    // }
+
     @Autowired
-    public TouroMateServiceImpl(@Qualifier("touroMateDAO") TouroMateDAO TouromateDAO){
-        this.TouromateDAO = TouromateDAO;
-    }
+    public TouroMateDAO TouromateDAO;
+
+    @Autowired
+    public ImgDAO imgDAO;
+
+    @Autowired
+    public ImgDetailDAO imgDetailDAO;
 
     @Override
     // 전체 게시물 리스트 메서드
@@ -112,5 +125,30 @@ public class TouroMateServiceImpl implements TouroMateService {
             TouromateDAO.joinChat(chatUserVO);
         }
     }
+
+    // 여행친구찾기 글 이미지 올리기
+    @Override
+    public void insertMateImg(ImgVO ivo) {
+        imgDAO.insertFile(ivo);
+    }
+
+    // 여행친구찾기 글 이미지 올리기(DETAIL)
+    @Override
+    public void insertFileMate(ImgDetailVO idvo) {
+        // System.out.println("insertFileMate : " + idvo);
+        imgDetailDAO.insertFileMate(idvo);
+    }
+
+    // 여행친구 찾기 등록된 글번호 가져오기
+    @Override
+    public int selectMateNum() {
+         return TouromateDAO.selectMateNum();
+    }
+
+    @Override
+    public List<ImgVO> getImages(int touro_mate_num) {
+        return TouromateDAO.getImages(touro_mate_num);
+    }
+
     
 }

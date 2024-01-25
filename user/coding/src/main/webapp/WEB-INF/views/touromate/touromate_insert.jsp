@@ -111,7 +111,7 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- breadcrumb end -->
 
-    <form action="/touromate/register-course" method="post" id="youtFormId">
+    <form action="/touromate/register-course" method="post" id="youtFormId" enctype="multipart/form-data">
         <!-- section start -->
         <section class="single-section small-section bg-inner">
             <div class="container" data-sticky_parent>
@@ -167,7 +167,7 @@ pageEncoding="UTF-8"%>
                                                     </div>
                                                     <div id="two" class="collapse" aria-labelledby="h_two" data-bs-parent="#accordionExample">
                                                         <div class="card-body">
-                                                            <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple="">
+                                                            <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
                                                         </br>
                                                         <div style="display: flex; justify-content: center;">
                                                             <div id="imagePreviewContainer1" class="image-preview-container"></div>

@@ -2,15 +2,13 @@ import { useEffect,useState } from "react";
 import planeIcon from "../../assets/img/plane-icon.png";
 import { Navigate, json } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import SupportTicketsList from "./SupportTicketsList";
 
 function SupportNowModal({ isOpen, handleClose, inQu, inqNum, 
   title, content, userId, testArr,inquNum,inquiryReviewNum, inquiryReview, parentComponent }) {
 
   //console.log(inquiryReviewNum);
-  const navigate = useNavigate();
-
   const baseUrl = "http://localhost:8080";
   const [inquiryRe, setInquiryRe] = useState("");
   const [inquiryUp, setInquiryUp] = useState(inquiryReview);
@@ -21,22 +19,34 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum,
   }
 
 
+  const navigate = useNavigate();
+
+  const reloadPage = () => {
+    // navigate('http://localhost:5173/inquiry-list', { replace: true });
+    window.location.reload();
+  };
+
   // 답변 등록
   let param = {
     inquiry_review_content : inquiryRe,
     inquiry_num : inquNum
   }
-  console.log("갑들",inquiryRe,"  ",inquNum);
+  // console.log("갑들",inquiryRe,"  ",inquNum);
+
 
   const sendRe = () => { 
     axios.post(baseUrl+"/inquiry/inquiryReview",param)
-    .then(console.log("success"))
+    .then(() => {
+      handleClose();
+      
+    })
     .catch(err => console.log(err))
-
+    
     axios.post(baseUrl+"/inquiry/inquiryProcess", param)
     .then(console.log("sucess"))
     .catch(err => console.log(err))
-
+    
+    reloadPage();
   }
   // 답변 수정
   const handleUpdateChange = (e) => {

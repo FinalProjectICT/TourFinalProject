@@ -17,17 +17,17 @@ public class ImgServiceImpl implements ImgService {
     ImgDetailDAO imgDetailDAO;
 
     @Override
-    public void     insertFile(ImgVO vo){
+    public void insertFile(ImgVO vo){
         imgDAO.insertFile(vo);
     };
     
     @Override
-    public ImgVO   selectFile(ImgVO vo){
+    public ImgVO selectFile(ImgVO vo){
         return imgDAO.selectFile(vo);
     };
 
     @Override
-    public Long     selectNum(){
+    public Long selectNum(){
         return imgDAO.selectNum();
     };
 }

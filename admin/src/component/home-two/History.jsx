@@ -186,7 +186,7 @@ function History() {
     // 데이터를 가져와서 월과 영수증 리뷰 수 가져오기
     axios.get(baseUrl + '/dashboard/receiptCountGraph').then((result) => {
       const monthdatas = result.data;
-      console.log(monthdatas)
+      // console.log(monthdatas)
       const months = monthdatas.map((month) => {
         return month.month;
       })
