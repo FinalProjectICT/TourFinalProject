@@ -288,13 +288,13 @@ prefix="c" %>
                             level: 3, // 지도의 확대 레벨
                           };
 
-                        // 지도를 생성합니다
+                        // 지도를 생성
                         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-                        // 주소-좌표 변환 객체를 생성합니다
+                        // 주소-좌표 변환 객체를 생성
                         var geocoder = new kakao.maps.services.Geocoder();
 
-                        // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+                        // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
                         var bounds = new kakao.maps.LatLngBounds();
 
                         var positions = [
@@ -313,7 +313,7 @@ prefix="c" %>
                         ];
 
                         positions.forEach(function (position) {
-                          // 주소로 좌표를 검색합니다
+                          // 주소로 좌표를 검색
                           geocoder.addressSearch(
                             position.address,
                             function (result, status) {
@@ -324,17 +324,17 @@ prefix="c" %>
                                   result[0].x
                                 );
 
-                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                // 결과값으로 받은 위치를 마커로 표시
                                 var marker = new kakao.maps.Marker({
                                   map: map,
                                   position: coords,
                                 });
                                 marker.setMap(map); //추가한 코드
 
-                                // LatLngBounds 객체에 좌표를 추가합니다
+                                // LatLngBounds 객체에 좌표를 추가
                                 bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
-                                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                // 인포윈도우로 장소에 대한 설명을 표시
                                 var infowindow = new kakao.maps.InfoWindow({
                                   content:
                                     '<div style="width:150px;text-align:center;padding:6px 0;">' +
@@ -343,7 +343,7 @@ prefix="c" %>
                                 });
                                 infowindow.open(map, marker);
 
-                                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                // 지도의 중심을 결과값으로 받은 위치로 이동
                                 // map.setCenter(coords); //제거한 코드
                                 setBounds(); //추가한 코드
                               }
@@ -351,9 +351,7 @@ prefix="c" %>
                           );
                         });
                         function setBounds() {
-                          //추가한 함수
-                          // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-                          // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+                          // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
                       </script>
@@ -619,6 +617,7 @@ prefix="c" %>
                 </a>
                 <div class="social-box">
                   <p>나이: ${authorInfo.user_age}</p>
+                  <p>성별: ${authorInfo.user_gender}</p>
                   <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
                   <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
                   <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
@@ -1129,11 +1128,12 @@ prefix="c" %>
   
               const displayedUserId = `${'${userId}'}:`;
               const displayedTimestamp = `${'${timestamp}'}`;
+
+              // 출력 메시지 생성
               const messageElement = $('<p>').html(`<strong>${'${displayedUserId}'}</strong>${'${message}'}<p style='font-size:8px'>${'${displayedTimestamp}'}</p>`);
   
               console.log("Message Element:", messageElement);
   
-              // 확인: 실제로 .chat-logs에 메시지를 추가합니다.
               const chatLogs = $('.chat-logs');
               const isCurrentUser = userId === '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
   
@@ -1145,13 +1145,11 @@ prefix="c" %>
                   messageElement.addClass('left'); // 왼쪽 정렬 클래스 추가
               }
   
-              // 추가한 부분: 메시지 추가 직전에 내용을 확인합니다.
               console.log("Before appending, chat logs content:", chatLogs.html());
   
-              // 실제로 .chat-logs에 메시지를 추가합니다.
+              // chat-logs에 메시지를 추가
               chatLogs.append(messageElement);
-  
-              // 추가한 부분: 메시지 추가 직후에 내용을 확인합니다.
+
               console.log("After appending, chat logs content:", chatLogs.html());
           }
   
@@ -1167,8 +1165,9 @@ prefix="c" %>
               }
           });
   
+          // Enter 동작
           $('#chat-input').keydown(function (event) {
-              if (event.which === 13) { // Enter 키의 keyCode는 13
+              if (event.which === 13) {
                   sendMessage();
               }
           });
