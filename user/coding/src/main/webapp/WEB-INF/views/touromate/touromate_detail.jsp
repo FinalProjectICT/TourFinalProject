@@ -171,7 +171,8 @@ prefix="c" %>
                 >
                   <div class="menu-part tab-pane fade show active" id="rooms">
                     <table class="rooms-box">
-                      <c:forEach items="${mateimgList}" var="img">
+                      <c:forEach items="${mateimgList}" var="img" varStatus="status">
+                        <c:set var="idx" value="${status.count}"></c:set>
                         <tr>
                           <td>
                             <h6 class="room-title">여행지 지역</h6>
@@ -183,20 +184,56 @@ prefix="c" %>
                               />
                             </a>
                           </td>
-                          <td>
-                            <div class="room-detail">
-                              <div class="row">
-                                <div class="col-6 p-0">
-                                  <h6>${touroMate.touro_mate_name1}</h6>
-                                  <div class="facility-detail">
-                                    <ul>
-                                      <li>${touroMate.touro_mate_addr1}</li>
-                                    </ul>
+                            <c:choose>
+                              <c:when test="${idx eq 1}">
+                                <td>
+                                  <div class="room-detail">
+                                    <div class="row">
+                                      <div class="col-6 p-0">
+                                        <h6>${touroMate.touro_mate_name1}</h6>
+                                        <div class="facility-detail">
+                                          <ul>
+                                            <li>${touroMate.touro_mate_addr1}</li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
-                            </div>
-                          </td>
+                                </td>
+                              </c:when>
+                              <c:when test="${idx eq 2}">
+                                <td>
+                                  <div class="room-detail">
+                                    <div class="row">
+                                      <div class="col-6 p-0">
+                                        <h6>${touroMate.touro_mate_name2}</h6>
+                                        <div class="facility-detail">
+                                          <ul>
+                                            <li>${touroMate.touro_mate_addr2}</li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </c:when>
+                              <c:when test="${idx eq 3}">
+                                <td>
+                                  <div class="room-detail">
+                                    <div class="row">
+                                      <div class="col-6 p-0">
+                                        <h6>${touroMate.touro_mate_name3}</h6>
+                                        <div class="facility-detail">
+                                          <ul>
+                                            <li>${touroMate.touro_mate_addr3}</li>
+                                          </ul>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td>
+                              </c:when>
+                            </c:choose>
                         </tr>
                       </c:forEach>
                       

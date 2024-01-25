@@ -269,7 +269,7 @@ pageEncoding="UTF-8"%>
                                         var coursesContainer = $('#travel-courses');
                                         coursesContainer.empty(); // 기존 코스 삭제
 
-                                        for (var index = 1; index < travelCourses.length; index++) {
+                                        for (var index = 1; index < 4; index++) {
                                             var course = travelCourses[index];
                                             var selectedAddress = course.address;
                                             var detailAddrId = 'detailAddr_' + (index+1);
