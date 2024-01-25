@@ -73,5 +73,4 @@ public interface TouroMateDAO {
     // 디테일 이미지 가져오기
     List<ImgVO> getImages(int touro_mate_num);
 
-      
 }

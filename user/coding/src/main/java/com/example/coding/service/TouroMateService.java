@@ -46,5 +46,9 @@ public interface TouroMateService {
 
     // 디테일 페이지 이미지 가져오기
     public List<ImgVO> getImages(int touro_mate_num);
+
+    String joinChat(String user_id, int touro_mate_num);
+
     
 }
+ 

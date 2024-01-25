@@ -24,6 +24,7 @@ import net.minidev.json.JSONObject;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.domain.WishListVO;
 
@@ -44,7 +45,7 @@ public class TourPageController {
 	 * - TourVO & TourListService, DAO
 	 * - mapper - TourListMapper - selectAll
 	 *  단순히 불러오는거라 20 개씩 출력되고 Nav도 정삭 작동하도록 수정해야함
-	 * 	?page=&range=&tour_cate_code=&keyword=
+	 * 	?page=&range=&listSize=&tour_cate_code=&keyword=&Locs=&Star=
 	 */
 	@RequestMapping(value = "/tour")
 	public String tourList(Model m ,@RequestParam(required = false, defaultValue = "1") int page 
@@ -134,9 +135,10 @@ public class TourPageController {
 
 	/*********
 	 * 찜 된 여행지 구분
-	 * @param vo
-	 * @return
+	 * @param WishListVO vo
+	 * @return String
 	*/
+
 	@RequestMapping(value = "/ckWishList", method = {RequestMethod.POST})
 	@ResponseBody
 	public String ckWishList(@ModelAttribute("vo") WishListVO vo){
@@ -146,9 +148,10 @@ public class TourPageController {
 
 	/*****
 	 * 여행지 문의 작성
-	 * @param vo
-	 * @return
+	 * @param InquiryVO vo
+	 * @return String
 	 */
+
 	@RequestMapping(value ="/inquiry", method={RequestMethod.POST})
 	@ResponseBody
 	public String newInquiry(@ModelAttribute("vo") InquiryVO vo) {
@@ -182,4 +185,21 @@ public class TourPageController {
             return "Error processing request";
         }
     }
+
+	@RequestMapping(value = "/getprofileImg", method={RequestMethod.POST})
+	@ResponseBody
+	public String requestMethodName(@ModelAttribute("vo") UserProfileVO vo) {
+		System.out.println(vo.getUser_id());
+		vo = userInfoService.getProfile(vo);
+		// null 값 경우 default_profile.png 반환
+		try {
+		if (vo.getImg_real_name() != null && vo.getImg_real_name() != ""){
+			return vo.getImg_real_name();
+			
+		}else return "default_profile.png";	
+		} catch (Exception e) {
+			return "default_profile.png";
+		}
+	}
+	
 }

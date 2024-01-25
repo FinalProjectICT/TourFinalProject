@@ -82,7 +82,6 @@
         WHERE user_id = #{user_id} AND chat_num = #{chat_num}
     </select>
 
-
     <!-- 여행친구찾기 이름 찾기 -->
     <select id="selectMateNum" resultType="int">
         SELECT touro_mate_num
@@ -99,3 +98,17 @@
 
 
 </mapper>
+
+    <select id="getCurrentChatUsers" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM tour_mate_chat_user
+        WHERE chat_num = #{touro_mate_num}
+    </select>
+
+    <!-- 채팅방의 최대 입장 인원수 조회 -->
+    <select id="getMaxChatUsers" resultType="int" parameterType="int">
+        SELECT chat_user_count FROM tour_mate_chat
+        WHERE touro_mate_num = #{touro_mate_num}
+    </select>
+
+</mapper> 
+

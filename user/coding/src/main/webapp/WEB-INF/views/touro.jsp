@@ -614,7 +614,6 @@ prefix="c" %>
         });
       }); // end script
     </script>
-
   </head>
 
   <body>
@@ -646,152 +645,151 @@ prefix="c" %>
     </section>
     <!-- 로고, 배경 설정 끝 -->
 
-  <!-- 검색창 설정 -->
-  <section class="section-b-space pt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <div class="col-6 col-md-4"
-            style="
-              background-color: rgb(255, 255, 255);
-              padding: 25px;
-              color: #000;
-              height: 150px;
-              width: 50%;
-            "
-            >
-            <div style="float: left">
-              <div class="weather_icon"></div>
-            </div>
-            <br />
+<!-- 검색창 설정 -->
+    <section class="section-b-space pt-5" style="padding-bottom: 60px">
+      <div class="container">
+        <div class="row">
+          <!--<div class="col">
+            <div class="col-6 col-md-4"
 
-            <div
               style="
-                float: right;
-                margin: -136px 0px 0px 50px;
-                font-size: 9pt;
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
               "
-            >
-              <div class="temp_min"></div>
-              <div class="temp_max"></div>
-              <div class="humidity"></div>
-              <div class="wind"></div>
-              <div class="cloud"></div>
-            </div>
-            <div style="float: right; margin-top: -30px">
-              <div class="current_temp" style="font-size: 20pt"></div>
-              <div class="weather_description" style="font-size: 20pt"></div>
-              <div class="city" style="font-size: 13pt"></div>
+
+              <div style="float: left">
+                <div class="weather_icon"></div>
+              </div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min"></div>
+                <div class="temp_max"></div>
+                <div class="humidity"></div>
+                <div class="wind"></div>
+                <div class="cloud"></div>
+              </div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp" style="font-size: 20pt"></div>
+                <div class="weather_description" style="font-size: 20pt"></div>
+                <div class="city" style="font-size: 13pt"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-6 col-md-4">
-          <div
-            style="
-              background-color: rgb(255, 255, 255);
-              padding: 25px;
-              color: #000;
-              height: 150px;
-              width: 50%;
-            "
-          >
-            <div style="float: left">
-              <div class="weather_icon1"></div>
-            </div>
-            <br />
 
+          <div class="col">
+            
+          <div class="col-6 col-md-4">
             <div
+
               style="
-                float: right;
-                margin: -136px 0px 0px 50px;
-                font-size: 9pt;
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
               "
             >
-              <div class="temp_min1"></div>
-              <div class="temp_max1"></div>
-              <div class="humidity1"></div>
-              <div class="wind1"></div>
-              <div class="cloud1"></div>
-            </div>
-            <div style="float: right; margin-top: -30px">
-              <div class="current_temp1" style="font-size: 20pt"></div>
-              <div class="weather_description1" style="font-size: 20pt"></div>
-              <div class="city1" style="font-size: 13pt"></div>
+              <div style="float: left">
+                <div class="weather_icon1"></div>
+              </div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min1"></div>
+                <div class="temp_max1"></div>
+                <div class="humidity1"></div>
+                <div class="wind1"></div>
+                <div class="cloud1"></div>
+              </div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp1" style="font-size: 20pt"></div>
+                <div class="weather_description1" style="font-size: 20pt"></div>
+                <div class="city1" style="font-size: 13pt"></div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-6 col-md-4">
-          <div
-            style="
-              background-color: rgb(255, 255, 255);
-              padding: 25px;
-              color: #000;
-              height: 150px;
-              width: 50%;
-            "
-          >
-            <div style="float: left">
-              <div class="weather_icon2"></div>
-            </div>
-            <br />
 
+          <div class="col">
+           
+
+          <div class="col-6 col-md-4">
             <div
+
               style="
-                float: right;
-                margin: -136px 0px 0px 50px;
-                font-size: 9pt;
+                background-color: rgb(255, 255, 255);
+                padding: 25px;
+                color: #000;
+                height: 150px;
+                width: 50%;
               "
             >
-              <div class="temp_min2"></div>
-              <div class="temp_max2"></div>
-              <div class="humidity2"></div>
-              <div class="wind2"></div>
-              <div class="cloud2"></div>
-            </div>
-            <div style="float: right; margin-top: -30px">
-              <div class="current_temp2" style="font-size: 20pt"></div>
-              <div class="weather_description2" style="font-size: 20pt"></div>
-              <div class="city2" style="font-size: 13pt"></div>
-            </div>
-          </div>
-        </div>
-        <!-- <div class="search_section">
-            <div class="book-table single-table input-radius-cls">
-              <div class="table-form classic-form p-0">
-                <form>
-                  <div class="row w-100">
-                    <div class="form-group col-3 p-0">
-                      <select
-                        type=""
-                        class="btn-rounded form-control"
-                        id="exampleFormControlInput1"
-                      >
-                        <option value="1">구분</option>
-                        <option value="2">설정</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-7 p-0">
-                      <input
-                        type="text"
-                        class="form-control"
-                        placeholder="검색어 입력"
-                      />
-                      <img
-                        src="../assets/images/icon/table-no.png"
-                        class="img-fluid blur-up lazyload"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-                  <a href="#" class="btn btn-rounded col-2 color1">검색</a>
-                </form>
+              <div style="float: left">
+                <div class="weather_icon2"></div>
+              </div>
+              <br />
+
+              <div
+                style="
+                  float: right;
+                  margin: -136px 0px 0px 50px;
+                  font-size: 9pt;
+                "
+              >
+                <div class="temp_min2"></div>
+                <div class="temp_max2"></div>
+                <div class="humidity2"></div>
+                <div class="wind2"></div>
+                <div class="cloud2"></div>
+              </div>
+              <div style="float: right; margin-top: -30px">
+                <div class="current_temp2" style="font-size: 20pt"></div>
+                <div class="weather_description2" style="font-size: 20pt"></div>
+                <div class="city2" style="font-size: 13pt"></div>
               </div>
             </div>
           </div> -->
+          <div class="search_section">
+            <div class="book-table single-table input-radius-cls">
+              <div class="table-form classic-form p-0">
+                <form id="notuse" onSubmit="return false;">
+                  <div class="row w-100">
+                    <div class="form-group col-8 offset-xl-2">
+                      <input
+                        id="mainInput"
+                        type="text"
+                        class="form-control"
+                        placeholder="다른 도움이 필요하신가요?"
+                      /><img
+                        src="../assets/images/icon/chatbot_b.png"
+                        alt=""
+                        style="height: 80px"
+                      />
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-  <!-- 검색창 설정 끝 -->
+    </section>
+    <!-- 검색창 설정 끝 -->
 
 
     <!-- 회원 맞춤 여행지 설정 -->
@@ -809,10 +807,13 @@ prefix="c" %>
             <span class="title-label">touro</span>
 
             <h2>
-              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지 <span>Touro</span>
+              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지
+              <span>Touro</span>
             </h2>
-            <h5>${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
-
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은
+              여행지를 골라 담았습니다!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1128,9 +1129,14 @@ prefix="c" %>
           <div class="title-3">
             <span class="title-label">touro</span>
 
-            <h2>${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지 <span>Touro</span></h2>
-            <h5>${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
-
+            <h2>
+              ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
+              <span>Touro</span>
+            </h2>
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
+              여행지를 골라 담았습니다!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1223,7 +1229,7 @@ prefix="c" %>
               <div class="testimonial">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Byounggon"
+                    id="userInfo_bmh5544"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1238,22 +1244,7 @@ prefix="c" %>
                 </div>
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Daehoon"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_Hangil"
+                    id="userInfo_chunsikjjang"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1269,6 +1260,21 @@ prefix="c" %>
                 <div class="left-part col-2">
                   <a
                     id="userInfo_Hangil"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profile"
+                    href="#"
+                  >
+                    <img
+                      src="../assets/images/avtar/1.jpg"
+                      class="img-fluid blur-up lazyload"
+                      alt=""
+                    />
+                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                  </a>
+                </div>
+                <div class="left-part col-2">
+                  <a
+                    id="userInfo_wldusfl"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1315,7 +1321,8 @@ prefix="c" %>
                 <div class="profile-top">
                   <div class="profile-image">
                     <img
-                      src="../assets/images/avtar/1.jpg"
+                      id="modalProfileImg"
+                      src="../assets/images/profile/default_profile.png"
                       class="img-fluid blur-up lazyloaded"
                       alt=""
                     />
@@ -1449,15 +1456,21 @@ prefix="c" %>
     <!-- setting end -->
 
     <!-- 챗봇 구역 시작 -->
-    <button id="chatButton"><i class="far fa-question-circle"></i></button>
+    <button id="chatButton">
+      <img
+        src="../assets/images/icon/chatbot_r.png"
+        class="img-fluid blur-up lazyloaded bg-img"
+        alt=""
+      />
+    </button>
 
     <div class="testimonial-section row" id="chatContainer">
-      <div class="" id="chatContent">
+      <div class="ratio_square" id="chatContent">
         <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
       </div>
-      <input type="text" id="chatInput" placeholder="메시지 입력" />
-      <button type="button" class="btn btn-outline-primary">A</button>
-      <button type="button" class="btn btn-outline-primary">B</button>
+      <input type="text" id="chatInput" placeholder="챗봇 입력창" />
+      <button type="button" class="btn btn-outline-primary">예제</button>
+      <button type="button" class="btn btn-outline-primary">닫기</button>
     </div>
     <!-- 챗봇 구역 끝 -->
 
