@@ -82,6 +82,23 @@
         WHERE user_id = #{user_id} AND chat_num = #{chat_num}
     </select>
 
+    <!-- 여행친구찾기 이름 찾기 -->
+    <select id="selectMateNum" resultType="int">
+        SELECT touro_mate_num
+        FROM touro_mate
+        ORDER BY touro_mate_num DESC LIMIT 1
+    </select>
+
+    <!-- 디테일 이미지 가져오기 -->
+    <select id="getImages" parameterType="int" resultType="ImgVO">
+        SELECT i.img_real_name img_real_name
+        FROM   img_detail id INNER JOIN img i ON id.img_num = i.img_num 
+        WHERE  id.touro_mate_num = #{touro_mate_num}
+    </select>
+
+
+</mapper>
+
     <select id="getCurrentChatUsers" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM tour_mate_chat_user
         WHERE chat_num = #{touro_mate_num}
@@ -94,3 +111,4 @@
     </select>
 
 </mapper> 
+

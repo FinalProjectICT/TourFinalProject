@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
 
@@ -31,7 +33,22 @@ public interface TouroMateService {
     // 여행친구찾기와 채팅 테이블에 값 동시에 저장하는 메서드
     void registerTouroMateAndChat(TouroMateVO touroMateVO);
 
+    void joinChat(String user_id, int touro_mate_num);
+
+    // 여행친구찾기 글 이미지 올리기
+    void insertMateImg(ImgVO ivo);
+
+    // 이미지 디테일
+    void insertFileMate(ImgDetailVO idvo);
+
+    // 등록 번호 
+    public int selectMateNum();
+
+    // 디테일 페이지 이미지 가져오기
+    public List<ImgVO> getImages(int touro_mate_num);
+
     String joinChat(String user_id, int touro_mate_num);
+
     
 }
  

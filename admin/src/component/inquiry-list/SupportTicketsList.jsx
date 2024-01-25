@@ -174,7 +174,7 @@ function SupportTicketsList() {
                 </thead>
                 <tbody className="crancy-table__body">
                 {inquirys.map((inQ,idx) => (
-                  <tr key={inQ.inquiry_num} >
+                  <tr key={idx} >
                     <td>{inQ.inquiry_num}</td>
                     <td>{inQ.inquiry_title}</td>
                     <td>{inQ.user_id}</td>

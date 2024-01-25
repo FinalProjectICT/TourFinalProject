@@ -74,55 +74,41 @@ prefix="c" %>
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
 
-    <!-- image section start -->
-    <section class="pt-0 ratio2_3 zoom-gallery overlay-hover">
-      <div class="container-fluid p-0">
-        <div class="row m-0">
-          <div class="col-md-6 p-0">
-            <a href="../assets/images/single-hotel/slider/10.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/10.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-md-3 col-6 p-0">
-            <a href="../assets/images/single-hotel/slider/11.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/11.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-            <a href="../assets/images/single-hotel/slider/6.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/6.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-md-3 col-6 p-0">
-            <a href="../assets/images/single-hotel/slider/7.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/7.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-            <a href="../assets/images/single-hotel/slider/8.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/8.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
+    <section class="breadcrumb-section parallax-img pt-0">
+      <img
+        src="../assets/images/inner-pages/breadcrumb1.jpg"
+        class="bg-img img-fluid blur-up lazyload"
+        alt=""
+      />
+      <div class="breadcrumb-content overlay-black">
+        <div>
+          <h2>holiday package</h2>
+          <nav aria-label="breadcrumb" class="theme-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                holiday package
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="bird-animation">
+        <div class="bird-container bird-container--one">
+          <div class="bird bird--one"></div>
+        </div>
+        <div class="bird-container bird-container--two">
+          <div class="bird bird--two"></div>
+        </div>
+        <div class="bird-container bird-container--three">
+          <div class="bird bird--three"></div>
+        </div>
+        <div class="bird-container bird-container--four">
+          <div class="bird bird--four"></div>
         </div>
       </div>
     </section>
-    <!-- image section end -->
+    <!-- breadcrumb end -->
 
     <!-- section start -->
     <section class="single-section small-section bg-inner">
@@ -185,33 +171,36 @@ prefix="c" %>
                 >
                   <div class="menu-part tab-pane fade show active" id="rooms">
                     <table class="rooms-box">
-                      <tr>
-                        <td>
-                          <h6 class="room-title">여행지 지역</h6>
-                          <a href="#">
-                            <img
-                              src="../assets/images/hotel/room/4.jpg"
-                              class="img-fluid blur-up lazyload"
-                              alt=""
-                            />
-                          </a>
-                        </td>
-                        <td>
-                          <div class="room-detail">
-                            <div class="row">
-                              <div class="col-6 p-0">
-                                <h6>${touroMate.touro_mate_name1}</h6>
-                                <div class="facility-detail">
-                                  <ul>
-                                    <li>${touroMate.touro_mate_addr1}</li>
-                                  </ul>
+                      <c:forEach items="${mateimgList}" var="img">
+                        <tr>
+                          <td>
+                            <h6 class="room-title">여행지 지역</h6>
+                            <a href="#">
+                              <img
+                                src="../../assets/images/touromateImg/${img.img_real_name}"
+                                class="img-fluid blur-up lazyload"
+                                alt=""
+                              />
+                            </a>
+                          </td>
+                          <td>
+                            <div class="room-detail">
+                              <div class="row">
+                                <div class="col-6 p-0">
+                                  <h6>${touroMate.touro_mate_name1}</h6>
+                                  <div class="facility-detail">
+                                    <ul>
+                                      <li>${touroMate.touro_mate_addr1}</li>
+                                    </ul>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
+                          </td>
+                        </tr>
+                      </c:forEach>
+                      
+                      <!-- <tr>
                         <td>
                           <h6 class="room-title">여행지 지역</h6>
                           <a href="#">
@@ -262,7 +251,7 @@ prefix="c" %>
                             </div>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                     </table>
                   </div>
                   <div class="about menu-part tab-pane fade" id="about">

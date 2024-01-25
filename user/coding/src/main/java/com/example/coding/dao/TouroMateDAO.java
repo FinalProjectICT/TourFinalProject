@@ -3,6 +3,8 @@ package com.example.coding.dao;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateChatUserVO;
 
 import java.util.List;
@@ -59,5 +61,16 @@ public interface TouroMateDAO {
 
     int getMaxChatUsers(int touro_mate_num);
 
-       
+    // 여행친구찾기 글 이미지 올리기
+    void insertMateImg(ImgVO ivo);
+
+    // 여행친구찾기 글 이미지 올리기(DETAIL)
+    Long selectNum();
+
+    // 여행친구찾기 글 번호
+    int selectMateNum();
+
+    // 디테일 이미지 가져오기
+    List<ImgVO> getImages(int touro_mate_num);
+
 }

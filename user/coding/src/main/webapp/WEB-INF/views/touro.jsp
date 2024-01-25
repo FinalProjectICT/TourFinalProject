@@ -645,7 +645,7 @@ prefix="c" %>
     </section>
     <!-- 로고, 배경 설정 끝 -->
 
-    <!-- 검색창 설정 -->
+<!-- 검색창 설정 -->
     <section class="section-b-space pt-5" style="padding-bottom: 60px">
       <div class="container">
         <div class="row">
@@ -790,6 +790,7 @@ prefix="c" %>
       </div>
     </section>
     <!-- 검색창 설정 끝 -->
+
 
     <!-- 회원 맞춤 여행지 설정 -->
     <section
