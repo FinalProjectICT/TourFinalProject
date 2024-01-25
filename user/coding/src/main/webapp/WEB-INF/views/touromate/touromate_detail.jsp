@@ -655,9 +655,9 @@ prefix="c" %>
                     <div class="left-part">
                       <span class="mt-2"
                         ><i class="fas fa-check"></i>채팅 참여 인원:
-                        ${touroMate.touro_mate_count}</span
-                      >
-                      <span><i class="fas fa-check"></i>[남은 인원 수]</span>
+                        ${touroMate.touro_mate_count}</span>
+                        
+                      <span><i class="fas fa-check"></i>남은 인원 수: ${remainingUsers}</span>
                     </div>
                   </div>
                   <div class="book-btn-section">
@@ -1115,7 +1115,7 @@ prefix="c" %>
                   const message = JSON.parse(event.data);
                   if (message.type === 'chat' && message.message.trim() !== '') {
                       // 받은 메시지를 모달에 표시하는 코드 추가
-                      appendMessageToChat(message.message, message.userId, message.timestamp);
+                      appendMessageToChat(message.message, message.userId, message.timestamp, message.profileImg);
                   }
               };
   
@@ -1143,20 +1143,21 @@ prefix="c" %>
 
               if (inputMessage !== '' && postId ) {
                   const userId = '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
-                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId, postId: postId }));
+                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId, postId: postId, profileImg: profileImg }));
                   $('#chat-input').val('');
               }
           }
   
-          function appendMessageToChat(message, userId, timestamp) {
+          function appendMessageToChat(message, userId, timestamp, profileImg) {
               console.log("Appending message:", message);
               console.log("userid: " + userId);
   
               const displayedUserId = `${'${userId}'}:`;
               const displayedTimestamp = `${'${timestamp}'}`;
+              const imageElement = $('<img>').attr('src', profileImg).addClass('profile-image');
 
               // 출력 메시지 생성
-              const messageElement = $('<p>').html(`<strong>${'${displayedUserId}'}</strong>${'${message}'}<p style='font-size:8px'>${'${displayedTimestamp}'}</p>`);
+              const messageElement = $('<p>').html(`${'${imageElement}'}<strong>${'${displayedUserId}'}</strong>${'${message}'}<p style='font-size:8px'>${'${displayedTimestamp}'}</p>`);
   
               console.log("Message Element:", messageElement);
   
