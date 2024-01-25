@@ -92,6 +92,7 @@ public class TouroMateController {
         System.out.println("userId:" + loggedInUser);
         touroMateVO.setUser_id(loggedInUser.getUser_id());
         mateService.registerTouroMateAndChat(touroMateVO);
+        mateService.joinChat(touroMateVO.getUser_id(), touroMateVO.getTouro_mate_num());
 
         int touro_mate_num = mateService.selectMateNum();
 
@@ -184,11 +185,15 @@ public class TouroMateController {
         HttpSession session = request.getSession();
         UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
 
+        System.out.println("MATE "+touro_mate_num);
+
+
         try {
             if (loggedInUser != null) {
                 System.out.println("Joining chat for user: " + loggedInUser.getUser_id() + ", touro_mate_num: " + touro_mate_num);
                 // 채팅 참가하기 서비스 호출
                 String result = mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
+                System.out.println("joinCHAT : " + result);
                 return result;
             } else {
                 return "로그인이 필요합니다.";

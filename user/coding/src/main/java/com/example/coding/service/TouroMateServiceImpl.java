@@ -114,12 +114,10 @@ public class TouroMateServiceImpl implements TouroMateService {
 
         // 테이블에 해당 사용자와 채팅방이 존재하는지 확인
         int userCountInChat = TouromateDAO.checkUserInChat(user_id, chat_num);
+        System.out.println("userCountInChat : " + userCountInChat);
 
         try {
-            if (userCountInChat == 0) {
-                return "정원에 도달했습니다";
-            }
-
+            
             int currentChatUsers = TouromateDAO.getCurrentChatUsers(touro_mate_num);
             int maxChatUsers = TouromateDAO.getMaxChatUsers(touro_mate_num);
 
@@ -135,11 +133,20 @@ public class TouroMateServiceImpl implements TouroMateService {
                 // 여기에 채팅 참가 로직을 추가하면 됩니다.
                 // 예를 들어, 채팅 참가 성공 시 다른 동작을 수행할 필요가 있다면 여기에서 처리
                 return "채팅 참가 성공";
-            } else {
+            } else if(userCountInChat == 0) {
+                return "정원에 도달했습니다";
+            } 
+            
+            else {
                 // 참가 불가능한 경우
                 // 예를 들어, 참가 불가능할 때의 동작을 처리하고 싶다면 여기에서 처리
                 return "채팅 참가 성공";
             }
+
+            // if (userCountInChat == 0) {
+            //     return "정원에 도달했습니다";
+            // }
+
         } catch (Exception e) {
             e.printStackTrace();
             return "채팅 참가 중 오류 발생";
