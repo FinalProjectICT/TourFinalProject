@@ -4,7 +4,6 @@
 <%@page import="com.example.coding.domain.UserVO"%>
 <% UserVO user = (UserVO) session.getAttribute("loggedInUser"); %>
 
-
 <html>
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
@@ -68,29 +67,25 @@
                           >이미지변환</a
                         >
                       </li>
+                      <c:if test="${empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/login" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
+                      <c:if test="${not empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/mypage" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
                     </ul>
                   </div>
                 </div>
               </nav>
               <ul class="header-right">
-
-                <c:if test="${empty sessionScope.loggedInUser}">
-
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
-                <c:if test="${not empty sessionScope.loggedInUser}">
-                  <li class="user user-light rounded5">
-                    <a href="/user/mypage">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
                 <!-- 세션이 비어 있으면 로그인 버튼으로 -->
                 <c:if test="${empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
@@ -108,7 +103,7 @@
                 </c:if>
                 
                 </li>
-                <li class="setting">
+                <!-- <li class="setting">
                   <a href="#">
                     <i class="fas fa-cog"></i>
                   </a>
@@ -130,7 +125,7 @@
                       </select>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
