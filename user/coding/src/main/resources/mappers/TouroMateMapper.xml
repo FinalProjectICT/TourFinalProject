@@ -31,10 +31,10 @@
         <!-- 첫 번째 INSERT는 touro_mate에 값을 저장 -->
         INSERT INTO touro_mate (touro_mate_num, user_id, touro_mate_title, touro_mate_count, touro_mate_content,
             touro_mate_name1, touro_mate_name2, touro_mate_name3,
-            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3)
+            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3, touro_mate_date)
         VALUES (#{touro_mate_num}, #{user_id}, #{touro_mate_title}, #{touro_mate_count}, #{touro_mate_content},
             #{touro_mate_name1}, #{touro_mate_name2}, #{touro_mate_name3},
-            #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3});
+            #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3}, NOW());
     </insert>
 
     <insert id="registerTouroMateChat" parameterType="TouroMateVO">

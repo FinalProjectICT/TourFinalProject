@@ -92,7 +92,7 @@ public class TouroMateController {
         System.out.println("userId:" + loggedInUser);
         touroMateVO.setUser_id(loggedInUser.getUser_id());
         mateService.registerTouroMateAndChat(touroMateVO);
-        mateService.joinChat(touroMateVO.getUser_id(), touroMateVO.getTouro_mate_num());
+        mateService.joinChat(touroMateVO.getUser_id(), touroMateVO.getTouro_mate_num(), null);
 
         int touro_mate_num = mateService.selectMateNum();
 
@@ -171,16 +171,19 @@ public class TouroMateController {
         List<ImgVO> imgList = mateService.getImages(touro_mate_num);
         System.out.println(imgList);
 
+        int remainingUsers = mateService.getRemainingChatUsers(touro_mate_num);
+
         m.addAttribute("touroMate", touroMate);
         m.addAttribute("travelPlaces", travelPlaces);
         m.addAttribute("authorInfo", authorInfo);
         m.addAttribute("mateimgList", imgList);
+        m.addAttribute("remainingUsers", remainingUsers);
     }
 
     // 채팅 버튼 클릭 시 tour_mate_chat_user 테이블 저장
     @PostMapping("/joinChat")
     @ResponseBody
-    public String joinChat(@RequestParam int touro_mate_num, HttpServletRequest request) {
+    public String joinChat(@RequestParam int touro_mate_num, HttpServletRequest request ) {
         // 세션에서 user_id 가져오기
         HttpSession session = request.getSession();
         UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
@@ -192,7 +195,7 @@ public class TouroMateController {
             if (loggedInUser != null) {
                 System.out.println("Joining chat for user: " + loggedInUser.getUser_id() + ", touro_mate_num: " + touro_mate_num);
                 // 채팅 참가하기 서비스 호출
-                String result = mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num);
+                String result = mateService.joinChat(loggedInUser.getUser_id(), touro_mate_num, null);
                 System.out.println("joinCHAT : " + result);
                 return result;
             } else {
