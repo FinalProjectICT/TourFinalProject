@@ -2,7 +2,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page import="com.example.coding.domain.UserVO"%>
-<% UserVO user = (UserVO) session.getAttribute("loggedInUser"); %>
+<% 
+ Object loggedIdAttribute = session.getAttribute("loggedId");
+ UserVO user = null;
+ if (loggedIdAttribute instanceof UserVO) {
+     user = (UserVO) loggedIdAttribute;
+  }
+%>
+
+<script>
+    function sendSessionValueToAndroid(sessionValue) {
+        Android.setSessionValue(sessionValue);
+    }
+
+    // 특정 페이지 로딩 시 세션 값을 전달하도록 설정
+    window.onload = function() {
+      console.log("11111")
+        triggerSessionValueTransfer();
+    };
+
+    function triggerSessionValueTransfer() {
+        var sessionValue = "<%= loggedIdAttribute %>";  
+        sendSessionValueToAndroid(sessionValue);
+        console.log(sessionValue);
+
+        // 트러블슈팅을 위한 추가 코드
+        console.log("triggerSessionValueTransfer executed");
+    }
+</script>
+
 
 <html>
   <body>
