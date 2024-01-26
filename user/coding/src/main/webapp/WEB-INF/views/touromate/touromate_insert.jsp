@@ -523,12 +523,12 @@ pageEncoding="UTF-8"%>
                         </div>
                         
                         <script>
-                            var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div 
+                            var mapContainer_add = document.getElementById('map_add'); // 지도를 표시할 div
+                             mapContainer_add.style.display = 'block'; 
                                 mapOption_add = {
                                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                                     level: 1 // 지도의 확대 레벨
                                 };  
-                            
                             // 지도를 생성합니다    
                             var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add); 
                             
