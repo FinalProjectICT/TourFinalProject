@@ -1,9 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 
 function GalleryCard({ className, image, openImg, id }) {
 
+  const [imgPath, setimgPath] = useState("");
+
   // 이미지 경로 추출
   const imagePath = typeof image === 'string' ? image.replace(/\\/g, '/').replace('_0', '_') : image.path;
+
+  // 새로 등록한 이미지 경로
+  const newImage = "http://localhost:8080/assests/"+imagePath;
+
+  // 이미지 path에 'tourimg'가 포함되어 있다면 newImage로, 그렇지 않으면 imagePath를 사용
+  // const displayImage = imagePath.includes('tourimg') ? setimgPath(newImage) : setimgPath(imagePath);
 
 
   return (
@@ -11,7 +19,10 @@ function GalleryCard({ className, image, openImg, id }) {
       {/* <!-- Single Gallery --> */}
       <div className="crancy-single__gallery">
         <div className="crancy-single__gallery--thumb">
-        <img src={imagePath} alt="" />
+        {imagePath && imagePath.indexOf('tourimg') !== -1
+        ? <img src={newImage} alt="" />
+        : <img src={imagePath} alt="" />}
+        
           <a className="crancy-img__preview" onClick={() => openImg(id)}>
             <div></div>
             <svg

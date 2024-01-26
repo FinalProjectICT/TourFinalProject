@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,12 +15,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.coding.service.TourListService;
 import com.example.coding.service.UserInfoService;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import net.minidev.json.JSONObject;
 
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.Search;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.domain.WishListVO;
 
@@ -40,7 +45,7 @@ public class TourPageController {
 	 * - TourVO & TourListService, DAO
 	 * - mapper - TourListMapper - selectAll
 	 *  단순히 불러오는거라 20 개씩 출력되고 Nav도 정삭 작동하도록 수정해야함
-	 * 	?page=&range=&tour_cate_code=&keyword=
+	 * 	?page=&range=&listSize=&tour_cate_code=&keyword=&Locs=&Star=
 	 */
 	@RequestMapping(value = "/tour")
 	public String tourList(Model m ,@RequestParam(required = false, defaultValue = "1") int page 
@@ -130,9 +135,10 @@ public class TourPageController {
 
 	/*********
 	 * 찜 된 여행지 구분
-	 * @param vo
-	 * @return
+	 * @param WishListVO vo
+	 * @return String
 	*/
+
 	@RequestMapping(value = "/ckWishList", method = {RequestMethod.POST})
 	@ResponseBody
 	public String ckWishList(@ModelAttribute("vo") WishListVO vo){
@@ -142,9 +148,10 @@ public class TourPageController {
 
 	/*****
 	 * 여행지 문의 작성
-	 * @param vo
-	 * @return
+	 * @param InquiryVO vo
+	 * @return String
 	 */
+
 	@RequestMapping(value ="/inquiry", method={RequestMethod.POST})
 	@ResponseBody
 	public String newInquiry(@ModelAttribute("vo") InquiryVO vo) {
@@ -152,6 +159,47 @@ public class TourPageController {
 		String res = tourListService.newInquiry(vo);
 		return res;
 	}
-	
 
+	// 웹 소켓 전달 값 처리
+	@RequestMapping(value ="/chatBot", method={RequestMethod.POST})
+	@ResponseBody
+	public String chatBot(@RequestBody String jsonString) {
+        try {
+            // 전달된 String 형태의 json값을 다시 변환
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            // 전달 값 변수 저장
+			String userStr = jsonNode.path("userStr").asText();
+			String userId = jsonNode.path("userId").asText();
+			
+			// 결과 페이지로 전달
+			JSONObject botAnser = new JSONObject();
+			botAnser.put("requestion", userStr);
+			botAnser.put("loginfo", userId);
+			System.out.println(botAnser.getAsString("requestion"));
+            return botAnser.toString();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Error processing request";
+        }
+    }
+
+	@RequestMapping(value = "/getprofileImg", method={RequestMethod.POST})
+	@ResponseBody
+	public String requestMethodName(@ModelAttribute("vo") UserProfileVO vo) {
+		System.out.println(vo.getUser_id());
+		vo = userInfoService.getProfile(vo);
+		// null 값 경우 default_profile.png 반환
+		try {
+		if (vo.getImg_real_name() != null && vo.getImg_real_name() != ""){
+			return vo.getImg_real_name();
+			
+		}else return "default_profile.png";	
+		} catch (Exception e) {
+			return "default_profile.png";
+		}
+	}
+	
 }

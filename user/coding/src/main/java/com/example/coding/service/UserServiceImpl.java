@@ -50,4 +50,18 @@ public class UserServiceImpl implements UserService {
 	public UserVO socialLoginCheck(String user_id) {
 		return userDAO.socialLoginCheck(user_id);
 	}
+
+	@Override
+	public UserVO selectUser(String user_email) {
+		UserVO result = userDAO.selectUser(user_email);
+		System.out.println(result);
+		return result;
+	}
+
+	@Override
+	public int updatePassword(UserVO vo) {
+		int result = userDAO.updatePassword(vo);
+		System.out.println("비밀번호 변경 ==>"+result);
+		return result;
+	}
 }

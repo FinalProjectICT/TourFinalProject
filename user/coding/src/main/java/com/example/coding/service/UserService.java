@@ -11,6 +11,10 @@ public interface UserService {
     public int idCheck(String user_id);
     // 로그인
     public UserVO loginCheck(UserVO vo);
-     // 소셜 로그인
-     public UserVO socialLoginCheck(String user_id);
+    // 소셜 로그인
+    public UserVO socialLoginCheck(String user_id);
+    // 비밀번호 찾기
+    public UserVO selectUser(String user_email);
+    // 비밀번호 초기화
+    public int updatePassword(UserVO vo);
 } 

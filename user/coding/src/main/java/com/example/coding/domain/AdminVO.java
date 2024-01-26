@@ -121,7 +121,6 @@ public class AdminVO {
     private Integer inquiry_review_num ;        // 문의 답변 번호
     private String inquiry_review_content ;     // 문의 답변 내용
 
-    
     public static void main(String[] args) {
         // VO 인스턴스 생성
         AdminVO myData = new AdminVO();

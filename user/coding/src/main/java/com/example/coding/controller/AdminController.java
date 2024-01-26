@@ -90,7 +90,9 @@ public class AdminController {
     @DeleteMapping("/tour-list/{tourNum}")
     public void deleteNum(@PathVariable String tourNum) {
         AdminVO vo = new AdminVO();
+        vo.setTour_num(tourNum);
         vo.setTourNum(tourNum);
+        // System.out.println(vo);
         adminService.deleteNum(vo);
     }
 

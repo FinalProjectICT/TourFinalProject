@@ -9,12 +9,15 @@ import com.example.coding.domain.UserVO;
 @Service
 public class MyPageServiceImpl implements MyPageService {
 
-    private final MyPageDAO myPageDAO;
+    // private final MyPageDAO myPageDAO;
     
+    // @Autowired
+    // public MyPageServiceImpl(MyPageDAO myPageDAO){
+    //     this.myPageDAO = myPageDAO;
+    // }
+
     @Autowired
-    public MyPageServiceImpl(MyPageDAO myPageDAO){
-        this.myPageDAO = myPageDAO;
-    }
+    public MyPageDAO myPageDAO;
 
 
     // mypage 사용자 정보 가져오기

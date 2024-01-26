@@ -32,7 +32,6 @@
 </script>
 
 
-
 <html>
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
@@ -89,34 +88,32 @@
                           <a
                             class="nav-link"
                             data-bs-toggle="modal"
-                            data-bs-target="#chatLive"
+                            data-bs-target="#image-change"
                             href="#"
                             class="btn btn-rounded btn-sm color1"
                             data-touro-mate-num="${touroMate.touro_mate_num}"
                           >이미지변환</a
                         >
                       </li>
+                      <c:if test="${empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/login" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
+                      <c:if test="${not empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/mypage" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
                     </ul>
                   </div>
                 </div>
               </nav>
               <ul class="header-right">
-               <c:if test="${empty sessionScope.loggedInUser}">
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
-                <c:if test="${not empty sessionScope.loggedInUser}">
-                  <li class="user user-light rounded5">
-                    <a href="/user/mypage">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
                 <!-- 세션이 비어 있으면 로그인 버튼으로 -->
                 <c:if test="${empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
@@ -134,7 +131,7 @@
                 </c:if>
                 
                 </li>
-                <li class="setting">
+                <!-- <li class="setting">
                   <a href="#">
                     <i class="fas fa-cog"></i>
                   </a>
@@ -156,7 +153,7 @@
                       </select>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -165,7 +162,7 @@
     </header>
     <!--  해더 끝 -->
      <!-- 이미지 변환 (Modal) 구성 시작-->
-     <div class="modal fade edit-profile-modal" id="chatLive" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade edit-profile-modal" id="image-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
           <div class="modal-content" style="width: 80vw; max-width: 1800px; height: 80vh; max-height: 1000px;">
               <div class="modal-header">
@@ -173,24 +170,24 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body dashboard-section d-flex justify-content-center align-items-center">
-                  <section class="w-100">
+                  <section class="w-400" style="height: 500px; padding-top: 0px;">
                       <div class="image-section">
                           <!-- 내용이 중앙에 오도록 수정 -->
                           <div class="image-container row">
                               <h2 class="col-12">선택한 이미지</h2>
-                              <div class="col-12 col-md-6" style="background-color: lightblue;">
-                                  <img src="" alt="Selected Image" id="selected-image" class="w-100">
-                              </div>
+                              <div class="col-12" style="background-color: lightblue; height: 300px; display: flex; align-items: center; justify-content: center;">
+                                <img src="" alt="Select Image" id="selected-image" style="max-height: 100%; max-width: 100%;">
+                            </div>
                           </div>
   
                           <form action="/upload" method="post" enctype="multipart/form-data" id="upload-form">
                               <div class="image-section row">
-                                  <div class="image-container col-12 col-md-6">
+                                  <div class="image-container col-12 col-md-8">
                                       <label for="image">이미지 선택:</label>
                                       <input type="file" name="image" accept="image/*" id="image" onchange="previewImage()" class="form-control">
                                   </div>
   
-                                  <div class="image-container col-12 col-md-6">
+                                  <div class="image-container col-12 col-md-8">
                                       <label for="style">스타일 선택:</label>
                                       <select name="style" id="style" class="form-control">
                                           <option value="Hayao">Hayao</option>
@@ -199,17 +196,19 @@
                                           <option value="Shinkai">Shinkai</option>
                                       </select>
                                   </div>
+
+                                  <div class="button-section col-12 col-md-8" style="text-align: center;">
+                                    <button type="submit" class="btn btn-primary">변환</button>
+                                </div>
                               </div>
   
-                              <div class="button-section">
-                                  <button type="submit" class="btn btn-primary">변환</button>
-                              </div>
                           </form>
   
                           <div class="image-container row">
                               <h2 class="col-12">변환된 이미지</h2>
-                              <div class="col-12 col-md-6" style="background-color: lightblue;">
-                                  <img src="" alt="Cartoonized Image" id="result-image" class="w-100">
+                              <div class="col-12" style="background-color: lightblue; height: 300px; display: flex; align-items: center; justify-content: center;">
+                                <img src="" alt="Cartoonized Image" id="result-image" style="max-height: 100%; max-width: 100%;">
+                              </div>
                               </div>
                           </div>
                       </div>
@@ -314,7 +313,6 @@
     
       #upload-form {
         display: flex;
-        flex-direction: column;
         align-items: center;
       }
     
