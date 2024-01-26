@@ -555,7 +555,8 @@ section,
     margin-bottom: 30px;
     font-weight: 700;
     position: relative; }
-    .title-3 h2 span {
+
+    /* .title-3 h2 span {
       font-family: Vampiro One, cursive;
       font-size: calc(35px + (85 - 35) * ((100vw - 320px) / (1920 - 320)));
       position: absolute;
@@ -565,7 +566,8 @@ section,
               transform: translate(-50%, -50%);
       top: 50%;
       z-index: -1;
-      font-weight: 400; }
+      font-weight: 400; } */
+
     .title-3 h5 {
       margin-bottom: 90px;
     }
@@ -6581,10 +6583,10 @@ section .black-layer {
           -ms-flex-align: center;
               align-items: center; }
       .book-table .table-form form .row {
-        margin: 0; }
+        margin-bottom: 0; }
       .book-table .table-form form .form-group {
-        margin-bottom: 0;
-        margin-right: 40px;
+        margin-left: 200px;
+        margin-right: 200px;
         position: relative; }
         .book-table .table-form form .form-group input {
           background-color: #f9f9f9;
@@ -6692,6 +6694,8 @@ section .black-layer {
           border-radius: 0;
           padding: 15px 15px 13px 25px; }
         .book-table.single-table .table-form.classic-form form .form-group img {
+          width: 30px;
+          height: 30px;
           right: 15px;
           top: 15px; }
         .book-table.single-table .table-form.classic-form form .form-control {
@@ -6706,8 +6710,10 @@ section .black-layer {
         .book-table.single-table .table-form.classic-form:after, .book-table.single-table .table-form.classic-form:before {
           display: none; }
   .book-table.input-radius-cls .table-form.classic-form form .form-group input {
+    height: 60px;
+    margin-bottom: 100px;
     background-color: rgba(127, 180, 212, 0.1);
-    border-radius: 25px; }
+    border-radius: 30px; }
   .book-table.input-radius-cls .table-form.classic-form form .gj-datepicker {
     margin-right: 0; }
   .book-table.input-radius-cls .table-form.classic-form form .btn-rounded {
@@ -17366,7 +17372,7 @@ body.rtl {
   margin-left: 40px; }
 
 .rtl .book-table .table-form form .form-group {
-  margin-right: 0;
+  margin-right: 40px;
   margin-left: 40px; }
 
 .rtl .book-table .table-form form .btn {
@@ -20133,6 +20139,7 @@ body.dark {
     margin-bottom: 30px;
     border-radius: 15px; }
     .book-table .table-form form .form-group {
+      margin-left: 20px;
       margin-right: 20px; }
     .book-table .table-form form .gj-datepicker {
       margin-right: 20px; }

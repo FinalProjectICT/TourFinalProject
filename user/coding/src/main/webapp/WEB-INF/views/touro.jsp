@@ -649,140 +649,37 @@ prefix="c" %>
     <section class="section-b-space pt-5" style="padding-bottom: 60px">
       <div class="container">
         <div class="row">
-          <!--<div class="col">
-            <div class="col-6 col-md-4"
-
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-
-              <div style="float: left">
-                <div class="weather_icon"></div>
+          <div class="col-12">
+            <div class="search_section">
+              <div class="title-3 detail-title">
+                <span class="title-label">AI Chatbot</span>
+                <h2>
+                  어디로 떠날지 고민이라면?
+                </h2>
+                <h5>
+                  여행을 떠나고 싶지만 어디로 가야할지 막막하다면?
+                  <span style="color: #fd6668;">AI 챗봇</span>에게 물어보세요!
+                </h5>
               </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min"></div>
-                <div class="temp_max"></div>
-                <div class="humidity"></div>
-                <div class="wind"></div>
-                <div class="cloud"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp" style="font-size: 20pt"></div>
-                <div class="weather_description" style="font-size: 20pt"></div>
-                <div class="city" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            
-          <div class="col-6 col-md-4">
-            <div
-
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-            >
-              <div style="float: left">
-                <div class="weather_icon1"></div>
-              </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min1"></div>
-                <div class="temp_max1"></div>
-                <div class="humidity1"></div>
-                <div class="wind1"></div>
-                <div class="cloud1"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp1" style="font-size: 20pt"></div>
-                <div class="weather_description1" style="font-size: 20pt"></div>
-                <div class="city1" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-           
-
-          <div class="col-6 col-md-4">
-            <div
-
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-            >
-              <div style="float: left">
-                <div class="weather_icon2"></div>
-              </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min2"></div>
-                <div class="temp_max2"></div>
-                <div class="humidity2"></div>
-                <div class="wind2"></div>
-                <div class="cloud2"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp2" style="font-size: 20pt"></div>
-                <div class="weather_description2" style="font-size: 20pt"></div>
-                <div class="city2" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div> -->
-          <div class="search_section">
-            <div class="book-table single-table input-radius-cls">
-              <div class="table-form classic-form p-0">
-                <form id="notuse" onSubmit="return false;">
-                  <div class="row w-100">
-                    <div class="form-group col-8 offset-xl-2">
-                      <input
-                        id="mainInput"
-                        type="text"
-                        class="form-control"
-                        placeholder="다른 도움이 필요하신가요?"
-                      /><img
-                        src="../assets/images/icon/chatbot_b.png"
-                        alt=""
-                        style="height: 80px"
-                      />
+              <div class="book-table single-table input-radius-cls">
+                <div class="table-form classic-form p-0">
+                  <form id="notuse" onSubmit="return false;">
+                    <div class="row w-100">
+                      <div class="form-group col p-0">
+                        <input
+                          id="mainInput"
+                          type="text"
+                          class="form-control"
+                          placeholder="오늘따라 울적한데 바닷가로 떠나고 싶어"
+                        /><img
+                          src="../assets/images/icon/chatbot_r.png"
+                          class="img-fluid blur-up lazyloaded"
+                          alt
+                        />
+                      </div>
                     </div>
-                  </div>
-                </form>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
@@ -807,12 +704,11 @@ prefix="c" %>
             <span class="title-label">touro</span>
 
             <h2>
-              ${sessionScope.loggedInUser.user_name}님의 맞춤 여행지
-              <span>Touro</span>
+              ${sessionScope.loggedInUser.user_name}님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
             </h2>
             <h5>
-              ${sessionScope.loggedInUser.user_name}님의 취향을 가득 담은
-              여행지를 골라 담았습니다!
+              ${sessionScope.loggedInUser.user_name}님의 취향 분석 완료! 마음에
+              쏙 들 여행지를 추천해 드릴게요!
             </h5>
           </div>
           <div class="row">
@@ -886,122 +782,6 @@ prefix="c" %>
         </div>
         <div class="step-bg ratio_square">
           <div class="row popular-section" id="yesResult">
-            <!-- <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/16.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/17.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/18.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/19.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
           </div>
         </div>
       </div>
@@ -1023,7 +803,7 @@ prefix="c" %>
             <div class="col-12">
               <div class="title-3">
                 <span class="title-label">Touro</span>
-                <h2>계절에 따른 추천 여행지<span>touro</span></h2>
+                <h2>계절에 따른 추천 여행지</h2>
                 <h5>계절의 정취를 가득 담은 여행지를 골라 담았습니다!</h5>
               </div>
               <div class="slider-4 no-arrow">
@@ -1131,7 +911,6 @@ prefix="c" %>
 
             <h2>
               ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
-              <span>Touro</span>
             </h2>
             <h5>
               ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
@@ -1219,7 +998,7 @@ prefix="c" %>
       <div class="container">
         <div class="title-3">
           <span class="title-label"> Touro </span>
-          <h2>베스트 리뷰어<span>customer</span></h2>
+          <h2>베스트 리뷰어</h2>
           <h5>aa</h5>
         </div>
 
