@@ -12,6 +12,15 @@
     WHERE   user_id = #{userId}
 </select>
 
+<!-- 사용자 프로필 사진 가져오기 -->
+<select id="getUserProfileImage" resultType="String">
+    SELECT img.img_real_name
+    FROM img_detail imgDetail
+    JOIN img ON imgDetail.img_num = img.img_num
+    WHERE imgDetail.user_id = #{userId}
+</select>
+
+
 
 <!-- 마이페이지 - 메인페이지 - 개수 -->
 <!-- 사용자가 작성한 리뷰 개수 조회 -->
@@ -98,10 +107,33 @@
 
 
 
+<!-- 마이페이지 - 나의 발자취-->
+<select id="getMyPageReceiptList" resultType="ReceiptVO">
+    SELECT  *
+    FROM    receipt
+    WHERE   user_id = #{userId}
+    ORDER BY receipt_date DESC
+    LIMIT #{start} OFFSET #{size}
+</select>
+
+<!-- 사용자별 전체 영수증 개수 조회 -->
+<select id="getTotalReceiptCount" resultType="int">
+    SELECT  COUNT(*) 
+    FROM    receipt 
+    WHERE   user_id = #{userId}
+</select>
+
+<select id="getTotalReceiptPages" resultType="int">
+        SELECT COUNT(*)
+        FROM receipt;
+</select>
 
 
-
-
+<!-- 모든 페이지 수 가져오기-->
+<select id="getTotalPages" resultType="int">
+        SELECT COUNT(*)
+        FROM touroview;
+</select>
 
 
 
@@ -122,9 +154,19 @@
 <!-- 마이페이지 문의 내역 -->
 <!-- 사용자 문의 답변만 가져오기-->
 <select id="getInquiryByUserId" resultType="InquiryVO">
-    SELECT  * 
-    FROM    inquiry
-    WHERE   user_id = #{userId}
+    SELECT  i.inquiry_num,
+            i.inquiry_title,
+            i.inquiry_content,
+            i.inquiry_process,
+            i.user_id,
+            i.tour_num,
+            ir.inquiry_review_content
+    FROM    
+            inquiry i
+    LEFT JOIN 
+            inquiry_review ir ON i.inquiry_num = ir.inquiry_num
+    WHERE   
+            i.user_id = #{userId}
 </select>
 
 

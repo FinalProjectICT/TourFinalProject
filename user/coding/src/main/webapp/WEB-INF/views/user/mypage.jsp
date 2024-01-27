@@ -142,13 +142,13 @@ pageEncoding="UTF-8"%>
                 <div class="profile-top">
                   <div class="profile-image">
                     <img
-                      src="../assets/images/avtar/1.jpg"
+                      src="../assets/images/profile/${profileImage}"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
                   </div>
                   <div class="profile-detail">
-                    <h5>${sessionScope.loggedId}</h5>
+                    <h5>${userVO.user_name}</h5>
                     <h5>${userVO.user_addr}</h5>
                     <h6>${userVO.user_email}</h6>
                   </div>
@@ -272,7 +272,7 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="profile-image mb-4">
                       <img
-                        src="../assets/images/avtar/1.jpg"
+                        src="../assets/images/profile/${profileImage}"
                         class="img-fluid blur-up lazyload"
                         alt=""
                       />
@@ -286,7 +286,7 @@ pageEncoding="UTF-8"%>
                         </li>
                         <!-- 생년월일 -->
                         <li class="d-flex justify-content-between mb-4">
-                          <span>생년월일</span>
+                          <span>나이</span>
                           <span>${userVO.user_age}</span>
                         </li>
                         <!-- 성별 -->
@@ -443,26 +443,38 @@ pageEncoding="UTF-8"%>
                       </div>
                     </div>
 
+                    <!-- 지도 --> 
+                    <div class="menu-part tab-pane fade map" id="location" style="width: 100%; height: 400px;">
+                      <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147718689!2d-74.11976358820196!3d40.69740344169578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1568001991098!5m2!1sen!2sin"
+                        style="border: 0"
+                        allowfullscreen=""
+                      ></iframe>
+                    </div>
+
 
                     <div
-                      class="product-wrapper-grid ratio3_2 special-section grid-box"
-                    >
+                      class="product-wrapper-grid ratio3_2 special-section grid-box">
                       <div class="row content grid">
+                        <!-- 여기에 receipt 목록 -->
+                      <c:forEach var="receipt" items="${receiptVO}" varStatus="status">
                         <div class="col-xl-4 col-sm-6 grid-item">
                           <div class="special-box">
                             <div class="special-img">
-                              <a href="#">
+                              <a href="/tourDetail/${receipt.tour_num}">
+                                <!-- 이미지 -->
                                 <img
-                                  src="../assets/images/tour/tour/7.jpg"
+                                  src=""
                                   class="img-fluid blur-up lazyload bg-img"
                                   alt=""
                                 />
                               </a>
                               <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
+                                <!-- 여행지 제목-->
+                                <a href="/tourDetail/${receipt.tour_num}"">
+                                  <h5>${receipt.receipt_name}</h5>
                                 </a>
-                                <h6>6N 7D</h6>
+                                <h6>${receipt.receipt_date}</h6>
                               </div>
                               <div class="top-icon">
                                 <a
@@ -476,156 +488,30 @@ pageEncoding="UTF-8"%>
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
+                        </div> 
+                        <!-- 2행 3열 레이아웃을 위한 조건문 -->
+                        <c:if test="${status.index % 3 == 0}">
+                        </div><div class="row">
+                        </c:if>
+                      </c:forEach>
+                    </div>
+                  </div> 
+                  <!-- 페이징 -->
+                      <div class="row">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                                        <li class="page-item <c:if test="${pageNum == currentPage}">active</c:if>">
+                                            <a class="page-link" href="?page=${pageNum}">${pageNum}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
                 <!-- 여행지 담기 페이지 -->
                 <div class="tab-pane fade" id="wishlist">
@@ -635,26 +521,25 @@ pageEncoding="UTF-8"%>
                     </div>
 
                     <div
-                      id="wishListContainer" class="product-wrapper-grid ratio3_2 special-section grid-box" 
-                    >
+                      id="wishListContainer" class="product-wrapper-grid ratio3_2 special-section grid-box" >
                       <div class="row content grid">
                       <!-- 여기에 WishlistVO 목록 표시 --> 
-                      <c:forEach var="wishList" items="${wishListVO}" varStatus="status">
-                        <div class="col-xl-4 col-sm-6 grid-item">
+                       <c:forEach var="wishList" items="${wishListVO}" varStatus="status">
+                        <!--<div class="col-xl-4 col-sm-6 grid-item">
                               <div class="special-box">
                                   <div class="special-img">
                                       <a href="/tourDetail/${wishList.tour_num}">
-                                        <img src="../assets/${WishList.tour_num.tour_img1_path}" class="img-fluid blur-up lazyload bg-img"
+                                        <img src="../assets/${wishList.tour_img1_path}" class="img-fluid blur-up lazyload bg-img"
                                         alt="" />
                                       </a>
                                       <div class="content_inner">
                                           <a href="/tourDetail/${wishList.tour_num}">
-                                              <h5>${WishList.wishlist_num}</h5>
+                                              <h5>${wishList.wishlist_num}</h5>
                                           </a>
-                                          <h6>${WishList.tour_num}</h6>
-                                      </div>
+                                          <h6>${wishList.tour_num}</h6>
+                                      </div> -->
                                       <!-- 삭제 아이콘 -->
-                                      <div class="top-icon">
+                                      <!-- <div class="top-icon">
                                           <a href="#" class=""
                                             data-bs-toggle="tooltip"
                                             data-placement="top"
@@ -664,7 +549,7 @@ pageEncoding="UTF-8"%>
                                       </div>
                                   </div>
                               </div>
-                          </div>
+                          </div>-->
                         </c:forEach>
                       </div>
                     </div>
@@ -673,49 +558,44 @@ pageEncoding="UTF-8"%>
 
                 <!--작성한 문의 내역 -->
                 <div class="tab-pane fade" id="inquiry">
-    <div class="dashboard-main">
-        <div class="dashboard-intro" style="width: 270px; background-color: #ebebeb">
-            <h5>문의내역</h5>
-        </div>
-        <div class="row">
-            <c:forEach var="inquiry" items="${inquiryVO}" varStatus="status">
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">제목: ${inquiry.inquiry_title}</h5>
-                            <p class="card-text">답변 여부: 
-                                <span th:class="${inquiry.inquiry_process == 1} ? 'text-success' : 'text-warning'">
-                                    ${inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기'}
-                                </span>
-                            </p>
-                            <p class="card-text">문의 내용: ${inquiry.inquiry_content}</p>
-
-                            <!-- 기타 필요한 정보 추가 -->
-
-                            <!-- 토글 버튼 -->
-                            <button class="btn btn-link" onclick="toggleDetails(${inquiry.inquiry_num})">답변</button>
-                            
-                            <!-- 자세한 내용 -->
-                            <div id="details-${inquiry.inquiry_num}" style="display: none;">
-                                <p>답변 내용: ${inquiry.inquiryReviewVO.inquiry_review_content}</p>
-                                <!-- 기타 자세한 내용 추가 -->
-                            </div>
-                        </div>
+                  <div class="dashboard-main">
+                    <div class="dashboard-intro" style="width: 270px; background-color: #ebebeb">
+                        <h5>문의내역</h5>
                     </div>
+                      <div class="row">
+                          <c:forEach var="inquiry" items="${inquiryVO}" varStatus="status">
+                              <div class="col-md-4">
+                                  <div class="card mb-4">
+                                      <div class="card-body">
+                                          <h5 class="card-title">제목: ${inquiry.inquiry_title}</h5>
+                                          <p class="card-text">답변 여부: 
+                                              <span th:class="${inquiry.inquiry_process == 1} ? 'text-success' : 'text-warning'">
+                                                  ${inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기'}
+                                              </span>
+                                          </p>
+                                          <p class="card-text">문의 내용: ${inquiry.inquiry_content}</p>
+
+                                          <!-- 기타 필요한 정보 추가 -->
+
+                                          <!-- 토글 버튼 -->
+                                          <button class="btn btn-link" onclick="toggleDetails(${inquiry.inquiry_num})">답변</button>
+                                          
+                                          <!-- 자세한 내용 -->
+                                          <div id="details-${inquiry.inquiry_num}" style="display: none;">
+                                              <p>답변 내용: ${inquiry.inquiry_review_content}</p>
+                                              <!-- 기타 자세한 내용 추가 -->
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- 한 행에 3개씩 나누기 위해 추가한 조건문 -->
+                              <c:if test="${status.index % 3 == 2}">
+                                  </div><div class="row">
+                              </c:if>
+                          </c:forEach>
+                      </div>
+                  </div>
                 </div>
-                <!-- 한 행에 3개씩 나누기 위해 추가한 조건문 -->
-                <c:if test="${status.index % 3 == 2}">
-                    </div><div class="row">
-                </c:if>
-            </c:forEach>
-        </div>
-    </div>
-</div>
-
-
-
-
-
                 </div>
               </div>
             </div>
@@ -1454,8 +1334,6 @@ pageEncoding="UTF-8"%>
 
 
 
-
-
 <script th:inline="javascript">
     /*<![CDATA[*/
     function submitInquiry() {
@@ -1492,8 +1370,53 @@ pageEncoding="UTF-8"%>
 </script>
 
 
+ <!-- 카카오 지도 api 관련-->
+ <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c24da0b739365422264a4d30230c887c"></script>
 
 
+<!-- 페이징 -->
+ <script>
+  // 페이지네이션 클릭 이벤트
+  $(".pagination a").click(function(e) {
+    e.preventDefault(); // 기본 링크 동작 방지
+    var page = $(this).attr("href").split("page=")[1]; // 페이지 번호 추출
+
+    $.ajax({
+        url: '/mypage/receipts', // 요청할 URL
+        type: 'GET',
+        data: { page: page, size: 6 },
+        success: function(response) {
+            // 목록을 담을 부분을 비웁니다.
+        var container = $(".product-wrapper-grid .grid");
+        container.empty();
+
+        // 서버로부터 받은 데이터를 이용해 새로운 목록을 구성합니다.
+        $.each(response, function(index, receipt) {
+          var itemHtml = '<div class="col-xl-4 col-sm-6 grid-item">' +
+                           '<div class="special-box">' +
+                             '<div class="special-img">' +
+                               '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                                 '<img src="'+ receipt.imageUrl +'" class="img-fluid blur-up lazyload bg-img" alt=""/>' +
+                               '</a>' +
+                               '<div class="content_inner">' +
+                                 '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                                   '<h5>' + receipt.receipt_name + '</h5>' +
+                                 '</a>' +
+                                 '<h6>' + receipt.receipt_date + '</h6>' +
+                               '</div>' +
+                             '</div>' +
+                           '</div>' +
+                         '</div>';
+          // 목록에 새로운 항목을 추가합니다.
+          container.append(itemHtml);
+        });
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+</script>
 
 
 

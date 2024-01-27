@@ -11,5 +11,5 @@ public class InquiryVO {
    private String user_id;          // 유저 아이디
    private String tour_num;         // 여행지 번호
 
-   private InquiryReviewVO inquiryReviewVO; // 문의 답변 
+   private String inquiry_review_content; // 문의 답변 
 }
