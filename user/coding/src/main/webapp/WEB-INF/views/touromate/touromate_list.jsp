@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -70,105 +70,11 @@ pageEncoding="UTF-8"%>
   </head>
 
   <body>
-    <!-- header start -->
-    <!-- <header class="inner-page overlay-black">
-      <div class="container">
-        <div class="row">
-          <div class="col">
-            <div class="menu">
-              <div class="brand-logo">
-                <a href="/user/touro">
-                  <img
-                    src="../assets/images/icon/footer-logo.png"
-                    alt=""
-                    class="img-fluid blur-up lazyload"
-                  />
-                </a>
-              </div>
-              <nav>
-                <div class="main-navbar">
-                  <div id="mainnav">
-                    <div class="toggle-nav">
-                      <i class="fa fa-bars sidebar-bar"></i>
-                    </div>
-                    <div class="menu-overlay"></div>
-                    <ul class="nav-menu">
-                      <li class="back-btn">
-                        <div class="mobile-back text-end">
-                          <span>Back</span>
-                          <i
-                            aria-hidden="true"
-                            class="fa fa-angle-right ps-2"
-                          ></i>
-                        </div>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/tour/tour_list" class="nav-link">Tour</a>
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touromate/touromate_list" class="nav-link"
-                          >Touromate</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/touroview/touroview_list" class="nav-link"
-                          >Touroview</a
-                        >
-                      </li>
-                      <li class="nav-submenu">
-                        <a href="/user/img_change" class="nav-link"
-                          >ImgChange</a
-                        >
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-              <ul class="header-right">
-                <li class="front-setting rounded5">
-                  <select>
-                    <option value="volvo">한국어</option>
-                    <option value="saab">영어</option>
-                  </select>
-                </li>
-                <li class="user user-light rounded5">
-                  <a href="/user/login">
-                    <i class="fas fa-user"> 로그인</i>
-                  </a>
-                </li>
-                <li class="setting">
-                  <a href="#">
-                    <i class="fas fa-cog"></i>
-                  </a>
-                  <ul class="setting-open">
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">USD</option>
-                        <option value="saab">EUR</option>
-                        <option value="opel">INR</option>
-                        <option value="audi">AUD</option>
-                      </select>
-                    </li>
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">ENG</option>
-                        <option value="saab">FRE</option>
-                        <option value="opel">SPA</option>
-                        <option value="audi">DUT</option>
-                      </select>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header> -->
-    <!--  header end -->
+    
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
+
     <!-- breadcrumb start -->
     <section class="breadcrumb-section parallax-img pt-0">
       <img
@@ -178,12 +84,12 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content overlay-black">
         <div>
-          <h2>holiday package</h2>
+          <h2>여행 친구 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                holiday package
+                여행 친구 찾기
               </li>
             </ol>
           </nav>
@@ -321,205 +227,9 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- section End -->
 
-    <!-- footer start -->
-    <footer>
-      <div class="footer section-b-space section-t-space">
-        <div class="container">
-          <div class="row order-row">
-            <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
-                <h5>Touro</h5>
-              </div>
-              <div class="footer-content">
-                <div class="contact-detail">
-                  <div class="footer-logo">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </div>
-                  <p>사이트 소개</p>
-                  <ul class="contact-list">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                      Newyork.
-                    </li>
-                    <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                    <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-4">
-              <div class="footer-title">
-                <h5>인기 여행지</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-place">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="footer-title">
-                <h5>인기 게시물</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-blog row">
-                  <div class="media"></div>
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end -->
+    <!-- 푸터 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../footer/footer.jsp' %>
+    <!--  푸더 끝 -->
 
     <!-- tap to top -->
     <div class="tap-top">
@@ -528,29 +238,6 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- setting start -->
-    <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div>
-    <!-- setting end -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
