@@ -104,6 +104,79 @@ public class MyPageController {
     }
 
 
+    @GetMapping("user/appReview")
+    public String app(HttpSession session, Model model) {
+
+        // 세션에서 사용자 아이디 가져오기
+        String userId = (String) session.getAttribute("loggedId");
+
+        // 사용자 정보 가져와서 userVO에 저장
+        UserVO userVO = myPageService.getUserProfile(userId);
+
+        // 모델에 사용자 아이디 추가
+        model.addAttribute("userId", userId);   // 세션 id 값
+        
+        // UserVO
+        model.addAttribute("userVO", userVO);
+
+
+        // 콘솔 출력
+        System.out.println("사용자 아이디: " + userId);
+        System.out.println("사용자 아이디: " + userVO);
+        
+    
+        return "user/user/appReview";
+        
+    }
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

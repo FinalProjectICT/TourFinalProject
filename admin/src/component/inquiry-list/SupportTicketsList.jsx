@@ -26,8 +26,11 @@ function SupportTicketsList() {
     });
   }, []);
 
-  
- 
+  const parentComponent = () => {
+    return <SupportTicketsList />
+  }
+
+
   const [ inquiryIdx, setInquiryIdx ] = useState(0) ;
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -80,6 +83,7 @@ function SupportTicketsList() {
     inquNum={inquNum}
     inquiryReviewNum={inquiryReviewNum}
     inquiryReview={inquiryReview}
+    parentComponent={parentComponent}
     
     />
     
@@ -170,7 +174,7 @@ function SupportTicketsList() {
                 </thead>
                 <tbody className="crancy-table__body">
                 {inquirys.map((inQ,idx) => (
-                  <tr key={inQ.inquiry_num} >
+                  <tr key={idx} >
                     <td>{inQ.inquiry_num}</td>
                     <td>{inQ.inquiry_title}</td>
                     <td>{inQ.user_id}</td>

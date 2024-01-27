@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.coding.domain.AdminTouroMateVO;
 import com.example.coding.domain.AdminVO;
+import com.example.coding.domain.ChartVO;
 import com.example.coding.domain.MainAdminVO;
 import com.example.coding.domain.TouroviewVO;
-import com.example.coding.service.MainServiceImpl;
+import com.example.coding.service.MainService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -24,13 +25,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class MainAdminController {
 
   @Autowired
-  MainServiceImpl mainServiceImpl;
+  MainService mainService;
 
 
   // 관리자 touromate 리스트 출력
   @GetMapping("/touromate-list/touromateList")
   public List<AdminTouroMateVO> touromateList(Model m) {
-      List<AdminTouroMateVO> mateLists = mainServiceImpl.touromateList();
+      List<AdminTouroMateVO> mateLists = mainService.touromateList();
       System.out.println("Mate"+ mateLists);
       m.addAttribute("touromateList", mateLists);
       return mateLists;
@@ -39,44 +40,68 @@ public class MainAdminController {
   // 관리자 touromate 검색
   @GetMapping("/touromate-list/search_mate")
   public List<AdminTouroMateVO> searchMate(@RequestParam("search_mate")String search_mate ) {
-      return mainServiceImpl.searchMate(search_mate);
+      return mainService.searchMate(search_mate);
   }
 
   // 관리자 대시보드 - 회원수 가져오기
   @GetMapping("/dashboard/userCount")
   public Integer userCount() {
-      return mainServiceImpl.userCount();
+      return mainService.userCount();
   }
 
+  // 관리자 대시보드 - 회원수 차트 값...
+  @GetMapping("/dashboard/userCountGraph")
+  public List<ChartVO> userCountGraph() {
+    return mainService.userCountGraph();
+  }
+  
   // 관리자 대시보드 - 여행친구찾기 게시글 수 가져오기
   @GetMapping("/dashboard/touroviewCount")
   public Integer touroviewCount() {
-      return mainServiceImpl.touroviewCount();
+      return mainService.touroviewCount();
   }
+
+  // 관리자 대시보드 - 여행친구찾기 게시글 차트 값...
+  @GetMapping("/dashboard/touromateCountGraph")
+  public List<ChartVO> touromateCountGraph() {
+    return mainService.touromateCountGraph();
+  }   
 
   // 관리자 대시보드 - 후기 게시글 수 가져오기
   @GetMapping("/dashboard/reviewCount")
   public Integer reviewCount() {
-      return mainServiceImpl.reviewCount();
+      return mainService.reviewCount();
+  }
+
+  // 관리자 대시보드 - 여행후기 게시글 차트 값...
+  @GetMapping("/dashboard/touroviewCountGraph")
+  public List<ChartVO> touroviewCountGraph() {
+    return mainService.touroviewCountGraph();
   }
 
   // 관리자 대시보드 - 영수증 리뷰 수 가져오기
   @GetMapping("/dashboard/receiptReviewCount")
   public Integer receiptReviewCount() {
-      return mainServiceImpl.receiptReviewCount();
+      return mainService.receiptReviewCount();
   }
+
+   // 관리자 대시보드 - 영수증 리뷰 차트 값...
+   @GetMapping("/dashboard/receiptCountGraph")
+   public List<ChartVO> receiptCountGraph() {
+     return mainService.receiptCountGraph();
+   }
 
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계
   @GetMapping("/dashboard/locPrefer")
   public List<MainAdminVO> locPrefer() {
-      return mainServiceImpl.locPrefer();
+      return mainService.locPrefer();
   }
   
   // 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리
   @PostMapping("/touroview/blind/{touroview_num}")
   public void touroviewBlind(@PathVariable("touroview_num") Integer touroview_num, TouroviewVO vo) {
     vo.setTouroview_num(touroview_num);
-    mainServiceImpl.touroviewBlind(vo);
+    mainService.touroviewBlind(vo);
       
   }
 
@@ -85,13 +110,13 @@ public class MainAdminController {
   public void inquiryReview(@RequestBody AdminVO vo) {
     System.out.println(vo.getInquiry_review_content());
     System.out.println(vo.getInquiry_num());
-    mainServiceImpl.inquiryReview(vo);
+    mainService.inquiryReview(vo);
   }
 
   // 관리자 문의 답변하면 -> inquiry_process = 1로 변경
   @PostMapping("/inquiry/inquiryProcess")
   public void inquiryProcess(@RequestBody AdminVO vo) {
-    mainServiceImpl.inquiryProcess(vo);
+    mainService.inquiryProcess(vo);
   }
 
   // 관리자 문의 답변 수정하기 - DB 수정
@@ -99,8 +124,26 @@ public class MainAdminController {
   public void inquiryReviewUpdate(@RequestBody AdminVO vo) {
     // System.out.println(vo.getInquiry_review_content());
     // System.out.println(vo.getInquiry_num());
-    mainServiceImpl.inquiryReviewUpdate(vo);
+    mainService.inquiryReviewUpdate(vo);
   }
+
+  // 관리자 대시보드 - 인기 게시물 가져오기
+  @GetMapping("/touroview/popularPost")
+  public List<AdminVO> popularPost(Model m) {
+    List<AdminVO> result = mainService.popularPost();
+    m.addAttribute("popularPost", result);
+    return result;
+  } 
+
+  // 관리자 대시보드 - 인기 여행지 가져오기
+  @GetMapping("/wishlist/popularTour")
+  public List<AdminVO> popularTour() {
+    List<AdminVO> result = mainService.popularTour();
+    System.out.println(result);
+    return result;
+  }
+
+
   
   
   

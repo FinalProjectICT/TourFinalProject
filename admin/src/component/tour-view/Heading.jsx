@@ -27,8 +27,8 @@ function Heading() {
       const toursData = result.data;
       setTours({ ...toursData });
       setImages([ 
-        `../${toursData.tour_img1_path}`,
-        `../${toursData.tour_img2_path}`
+        `../${toursData.tour_img1_path}`
+        // `../${toursData.tour_img2_path}`
       ]);
     }).catch((error) => {
       console.error('검색 오류:', error);

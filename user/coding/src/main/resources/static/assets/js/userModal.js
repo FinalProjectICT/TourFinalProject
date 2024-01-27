@@ -1,6 +1,33 @@
 // #exampleModalLabel
 // 사용자 모달에 정보 넣기
+// 일단 자리에 설정된 아이디로 정보를 가져옴("userInfo_(사용자 아이디)")
 $(function () {
+  $("a[id^=userInfo_]").each((idx, item) => {
+    var id = $(item).attr("id");
+    id = id.substring("userInfo_".length, id.length);
+    $(item).children().next().find("h3").text(id);
+
+    $(item)
+      .children(0)
+      .attr("src", "../assets/images/profile/default_profile.png");
+
+    $.ajax({
+      url: "/touro/getprofileImg",
+      type: "POST",
+      data: { user_id: id },
+      success: function (respons) {
+        if (respons != "") {
+          $(item)
+            .children(0)
+            .attr("src", "../assets/images/profile/" + respons);
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+  });
+
   $("a[id^=userInfo_]").on("click", function (event) {
     var id = event.currentTarget.id;
     id = id.substring("userInfo_".length, id.length);
@@ -22,6 +49,27 @@ $(function () {
         $("#user_prefer_type2").text(result.user_prefer_type2);
         $("#user_prefer_type3").text(result.user_prefer_type3);
         $("#user_age").text(result.user_age[0] + "0대");
+      },
+      error: function (err) {
+        console.log(err);
+      },
+    });
+    $.ajax({
+      url: "/touro/getprofileImg",
+      type: "POST",
+      data: { user_id: id },
+      success: function (respons) {
+        if (respons != null && respons != "") {
+          $("#modalProfileImg").attr(
+            "src",
+            "../assets/images/profile/" + respons
+          );
+        } else {
+          $("#modalProfileImg").attr(
+            "src",
+            "../assets/images/profile/default_profile.png"
+          );
+        }
       },
       error: function (err) {
         console.log(err);

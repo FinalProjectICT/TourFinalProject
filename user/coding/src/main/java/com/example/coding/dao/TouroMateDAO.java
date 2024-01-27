@@ -3,6 +3,9 @@ package com.example.coding.dao;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.TouroMateChatUserVO;
 
 import java.util.List;
 
@@ -44,5 +47,30 @@ public interface TouroMateDAO {
     void registerTouroMateAndChat(TouroMateVO touroMateVO);
 
     void registerTouroMateChat(TouroMateVO touroMateVO);
-      
+
+    // 채팅 참가하기 버튼을 눌렀을 때, 값 디비에 저장하기
+    void joinChat(@Param("user_id") String user_id, @Param("touro_mate_num") String touro_mate_num);
+
+    void joinChat(TouroMateChatUserVO chatUserVO);
+
+    // 이미 참여한 유저인지 확인하는 메서드
+    int checkUserInChat(@Param("user_id") String user_id, @Param("chat_num") String chat_num);
+
+    // TouroMateDAO.java
+    int getCurrentChatUsers(int touro_mate_num);
+
+    int getMaxChatUsers(int touro_mate_num);
+
+    // 여행친구찾기 글 이미지 올리기
+    void insertMateImg(ImgVO ivo);
+
+    // 여행친구찾기 글 이미지 올리기(DETAIL)
+    Long selectNum();
+
+    // 여행친구찾기 글 번호
+    int selectMateNum();
+
+    // 디테일 이미지 가져오기
+    List<ImgVO> getImages(int touro_mate_num);
+
 }

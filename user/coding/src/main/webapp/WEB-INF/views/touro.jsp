@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>Touro</title>
 
     <!--Google font-->
     <link
@@ -635,7 +635,7 @@ prefix="c" %>
     <section class="home_effect effect-cls pt-0">
       <div class="snow" count="30"></div>
       <div class="effect_image">
-        <img src="../assets/images/tour/background/2.png" alt="">
+        <img src="../assets/images/tour/background/2.png" alt="" />
         <div class="effect_content">
           <div>
             <h1>TOURO</h1>
@@ -645,152 +645,49 @@ prefix="c" %>
     </section>
     <!-- 로고, 배경 설정 끝 -->
 
-    <!-- 검색창 설정 -->
-    <section class="section-b-space pt-5">
+<!-- 검색창 설정 -->
+    <section class="section-b-space pt-5" style="padding-bottom: 60px">
       <div class="container">
         <div class="row">
-          <div class="col">
-            <div
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-            >
-              <div style="float: left">
-                <div class="weather_icon"></div>
+          <div class="col-12">
+            <div class="search_section">
+              <div class="title-3 detail-title">
+                <span class="title-label">AI Chatbot</span>
+                <h2>
+                  어디로 떠날지 고민이라면?
+                </h2>
+                <h5>
+                  여행을 떠나고 싶지만 어디로 가야할지 막막하다면?
+                  <span style="color: #fd6668;">AI 챗봇</span>에게 물어보세요!
+                </h5>
               </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min"></div>
-                <div class="temp_max"></div>
-                <div class="humidity"></div>
-                <div class="wind"></div>
-                <div class="cloud"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp" style="font-size: 20pt"></div>
-                <div class="weather_description" style="font-size: 20pt"></div>
-                <div class="city" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-            >
-              <div style="float: left">
-                <div class="weather_icon1"></div>
-              </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min1"></div>
-                <div class="temp_max1"></div>
-                <div class="humidity1"></div>
-                <div class="wind1"></div>
-                <div class="cloud1"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp1" style="font-size: 20pt"></div>
-                <div class="weather_description1" style="font-size: 20pt"></div>
-                <div class="city1" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div
-              style="
-                background-color: rgb(255, 255, 255);
-                padding: 25px;
-                color: #000;
-                height: 150px;
-                width: 50%;
-              "
-            >
-              <div style="float: left">
-                <div class="weather_icon2"></div>
-              </div>
-              <br />
-
-              <div
-                style="
-                  float: right;
-                  margin: -136px 0px 0px 50px;
-                  font-size: 9pt;
-                "
-              >
-                <div class="temp_min2"></div>
-                <div class="temp_max2"></div>
-                <div class="humidity2"></div>
-                <div class="wind2"></div>
-                <div class="cloud2"></div>
-              </div>
-              <div style="float: right; margin-top: -30px">
-                <div class="current_temp2" style="font-size: 20pt"></div>
-                <div class="weather_description2" style="font-size: 20pt"></div>
-                <div class="city2" style="font-size: 13pt"></div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="search_section">
               <div class="book-table single-table input-radius-cls">
                 <div class="table-form classic-form p-0">
-                  <form>
+                  <form id="notuse" onSubmit="return false;">
                     <div class="row w-100">
-                      <div class="form-group col-3 p-0">
-                        <select
-                          type=""
-                          class="btn-rounded form-control"
-                          id="exampleFormControlInput1"
-                        >
-                          <option value="1">구분</option>
-                          <option value="2">설정</option>
-                        </select>
-                      </div>
-                      <div class="form-group col-7 p-0">
+                      <div class="form-group col p-0">
                         <input
+                          id="mainInput"
                           type="text"
                           class="form-control"
-                          placeholder="검색어 입력"
-                        />
-                        <img
-                          src="../assets/images/icon/table-no.png"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
+                          placeholder="오늘따라 울적한데 바닷가로 떠나고 싶어"
+                        /><img
+                          src="../assets/images/icon/chatbot_r.png"
+                          class="img-fluid blur-up lazyloaded"
+                          alt
                         />
                       </div>
                     </div>
-                    <a href="#" class="btn btn-rounded col-2 color1">검색</a>
                   </form>
                 </div>
               </div>
-            </div> -->
+            </div>
+          </div>
         </div>
       </div>
     </section>
     <!-- 검색창 설정 끝 -->
+
 
     <!-- 회원 맞춤 여행지 설정 -->
     <section
@@ -805,10 +702,14 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
+
             <h2>
-              ${sessionScope.loggedId}님의 맞춤 여행지 <span>Touro</span>
+              ${sessionScope.loggedInUser.user_name}님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
             </h2>
-            <h5>${sessionScope.loggedId}님의 취향을 가득 담은 여행지를 골라 담았습니다!</h5>
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 취향 분석 완료! 마음에
+              쏙 들 여행지를 추천해 드릴게요!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -881,122 +782,6 @@ prefix="c" %>
         </div>
         <div class="step-bg ratio_square">
           <div class="row popular-section" id="yesResult">
-            <!-- <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/16.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/17.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/18.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                      <div class="step-box">
-                          <div class="popular-box">
-                              <div class="popular_img">
-                                  <img src="../assets/images/hotel/room/19.jpg" alt=""
-                                      class="img-fluid blur-up lazyload bg-img">
-                              </div>
-                              <div class="special-content">
-                                  <a href="#">
-                                      <h5>the venetian <span><i class="fas fa-map-marker-alt"></i> Newyork</span></h5>
-                                  </a>
-                                  <div class="bottom-section">
-                                      <div class="rating">
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="fas fa-star"></i>
-                                          <i class="far fa-star"></i>
-                                          <span>26412 review</span>
-                                      </div>
-                                      <div class="price">
-                                          <del>$1300</del>
-                                          <span>$1245</span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div> -->
           </div>
         </div>
       </div>
@@ -1018,7 +803,7 @@ prefix="c" %>
             <div class="col-12">
               <div class="title-3">
                 <span class="title-label">Touro</span>
-                <h2>계절에 따른 추천 여행지<span>touro</span></h2>
+                <h2>계절에 따른 추천 여행지</h2>
                 <h5>계절의 정취를 가득 담은 여행지를 골라 담았습니다!</h5>
               </div>
               <div class="slider-4 no-arrow">
@@ -1123,8 +908,14 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-            <h2>${sessionScope.loggedId}님의 최애 지역 여행지 <span>Touro</span></h2>
-            <h5>${sessionScope.loggedId}님의 1순위 선호 지역에 관한 여행지를 골라 담았습니다!</h5>
+
+            <h2>
+              ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
+            </h2>
+            <h5>
+              ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
+              여행지를 골라 담았습니다!
+            </h5>
           </div>
           <div class="row">
             <div class="col">
@@ -1207,7 +998,7 @@ prefix="c" %>
       <div class="container">
         <div class="title-3">
           <span class="title-label"> Touro </span>
-          <h2>베스트 리뷰어<span>customer</span></h2>
+          <h2>베스트 리뷰어</h2>
           <h5>aa</h5>
         </div>
 
@@ -1217,7 +1008,7 @@ prefix="c" %>
               <div class="testimonial">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Byounggon"
+                    id="userInfo_bmh5544"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1232,22 +1023,7 @@ prefix="c" %>
                 </div>
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Daehoon"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_Hangil"
+                    id="userInfo_chunsikjjang"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1263,6 +1039,21 @@ prefix="c" %>
                 <div class="left-part col-2">
                   <a
                     id="userInfo_Hangil"
+                    data-bs-toggle="modal"
+                    data-bs-target="#profile"
+                    href="#"
+                  >
+                    <img
+                      src="../assets/images/avtar/1.jpg"
+                      class="img-fluid blur-up lazyload"
+                      alt=""
+                    />
+                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                  </a>
+                </div>
+                <div class="left-part col-2">
+                  <a
+                    id="userInfo_wldusfl"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1309,7 +1100,8 @@ prefix="c" %>
                 <div class="profile-top">
                   <div class="profile-image">
                     <img
-                      src="../assets/images/avtar/1.jpg"
+                      id="modalProfileImg"
+                      src="../assets/images/profile/default_profile.png"
                       class="img-fluid blur-up lazyloaded"
                       alt=""
                     />
@@ -1420,7 +1212,7 @@ prefix="c" %>
     <!-- tap to top end -->
 
     <!-- setting start -->
-    <div class="theme-setting">
+    <!-- <div class="theme-setting">
       <div class="dark">
         <input class="tgl tgl-skewed" id="dark" type="checkbox" />
         <label
@@ -1439,21 +1231,27 @@ prefix="c" %>
           for="rtl"
         ></label>
       </div>
-    </div>
+    </div> -->
     <!-- setting end -->
 
-    <!-- 챗봇 구역  -->
-    <button id="chatButton"><i class="far fa-question-circle"></i></button>
+    <!-- 챗봇 구역 시작 -->
+    <button id="chatButton">
+      <img
+        src="../assets/images/icon/chatbot_r.png"
+        class="img-fluid blur-up lazyloaded bg-img"
+        alt=""
+      />
+    </button>
 
     <div class="testimonial-section row" id="chatContainer">
-      <div class="" id="chatContent">
+      <div class="ratio_square" id="chatContent">
         <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
       </div>
-      <input type="text" id="chatInput" placeholder="메시지 입력" />
-      <button type="button" class="btn btn-outline-primary">A</button>
-      <button type="button" class="btn btn-outline-primary">B</button>
+      <input type="text" id="chatInput" placeholder="챗봇 입력창" />
+      <button type="button" class="btn btn-outline-primary">예제</button>
+      <button type="button" class="btn btn-outline-primary">닫기</button>
     </div>
-    <!-- 챗봇 구역  -->
+    <!-- 챗봇 구역 끝 -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
@@ -1486,140 +1284,7 @@ prefix="c" %>
     <!-- 추천 1 -->
     <!-- <script src="../assets/js/reco1.js"></script> -->
     <script>
-      $(function () {
-        var INDEX = 0;
-        $("#chat-submit").click(function (e) {
-          e.preventDefault();
-          var msg = $("#chat-input").val();
-          if (msg.trim() == "") {
-            return false;
-          }
-          generate_message(msg, "self");
-          var buttons = [
-            {
-              name: "Existing User",
-              value: "existing",
-            },
-            {
-              name: "New User",
-              value: "new",
-            },
-          ];
-          setTimeout(function () {
-            generate_message(msg, "user");
-          }, 1000);
-        });
-
-        function generate_message(msg, type) {
-          INDEX++;
-          var str = "";
-          str +=
-            "<div id='cm-msg-" + INDEX + "' class=\"chat-msg " + type + '">';
-          str += '          <span class="msg-avatar">';
-          str +=
-            '            <img src="https:\/\/image.crisp.im\/avatar\/operator\/196af8cc-f6ad-4ef7-afd1-c45d5231387c\/240\/?1483361727745">';
-          str += "          <\/span>";
-          str += '          <div class="cm-msg-text">';
-          str += msg;
-          str += "          <\/div>";
-          str += "        <\/div>";
-          $(".chat-logs").append(str);
-          $("#cm-msg-" + INDEX)
-            .hide()
-            .fadeIn(300);
-          if (type == "self") {
-            $("#chat-input").val("");
-          }
-          $(".chat-logs")
-            .stop()
-            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-        }
-
-        function generate_button_message(msg, buttons) {
-          /* Buttons should be object array 
-      [
-        {
-          name: 'Existing User',
-          value: 'existing'
-        },
-        {
-          name: 'New User',
-          value: 'new'
-        }
-      ]
-    */
-          INDEX++;
-          var btn_obj = buttons
-            .map(function (button) {
-              return (
-                '              <li class="button"><a href="javascript:;" class="btn btn-primary chat-btn" chat-value="' +
-                button.value +
-                '">' +
-                button.name +
-                "<\/a><\/li>"
-              );
-            })
-            .join("");
-          var str = "";
-          str += "<div id='cm-msg-" + INDEX + '\' class="chat-msg user">';
-          str += '          <span class="msg-avatar">';
-          str +=
-            '            <img src="https:\/\/image.crisp.im\/avatar\/operator\/196af8cc-f6ad-4ef7-afd1-c45d5231387c\/240\/?1483361727745">';
-          str += "          <\/span>";
-          str += '          <div class="cm-msg-text">';
-          str += msg;
-          str += "          <\/div>";
-          str += '          <div class="cm-msg-button">';
-          str += "            <ul>";
-          str += btn_obj;
-          str += "            <\/ul>";
-          str += "          <\/div>";
-          str += "        <\/div>";
-          $(".chat-logs").append(str);
-          $("#cm-msg-" + INDEX)
-            .hide()
-            .fadeIn(300);
-          $(".chat-logs")
-            .stop()
-            .animate({ scrollTop: $(".chat-logs")[0].scrollHeight }, 1000);
-          $("#chat-input").attr("disabled", true);
-        }
-
-        $(document).delegate(".chat-btn", "click", function () {
-          var value = $(this).attr("chat-value");
-          var name = $(this).html();
-          $("#chat-input").attr("disabled", false);
-          generate_message(name, "self");
-        });
-
-        $("#chat-circle").click(function () {
-          $("#chat-circle").toggle("scale");
-          $(".chat-box").toggle("scale");
-        });
-
-        $(".chat-box-toggle").click(function () {
-          $("#chat-circle").toggle("scale");
-          $(".chat-box").toggle("scale");
-        });
-      });
-
-      var scrollPos;
-      $(window).on("scroll", function () {
-        scrollPos = $(window).scrollTop();
-        $(".effect_image").css(
-          "background-size",
-          100 + parseInt(scrollPos / 10, 0) + "% "
-        );
-        $(".effect_content h1").css(
-          "font-size",
-          580 - parseInt(scrollPos / 1.5, 0) + "% "
-        );
-        $(".effect_content").css(
-          "top",
-          14 + parseInt(scrollPos / 10, 0) + "% "
-        );
-      });
-
+      $(function () {});
       $("#datepicker").datepicker({
         uiLibrary: "bootstrap4",
         format: "dd mmmm",

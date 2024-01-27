@@ -6,8 +6,14 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.example.coding.dao.ImgDAO;
+import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.dao.TouroMateDAO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.TouroMateChatUserVO;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserVO;
@@ -17,13 +23,22 @@ import jakarta.transaction.Transactional;
 @Service
 public class TouroMateServiceImpl implements TouroMateService {
 
-    private final TouroMateDAO TouromateDAO;
+    // private final TouroMateDAO TouromateDAO;
 
-    // 생성자를 통한 의존성 주입
+    // // 생성자를 통한 의존성 주입
+    // @Autowired
+    // public TouroMateServiceImpl(@Qualifier("touroMateDAO") TouroMateDAO TouromateDAO){
+    //     this.TouromateDAO = TouromateDAO;
+    // }
+
     @Autowired
-    public TouroMateServiceImpl(@Qualifier("touroMateDAO") TouroMateDAO TouromateDAO){
-        this.TouromateDAO = TouromateDAO;
-    }
+    public TouroMateDAO TouromateDAO;
+
+    @Autowired
+    public ImgDAO imgDAO;
+
+    @Autowired
+    public ImgDetailDAO imgDetailDAO;
 
     @Override
     // 전체 게시물 리스트 메서드
@@ -91,4 +106,98 @@ public class TouroMateServiceImpl implements TouroMateService {
         TouromateDAO.registerTouroMateAndChat(touroMateVO);
         TouromateDAO.registerTouroMateChat(touroMateVO);
     }
+
+    // 채팅 참가하기 버튼을 눌렀을 때, tour_mate_chat_user 테이블에 값 저장
+    @Transactional
+    @Override
+    public String joinChat(String user_id, int touro_mate_num, Model m) {
+        // 채팅방 번호를 문자열로 변환
+        String chat_num = String.valueOf(touro_mate_num);
+        System.out.println("userId" + user_id + touro_mate_num);
+
+        // 테이블에 해당 사용자와 채팅방이 존재하는지 확인
+        int userCountInChat = TouromateDAO.checkUserInChat(user_id, chat_num);
+        System.out.println("userCountInChat : " + userCountInChat);
+    
+        try {
+            // 채팅방의 현재 사용자 수와 최대 사용자 수
+            int currentChatUsers = TouromateDAO.getCurrentChatUsers(touro_mate_num);
+            int maxChatUsers = TouromateDAO.getMaxChatUsers(touro_mate_num);
+            if (userCountInChat == 1) {
+                return "채팅 참가 성공" ;
+            }
+            // 채팅방이 꽉 찼는지 확인
+            if (currentChatUsers < maxChatUsers) {
+                // 이미 참여한 유저인지 확인
+                if (userCountInChat == 0) {
+                    // 채팅방 사용자 정보 담은 객체 
+                    TouroMateChatUserVO chatUserVO = new TouroMateChatUserVO();
+                    chatUserVO.setUser_id(user_id);
+                    chatUserVO.setChat_num(chat_num);
+            
+                    // tour_mate_chat_user 테이블에 값 저장
+                    TouromateDAO.joinChat(chatUserVO);
+            
+                    // 남은 인원 수 계산
+                    int remainingUsers = maxChatUsers - currentChatUsers;
+            
+                    if (m != null) {
+                        m.addAttribute("remainingUsers", remainingUsers);
+                    }
+                    System.out.println("userid: " + chatUserVO.getUser_id());
+            
+                    return "채팅 참가 성공";
+            
+                } else {
+                    // 이미 참여한 유저라면 여기서 처리
+                    return "채팅 참가 성공";
+                }
+            } else {
+                return "정원에 도달했습니다.";
+            }            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "채팅 오류 발생";
+        }
+    }
+
+    // 여행친구찾기 글 이미지 올리기
+    @Override
+    public void insertMateImg(ImgVO ivo) {
+        imgDAO.insertFile(ivo);
+    }
+
+    // 여행친구찾기 글 이미지 올리기(DETAIL)
+    @Override
+    public void insertFileMate(ImgDetailVO idvo) {
+        // System.out.println("insertFileMate : " + idvo);
+        imgDetailDAO.insertFileMate(idvo);
+    }
+
+    // 여행친구 찾기 등록된 글번호 가져오기
+    @Override
+    public int selectMateNum() {
+         return TouromateDAO.selectMateNum();
+    }
+
+    @Override
+    public List<ImgVO> getImages(int touro_mate_num) {
+        return TouromateDAO.getImages(touro_mate_num);
+    }
+
+
+    // 남은 인원수 반환
+    @Override
+    public int getRemainingChatUsers(int touro_mate_num) {
+    int currentChatUsers = TouromateDAO.getCurrentChatUsers(touro_mate_num);
+    int maxChatUsers = TouromateDAO.getMaxChatUsers(touro_mate_num);
+    return maxChatUsers - currentChatUsers;
+}
+
+@Override
+public int checkUserInChat(String user_id, String chat_num) {
+    return TouromateDAO.checkUserInChat(user_id, chat_num);
+}
+
+    
 }

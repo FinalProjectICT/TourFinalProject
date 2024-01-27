@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>로그인</title>
 
     <!--Google font-->
     <link
@@ -108,9 +108,9 @@ pageEncoding="UTF-8"%>
                 <h6>SNS 간편로그인</h6>
                 <div class="row g-1 mb-2" style="text-align: center;">
                   <a class="col" href="naverLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 70%; " src="../assets/images/naver_login.PNG"/></a>
-                  <a class="col" href="googleLogin" target="_blank">
-                    <img class="img-fluid" style="max-height: 70%; " src="../assets/images/google_login.PNG"/></a>
+                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/naver_login.PNG"/></a>
+                  <a class="col" href="googleLogin" target="_self">
+                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/google_login.PNG"/></a>
                 </div>
                 <div class="divider">
                   <h6>OR</h6>
@@ -140,15 +140,13 @@ pageEncoding="UTF-8"%>
                     placeholder="Password"
                   />
                 </div>
-                <div class="form-group form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1"
-                    >아이디 기억하기</label
-                  >
+                <div class="row">
+                  <a class="col" href="find-id" target="_self">
+                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">아이디 찾기</p>
+                  </a>
+                   / <a class="col" href="find-pw" target="_self">
+                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
+                  </a>
                 </div>
                 <div class="button-bottom">
                   <button type="submit" class="w-100 btn btn-solid" >
@@ -175,7 +173,7 @@ pageEncoding="UTF-8"%>
 
     <!-- footer start -->
     <%@ include file='../footer/footer.jsp' %>
- <!-- footer end -->
+    <!-- footer end -->
 
     <!-- tap to top -->
     <div class="tap-top">
@@ -184,29 +182,6 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- setting start -->
-    <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div>
-    <!-- setting end -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
@@ -222,19 +197,6 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
-
-    <!-- 간편로그인 시 팝업창 띄우기 -->
-    <script>
-      function openPopup(url) {
-          var width = 500;
-          var height = 400;
-          var left = (window.innerWidth - width) / 2;
-          var top = (window.innerHeight - height) / 2;
-
-          var popup = window.open(url, '_blank', 'width=' + width + ', height=' + height + ', left=' + left + ', top=' + top);
-          return false;
-      }
-    </script>
 
   </body>
 </html>

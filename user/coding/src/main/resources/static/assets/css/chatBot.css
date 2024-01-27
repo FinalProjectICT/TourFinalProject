@@ -1,12 +1,11 @@
 /* 수정해야함 */
 #chatButton {
-  width: 70px;
-  height: 30px;
+  width: 100px;
+  height: 100px;
   position: fixed;
-  right: -20px;
+  right: 10px;
   bottom: 100px;
-  background-color: #7fb4d4;
-  color: #fff;
+  background-color: transparent;
   border: none;
   cursor: pointer;
   border-radius: 5px 0 0 5px;
@@ -18,6 +17,7 @@
   padding-bottom: 30px;
   padding-top: 10px;
   padding-left: 15px;
+  padding-right: 20px;
   font-size: 20px;
 }
 
@@ -28,8 +28,8 @@
   position: fixed;
   right: 0;
   bottom: 100px;
-  width: 300px;
-  height: 400px;
+  width: 400px;
+  height: 500px;
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 10px 10px 10px 10px;
@@ -40,20 +40,41 @@
 #chatContent {
   padding: 10px;
   overflow-y: auto;
-  height: calc(100% - 80px);
+  height: calc(100% - 90px);
   align-items: center;
+  word-break: break-all;
 }
 
 #chatContent .testimonial.user {
+  padding-bottom: 30px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.user .right-part {
+  margin-right: 5%;
+}
+
+#chatContent .testimonial.botq {
   padding-bottom: 20px;
+  padding-right: 0;
+  width: 100px;
+  display: contents;
+  text-align: end;
+}
+
+#chatContent .testimonial.bota {
+  padding-bottom: 30px;
   padding-right: 0;
   width: 100px;
   display: contents;
 }
 
 #chatContent img {
-  width: 20px;
-  height: 20px;
+  width: 50px;
+  height: 50px;
 }
 
 #chatInput {

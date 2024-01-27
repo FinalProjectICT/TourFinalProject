@@ -62,13 +62,29 @@ pageEncoding="UTF-8"%>
 
 
     <style>
-        .map_wrap {position:relative;width:100%;height:350px;}
+        .map_wrap {position:relative;width:100%;height:350px; display: block;}
         .title {font-weight:bold;display:block;}
         .hAddr {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         .hAddr-add {position:absolute;left:10px;top:10px;border-radius: 2px;background:#fff;background:rgba(255,255,255,0.8);z-index:1;padding:5px;}
         #centerAddr {display:block;margin-top:2px;font-weight: normal;}
         .bAddr {padding:5px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
+
+        .image-grid {
+        display: flex;
+        justify-content: center;
+    }
+
+        .image-preview-container {
+            width: 250px;
+            height: 200px;
+            background-color: lightblue;
+            margin-right: 10px;
+            overflow: hidden;  /* Ensure the image does not overflow the container */
+        }
     </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
         
 </head>
 
@@ -95,7 +111,7 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- breadcrumb end -->
 
-    <form action="/touromate/register-course" method="post" id="youtFormId">
+    <form action="/touromate/register-course" method="post" id="youtFormId" enctype="multipart/form-data">
         <!-- section start -->
         <section class="single-section small-section bg-inner">
             <div class="container" data-sticky_parent>
@@ -143,26 +159,50 @@ pageEncoding="UTF-8"%>
                                                 </div>
                                                 <div class="card">
                                                     <div class="card-header" id="h_two">
-                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two"
-                                                            aria-expanded="true" aria-controls="two">
+                                                        <div class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#two" aria-expanded="true" aria-controls="two">
                                                             <label for='r_two'>
-                                                                <input class="radio_animated ms-0" type='radio' id='r_two'
-                                                                    name='occupation' value='Working' required /> 이미지 업로드
+                                                                <input class="radio_animated ms-0" type='radio' id='r_two' name='occupation' value='Working' required /> 이미지 업로드
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <div id="two" class="collapse" aria-labelledby="h_two"
-                                                        data-bs-parent="#accordionExample">
+                                                    <div id="two" class="collapse" aria-labelledby="h_two" data-bs-parent="#accordionExample">
                                                         <div class="card-body">
-                                                                <div class="dropzone" id="singleFileUpload">
-                                                                    <div class="dz-message needsclick">
-                                                                        <i class="icon-cloud-up"></i>
-                                                                        <h6>Drop files here or click to upload.</h6>
-                                                                    </div>
-                                                                </div>
+                                                            <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
+                                                        </br>
+                                                        <div style="display: flex; justify-content: center;">
+                                                            <div id="imagePreviewContainer1" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer2" class="image-preview-container"></div>
+                                                            <div id="imagePreviewContainer3" class="image-preview-container"></div>
+                                                        </div>
+                                                        <script>
+                                                            document.getElementById('fileUpload').addEventListener('change', function (e) {
+                                                                const previewContainers = document.querySelectorAll('.image-preview-container');
+                                                                const files = e.target.files;
+                                                
+                                                                for (let i = 0; i < previewContainers.length; i++) {
+                                                                    if (files[i]) {
+                                                                        const reader = new FileReader();
+                                                
+                                                                        reader.onload = function (e) {
+                                                                            const img = document.createElement('img');
+                                                                            img.src = e.target.result;
+                                                                            img.alt = 'Image Preview';
+                                                                            img.style.width = '100%';  // Adjust the image width to fill the container
+                                                                            img.style.height = '100%'; // Adjust the image height to fill the container
+                                                                            previewContainers[i].innerHTML = '';
+                                                                            previewContainers[i].appendChild(img);
+                                                                        };
+                                                
+                                                                        reader.readAsDataURL(files[i]);
+                                                                    } else {
+                                                                        previewContainers[i].innerHTML = ''; // Clear the preview if no file is selected
+                                                                    }
+                                                                }
+                                                            });
+                                                        </script>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>   
                                             </div>
                                         </div>
                                     </div>
@@ -229,7 +269,7 @@ pageEncoding="UTF-8"%>
                                         var coursesContainer = $('#travel-courses');
                                         coursesContainer.empty(); // 기존 코스 삭제
 
-                                        for (var index = 0; index < travelCourses.length; index++) {
+                                        for (var index = 1; index < 4; index++) {
                                             var course = travelCourses[index];
                                             var selectedAddress = course.address;
                                             var detailAddrId = 'detailAddr_' + (index+1);
@@ -249,19 +289,17 @@ pageEncoding="UTF-8"%>
                                                 <div class="select-box active col-xl-4 col-md-6">
                                                     <div class="address-box">
                                                         <div class="top">
-                                                            <input type="text" class="form-control" id="detailname_${'${index+1}'}" name="touro_mate_name${'${index+1}'}">
+                                                            <input type="text" class="form-control" id="detailname_${'${index}'}" name="touro_mate_name${'${index}'}">
                                                         </div>
                                                         <div class="middle">
                                                             <!-- 여기에 도로명 주소 추가 -->
                                                             
-                                                            <input type="text" class="form-control" id="detailAddr_${'${index+1}'}" name="touro_mate_addr${'${index+1}'}" value="${'${detailAddr}'}" readonly>
+                                                            <input type="text" class="form-control" id="detailAddr_${'${index}'}" name="touro_mate_addr${'${index}'}" value="${'${selectedAddress}'}" readonly>
                                                             
                                                         </div>
                                                         <div class="bottom">
-                                                            <!-- 여행코스 수정 버튼 -->
-                                                            <a href="javascript:void(0)" onclick="editCourse(${'${index+1}'})" class="bottom_btn">edit</a>
                                                             <!-- 여행코스 삭제 버튼 -->
-                                                            <a href="#" class="bottom_btn">remove</a>
+                                                            <a href="javascript:void(0);" onclick="removeCourse(${'${index}'})" class="bottom_btn" style="width:100%">remove</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -275,32 +313,45 @@ pageEncoding="UTF-8"%>
                                         };
                                     }
 
+                                    // 여행코스 삭제 버튼 클릭 시 호출되는 함수
+                                    function removeCourse(index) {
+                                        // 해당 인덱스의 동적 요소 삭제
+                                        travelCourses.splice(index, 1); // 배열에서 해당 인덱스의 요소 제거
+                                        displayCourses(); // 변경된 여행코스를 다시 화면에 표시
+                                    }
+
                                         // 여행코스 수정 버튼 클릭 시 호출되는 함수
-                                        function editCourse(index) {
-                                            // 여행코스 수정 모달 초기화 작업 수행 (맵 초기화 등)
-                                            initializeMap_edit();
+                                        // function editCourse(index) {
+                                        //     // 여행코스 수정 모달 띄우기
+                                        //     $('#edit-address').modal('show');
 
-                                            // 여행코스 수정 모달 띄우기
-                                            $('#edit-address').modal('show');
+                                        //     // 모달에 현재 여행 코스 정보 표시
+                                        //     var currentCourse = travelCourses[index];
+                                        //     var map_edit = new kakao.maps.Map(document.getElementById('map_edit_' + index), {
+                                        //         center: new kakao.maps.LatLng(37.566826, 126.9786567), // 기본 중심 좌표
+                                        //         level: 1
+                                        //     });
 
-                                            // 모달에 현재 여행 코스 정보 표시
-                                            var currentCourse = travelCourses[index];
-                                            var map_edit = new kakao.maps.Map(document.getElementById('map_edit'), {
-                                            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 기본 중심 좌표
-                                            level: 1
-                                        });
+                                        //     // 여행 코스 정보에서 도로명 주소를 가져와서 모달에 표시
+                                        //     var detailAddrId = 'detailAddr_' + index; // 고유한 식별자 생성
+                                        //     var detailAddr = !!currentCourse.address ? '<div id="' + detailAddrId + '">' + currentCourse.address + '</div>' : '';
+                                        //     document.getElementById('centerAddr').innerHTML = detailAddr;
 
-                                            // 여행 코스 정보에서 도로명 주소를 가져와서 모달에 표시
-                                            var detailAddrId = 'detailAddr_' + index; // 고유한 식별자 생성
-                                            var detailAddr = !!currentCourse.address ? '<div id="' + detailAddrId + '">' + currentCourse.address + '</div>' : '';
-                                            document.getElementById('centerAddr').innerHTML = detailAddr;
+                                        //     // 도로명 주소를 동적으로 생성되는 코스의 address 요소에 할당
+                                        //     var selectedAddress = currentCourse.address;
+                                        //     if (selectedAddress) {
+                                        //         $('#' + detailAddrId).html(selectedAddress);
 
-                                            // 도로명 주소를 동적으로 생성되는 코스의 address 요소에 할당
-                                            var selectedAddress = currentCourse.address;
-                                            if (selectedAddress) {
-                                                $('#' + detailAddrId).html(selectedAddress);
-                                            }
-                                        }
+                                        //         // 수정 모달의 input에 현재 주소를 설정
+                                        //         $('#editedAddr').val(selectedAddress);
+
+                                        //         // 카카오 API 모달에서 새로운 주소를 선택하면 업데이트된 주소로 value 설정
+                                        //         setTimeout(function () {
+                                        //             var updatedAddress = $('#editedAddr').val();
+                                        //             $('#' + detailAddrId).html(updatedAddress); // 업데이트된 주소로 화면에 표시
+                                        //         }, 0);
+                                        //     }
+                                        // }
                                 </script>
                             </div>
                         </div>
@@ -400,25 +451,25 @@ pageEncoding="UTF-8"%>
 
         <!-- 여행코스 수정 모달 -->
         <!-- add card modal start -->
-        <div class="modal fade edit-profile-modal" id="edit-address" tabindex="-1" role="dialog" aria-hidden="true">
+        <!-- <div class="modal fade edit-profile-modal" id="edit-address" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">여행 코스 장소 찍어주세요</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body"> -->
                         <!-- 카카오 api -->
-                        <div class="map_wrap">
-                            <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+                        <!-- <div class="map_wrap">
+                            <div id="map_edit" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
                             <div class="hAddr">
                                 <span class="title">지도중심기준 행정동 주소정보</span>
-                                <span id="centerAddr"></span>
+                                <span id="centerAddr_edit"></span>
                             </div>
-                        </div>
+                        </div> -->
                         
-                        <script>
-                            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+                        <!-- <script>
+                            var mapContainer = document.getElementById('map_edit'), // 지도를 표시할 div 
                                 mapOption = {
                                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                                     level: 1 // 지도의 확대 레벨
@@ -442,7 +493,7 @@ pageEncoding="UTF-8"%>
                                     if (status === kakao.maps.services.Status.OK) {
                                         var detailAddr = !!result[0].road_address ? '<div>' + result[0].road_address.address_name + '</div>' : '';
                                         detailAddr += '<div>지번 주소 : ' + result[0].address.address_name + '</div>';
-
+ 
                                         console.log(detailAddr);
                                         
                                         var content = '<div class="bAddr">' +
@@ -490,9 +541,9 @@ pageEncoding="UTF-8"%>
                                     }
                                 }    
                             }
-                        </script>
+                        </script> -->
 
-                    </div>
+                    <!-- </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -500,7 +551,7 @@ pageEncoding="UTF-8"%>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- edit password modal start -->
 
         <!-- 여행코스 추가 모달 -->
@@ -523,25 +574,26 @@ pageEncoding="UTF-8"%>
                         </div>
                         
                         <script>
-                            var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div 
+
+                            var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div
+
                                 mapOption_add = {
                                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                                     level: 1 // 지도의 확대 레벨
                                 };  
-                            
                             // 지도를 생성합니다    
                             var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add); 
                             
-                            // 주소-좌표 변환 객체를 생성합니다
+                            // 주소-좌표 변환 객체를 생성
                             var geocoder_add = new kakao.maps.services.Geocoder();
                             
-                            var marker_add = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
-                                infowindow_add = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
+                            var marker_add = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커
+                                infowindow_add = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소 표시 윈도우
                             
-                            // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시합니다
+                            // 현재 지도 중심좌표로 주소를 검색해서 지도 좌측 상단에 표시
                             searchAddrFromCoords_add(map_add.getCenter(), displayCenterInfo_add);
                             
-                            // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
+                            // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록
                             kakao.maps.event.addListener(map_add, 'click', function(mouseEvent) {
                                 searchDetailAddrFromCoords_add(mouseEvent.latLng, function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
@@ -553,18 +605,17 @@ pageEncoding="UTF-8"%>
                                                         detailAddr_add + 
                                                     '</div>';
                             
-                                        // 마커를 클릭한 위치에 표시합니다 
+                                        // 마커를 클릭한 위치에 표시
                                         marker_add.setPosition(mouseEvent.latLng);
                                         marker_add.setMap(map_add);
                             
-                                        // 인포윈도우에 클릭한 위치에 대한 법정동 상세 주소정보를 표시합니다
                                         infowindow_add.setContent(content_add);
                                         infowindow_add.open(map_add, marker_add);
                                     }   
                                 });
                             });
                             
-                            // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다
+                            // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시
                             kakao.maps.event.addListener(map_add, 'idle', function() {
                                 searchAddrFromCoords_add(map_add.getCenter(), displayCenterInfo_add);
                             });
@@ -585,7 +636,6 @@ pageEncoding="UTF-8"%>
                                     var infoDiv_add = document.getElementById('centerAddr_add');
                             
                                     for(var i = 0; i < result.length; i++) {
-                                        // 행정동의 region_type 값은 'H' 이므로
                                         if (result[i].region_type === 'H') {
                                             infoDiv_add.innerHTML = result[i].address_name;
                                             break;
