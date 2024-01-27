@@ -18,14 +18,7 @@ import com.example.coding.domain.WishListVO;
 @Service
 public class MyPageServiceImpl implements MyPageService {
 
-  
-    private final MyPageDAO myPageDAO;
 
-    
-    // @Autowired
-    // public MyPageServiceImpl(MyPageDAO myPageDAO){
-    //     this.myPageDAO = myPageDAO;
-    // }
 
     @Autowired
     public MyPageDAO myPageDAO;

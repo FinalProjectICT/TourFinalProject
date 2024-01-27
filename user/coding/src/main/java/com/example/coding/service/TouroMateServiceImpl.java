@@ -24,14 +24,6 @@ import jakarta.transaction.Transactional;
 @Service
 public class TouroMateServiceImpl implements TouroMateService {
 
-    // private final TouroMateDAO TouromateDAO;
-
-    // // 생성자를 통한 의존성 주입
-    // @Autowired
-    // public TouroMateServiceImpl(@Qualifier("touroMateDAO") TouroMateDAO TouromateDAO){
-    //     this.TouromateDAO = TouromateDAO;
-    // }
-
     @Autowired
     public TouroMateDAO TouromateDAO;
 
