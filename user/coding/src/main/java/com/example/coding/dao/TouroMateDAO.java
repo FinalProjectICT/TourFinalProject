@@ -2,6 +2,7 @@ package com.example.coding.dao;
 
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
@@ -72,5 +73,15 @@ public interface TouroMateDAO {
 
     // 디테일 이미지 가져오기
     List<ImgVO> getImages(int touro_mate_num);
+
+    // 사용자 프로필 이미지 가져오기
+    UserProfileVO getProfile(UserProfileVO vo);
+
+    // 게시물 삭제
+    void deleteTouroMate(int touro_mate_num);
+
+    // 작성자 정보 가져오기
+    UserVO getAuthorInfoById(int touro_mate_num);
+
 
 }

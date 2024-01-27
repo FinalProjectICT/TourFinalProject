@@ -109,4 +109,24 @@
         WHERE touro_mate_num = #{touro_mate_num}
     </select>
 
+    <!-- 사용자 프로필 이미지 가져오기 -->
+    <select id="getProfile" parameterType="UserProfileVO" resultType="UserProfileVO">
+        SELECT c.img_real_name
+        FROM user a JOIN img_detail b ON a.user_id = b.user_id
+        JOIN img c ON b.img_num = c.img_num
+        WHERE a.user_id = #{user_id}
+    </select>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteTouroMate" parameterType="int">
+        DELETE FROM touro_mate WHERE touro_mate_num = #{touro_mate_num} AND user_id = #{user_id}
+    </delete>
+
+    <!-- 작성자 정보 가져오기 -->
+    <select id="getAuthorInfoById" resultType="UserVO" parameterType="int">
+        SELECT user_id FROM touro_mate WHERE touro_mate_num = #{touro_mate_num}
+    </select>
+
+
+
 </mapper> 
