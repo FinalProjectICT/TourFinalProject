@@ -84,6 +84,11 @@
 	WHERE user_id = #{user_id} AND tour_num = #{tour_num}
 </select>
 
+<delete id="deleteWishList" parameterType="com.example.coding.domain.WishListVO">
+	DELETE FROM wishlist 
+	WHERE user_id = #{user_id} AND tour_num = #{tour_num}
+</delete>
+
 <insert id="newInquiry" parameterType="com.example.coding.domain.InquiryVO">
 	INSERT INTO inquiry (inquiry_title, inquiry_content, user_id, tour_num, inquiry_process)
 	VALUES (#{inquiry_title}, #{inquiry_content}, #{user_id}, #{tour_num}, 0)

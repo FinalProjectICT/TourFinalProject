@@ -147,6 +147,26 @@ public class TourPageController {
 	}
 
 	/*****
+	 * 찜 된 여행지 삭제
+	 * @param WishListVO vo
+	 * @return String
+	*/
+
+	@RequestMapping(value = "/deleteWishList", method = {RequestMethod.POST})
+	@ResponseBody
+	public String deleteWishList(@ModelAttribute("vo") WishListVO vo){
+		int result = tourListService.deleteWishList(vo);
+		System.out.println(result);
+		if (result == 1) {
+			return "ok";
+		} else {
+			return "no";
+		}
+		
+	}
+
+
+	/*****
 	 * 여행지 문의 작성
 	 * @param InquiryVO vo
 	 * @return String

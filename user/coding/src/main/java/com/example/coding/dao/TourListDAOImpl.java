@@ -53,4 +53,9 @@ public class TourListDAOImpl implements TourListDAO{
         return String.valueOf(res);
     }
 
+    @Override
+    public int deleteWishList(WishListVO vo) {
+        return mybatis.delete("deleteWishList", vo);
+    }
+
 }
