@@ -19,6 +19,12 @@ prefix="c" %>
       href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
     <link
       href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap"
       rel="stylesheet"
@@ -57,12 +63,166 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+    <style>
+      #reviewBOX {
+       display: none;
+     }
+    
+   </style>
+
+   <!-- 리뷰 달기 -->
+   <script>
+     $(function(){
+       let stars = ''
+       var review_div = $('#tour_review');
+       var user_id = $('#sessionId').val();
+       var touroview_num = $('#touroviewNum').val();
+       var tour_num = $('#tourNum').val();
+       console.log(tour_num)
+       review_div.html('');
+       // 초기 불러오기
+       getReviewList();
+       // 페이지의 모든 리소스가 로드 되었을 때.
+      
+       $('.dropdown-item').click(function (e) {
+         e.preventDefault();
+         
+         var stars = $(this).data('stars');
+         // 리뷰 삽입
+         
+         // $('#tourReviewBtn').trigger('click', stars);
+
+         $('#tourReviewBtn').data('selectedStars', stars);
+
+       
+       }) // end 별점 등록
+       
+       // 리뷰 등록
+       $('#tourReviewBtn').click((e, stars) => {
+           e.preventDefault();
+           console.log(user_id)
+           if(user_id == " " || user_id == null) {
+             console.log(1)
+             alert("로그인 후 이용해주세요")
+             window.location.href = '/user/login'; // 수정된 부분
+           }
+           else {
+             var stars = $('#tourReviewBtn').data('selectedStars');
+             var reviewText = $('.review_content').val();
+             
+             // 리뷰 등록 ajax
+             $.ajax({
+               type:'post',
+               url : '/touroview/touroviewReviewInsert',
+               data : { touroview_review_content : reviewText, touroview_review_star : stars, user_id : user_id, touroview_num : touroview_num, tour_num : tour_num },
+               success : function(result) {
+                 review_div.html('');
+                 getReviewList();
+                 console.log("리뷰등록" + result);
+                 $('.review_content').val(" ");
+
+                 
+
+               },
+               error : function(err) {
+                 console.log(err)
+               }
+             }) // end ajax
+           }
+          
+       }); // end 리뷰작성 클릭
+
+     // 리뷰 전체 보이게 하기
+     function getReviewList() {
+       $.ajax({
+         type:'get',
+         url : '/touroview/touroviewSelectReview',
+         data : {touroview_num : touroview_num},
+         dataType : 'json',
+         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+         success : function(result){
+          //  review_div.html('');
+          // 별점 수에 따라 별 개수 
+          function generateStars(starCount) {
+              let starsHtml = '';
+              for (let i = 0; i < 5; i++) {
+                  if (i < starCount) {
+                      starsHtml += '<i class="fas fa-star"></i>';
+                  } else {
+                      starsHtml += '<i class="far fa-star"></i>';
+                  }
+              }
+              return starsHtml;
+          }
+          $(result).each(function(){
+            const ratingStars = generateStars(this.touroview_review_star);
+            console.log(this.touroview_review_content);
+
+            const html = `
+                <div class="review-box row" id="reviewBOX">
+                    <div class="col-2">
+                      <a
+                        data-bs-toggle="modal"
+                        data-bs-target="#edit-profile"
+                        href=""
+                        ><img
+                          src="../assets/images/profile/${'${this.img_real_name}'}"
+                          class="img-fluid blur-up lazyload"
+                          alt=""
+                      /></a>
+                    </div>
+
+                    <div class="col-10">
+                      <div class="rating">
+                        ${'${ratingStars}'}
+                      </div>
+                      <h6>by ${'${this.user_id}'}, ${'${this.touroview_review_register_date}'}</h6>
+                      <p>${'${this.touroview_review_content}'}</p>
+                    </div>
+                  </div>
+                `
+                review_div.append(html);
+
+                
+              });
+              // 별점에 대한 HTML을 생성하는 함수
+              $(".review-box:lt(3)").css('display', 'flex'); // 초기갯수
+
+              $("#moreReview").click(function(e){ // 클릭시 more
+                e.preventDefault();
+                $(".review-box:hidden").slice(0, 3).css('display', 'flex'); // 클릭시 more 갯수 지저정
+                if($(".review-box:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+                  $("#moreReview").hide(); // 컨텐츠 없을시 alert 창 띄우기 
+                }
+           });
+
+         },
+         error : function(err) {
+           console.log(err);
+         }
+
+       }) // end ajax
+     }
+
+
+     // moreReview 클릭 시 5개씩 리뷰 보이게 하기
+     }) // end script
+   </script>
+   <!--   -->
+
+
   </head>
 
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
+
+    <!-- 세션 로그인 값 -->
+    <input type="hidden" value="${sessionScope.loggedId}" id="sessionId"/>
+    <input type="hidden" value="${touroviewVO.touroview_num}" id="touroviewNum"/>
+    <input type="hidden" value="${tourVO.tour_num}" id="tourNum"/>
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section pt-0">
@@ -207,56 +367,119 @@ prefix="c" %>
                 </div>
 
                 <!-- 리뷰 테이블  -->
+               
+
+                
+
+                
                 <div class="desc-box">
                   <h4 class="content-title">리뷰</h4>
                   <div class="menu-part page-section review" id="review">
-                    <div class="review-box">
-                      <div class="rating">
-                        <span>해당 리뷰 아이디 </span>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <form>
+                      <div class="row">
+                        <div class="form-group col-10">
+                          <label for="exampleFormControlTextarea1">
+                            리뷰 작성
+                          </label>
+                          <textarea
+                            class="form-control review_content"
+                            id="exampleFormControlTextarea1"
+                            rows="2"
+                            placeholder=""
+                          ></textarea>
+                        </div>
+                        <div class="col-2 row">
+                          <div class="dropdown">
+                            <button
+                              class="btn btn-warning btn-rounded dropdown-toggle"
+                              type="button"
+                              id="dropdownStarCount"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              별점 선택
+                            </button>
+                            <ul
+                              class="dropdown-menu"
+                              aria-labelledby="dropdownStarCount"
+                            >
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="5"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="4"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="3"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="2"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="1"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="submit-btn">
+                            <button
+                              type="button"
+                              id="tourReviewBtn"
+                              class="btn btn-rounded color1">
+                              리뷰 작성
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <h6>여행지</h6>
-                      <h6>해당 리뷰 번호</h6>
-                      <p>해당 리뷰 내용</p>
-                    </div>
+                    </form>
+                    <!-- 댓글 추가하는 부분 -->
+                  <div id="tour_review">
+                    
+                  </div>
+                   
+                    <button
+                      type="button"
+                      class="btn btn-secondary col-2 offset-xl-5"
+                      id="moreReview"
+                    >
+                      리뷰 더보기
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- 다른 게시물 추천 테이블 -->
-            <div class="special-section related-box ratio3_2 grid-box">
-              <div class="slider-3 no-arrow">
-                <div>
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
-                        <img
-                          src="../assets/images/hotel/gallery/4.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                    <div class="special-content">
-                      <a href="#">
-                        <h5>다른 게시물 제목</h5>
-                      </a>
-                      <p>게시물 내용</p>
-                      <div class="bottom-section">
-                        <div class="rating">
-                          <span>조회수 review</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <div class="col-xl-3 col-lg-4" id="booking">
             <div class="sticky-cls">

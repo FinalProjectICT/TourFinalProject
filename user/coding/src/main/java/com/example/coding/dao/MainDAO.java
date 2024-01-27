@@ -10,7 +10,9 @@ import com.example.coding.domain.ChartVO;
 import com.example.coding.domain.MainAdminVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
+import com.example.coding.domain.TourReviewVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
 
@@ -85,6 +87,19 @@ public interface MainDAO {
 
   // 관리자 대시보드 - 인기 여행지 가져오기
   public List<AdminVO> popularTour();
+
+  // 여행지 - 리뷰 달기
+  public void reviewInsert(TourReviewVO vo);
+
+  // 여행지 - 리뷰 가져오기
+  public List<TourReviewVO> reviewSelect(TourReviewVO vo);
+
+
+  // 여행후기게시판 - 리뷰 달기
+  public void touroviewReviewInsert(TouroviewReviewVO vo);
+
+  // 여행후기게시판 - 리뷰 가져오기
+  public List<TouroviewReviewVO> touroviewReviewSelect(TouroviewReviewVO vo);
 
   
 

@@ -15,4 +15,6 @@ public interface TourListDAO {
     public String addWishList(WishListVO vo);
     public String ckWishList(WishListVO vo);
     public String newInquiry(InquiryVO vo);
+    public int deleteWishList(WishListVO vo);
+
 }
