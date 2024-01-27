@@ -10,4 +10,6 @@ public class InquiryVO {
    private Integer inquiry_process; // 답변 여부
    private String user_id;          // 유저 아이디
    private String tour_num;         // 여행지 번호
+
+   private InquiryReviewVO inquiryReviewVO; // 문의 답변 
 }
