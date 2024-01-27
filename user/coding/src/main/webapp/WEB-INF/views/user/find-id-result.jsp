@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>로그인</title>
+    <title>아이디 찾기</title>
 
     <!--Google font-->
     <link
@@ -68,16 +68,16 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content">
         <div>
-          <h2>login</h2>
+          <h2>비밀번호 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">login</li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">forgot-password</li>
             </ol>
           </nav>
         </div>
       </div>
-      <div class="title-breadcrumb">Rica</div>
+      <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
 
@@ -102,68 +102,34 @@ pageEncoding="UTF-8"%>
           <div class="offset-lg-3 col-lg-6 offset-sm-2 col-sm-8 col-12">
             <div class="account-sign-in">
               <div class="title">
-                <h3>로그인</h3>
+                <h3>아이디 찾기 결과</h3>
+                <h6>해당 이메일로 가입된 아이디를 확인해보세요</h6>
               </div>
-              <div class="login-with">
-                <h6>SNS 간편로그인</h6>
-                <div class="row g-1 mb-2" style="text-align: center;">
-                  <a class="col" href="naverLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/naver_login.PNG"/></a>
-                  <a class="col" href="googleLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/google_login.PNG"/></a>
-                </div>
-                <div class="divider">
-                  <h6>OR</h6>
-                </div>
-              </div>
-              <form action="loginCheck" method="post">
-                <div class="form-group">
-                  <label for="exampleInputEmail1">아이디</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="user_id"
-                    name="user_id"
-                    aria-describedby="emailHelp"
-                    placeholder="ID"
-                  />
-                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                    anyone else.</small> -->
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">비밀번호</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="user_pass"
-                    name="user_pass"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="row">
-                  <a class="col" href="find-id" target="_self">
-                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">아이디 찾기</p>
-                  </a>
-                   / <a class="col" href="find-pw" target="_self">
-                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
-                  </a>
-                </div>
-                <div class="button-bottom">
-                  <button type="submit" class="w-100 btn btn-solid" >
-                    로그인
-                  </button>
-                </div>
-              </form>
-               
+
+              <c:forEach var="user" items="${user_id}">
+                <ul>
+                  <li class="col" style="font-family: NPSfontRegular; font-size: 14px; color: gray;">● 아이디 : 
+                    <span style="
+                      font-size: 20px; font-family:
+                      NPSfontExtraBold; color: #2b2b2b;
+                      max-width: 100%;">
+                      ${user}
+                    </span>
+                  </li>
+                </ul>
+              </c:forEach>
+              
               <div class="divider">
-                <h6>or</h6>
-              </div>
-              <div class="button-bottom">
-                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'sign-up' ">
-                  회원가입
-                </button>
+                <h6></h6>
               </div>
               
+              <div class="button-bottom">
+                <p>비밀번호가 기억이 안나신다면?</p>
+                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'find-pw' ">
+                  찾은 아이디로 비밀번호 찾기
+                </button>
+              </div>
+
             </div>
           </div>
         </div>

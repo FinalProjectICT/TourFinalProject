@@ -6,9 +6,12 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -168,21 +171,34 @@ public class UserController {
 		return "redirect:/touro";
 	}
 
+	// 아이디 찾기
+	@RequestMapping(value = "find-id", method = RequestMethod.POST)
+	public ModelAndView findID(String user_email){
+		// 입력받은 이메일로 사용자 아이디 받아오기
+		List<String> user_id = userService.findUserid(user_email);
+		System.out.println(user_id);
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/find-id-result");
+		mv.addObject("user_id", user_id);
+		return mv;
+	}
+
     // 비밀번호 찾기 - 인증메일발송
-	@RequestMapping("/forgot-password")
+	@RequestMapping(value = "/find-pw", method = RequestMethod.POST)
 	public ModelAndView forgotPassword(HttpSession session, 
 			HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String user_email = (String)request.getParameter("user_email");
-		System.out.println(user_email);
-		UserVO vo = userService.selectUser(user_email);
-		System.out.println("====메일 주소 확인 성공==="+vo.getUser_email());
+		String user_id = (String)request.getParameter("user_id");
+		UserVO vo = userService.selectUser(user_email,user_id);
+		System.out.println("====사용자정보 확인 성공==="+vo.getUser_email()+" / "+vo.getUser_id());
 
 		if(vo != null) {
 		Random r = new Random();
 		int num = r.nextInt(999999); // 랜덤난수설정
 		
-			// 입력한 메일주소와 사용자 메일이 동일할 경우
-			if (vo.getUser_email().equals(user_email)) {
+			// 입력한 메일주소,아이디가 사용자 정보와 동일할 경우
+			if (vo.getUser_email().equals(user_email) && vo.getUser_id().equals(user_id)) {
 				session.setAttribute("user_email", vo.getUser_email());
 
 				String setfrom = "TOURO@gmail.com"; // gmail 
@@ -215,12 +231,12 @@ public class UserController {
 				return mv;
 				}else {
 					ModelAndView mv = new ModelAndView();
-					mv.setViewName("user/forget-password");
+					mv.setViewName("user/find-pw");
 					return mv;
 				}
 			}else {
 				ModelAndView mv = new ModelAndView();
-				mv.setViewName("user/forget-password");
+				mv.setViewName("user/find-pw");
 				return mv;
 			}
 	
@@ -234,7 +250,7 @@ public class UserController {
 				return "user/modify-password";
 			}
 			else {
-				return "user/forget-password";
+				return "user/find-pw";
 			}
 	}
 	

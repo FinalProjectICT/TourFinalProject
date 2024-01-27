@@ -103,12 +103,16 @@ pageEncoding="UTF-8"%>
             <div class="account-sign-in">
               <div class="title">
                 <h3>비밀번호 찾기</h3>
-                <h6>가입하신 이메일을 입력하시면<br/>입력하신 이메일로 인증번호를 보내드려요</h6>
+                <h6>가입하신 아이디와 이메일을 입력하시면<br/>입력하신 이메일로 인증번호를 보내드려요</h6>
               </div>
               
-              <form action="forgot-password">
+              <form action="find-pw" method="post">
                 <div class="form-group">
-                    <input type="email" class="form-control form-control-user"
+                  <label for="exampleInputId">아이디</label>
+                  <input type="text" class="form-control form-control-user"
+                        placeholder="아이디" name="user_id">
+                  <label for="exampleInputEmail">이메일 주소</label>
+                  <input type="email" class="form-control form-control-user"
                         id="exampleInputEmail" aria-describedby="emailHelp"
                         placeholder="이메일 주소" name="user_email">
                 </div>
