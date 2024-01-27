@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.coding.dao.MyPageDAO;
 import com.example.coding.domain.InquiryReviewVO;
 import com.example.coding.domain.InquiryVO;
+import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.TouroviewReviewVO;
@@ -17,8 +18,6 @@ import com.example.coding.domain.WishListVO;
 
 @Service
 public class MyPageServiceImpl implements MyPageService {
-
-
 
     @Autowired
     public MyPageDAO myPageDAO;
@@ -34,6 +33,13 @@ public class MyPageServiceImpl implements MyPageService {
         return myPageDAO.getUserProfile(userId);
 
     }
+
+
+    // 사용자 프로필 사진 가져오기
+    public String getUserProfileImage(String userId){
+        return myPageDAO.getUserProfileImage(userId);
+    }
+
 
     // mypage - 메인페이지 - 개수
     // 사용자가 작성한 리뷰 개수 가져오기
@@ -86,6 +92,30 @@ public class MyPageServiceImpl implements MyPageService {
     public int updateUserProfile(UserVO userVO){
         return myPageDAO.updateUserProfile(userVO);
     }
+
+
+
+    // mypage - 나의 발자취
+    @Override
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size){
+        int start = (page - 1) * size;
+        if(start < 0){
+            start = 0;
+        }
+        return myPageDAO.getMyPageReceiptList(userId, start, size);
+    }
+
+    @Override
+    public int getTotalReceiptPages(int size){
+        // 전체 게시물 수 가져오기
+        int getTotalPages = myPageDAO.getTotalReceiptPages();
+
+        // 전체 페이지 수 계산
+        int totalPages = (int) Math.ceil((double) getTotalPages / size);
+        
+        return totalPages;
+    }
+
 
 
 

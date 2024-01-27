@@ -1,5 +1,8 @@
 package com.example.coding.domain;
 
+import lombok.Data;
+
+@Data
 public class ReceiptVO {
     // 영수증 테이블
     private Integer receipt_num;            // 영수증 번호
@@ -11,4 +14,6 @@ public class ReceiptVO {
     private String  receipt_review_content; // 영수증 댓글 내용
     private String  receipt_date;           // 영수증 날짜
 
+    // TourVO 객체 포함(영수증 리뷰 사진 가져오기)
+    private String tour_img1_path;
 }

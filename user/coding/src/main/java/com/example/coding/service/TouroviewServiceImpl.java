@@ -17,12 +17,10 @@ import com.example.coding.domain.UserVO;
 public class TouroviewServiceImpl implements TouroviewService{
 
     @Autowired
-    private final TouroviewDAO touroviewDAO;
+    private  TouroviewDAO touroviewDAO;
 
-    public TouroviewServiceImpl(TouroviewDAO touroviewDAO) {
-        this.touroviewDAO = touroviewDAO;
-    }
 
+    
     // ----------------------------------------------------- touroview_insert
     // 여행지 검색
     @Override
