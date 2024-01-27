@@ -12,11 +12,7 @@
         VALUES (#{user_id}, #{tour_num}, #{touroview_title}, #{touroview_regdate}, #{touroview_update}, #{touroview_content});
 </insert>
   
-<!-- 후기 게시물 사진 db 저장-->
-<!-- <insert id="insertviewImage" parameterType="ImgVO">
-        INSERT INTO img (img_name, img_real_name, img_size, img_width, img_length)
-        VALUES (#{imgName}, #{imgRealName}, #{imgSize}, #{imgWidth}, #{imgLength})
-</insert> -->
+
 
 
 <!-- touroview_detail-->
@@ -67,7 +63,7 @@
 </select>
 
 
-<!-- touroview_-->
+<!-- touroview_update_delete-->
 <!-- 게시물 수정-->
 <update id="updateTouroview" parameterType="TouroviewVO">
         UPDATE touroview
@@ -81,5 +77,9 @@
         DELETE FROM touroview
         WHERE  touroview_num = #{touroviewNum}
 </delete>
+
+
+
+
 
 </mapper>

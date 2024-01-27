@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class TourReviewVO {
+
   private Integer tour_review_num;        // 여행지 댓글 번호
   private String  user_id;                // 아이디
   private String  tour_num;               // 여행지 번호
@@ -16,4 +17,5 @@ public class TourReviewVO {
   private String  img_name;               // 이미지명
   private String  img_real_name;          // 암호화 된 이미지명
   
+
 }

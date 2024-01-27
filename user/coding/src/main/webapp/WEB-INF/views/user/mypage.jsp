@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,6 +63,43 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
   </head>
 
+  <style>
+    /* 사용자 메시지 스타일 */
+    .chat-bubble.chat-user {
+        max-width: 70%;
+        background-color: #DCF8C6;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: right;
+        clear: both;
+    }
+
+    /* 관리자 메시지 스타일 */
+    .chat-bubble.chat-admin {
+        max-width: 70%;
+        background-color: #EAEAEA;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+        float: left;
+        clear: both;
+    }
+
+    /* 채팅 입력창 스타일 */
+    #inquiryInput {
+        width: 80%;
+        resize: none;
+        margin-right: 10px;
+    }
+
+    /* 제출 버튼 스타일 */
+    #submitButton {
+        width: 20%;
+    }
+</style>
+
+
   <body>
     <!-- header start -->
     <%@ include file='../header/header.jsp' %>
@@ -78,7 +117,7 @@ pageEncoding="UTF-8"%>
           <h2>마이페이지</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">
                 마이페이지
               </li>
@@ -86,7 +125,7 @@ pageEncoding="UTF-8"%>
           </nav>
         </div>
       </div>
-      <div class="title-breadcrumb">Rica</div>
+      <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
 
@@ -120,7 +159,7 @@ pageEncoding="UTF-8"%>
                     <li class="nav-item">
                       <a
                         data-bs-toggle="tab"
-                        class="nav-link active"
+                        class="nav-link"
                         href="#dashboard"
                         >메인페이지</a
                       >
@@ -141,7 +180,7 @@ pageEncoding="UTF-8"%>
                       >
                     </li>
                     <li class="nav-item">
-                      <a data-bs-toggle="tab" class="nav-link" href="#travel"
+                      <a data-bs-toggle="tab" class="nav-link" href="#wishlist"
                         >여행지 담기</a
                       >
                     </li>
@@ -161,7 +200,7 @@ pageEncoding="UTF-8"%>
                 <div class="tab-pane fade show active" id="dashboard">
                   <div class="dashboard-main">
                     <div class="dashboard-intro">
-                    <h5>어서오세요! ${sessionScope.loggedId}</h5>
+                    <h5>어서오세요! ${userVO.user_name} 님</h5>
 
                       <p>인사말</p>
                       <div class="complete-profile">
@@ -169,19 +208,19 @@ pageEncoding="UTF-8"%>
                           <div class="col-xl-4">
                             <div class="complete-box">
                               <i class="far fa-check-square"></i>
-                              <h6>작성한 리뷰 개수</h6>
+                              <h6>작성한 리뷰 개수 </br> ${touroviewCount} </h6>
                             </div>
                           </div>
                           <div class="col-xl-4">
                             <div class="complete-box">
                               <i class="far fa-check-square"></i>
-                              <h6>작성한 댓글 개수</h6>
+                              <h6>작성한 댓글 개수 </br> ${tourReviewCount}</h6>
                             </div>
                           </div>
                           <div class="col-xl-4">
                             <div class="complete-box">
                               <i class="far fa-check-square"></i>
-                              <h6>여행지 담은 개수</h6>
+                              <h6>여행지 담은 개수 </br> ${touroWishCount}</h6>
                             </div>
                           </div>
                         </div>
@@ -211,75 +250,6 @@ pageEncoding="UTF-8"%>
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
                             <h5>나의 최근 여행지 담기 보기</h5>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dashboard-info">
-                      <div class="row">
-                        <!-- 작성한 리뷰 목록-->
-                        <div class="col-md-6">
-                          <div class="activity-box">
-                            <h6>recent activity</h6>
-                            <ul>
-                              <li>
-                                Paris to Dubai
-                                <span>3 days ago</span>
-                              </li>
-                              <li>
-                                Paris to Dubai
-                                <span>23 june</span>
-                              </li>
-                              <li class="blue-line">
-                                hotel sea view
-                                <span>20 april</span>
-                              </li>
-                              <li class="yellow-line">
-                                Paris To Toulouse
-                                <span>12 feb</span>
-                              </li>
-                              <li>
-                                Paris to Dubai
-                                <span>14 jan</span>
-                              </li>
-                              <li class="blue-line">
-                                hotel sea view
-                                <span>12 jan</span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <!-- 작성한 댓글 목록-->
-                        <div class="col-md-6">
-                          <div class="activity-box">
-                            <h6>recent activity</h6>
-                            <ul>
-                              <li>
-                                Paris to Dubai
-                                <span>3 days ago</span>
-                              </li>
-                              <li>
-                                Paris to Dubai
-                                <span>23 june</span>
-                              </li>
-                              <li class="blue-line">
-                                hotel sea view
-                                <span>20 april</span>
-                              </li>
-                              <li class="yellow-line">
-                                Paris To Toulouse
-                                <span>12 feb</span>
-                              </li>
-                              <li>
-                                Paris to Dubai
-                                <span>14 jan</span>
-                              </li>
-                              <li class="blue-line">
-                                hotel sea view
-                                <span>12 jan</span>
-                              </li>
-                            </ul>
                           </div>
                         </div>
                       </div>
@@ -339,14 +309,14 @@ pageEncoding="UTF-8"%>
                           <span>주소</span>
                           <span>${userVO.user_addr}</span>
                         </li>
-                        <!-- 비밀번호 -->
+                        <!-- 전화번호 -->
                         <li class="d-flex justify-content-between mb-4">
-                          <span>비밀번호</span>
-                          <span>${userVO.user_pass}</span>
+                          <span>전화번호</span>
+                          <span>${userVO.user_tel}</span>
                         </li>
                         <!-- 여행지 취향 -->
                         <li class="d-flex justify-content-between mb-4">
-                          <span>여행지 취향</span>
+                          <span>선호 여행지</span>
                           <span>${userVO.user_prefer_loc1}</span>
                           <span>${userVO.user_prefer_loc2}</span>
                           <span>${userVO.user_prefer_loc3}</span>
@@ -370,21 +340,17 @@ pageEncoding="UTF-8"%>
                       <h4>작성한 게시물</h4>
                     </div>
                     <div class="dashboard-detail">
+                    <c:forEach var="touroview" items="${touroviewVO}" varStatus="status">
                       <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
                         <div class="detail-middle">
                           <div class="media">
                             <div class="icon"></div>
                             <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
+                              <h6 class="media-heading">${touroview.touroview_title}</h6>
                             </div>
                             <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
+                              <h6 class="media-heading">${touroview.user_id}</h6>
+                              <p>${touroview.touroview_regdate}</span></p>
                             </div>
                           </div>
                         </div>
@@ -392,76 +358,26 @@ pageEncoding="UTF-8"%>
                           <span class="badge bg-info">게시물 보기</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-info">게시물 보기</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-info">게시물 보기</span>
-                        </div>
-                      </div>
+                    </c:forEach>
                     </div>
                   </div>
+
                   <div class="dashboard-box">
                     <div class="dashboard-title">
                       <h4>작성한 리뷰</h4>
                     </div>
                     <div class="dashboard-detail">
+                    <c:forEach var="touroviewreview" items="${touroviewReviewVO}" varStatus="status">
                       <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
                         <div class="detail-middle">
                           <div class="media">
                             <div class="icon"></div>
                             <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
+                              <h6 class="media-heading">${touroviewreview.touroview_review_content}</h6>
                             </div>
                             <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
+                              <h6 class="media-heading">${touroviewreview.user_id}</h6>
+                              <p>${touroviewreview.touroview_review_register_date}</span></p>
                             </div>
                           </div>
                         </div>
@@ -469,76 +385,27 @@ pageEncoding="UTF-8"%>
                           <span class="badge bg-success">리뷰 보기</span>
                         </div>
                       </div>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-success">리뷰 보기</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-success">리뷰 보기</span>
-                        </div>
-                      </div>
+                      </c:forEach>
                     </div>
                   </div>
+
+
                   <div class="dashboard-box">
                     <div class="dashboard-title">
                       <h4>작성한 댓글</h4>
                     </div>
                     <div class="dashboard-detail">
+                    <c:forEach var="tourreview" items="${tourReviewVO}" varStatus="status">
                       <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
                         <div class="detail-middle">
                           <div class="media">
                             <div class="icon"></div>
                             <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
+                              <h6 class="media-heading">${tourreview.tour_review_content}</h6>
                             </div>
                             <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
+                              <h6 class="media-heading">${tourreview.user_id}</h6>
+                              <p>${tourreview.tour_review_star}</span></p>
                             </div>
                           </div>
                         </div>
@@ -547,57 +414,10 @@ pageEncoding="UTF-8"%>
                         </div>
                       </div>
                     </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-secondary">댓글보기</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="booking-box">
-                        <div class="date-box">
-                          <span class="day">[요일]</span>
-                          <span class="date">[일]</span>
-                          <span class="month">[월]</span>
-                        </div>
-                        <div class="detail-middle">
-                          <div class="media">
-                            <div class="icon"></div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[제목]</h6>
-                            </div>
-                            <div class="media-body">
-                              <h6 class="media-heading">[아이디]</h6>
-                              <p>order date: <span>20 oct, 2020</span></p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="detail-last">
-                          <span class="badge bg-secondary">댓글보기</span>
-                        </div>
-                      </div>
-                    </div>
+                   </c:forEach>
                   </div>
                 </div>
-
+              </div>
                 <!-- 나의 발자취 페이지 -->
                 <div class="tab-pane fade" id="trace">
                   <div class="dashboard-box">
@@ -622,18 +442,6 @@ pageEncoding="UTF-8"%>
                         </span>
                       </div>
                     </div>
-
-
-                    <div id="map"></div>
-                    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=1a31af6306655331640942e32b2f74d3"></script>
-                    <script>
-                      const container = document.getElementById('map');
-                      const options = {
-                        center: new kakao.maps.LatLng(33.450701, 126.570667),
-                        level: 3
-                      };
-                      const map = new kakao.maps.Map(container, options);
-                    </script>
 
 
                     <div
@@ -820,276 +628,44 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <!-- 여행지 담기 페이지 -->
-                <div class="tab-pane fade" id="travel">
+                <div class="tab-pane fade" id="wishlist">
                   <div class="dashboard-box">
                     <div class="dashboard-title">
                       <h4>내가 담은 여행지</h4>
                     </div>
+
                     <div
-                      class="product-wrapper-grid ratio3_2 special-section grid-box"
+                      id="wishListContainer" class="product-wrapper-grid ratio3_2 special-section grid-box" 
                     >
                       <div class="row content grid">
+                      <!-- 여기에 WishlistVO 목록 표시 --> 
+                      <c:forEach var="wishList" items="${wishListVO}" varStatus="status">
                         <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/7.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Beautiful bali</h5>
-                                </a>
-                                <h6>6N 7D</h6>
+                              <div class="special-box">
+                                  <div class="special-img">
+                                      <a href="/tourDetail/${wishList.tour_num}">
+                                        <img src="../assets/${WishList.tour_num.tour_img1_path}" class="img-fluid blur-up lazyload bg-img"
+                                        alt="" />
+                                      </a>
+                                      <div class="content_inner">
+                                          <a href="/tourDetail/${wishList.tour_num}">
+                                              <h5>${WishList.wishlist_num}</h5>
+                                          </a>
+                                          <h6>${WishList.tour_num}</h6>
+                                      </div>
+                                      <!-- 삭제 아이콘 -->
+                                      <div class="top-icon">
+                                          <a href="#" class=""
+                                            data-bs-toggle="tooltip"
+                                            data-placement="top"
+                                            title="Remove from Wishlist">
+                                              <i class="fas fa-times"></i>
+                                          </a>
+                                      </div>
+                                  </div>
                               </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
                           </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/8.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>best of europe</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/hotel/room/13.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>sea view hotel</h5>
-                                </a>
-                                <h6>$250/ night</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/restaurant/environment/3.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>italian restro</h5>
-                                </a>
-                                <h6>fast food | $25 for two</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/flights/flight-breadcrumb2.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>dubai to paris</h5>
-                                </a>
-                                <h6>egyptair | $2500</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/12.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>simply mauritius</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/13.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>canadian delight</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/14.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>Egyptian Wonders</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6 grid-item">
-                          <div class="special-box">
-                            <div class="special-img">
-                              <a href="#">
-                                <img
-                                  src="../assets/images/tour/tour/15.jpg"
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
-                                />
-                              </a>
-                              <div class="content_inner">
-                                <a href="#">
-                                  <h5>South Africa</h5>
-                                </a>
-                                <h6>6N 7D</h6>
-                              </div>
-                              <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        </c:forEach>
                       </div>
                     </div>
                   </div>
@@ -1097,84 +673,49 @@ pageEncoding="UTF-8"%>
 
                 <!--작성한 문의 내역 -->
                 <div class="tab-pane fade" id="inquiry">
-                  <div class="dashboard-main">
-                    <div
-                      class="dashboard-intro"
-                      style="width: 270px; background-color: #ebebeb"
-                    >
-                      <h5>문의내역</h5>
-                    </div>
-                    <div style="display: flex">
-                      <!-- 왼쪽 칸, 2:8 비율 -->
-                      <div
-                      id="chatRoomList"
-                      style="
-                        width: 300px;
-                        height: 500px;
-                        border: 1px solid #ebebeb;
-                        background-color: #f0f0f0;
-                        overflow-y: auto;
-                      "
-                    >
+    <div class="dashboard-main">
+        <div class="dashboard-intro" style="width: 270px; background-color: #ebebeb">
+            <h5>문의내역</h5>
+        </div>
+        <div class="row">
+            <c:forEach var="inquiry" items="${inquiryVO}" varStatus="status">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">제목: ${inquiry.inquiry_title}</h5>
+                            <p class="card-text">답변 여부: 
+                                <span th:class="${inquiry.inquiry_process == 1} ? 'text-success' : 'text-warning'">
+                                    ${inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기'}
+                                </span>
+                            </p>
+                            <p class="card-text">문의 내용: ${inquiry.inquiry_content}</p>
 
-                        <!-- 내용 추가 -->
-                      </div>
-                      <!-- 오른쪽 칸 -->
-                      <div
-                      id="chatContainer"
-                      style="
-                        width: 700px;
-                        height: 500px;
-                        border: 1px solid #ebebeb;
-                        background-color: #f0f0f0;
-                        margin-left: 0;
-                        margin-right: 0;
-                        overflow-y: auto;
-                        padding: 10px;
-                        box-sizing: border-box;
-                      "
-                    >
-                        <!-- 내용 추가 -->
-                      </div>
+                            <!-- 기타 필요한 정보 추가 -->
+
+                            <!-- 토글 버튼 -->
+                            <button class="btn btn-link" onclick="toggleDetails(${inquiry.inquiry_num})">답변</button>
+                            
+                            <!-- 자세한 내용 -->
+                            <div id="details-${inquiry.inquiry_num}" style="display: none;">
+                                <p>답변 내용: ${inquiry.inquiryReviewVO.inquiry_review_content}</p>
+                                <!-- 기타 자세한 내용 추가 -->
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
+                <!-- 한 행에 3개씩 나누기 위해 추가한 조건문 -->
+                <c:if test="${status.index % 3 == 2}">
+                    </div><div class="row">
+                </c:if>
+            </c:forEach>
+        </div>
+    </div>
+</div>
 
-                <!-- 1:1 문의 페이지-->
-                <div class="tab-pane fade" id="one-one inquires">
-                  <div class="dashboard-box">
-                    <div class="dashboard-title">
-                      <h4>delete your accont</h4>
-                    </div>
-                    <div class="dashboard-detail">
-                      <div class="delete-section">
-                        <p>Hi <span class="text-bold">Mark Enderess</span>,</p>
-                        <p>
-                          we are sorry to here you would like to delete your
-                          account.
-                        </p>
-                        <p><span class="text-bold">note:</span></p>
-                        <p>
-                          deleting your account will permanently remove your
-                          profile, personal settings, and all other associated
-                          information. once your account is deleted, you will be
-                          logged out and will be unable to log back in.
-                        </p>
-                        <p>
-                          if you understand and agree to the above statement,
-                          and would still like to delete your account, than
-                          click below
-                        </p>
-                        <a
-                          href="#"
-                          data-bs-toggle="modal"
-                          data-bs-target="#delete-account"
-                          class="btn btn-solid"
-                          >delete my account</a
-                        >
-                      </div>
-                    </div>
-                  </div>
+
+
+
+
                 </div>
               </div>
             </div>
@@ -1256,23 +797,25 @@ pageEncoding="UTF-8"%>
                     class="form-control"
                     id="first"
                     placeholder="아이디"
+                    value="${userVO.user_id}" readonly
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="last">비밀번호</label>
+                  <label for="last">전화번호</label>
                   <input
                     type="text"
                     class="form-control"
                     id="last"
-                    placeholder="비밀번호"
+                    placeholder="전화번호"
+                    value="${userVO.user_tel}"
                   />
                 </div>
                 <div class="form-group col-md-6">
                   <label for="gender">성별</label>
                   <select id="gender" class="form-control">
                     <option selected>선택</option>
-                    <option>여성</option>
-                    <option>남성</option>
+                    <option ${userVO.user_gender == '여성' ? 'selected' : ''}>여성</option>
+                    <option ${userVO.user_gender == '남성' ? 'selected' : ''}>남성</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -1281,6 +824,7 @@ pageEncoding="UTF-8"%>
                     class="form-control"
                     placeholder="18 april"
                     id="datepicker"
+                    value="${userVO.user_age}"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -1290,15 +834,47 @@ pageEncoding="UTF-8"%>
                     class="form-control"
                     id="inputAddress"
                     placeholder="주소"
+                    value="${userVO.user_addr}"
                   />
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputCity">메일주소</label>
-                  <input type="text" class="form-control" id="inputCity" />
+                  <input type="text" class="form-control" id="inputCity" value="${userVO.user_email}"/>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">여행지취향</label>
-                  <select id="inputState1" class="form-control">
+                  <label for="inputState1">여행 취향1</label>
+                  <select id="input" class="form-control">
+                      <option selected>선택</option>
+                      <option ${userVO.user_prefer_loc1 == '관광지' ? 'selected' : ''}>관광지</option>
+                      <option ${userVO.user_prefer_loc1 == '음식점' ? 'selected' : ''}>음식점</option>
+                      <option ${userVO.user_prefer_loc1 == '숙박' ? 'selected' : ''}>숙박</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputZip">여행지 취향1</label>
+                  <select id="inputarea1" class="form-control">
+                    <option>선택</option>
+                    <option>서울</option>
+                    <option>인천</option>
+                    <option>대전</option>
+                    <option>대구</option>
+                    <option>광주</option>
+                    <option>부산</option>
+                    <option>울산</option>
+                    <option>세종특별자치시</option>
+                    <option>경기도</option>
+                    <option>강원특별자치도</option>
+                    <option>충청북도</option>
+                    <option>충청남도</option>
+                    <option>경상북도</option>
+                    <option>전라북도</option>
+                    <option>전라남도</option>
+                    <option>제주도</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputState">여행 취향2</label>
+                  <select id="inputState2" class="form-control">
                     <option selected>선택</option>
                     <option>관광지</option>
                     <option>음식점</option>
@@ -1306,9 +882,40 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행 취향</label>
-                  <select id="inputState2" class="form-control">
+                  <label for="inputZip">여행지 취향2</label>
+                  <select id="inputarea2" class="form-control">
+                    <option>선택</option>
+                    <option>서울</option>
+                    <option>인천</option>
+                    <option>대전</option>
+                    <option>대구</option>
+                    <option>광주</option>
+                    <option>부산</option>
+                    <option>울산</option>
+                    <option>세종특별자치시</option>
+                    <option>경기도</option>
+                    <option>강원특별자치도</option>
+                    <option>충청북도</option>
+                    <option>충청남도</option>
+                    <option>경상북도</option>
+                    <option>전라북도</option>
+                    <option>전라남도</option>
+                    <option>제주도</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputState">여행지 취향3</label>
+                  <select id="inputState3" class="form-control">
                     <option selected>선택</option>
+                    <option>관광지</option>
+                    <option>음식점</option>
+                    <option>숙박</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputZip">여행 취향3</label>
+                  <select id="inputarea3" class="form-control">
+                    <option>선택</option>
                     <option>서울</option>
                     <option>인천</option>
                     <option>대전</option>
@@ -1338,7 +945,7 @@ pageEncoding="UTF-8"%>
             >
               닫기
             </button>
-            <button type="button" class="btn btn-solid">변경하기</button>
+            <button type="button" class="btn btn-solid" onclick="updateProfile()">변경하기</button>
           </div>
         </div>
       </div>
@@ -1786,43 +1393,104 @@ pageEncoding="UTF-8"%>
     </script>
 
 
+
+
+
 <script>
-  // 가상의 채팅방 목록 데이터 (실제로는 서버에서 데이터를 가져와야 합니다)
-  const chatRooms = [
-    { id: 1, name: '채팅방 1' },
-    { id: 2, name: '채팅방 2' },
-    { id: 3, name: '채팅방 3' },
-    // 추가적인 채팅방 데이터...
-  ];
+  function updateProfile() {
+    var user_id = document.getElementById('first').value;
+    var user_tel = document.getElementById('last').value;
+    var user_gender = document.getElementById('gender').value;
+    var user_age = document.getElementById('datepicker').value;
+    var user_email = document.getElementById('inputCity').value;
+    var user_addr = document.getElementById('inputAddress').value;
+    var userTravelPreference = document.getElementById('inputState1').value;
+    var userTravelLocation = document.getElementById('inputState2').value;
 
-  // 채팅방 목록을 표시하는 함수
-  function showChatRooms() {
-    const chatRoomList = document.getElementById('chatRoomList');
+    // 서버로 전송할 데이터 생성
+    var data = {
+      user_id: user_id,
+      user_tel: user_tel,
+      user_gender: user_gender,
+      user_age: user_age,
+      user_email: user_email,
+      user_addr: user_addr,
+      user_prefer_type1: userTravelPreference, 
+      user_prefer_loc1: userTravelLocation 
+    };
 
-    // 채팅방 목록을 초기화
-    chatRoomList.innerHTML = '';
-
-    // 채팅방 목록을 돌면서 각각의 채팅방을 리스트에 추가
-    chatRooms.forEach(chatRoom => {
-      const listItem = document.createElement('div');
-      listItem.textContent = chatRoom.name;
-      listItem.style.padding = '10px';
-      listItem.style.borderBottom = '1px solid #ccc';
-      listItem.style.cursor = 'pointer';
-
-      // 채팅방 클릭 시 동작을 추가할 수 있습니다.
-      listItem.addEventListener('click', () => {
-        // 채팅방에 대한 동작 추가
-        console.log(`클릭한 채팅방: ${chatRoom.name}`);
-      });
-
-      chatRoomList.appendChild(listItem);
+    // ajax를 사용하여 서버에 데이터 전송
+    $.ajax({
+      type: 'POST',
+      url: '/updateUserProfile',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: function (response) {
+        // 성공 시 응답
+        console.log(response);
+        alert('프로필이 성공적으로 업데이트되었습니다.');
+      },
+      error: function (error) {
+        // 오류 처리
+        console.error('프로필 업데이트 중 오류 발생:', error);
+        alert('프로필 업데이트 중 오류 발생');
+      }
     });
   }
-
-  // 페이지 로드 시 채팅방 목록을 표시
-  window.onload = showChatRooms;
 </script>
+
+<!-- 문의 답변 토글 -->
+<script>
+        function toggleDetails(inquiryNum) {
+            var detailsDiv = document.getElementById("details-" + inquiryNum);
+            if (detailsDiv.style.display === "none") {
+                detailsDiv.style.display = "block";
+            } else {
+                detailsDiv.style.display = "none";
+            }
+        }
+    </script>
+</div>
+
+
+
+
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function submitInquiry() {
+        var chatInput = $("#inquiryInput").val();
+
+        if (chatInput) {
+            // 사용자가 입력한 채팅을 채팅창에 추가
+            $("#chatMessages").append('<div class="chat-bubble chat-user"><p>' + chatInput + '</p></div>');
+
+            // 서버에 문의 제출
+            $.ajax({
+                type: "POST",
+                url: "/submitInquiry",
+                data: { inquiryContent: chatInput },
+                success: function () {
+                    // 성공적으로 제출되었을 때 처리
+                    console.log("Inquiry submitted successfully.");
+                },
+                error: function () {
+                    // 오류가 발생했을 때 처리
+                    console.error("Failed to submit inquiry.");
+                }
+            });
+
+            // 입력 필드 초기화
+            $("#inquiryInput").val('');
+
+            // 맨 아래로 스크롤
+            var chatMessages = $("#chatMessages");
+            chatMessages.scrollTop(chatMessages[0].scrollHeight);
+        }
+    }
+    /*]]>*/
+</script>
+
 
 
 

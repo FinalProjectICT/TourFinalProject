@@ -1,5 +1,7 @@
 package com.example.coding.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.example.coding.domain.UserVO;
@@ -10,4 +12,7 @@ public interface UserDAO {
     public int idCheck(String user_id);
     public UserVO loginCheck(UserVO vo);
     public UserVO socialLoginCheck(String user_id);
+    public List<String> findUserid(String user_email);
+    public UserVO selectUser(String user_email,String user_id);
+    public int updatePassword(UserVO vo);
 }

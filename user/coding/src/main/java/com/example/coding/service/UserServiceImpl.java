@@ -1,5 +1,7 @@
 package com.example.coding.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,5 +51,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO socialLoginCheck(String user_id) {
 		return userDAO.socialLoginCheck(user_id);
+	}
+
+	@Override
+	public List<String> findUserid(String user_email) {
+		return userDAO.findUserid(user_email);
+	}
+
+	@Override
+	public UserVO selectUser(String user_email,String user_id) {
+		UserVO result = userDAO.selectUser(user_email,user_id);
+		System.out.println(result);
+		return result;
+	}
+
+	@Override
+	public int updatePassword(UserVO vo) {
+		int result = userDAO.updatePassword(vo);
+		System.out.println("비밀번호 변경 ==>"+result);
+		return result;
 	}
 }

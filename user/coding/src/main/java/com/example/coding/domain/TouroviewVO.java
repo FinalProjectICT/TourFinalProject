@@ -14,9 +14,11 @@ public class TouroviewVO {
     private String  touroview_content;  // 게시글 상세 정보
 
 
-    public void setUser_id(String user_id){
-        this.user_id = user_id;
-    }
+    // public void setUser_id(String user_id){
+    //     this.user_id = user_id;
+    //     this.start = start;
+    //     this.
+    // }
 
     
     

@@ -2,7 +2,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page import="com.example.coding.domain.UserVO"%>
-<% UserVO user = (UserVO) session.getAttribute("loggedInUser"); %>
+<% 
+ Object loggedIdAttribute = session.getAttribute("loggedId");
+ UserVO user = null;
+ if (loggedIdAttribute instanceof UserVO) {
+     user = (UserVO) loggedIdAttribute;
+  }
+%>
+
+<script>
+    function sendSessionValueToAndroid(sessionValue) {
+        Android.setSessionValue(sessionValue);
+    }
+
+    // 특정 페이지 로딩 시 세션 값을 전달하도록 설정
+    window.onload = function() {
+      console.log("11111")
+        triggerSessionValueTransfer();
+    };
+
+    function triggerSessionValueTransfer() {
+        var sessionValue = "<%= loggedIdAttribute %>";  
+        sendSessionValueToAndroid(sessionValue);
+        console.log(sessionValue);
+
+        // 트러블슈팅을 위한 추가 코드
+        console.log("triggerSessionValueTransfer executed");
+    }
+</script>
 
 
 <html>
@@ -16,7 +43,7 @@
               <div class="brand-logo">
                 <a href="/touro">
                   <img
-                    src="../assets/images/icon/footer-logo.png"
+                    src="../assets/images/icon/header-logo.png"
                     alt=""
                     class="img-fluid blur-up lazyload"
                   />
@@ -68,29 +95,25 @@
                           >이미지변환</a
                         >
                       </li>
+                      <c:if test="${empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/login" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
+                      <c:if test="${not empty sessionScope.loggedInUser}">
+                      <li class="nav-submenu">
+                        <a href="/user/mypage" class="nav-link"
+                          >마이페이지</a
+                        >
+                      </li>
+                      </c:if>
                     </ul>
                   </div>
                 </div>
               </nav>
               <ul class="header-right">
-
-                <c:if test="${empty sessionScope.loggedInUser}">
-
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
-                <c:if test="${not empty sessionScope.loggedInUser}">
-                  <li class="user user-light rounded5">
-                    <a href="/user/mypage">
-                      <i class="fa fa-address-book"></i>
-                      마이페이지
-                    </a>
-                  </li>
-                </c:if>
                 <!-- 세션이 비어 있으면 로그인 버튼으로 -->
                 <c:if test="${empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
@@ -108,7 +131,7 @@
                 </c:if>
                 
                 </li>
-                <li class="setting">
+                <!-- <li class="setting">
                   <a href="#">
                     <i class="fas fa-cog"></i>
                   </a>
@@ -130,7 +153,7 @@
                       </select>
                     </li>
                   </ul>
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>
@@ -138,6 +161,7 @@
       </div>
     </header>
     <!--  해더 끝 -->
+    
      <!-- 이미지 변환 (Modal) 구성 시작-->
      <div class="modal fade edit-profile-modal" id="image-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -147,7 +171,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body dashboard-section d-flex justify-content-center align-items-center">
-                  <section class="w-400" style="height: 500px; padding-top: 0px;">
+                  <section class="w-400" style="padding-top: 0px;">
                       <div class="image-section">
                           <!-- 내용이 중앙에 오도록 수정 -->
                           <div class="image-container row">

@@ -82,13 +82,13 @@
                 <h2>회원가입</h2>
                 <nav aria-label="breadcrumb" class="theme-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/touro">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">회원가입</li>
                     </ol>
                 </nav>
             </div>
         </div>
-        <div class="title-breadcrumb">Rica</div>
+        <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
     
@@ -146,53 +146,6 @@
                               <input class="form-control" type="text" id="sample6_address" name="address" placeholder="주소" readonly><br />
                               <input class="form-control" type="text" id="sample6_detailAddress" name="detailaddr" placeholder="상세주소">
                               <input type="text" id="sample6_extraAddress" name="user_addr" style="display:none;">
-                            </div>
-                          </div>
-        
-                          <!-- 전화번호 -->
-                          <div class="form-group">
-                            <label class="col-form-label form-label-title">전화번호</label>
-                            <span id="required" class="required">(필수입력사항)</span>
-                            <div class="form-input position-relative">
-                              <input class="form-control" type="text" id="user_tel" name="user_tel" placeholder="-없이 숫자조합" required />
-                              <span id="telError" class="validateError"></span>
-                            </div>
-                          </div>
-        
-                          <!-- 메일주소 -->
-                          <div class="form-group">
-                            <label class="col-form-label form-label-title">메일주소</label>
-                            <span id="required" class="required">(필수입력사항)</span>
-                            <input class="form-control" type="email" id="user_email" name="user_email" placeholder="touro@gmail.com" required />
-                          </div>
-        
-                          <!-- 성별 -->
-                          <div class="form-group">
-                            <label class="col-form-label form-label-title">성별</label>
-                            <span id="required" class="required">(필수입력사항)</span>
-                            <div class="btn-group" data-toggle="buttons">
-                              <input type="radio" class="btn-check" name="user_gender" id="user_gender_F" value="여성" autocomplete="off" checked>
-                              <label class="btn btn-outline-primary" for="user_gender_F">여성</label>
-                      
-                              <input type="radio" class="btn-check" name="user_gender" id="user_gender_M" value="남성" autocomplete="off">
-                              <label class="btn btn-outline-primary" for="user_gender_M">남성</label>
-                          </div>
-                          </div>
-        
-                          <!-- 생년월일 -->
-                          <div class="form-group" style="display: flex; gap: 10px;">
-                            <div>
-                              <label class="col-form-label form-label-title">생년월일</label>
-                              <span id="required" class="required">(필수입력사항)</span>
-                              <div class="form-input position-relative">
-                                <input class="form-control" type="date" id="birthdate" name="birthdate" placeholder="생년월일" style="width: 250px;" />
-                              </div>
-                            </div>
-                            <div>
-                              <label class="col-form-label form-label-title">나이</label>
-                              <div class="form-input position-relative">
-                                <input class="form-control" type="text" id="user_age" name="user_age" style="width: 100px;" readonly required />
-                              </div>
                             </div>
                           </div>
         

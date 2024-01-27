@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>로그인</title>
+    <title>비밀번호 찾기</title>
 
     <!--Google font-->
     <link
@@ -68,11 +68,11 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content">
         <div>
-          <h2>login</h2>
+          <h2>비밀번호 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/touro">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">login</li>
+              <li class="breadcrumb-item active" aria-current="page">forgot-password</li>
             </ol>
           </nav>
         </div>
@@ -102,55 +102,23 @@ pageEncoding="UTF-8"%>
           <div class="offset-lg-3 col-lg-6 offset-sm-2 col-sm-8 col-12">
             <div class="account-sign-in">
               <div class="title">
-                <h3>로그인</h3>
+                <h3>비밀번호 찾기</h3>
+                <h6>가입하신 아이디와 이메일을 입력하시면<br/>입력하신 이메일로 인증번호를 보내드려요</h6>
               </div>
-              <div class="login-with">
-                <h6>SNS 간편로그인</h6>
-                <div class="row g-1 mb-2" style="text-align: center;">
-                  <a class="col" href="naverLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/naver_login.PNG"/></a>
-                  <a class="col" href="googleLogin" target="_self">
-                    <img class="img-fluid" style="max-height: 80%; " src="../assets/images/google_login.PNG"/></a>
-                </div>
-                <div class="divider">
-                  <h6>OR</h6>
-                </div>
-              </div>
-              <form action="loginCheck" method="post">
+              
+              <form action="find-pw" method="post">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">아이디</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="user_id"
-                    name="user_id"
-                    aria-describedby="emailHelp"
-                    placeholder="ID"
-                  />
-                  <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                    anyone else.</small> -->
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">비밀번호</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="user_pass"
-                    name="user_pass"
-                    placeholder="Password"
-                  />
-                </div>
-                <div class="row">
-                  <a class="col" href="find-id" target="_self">
-                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">아이디 찾기</p>
-                  </a>
-                   / <a class="col" href="find-pw" target="_self">
-                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
-                  </a>
+                  <label for="exampleInputId">아이디</label>
+                  <input type="text" class="form-control form-control-user"
+                        placeholder="아이디" name="user_id">
+                  <label for="exampleInputEmail">이메일 주소</label>
+                  <input type="email" class="form-control form-control-user"
+                        id="exampleInputEmail" aria-describedby="emailHelp"
+                        placeholder="이메일 주소" name="user_email">
                 </div>
                 <div class="button-bottom">
                   <button type="submit" class="w-100 btn btn-solid" >
-                    로그인
+                    이메일로 인증번호 받기
                   </button>
                 </div>
               </form>
@@ -159,8 +127,9 @@ pageEncoding="UTF-8"%>
                 <h6>or</h6>
               </div>
               <div class="button-bottom">
-                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'sign-up' ">
-                  회원가입
+                <p>비밀번호가 생각났어요!</p>
+                <button  class="w-100 btn btn-solid btn-outline" onclick="window.location.href = 'login' ">
+                  로그인
                 </button>
               </div>
               

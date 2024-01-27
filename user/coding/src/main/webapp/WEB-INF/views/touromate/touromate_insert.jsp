@@ -269,7 +269,7 @@ pageEncoding="UTF-8"%>
                                         var coursesContainer = $('#travel-courses');
                                         coursesContainer.empty(); // 기존 코스 삭제
 
-                                        for (var index = 1; index < travelCourses.length; index++) {
+                                        for (var index = 1; index < 4; index++) {
                                             var course = travelCourses[index];
                                             var selectedAddress = course.address;
                                             var detailAddrId = 'detailAddr_' + (index+1);
@@ -574,12 +574,13 @@ pageEncoding="UTF-8"%>
                         </div>
                         
                         <script>
+
                             var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div
+
                                 mapOption_add = {
                                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                                     level: 1 // 지도의 확대 레벨
                                 };  
-                            
                             // 지도를 생성합니다    
                             var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add); 
                             

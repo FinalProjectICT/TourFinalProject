@@ -3,10 +3,12 @@ package com.example.coding.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 
 @Service
@@ -33,6 +35,9 @@ public interface TouroMateService {
     // 여행친구찾기와 채팅 테이블에 값 동시에 저장하는 메서드
     void registerTouroMateAndChat(TouroMateVO touroMateVO);
 
+    // 해당 사용자가 특정 채팅방에 이미 있는지 확인하는 메서드
+    int checkUserInChat(String user_id, String chat_num);
+
     // 여행친구찾기 글 이미지 올리기
     void insertMateImg(ImgVO ivo);
 
@@ -45,7 +50,17 @@ public interface TouroMateService {
     // 디테일 페이지 이미지 가져오기
     public List<ImgVO> getImages(int touro_mate_num);
 
-    String joinChat(String user_id, int touro_mate_num);
+    // 채팅 참가 메서드
+    String joinChat(String user_id, int touro_mate_num, Model m);
+
+    // 남은 채팅 인원 수를 반환하는 메서드 추가
+    int getRemainingChatUsers(int touro_mate_num);
+
+     // 사용자 프로필 이미지 가져오기
+    public UserProfileVO getProfile(UserProfileVO vo);
+
+    // 게시글 삭제
+    void deleteTouroMate(TouroMateVO vo);
 
     
 }
