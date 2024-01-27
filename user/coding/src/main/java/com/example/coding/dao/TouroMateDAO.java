@@ -78,7 +78,7 @@ public interface TouroMateDAO {
     UserProfileVO getProfile(UserProfileVO vo);
 
     // 게시물 삭제
-    void deleteTouroMate(int touro_mate_num);
+    void deleteTouroMate(TouroMateVO vo);
 
     // 작성자 정보 가져오기
     UserVO getAuthorInfoById(int touro_mate_num);

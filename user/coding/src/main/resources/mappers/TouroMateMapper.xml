@@ -118,7 +118,7 @@
     </select>
 
     <!-- 게시물 삭제 -->
-    <delete id="deleteTouroMate" parameterType="int">
+    <delete id="deleteTouroMate" parameterType="TouroMateVO">
         DELETE FROM touro_mate WHERE touro_mate_num = #{touro_mate_num} AND user_id = #{user_id}
     </delete>
 

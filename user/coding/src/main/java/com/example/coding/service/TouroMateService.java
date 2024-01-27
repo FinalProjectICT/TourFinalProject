@@ -60,7 +60,7 @@ public interface TouroMateService {
     public UserProfileVO getProfile(UserProfileVO vo);
 
     // 게시글 삭제
-    void deleteTouroMate(int touro_mate_num, String loggedInUserId);
+    void deleteTouroMate(TouroMateVO vo);
 
     
 }

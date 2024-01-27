@@ -213,14 +213,14 @@ public class TouroMateServiceImpl implements TouroMateService {
 
     // 게시글 삭제
     @Override
-    public void deleteTouroMate(int touro_mate_num, String loggedInUserId) {
+    public void deleteTouroMate(TouroMateVO vo) {
         // 게시물 작성자 정보 가져오기
-        UserVO authorId = (UserVO) TouromateDAO.getAuthorInfoById(touro_mate_num);
+        UserVO authorId = (UserVO) TouromateDAO.getAuthorInfoById(vo.getTouro_mate_num());
 
         // 세션에 저장된 사용자와 게시물 작성자가 동일한지 확인
-        if (loggedInUserId.equals(authorId.getUser_id())) {
+        if (vo.getUser_id().equals(authorId.getUser_id())) {
             // 동일하다면 삭제 진행
-            TouromateDAO.deleteTouroMate(touro_mate_num);
+            TouromateDAO.deleteTouroMate(vo);
         } else {
             // 동일하지 않다면 삭제 막기 (예외 처리 또는 다른 처리 방법 선택)
             throw new RuntimeException("Unauthorized");
