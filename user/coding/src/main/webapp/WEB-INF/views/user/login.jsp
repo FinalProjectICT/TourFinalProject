@@ -71,13 +71,13 @@ pageEncoding="UTF-8"%>
           <h2>login</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">login</li>
             </ol>
           </nav>
         </div>
       </div>
-      <div class="title-breadcrumb">Rica</div>
+      <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
 
