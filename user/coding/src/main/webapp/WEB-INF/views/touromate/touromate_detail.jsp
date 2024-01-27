@@ -121,7 +121,10 @@ prefix="c" %>
                   <div class="top">
                     <h2>${touroMate.touro_mate_title}</h2>
                     <div class="share-buttons">
-                      <a href="#" class="btn btn-solids"
+                      <a href="#" 
+                         class="btn btn-solids"
+                         title="${touroMate.touro_mate_num}"
+                         data-original-title="Add_to_Wishlist"
                         ><i class="far fa-heart"></i>좋아요</a>
                         <a id="delete-button" class="btn btn-solid color1 book-now delete-button"
                             onclick="deleteTouroMate(`${touroMate.touro_mate_num}`)">삭제</a>
@@ -136,6 +139,86 @@ prefix="c" %>
             </div>
           </div>
           <script>
+            // 좋아요
+            var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+            $(() => {
+              // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+              $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+                // 여행지 값, 사용자 정보 가져오기
+                var num = $(item).attr("title");
+                console.log("num >>> ", num);
+                var id = loggedInUserId;
+                console.log("id >>> ", id);
+
+                // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+                ckWishList(item, num, id);
+
+                // 좋아요 누를 때 동작
+                $(item).on("click", (e) => {
+                  e.preventDefault();
+
+                  var ck = "0";
+                  var icon = $(this).children();
+
+                  // 좋아요 상태 구분으로 중복 찜처리 방지
+                  if (id != null && id != "") {
+                    if (icon.attr("class") != "fas fa-heart") {
+                      $.ajax({
+                        url: "/touromate/addWishList",
+                        type: "post",
+                        dataType: "json",
+                        data: { user_id: id, touro_mate_num: num },
+                        success: function (result) {
+                          ck = result;
+                        },
+                        error: function (err) {
+                          console.log(err);
+                        },
+                      });
+                      $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+                    } else {
+                        $.ajax({
+                          type:'post',
+                          data : {touro_mate_num : num, user_id : id},
+                          url : "/touromate/deleteWishList",
+                          success : function (result) {
+                            if(result == "ok") {
+                              $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                            }
+                          },
+                          error : function (err) {
+                            console.log(err)
+                          }
+                        }) // end ajax
+                      
+                    }
+                  } else if (id == null || id == "") alert("로그인이 필요합니다.");
+                });
+              });
+            });
+
+            // 좋아요 확인
+            function ckWishList(item, num, id) {
+              $.ajax({
+                url: "/touromate/ckWishList",
+                type: "post",
+                dataType: "json",
+                data: { user_id: id, touro_mate_num: num },
+                success: function (result) {
+                  if (result == "1") {
+                    $(item)
+                      .children()
+                      .attr("class", "fas fa-heart")
+                      .css("color", "#ff0000");
+                  }
+                },
+                error: function (err) {
+                  console.log(err);
+                },
+              });
+            }
+
             // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
             var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
         

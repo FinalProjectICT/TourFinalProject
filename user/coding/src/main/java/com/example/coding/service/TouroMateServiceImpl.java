@@ -13,11 +13,13 @@ import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.dao.TouroMateDAO;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.LikeVO;
 import com.example.coding.domain.TouroMateChatUserVO;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.WishListVO;
 
 import jakarta.transaction.Transactional;
 
@@ -217,6 +219,24 @@ public class TouroMateServiceImpl implements TouroMateService {
             // 동일하지 않다면 삭제 막기 (예외 처리 또는 다른 처리 방법 선택)
             throw new RuntimeException("Unauthorized");
         }
+    }
+
+    // 좋아요 추가
+    @Override
+    public void addWishList(LikeVO vo) {
+        TouromateDAO.addWishList(vo);
+    }
+
+    // 좋아요 확인
+    @Override
+    public int ckWishList(LikeVO vo) {
+        return TouromateDAO.ckWishList(vo);
+    }
+
+    // 좋아요 삭제
+    @Override
+    public int deleteWishList(LikeVO vo) {
+        return TouromateDAO.deleteWishList(vo);
     }
 
 
