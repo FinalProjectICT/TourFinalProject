@@ -233,30 +233,37 @@ public class TouroMateController {
 
     // 게시글 삭제
     @PostMapping("/deleteTouroMate")
-    public ResponseEntity<String> deleteTouroMate(@RequestParam int touro_mate_num, HttpServletRequest request, HttpSession session) {
+    public ResponseEntity<String> deleteTouroMate(TouroMateVO vo, HttpServletRequest request, HttpSession session) {
         // 세션에서 user_id 가져오기
         UserVO loggedInUser = (UserVO) request.getSession().getAttribute("loggedInUser");
         System.out.println("loggedInUser >>>  "+ loggedInUser.getUser_id());
         String loggedInUserId = loggedInUser.getUser_id();
 
-        try {
-            // 세션에서 현재 로그인한 사용자 아이디 가져오기
-            // String loggedInUserId = (String) session.getAttribute("loggedInUserId");
-            System.out.println("loggedInUserId >>>>>>>>>> " + loggedInUserId);
-
-            // 값이 null이 아닌 경우에만 비교
-            if (loggedInUserId != null && loggedInUserId.equals("원하는 비교 대상")) {
-                // 여러 테이블에서 해당 게시물 정보 삭제 및 관련 작업 수행
-                mateService.deleteTouroMate(touro_mate_num, loggedInUserId);
-
-                return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("게시물 삭제 권한이 없거나 로그인 되어 있지 않습니다.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 삭제 중 오류가 발생했습니다.");
+        if(vo.getUser_id().equals(loggedInUserId)) {
+            mateService.deleteTouroMate(vo);
+            return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("게시물 삭제 권한이 없습니다.");
         }
+
+        // try {
+        //     // 세션에서 현재 로그인한 사용자 아이디 가져오기
+        //     // String loggedInUserId = (String) session.getAttribute("loggedInUserId");
+        //     System.out.println("loggedInUserId >>>>>>>>>> " + vo.getUser_id());
+
+        //     // 값이 null이 아닌 경우에만 비교
+        //     if (loggedInUserId != null && loggedInUserId.equals("원하는 비교 대상")) {
+        //         // 여러 테이블에서 해당 게시물 정보 삭제 및 관련 작업 수행
+        //         mateService.deleteTouroMate(vo);
+
+        //         return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
+        //     } else {
+        //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("게시물 삭제 권한이 없거나 로그인 되어 있지 않습니다.");
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 삭제 중 오류가 발생했습니다.");
+        // }
     }
 
 

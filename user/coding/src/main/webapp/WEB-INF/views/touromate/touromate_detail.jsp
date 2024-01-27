@@ -149,14 +149,15 @@ prefix="c" %>
                     $.ajax({
                         type: "POST",
                         url: "/touromate/deleteTouroMate",
-                        data: { touro_mate_num: touroMateNum, loggedInUserId: loggedInUserId },
+                        data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
                         success: function (response) {
                             alert(response);
                             window.location.href = "/touromate/touromate_list";
                         },
                         error: function (error) {
-                            console.error("삭제 오류:", error);
-                        }
+                          alert("게시물 삭제 권한이 없습니다.");
+                          console.error("삭제 오류:", error);
+                      }
                     });
                 }
             }
