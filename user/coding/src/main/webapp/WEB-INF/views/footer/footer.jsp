@@ -8,11 +8,6 @@ pageEncoding="UTF-8"%>
 
   <!-- footer start -->
   <footer class="effect-cls-up footer-bg">
-    <img
-      src="../assets/images/tour/background/13.jpg"
-      class="img-fluid blur-up lazyload bg-img"
-      alt=""
-    />
     <div class="footer section-b-space section-t-space">
       <div class="container">
         <div class="row order-row">
@@ -29,14 +24,13 @@ pageEncoding="UTF-8"%>
                     class="img-fluid blur-up lazyload"
                   />
                 </div>
-                <p>사이트 소개</p>
+                <p style="font-family: NPSfontRegular;">당신의 여행을 더욱 특별하게, 취향 저격 여행지 AI 추천과 <br/> 여행 이야기를 공유하세요.</p>
                 <ul class="contact-list">
                   <li>
-                    <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                    Newyork.
+                    <i class="fas fa-map-marker-alt"></i> 서울특별시 마포구 백범로 23, 3층 (신수동, 케이터틀)
                   </li>
-                  <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                  <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
+                  <li><i class="fas fa-phone-alt"></i> 02-739-7235 </li>
+                  <li><i class="fas fa-envelope"></i> admin@touro.com</li>
                 </ul>
               </div>
             </div>

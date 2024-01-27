@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html lang="UTF-8">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,10 +49,9 @@
             <div class="row success-detail mt-0">
                 <div class="col">
                     <img src="../assets/images/icon/failure-icon.png" class="img-fluid blur-up lazyload" alt="">
-                    <h2>404 ! that's an error</h2>
-                    <p>we are sorry but the page you are looking for doesn't exist or has been removed. please check
-                        back later or search again.</p>
-                    <button type="submit" class="btn btn-solid color1" onclick="window.location.href = '/touro'">go to home page</button>
+                    <h2>죄송합니다! <br/> 일시적인 전산 장애가 발생했습니다!</h2>
+                    <p>죄송합니다. 찾으시는 페이지가 일시적인 장애로 접속이 불가합니다. <br/> 나중에 다시 확인하거나 다시 검색해 보세요.</p>
+                    <button type="submit" class="btn btn-solid color1" onclick="window.location.href = '/touro'">메인으로 이동</button>
                 </div>
             </div>
         </div>

@@ -32,7 +32,20 @@ $(() => {
           });
           $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
         } else {
-          alert("이미 찜한 여행지입니다.");
+            $.ajax({
+              type:'post',
+              data : {tour_num : num, user_id : id},
+              url : "/touro/deleteWishList",
+              success : function (result) {
+                if(result == "ok") {
+                  $(icon).attr("class", "far fa-heart").css("color", "#ffffff");
+                }
+              },
+              error : function (err) {
+                console.log(err)
+              }
+            }) // end ajax
+          
         }
       } else if (id == null || id == "") alert("로그인이 필요합니다.");
     });

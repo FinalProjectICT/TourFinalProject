@@ -19,7 +19,6 @@ import com.example.coding.domain.WishListVO;
 @Service
 public class MyPageServiceImpl implements MyPageService {
 
-  
     @Autowired
     public MyPageDAO myPageDAO;
 

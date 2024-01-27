@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.service.ImgService;
 import com.example.coding.service.TouroMateService;
@@ -205,6 +209,66 @@ public class TouroMateController {
             e.printStackTrace();
             return "채팅 참가 중 오류 발생";
         }
-    } 
+    }
+
+    // 사용자 프로필 가져와서 채팅에 붙이기
+    @RequestMapping(value = "/getprofileImg", method={RequestMethod.POST})
+	@ResponseBody
+	public String requestMethodName(UserProfileVO vo) {
+		System.out.println("유저아이다>>>>>" + vo.getUser_id());
+		vo = mateService.getProfile(vo);
+        System.out.println("vo : " + vo.getImg_real_name());
+		// null 값 경우 default_profile.png 반환
+        String img_real_name = vo.getImg_real_name();
+		try {
+            if (vo.getImg_real_name() != null && vo.getImg_real_name() != "" && !img_real_name.equals("5ee25b671da2a46f118d0a4454d822a5")){
+                System.out.println("vo1213>>>>>>> : " + vo.getImg_real_name());
+                return img_real_name;
+                
+            }else return "NO";	
+		} catch (Exception e) {
+			return "default_profile.png";
+		}
+	}
+
+    // 게시글 삭제
+    @PostMapping("/deleteTouroMate")
+    public ResponseEntity<String> deleteTouroMate(TouroMateVO vo, HttpServletRequest request, HttpSession session) {
+        // 세션에서 user_id 가져오기
+        UserVO loggedInUser = (UserVO) request.getSession().getAttribute("loggedInUser");
+        System.out.println("loggedInUser >>>  "+ loggedInUser.getUser_id());
+        String loggedInUserId = loggedInUser.getUser_id();
+
+        if(vo.getUser_id().equals(loggedInUserId)) {
+            mateService.deleteTouroMate(vo);
+            return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("게시물 삭제 권한이 없습니다.");
+        }
+
+        // try {
+        //     // 세션에서 현재 로그인한 사용자 아이디 가져오기
+        //     // String loggedInUserId = (String) session.getAttribute("loggedInUserId");
+        //     System.out.println("loggedInUserId >>>>>>>>>> " + vo.getUser_id());
+
+        //     // 값이 null이 아닌 경우에만 비교
+        //     if (loggedInUserId != null && loggedInUserId.equals("원하는 비교 대상")) {
+        //         // 여러 테이블에서 해당 게시물 정보 삭제 및 관련 작업 수행
+        //         mateService.deleteTouroMate(vo);
+
+        //         return ResponseEntity.ok("게시물이 성공적으로 삭제되었습니다.");
+        //     } else {
+        //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("게시물 삭제 권한이 없거나 로그인 되어 있지 않습니다.");
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        //     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시물 삭제 중 오류가 발생했습니다.");
+        // }
+    }
+
+
+
+
+
 
 }
