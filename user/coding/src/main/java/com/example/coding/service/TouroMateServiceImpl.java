@@ -16,6 +16,7 @@ import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateChatUserVO;
 import com.example.coding.domain.TouroMateChatVO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 
 import jakarta.transaction.Transactional;
@@ -192,12 +193,44 @@ public class TouroMateServiceImpl implements TouroMateService {
     int currentChatUsers = TouromateDAO.getCurrentChatUsers(touro_mate_num);
     int maxChatUsers = TouromateDAO.getMaxChatUsers(touro_mate_num);
     return maxChatUsers - currentChatUsers;
-}
+    }
 
-@Override
-public int checkUserInChat(String user_id, String chat_num) {
-    return TouromateDAO.checkUserInChat(user_id, chat_num);
-}
+    @Override
+    public int checkUserInChat(String user_id, String chat_num) {
+        return TouromateDAO.checkUserInChat(user_id, chat_num);
+    }
+
+    // 사용자 프로필 가져오기
+    @Override
+    public UserProfileVO getProfile(UserProfileVO vo) {
+        System.out.println("VO.ID >>> " + vo.getUser_id());
+        System.out.println("VO : " + vo.getImg_real_name());
+
+        UserProfileVO result = TouromateDAO.getProfile(vo);
+        System.out.println("리절트 : " + result.getImg_real_name());
+        return result;
+    }
+
+    // 게시글 삭제
+    @Override
+    public void deleteTouroMate(int touro_mate_num, String loggedInUserId) {
+        // 게시물 작성자 정보 가져오기
+        UserVO authorId = (UserVO) TouromateDAO.getAuthorInfoById(touro_mate_num);
+
+        // 세션에 저장된 사용자와 게시물 작성자가 동일한지 확인
+        if (loggedInUserId.equals(authorId.getUser_id())) {
+            // 동일하다면 삭제 진행
+            TouromateDAO.deleteTouroMate(touro_mate_num);
+        } else {
+            // 동일하지 않다면 삭제 막기 (예외 처리 또는 다른 처리 방법 선택)
+            throw new RuntimeException("Unauthorized");
+        }
+    }
+
+
 
     
+    
 }
+
+
