@@ -209,7 +209,118 @@ prefix="c" %>
      // moreReview 클릭 시 5개씩 리뷰 보이게 하기
      }) // end script
    </script>
-   <!--   -->
+   <!-- 좋아요  -->
+   <script>
+    $(function(){
+
+    
+    // 좋아요
+    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+    $(() => {
+      // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+      $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+        // 여행지 값, 사용자 정보 가져오기
+        var num = $(item).attr("title");
+        console.log("num >>> ", num);
+        var id = loggedInUserId;
+        console.log("id >>> ", id);
+
+        // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+        ckWishList(item, num, id);
+
+        // 좋아요 누를 때 동작
+        $(item).on("click", (e) => {
+          e.preventDefault();
+
+          var ck = "0";
+          var icon = $(this).children();
+
+          // 좋아요 상태 구분으로 중복 찜처리 방지
+          if (id != null && id != "") {
+            if (icon.attr("class") != "fas fa-heart") {
+              $.ajax({
+                url: "/touroview/addWishList",
+                type: "post",
+                dataType: "json",
+                data: { user_id: id, touroview_num: num },
+                success: function (result) {
+                  ck = result;
+                },
+                error: function (err) {
+                  console.log(err);
+                },
+              });
+              $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+            } else {
+                $.ajax({
+                  type:'post',
+                  data : {touroview_num : num, user_id : id},
+                  url : "/touroview/deleteWishList",
+                  success : function (result) {
+                    if(result == "ok") {
+                      $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                    }
+                  },
+                  error : function (err) {
+                    console.log(err)
+                  }
+                }) // end ajax
+              
+            }
+          } else if (id == null || id == "") alert("로그인이 필요합니다.");
+        });
+      });
+    });
+
+    // 좋아요 확인
+    function ckWishList(item, num, id) {
+      $.ajax({
+        url: "/touroview/ckWishList",
+        type: "post",
+        dataType: "json",
+        data: { user_id: id, touroview_num: num },
+        success: function (result) {
+          if (result == "1") {
+            $(item)
+              .children()
+              .attr("class", "fas fa-heart")
+              .css("color", "#ff0000");
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });
+    }
+
+    // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
+    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+    console.log("loggedInUserId 설정 이후: ", loggedInUserId);
+
+    function deleteTouroMate(touroMateNum) {
+        console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+        console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+        if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+            // AJAX를 사용하여 삭제 요청을 서버에 전송
+            $.ajax({
+                type: "POST",
+                url: "/touromate/deleteTouroMate",
+                data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
+                success: function (response) {
+                    alert(response);
+                    window.location.href = "/touromate/touromate_list";
+                },
+                error: function (error) {
+                  alert("게시물 삭제 권한이 없습니다.");
+                  console.error("삭제 오류:", error);
+              }
+            });
+        }
+    }
+  }) // end script
+</script>
 
 
   </head>
@@ -227,7 +338,7 @@ prefix="c" %>
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section pt-0">
       <img
-        src="../assets/images/single-hotel/bg-2.jpg"
+        src="../assets/images/inner-pages/breadcrumb1.jpg"
         class="bg-img bg-bottom img-fluid blur-up lazyload"
         alt=""
       />
@@ -240,8 +351,10 @@ prefix="c" %>
                   <div class="top">
                     <h2>${touroviewVO.touroview_title}</h2>
                     <div class="share-buttons">
-                      <href="#" class="btn btn-solid"
-                        ><i class="far fa-heart"></i> 하트</a
+                      <a href="#" class="btn btn-solid" 
+                      data-original-title="Add_to_Wishlist"
+                      title="${touroviewVO.touroview_num}"
+                        ><i class="far fa-heart"></i> 좋아요</a
                       >
                     </div>
                   </div>
@@ -276,47 +389,54 @@ prefix="c" %>
             <!-- 이미지만 보여주는 테이블-->
             <div class="image_section">
               <div class="row">
-                <div class="col-sm-8">
-                  <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
-                    <div>
-                      <a href="../assets/images/hotel/room/11.jpg">
-                        <img
-                          src="../assets/images/hotel/room/11.jpg"
-                          class="img-fluid blur-up lazyload bg-img w-100"
-                          alt=""
-                        />
-                        <h6 class="view-all">view all images</h6>
-                      </a>
+                <c:forEach items="${detailImg}" var="img" end="0" >
+                  <div class="col-sm-8">
+                    <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
+                      <div>
+                        <a href="../assets/images/touroviewImg/${img.img_real_name}">
+                          <img
+                            src="../assets/images/touroviewImg/${img.img_real_name}"
+                            class="img-fluid blur-up lazyload bg-img w-100"
+                            alt=""
+                          />
+                          <!-- <h6 class="view-all">view all images</h6> -->
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </c:forEach>
+
                 <div class="col-sm-4 d-none d-sm-block">
                   <div class="row">
                     <div class="col-12 ratio_59">
+                      <c:forEach items="${detailImg}" var="img" begin="1" end="1" >
                       <div class="slide-1 zoom-gallery no-arrow">
                         <div>
-                          <a href="../assets/images/hotel/room/4.jpg">
+                          <a href="../assets/images/touroviewImg/${img.img_real_name}">
                             <img
-                              src="../assets/images/hotel/room/4.jpg"
+                              src="../assets/images/touroviewImg/${img.img_real_name}"
                               class="img-fluid blur-up lazyload bg-img w-100"
                               alt=""
                             />
-                            <h6 class="view-all">room images</h6>
+                            <!-- <h6 class="view-all">room images</h6> -->
                           </a>
                         </div>
                       </div>
+                    </c:forEach>
+                    <c:forEach items="${detailImg}" var="img" begin="2" end="2" >
                       <div class="slide-1 zoom-gallery no-arrow m-cls">
                         <div>
-                          <a href="../assets/images/hotel/room/13.jpg">
+                          <a href="../assets/images/touroviewImg/${img.img_real_name}">
                             <img
-                              src="../assets/images/hotel/room/13.jpg"
+                              src="../assets/images/touroviewImg/${img.img_real_name}"
                               class="img-fluid blur-up lazyload bg-img w-100"
                               alt=""
                             />
-                            <h6 class="view-all">poll images</h6>
+                            <!-- <h6 class="view-all">poll images</h6> -->
                           </a>
                         </div>
                       </div>
+                    </c:forEach>
                     </div>
                   </div>
                 </div>

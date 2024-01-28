@@ -6,7 +6,11 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.LikeVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewDetailVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -48,6 +52,27 @@ public interface TouroviewService {
     
     // 후기 게시판 삭제
     public void deleteTouroview(int touroviewNum);
+
+    // 파일 업로드
+    public void insertFileView(ImgDetailVO idvo);
+
+    // 등록 번호 
+    public int selectViewNum();
+
+    // 디테일 배경 이미지 가져오기
+    public TouroviewDetailVO getTouroviewImg(int tour_num);
+
+    // 디테일 배경 이미지 가져오기
+    public List<TouroviewDetailVO> detailviewImg(int touroview_num);
+
+    // 좋아요 추가
+    public void addWishList(LikeVO vo);
+
+    // 좋아요 확인
+    public int ckWishList(LikeVO vo);
+
+    // 좋아요 삭제
+    public int deleteWishList(LikeVO vo);
     
     
 } 

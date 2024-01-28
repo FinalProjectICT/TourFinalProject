@@ -9,6 +9,4 @@ public class LikeVO {
     private String user_id;
     private String like_count;
     private int touro_mate_num;
-    
-    
 }

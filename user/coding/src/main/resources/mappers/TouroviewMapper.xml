@@ -9,11 +9,15 @@
 <!-- 후기 게시물 db저장-->
 <insert id="saveTouroview">
         INSERT INTO touroview (user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
-        VALUES (#{user_id}, #{tour_num}, #{touroview_title}, #{touroview_regdate}, #{touroview_update}, #{touroview_content});
+        VALUES (#{user_id}, #{tour_num}, #{touroview_title}, NOW(), NOW(), #{touroview_content});
 </insert>
   
-
-
+<!-- 여행친구찾기 이름 찾기 -->
+<select id="selectViewNum" resultType="int">
+    SELECT touroview_num
+    FROM touroview
+    ORDER BY touroview_num DESC LIMIT 1
+</select>
 
 <!-- touroview_detail-->
 <!-- detail페이지 db 목록 불러오기-->
@@ -78,6 +82,38 @@
         WHERE  touroview_num = #{touroviewNum}
 </delete>
 
+<!-- 디테일 게시물 기본 배경화면 가져오기 -->
+<select id="getTouroviewImg" parameterType="int" resultType="TouroviewDetailVO">
+    SELECT * 
+    FROM tour t INNER JOIN touroview t2 ON t.tour_num = t2.tour_num 
+    WHERE t.tour_num = #{tour_num}
+</select>
+
+<!-- 디테일 게시물 여러 이미지 3개 가져오기 -->
+<select id="detailviewImg" parameterType="int" resultType="TouroviewDetailVO">
+    SELECT *
+    FROM   img_detail id INNER JOIN img i ON id.img_num = i.img_num 
+    WHERE  id.touroview_num = #{touroview_num}
+</select>
+
+<!-- 좋아요 추가 -->
+ <insert id="addWishList" parameterType="LikeVO">
+    INSERT INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
+    VALUES (#{touroview_num}, #{user_id}, '1', NULL)
+</insert>
+
+<!-- 좋아요 확인 -->
+<select id="ckWishList" resultType="int" parameterType="LikeVO">
+    SELECT count(*) 
+    FROM `like` 
+    WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
+</select>
+
+<!-- 좋아요 삭제 -->
+<delete id="deleteWishList" parameterType="LikeVO">
+    DELETE FROM `like` 
+   WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
+</delete>
 
 
 

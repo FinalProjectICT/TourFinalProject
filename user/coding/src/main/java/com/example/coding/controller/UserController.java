@@ -148,6 +148,8 @@ public class UserController {
             s.setAttribute("loggedInUser", vo);
             // 아이디 세션이 필요해서 추가합니다 - 이지연
             s.setAttribute("loggedId", vo.getUser_id());
+						// 이름 세션이 필요해서 추가합니다 - 이지연
+            s.setAttribute("loggedInName", vo.getUser_name());
             // 사용자 정보 중 관리자 권한 여부 확인
             int role = vo.getAdmin_authority();
             // 관리자 권한 여부가 1이면 사용자 페이지(메인페이지)로 이동
@@ -258,8 +260,9 @@ public class UserController {
 	@RequestMapping(value = "/modify-password", method = RequestMethod.POST)
 	public String modifyPassword(UserVO vo, HttpSession session) throws IOException{
 		int result = userService.updatePassword(vo);
+		System.out.println(result);
 		// 비밀번호 변경 성공하면 로그인 페이지로 이동
-		if(result == 1) {
+		if(result == 3) {
 			return "user/login";
 		}
 		else {

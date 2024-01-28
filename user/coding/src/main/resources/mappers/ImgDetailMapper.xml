@@ -37,4 +37,16 @@
                 )
     </insert>
 
+    <insert id="insertFileView" parameterType="ImgVO">
+        INSERT INTO img_detail
+               ( 
+                img_num
+                , touroview_num
+                ) 
+        VALUES ( 
+                #{img_num}
+                , #{touroview_num}
+                )
+    </insert>
+
 </mapper>

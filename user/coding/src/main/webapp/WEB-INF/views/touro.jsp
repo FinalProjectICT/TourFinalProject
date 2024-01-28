@@ -69,11 +69,11 @@ prefix="c" %>
     <link rel="stylesheet" type="text/css" href="../assets/css/chatBot.css" />
 
     <!-- footer용 js -->
-    <!-- <script
+    <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
-    ></script> -->
+    ></script>
 
     <!-- 사용자 선호 여행 타입에 따른 지역별 추천 -->
     <script>
@@ -703,7 +703,15 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-
+            <c:if test="${empty sessionScope.loggedInUser}">
+              <h2>
+                게스트님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
+              </h2>
+              <h5>
+                마음에 쏙 들 여행지를 추천해 드릴게요!
+              </h5>
+            </c:if>
+            <c:if test="${not empty sessionScope.loggedInUser}">
             <h2>
               ${sessionScope.loggedInUser.user_name}님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
             </h2>
@@ -711,6 +719,7 @@ prefix="c" %>
               ${sessionScope.loggedInUser.user_name}님의 취향 분석 완료! 마음에
               쏙 들 여행지를 추천해 드릴게요!
             </h5>
+          </c:if>
           </div>
           <div class="row">
             <div class="col">
@@ -909,14 +918,23 @@ prefix="c" %>
         <div class="container">
           <div class="title-3">
             <span class="title-label">touro</span>
-
-            <h2>
-              ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
-            </h2>
-            <h5>
-              ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
-              여행지를 골라 담았습니다!
-            </h5>
+            <c:if test="${empty sessionScope.loggedInUser}">
+              <h2>
+                게스트님의 최애 지역 여행지
+              </h2>
+              <h5>
+                선호 지역에 관한 여행지를 골라 담았습니다!
+              </h5>
+            </c:if>
+            <c:if test="${not empty sessionScope.loggedInUser}">
+              <h2>
+                ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
+              </h2>
+              <h5>
+                ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
+                여행지를 골라 담았습니다!
+              </h5>
+          </c:if>
           </div>
           <div class="row">
             <div class="col">

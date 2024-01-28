@@ -263,7 +263,7 @@
         MONTH;
   </select>
 
-
+  <!-- 관리자 대시보드 영수증 리뷰 그래프 -->
   <select id="receiptCountGraph">
     SELECT DATE_FORMAT(receipt_date, '%y.%m') AS MONTH,
     Count(DATE_FORMAT(receipt_date, '%y.%m')) AS count_month

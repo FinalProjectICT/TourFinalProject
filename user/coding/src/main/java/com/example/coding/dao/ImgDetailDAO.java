@@ -11,5 +11,6 @@ public interface ImgDetailDAO {
     public ImgDetailVO      selectFile(ImgDetailVO vo);
     public void             insertFileMate(ImgDetailVO vo);
     public Long             selectNum();
+    public void             insertFileView(ImgDetailVO idvo);
     
 }
