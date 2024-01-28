@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.TouroMateVO;
+import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 
 @Service
@@ -52,8 +53,14 @@ public interface TouroMateService {
     // 채팅 참가 메서드
     String joinChat(String user_id, int touro_mate_num, Model m);
 
-     // 남은 채팅 인원 수를 반환하는 메서드 추가
-     int getRemainingChatUsers(int touro_mate_num);
+    // 남은 채팅 인원 수를 반환하는 메서드 추가
+    int getRemainingChatUsers(int touro_mate_num);
+
+     // 사용자 프로필 이미지 가져오기
+    public UserProfileVO getProfile(UserProfileVO vo);
+
+    // 게시글 삭제
+    void deleteTouroMate(TouroMateVO vo);
 
     
 }

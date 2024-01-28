@@ -1,5 +1,6 @@
 package com.example.coding.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,32 +8,38 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.coding.domain.AdminTouroMateVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
+import com.example.coding.domain.TourReviewVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.UserVO;
-import com.example.coding.service.MainServiceImpl;
+import com.example.coding.service.MainService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.server.PathParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class MainController {
 
   @Autowired
-  MainServiceImpl mainServiceImpl;
+  MainService mainService;
 
   // 유저별 선호 지역 가져오기 - 3개 - ajax
   @RequestMapping(value = "/preferLoc")
   @ResponseBody
   public MainVO preferLoc(UserVO vo) {
     // System.out.println(vo.getUser_id());
-    MainVO result = mainServiceImpl.preferLoc(vo);
+    MainVO result = mainService.preferLoc(vo);
     // System.out.println(result);
     return result;
 
@@ -53,8 +60,8 @@ public class MainController {
     }
     System.out.println(mainvo.getUser_id());
     // vo.setUser_id("dlwldus");
-    List<MainVO> result = mainServiceImpl.seasonRecommand(vo);
-    MainVO userLoc = mainServiceImpl.getUserInfo(mainvo);
+    List<MainVO> result = mainService.seasonRecommand(vo);
+    MainVO userLoc = mainService.getUserInfo(mainvo);
     // System.out.println(userLoc);
     m.addAttribute("userLoc", userLoc);
     // System.out.println(result);
@@ -97,7 +104,7 @@ public class MainController {
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
     // vo.setTour_num10(num10);
-    List<TourVO> result = mainServiceImpl.getReco1(vo);
+    List<TourVO> result = mainService.getReco1(vo);
     // System.out.println(result);
     return result;
   }
@@ -124,7 +131,7 @@ public class MainController {
     vo.setTour_num7(num7);
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
-    List<TourVO> result = mainServiceImpl.getReco2(vo);
+    List<TourVO> result = mainService.getReco2(vo);
     return result;
   }
   // 메인 유저 선호 3순위 여행지 타입에 대한 여행지 추천
@@ -150,7 +157,7 @@ public class MainController {
     vo.setTour_num7(num7);
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
-    List<TourVO> result = mainServiceImpl.getReco3(vo);
+    List<TourVO> result = mainService.getReco3(vo);
     return result;
   }
 
@@ -177,7 +184,7 @@ public class MainController {
     vo.setTour_num7(num7);
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
-    List<TourVO> result = mainServiceImpl.getRecoType1(vo);
+    List<TourVO> result = mainService.getRecoType1(vo);
     return result;
   }
 
@@ -204,7 +211,7 @@ public class MainController {
     vo.setTour_num7(num7);
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
-    List<TourVO> result = mainServiceImpl.getRecoType2(vo);
+    List<TourVO> result = mainService.getRecoType2(vo);
     return result;
   }
 
@@ -231,7 +238,7 @@ public class MainController {
     vo.setTour_num7(num7);
     vo.setTour_num8(num8);
     vo.setTour_num9(num9);
-    List<TourVO> result = mainServiceImpl.getRecoType3(vo);
+    List<TourVO> result = mainService.getRecoType3(vo);
     return result;
   }
 
@@ -251,12 +258,71 @@ public class MainController {
     vo.setTour_num3(num3);
     vo.setTour_num4(num4);
 
-    List<TourVO> result = mainServiceImpl.yesResult(vo);
+    List<TourVO> result = mainService.yesResult(vo);
     return result;
   }
 
-  
+  // ajax로 리뷰 달기!!! - 여행지
+  @RequestMapping("/touro/tour/reviewInsert")
+  @ResponseBody
+  public void reviewInsert(TourReviewVO vo) {
+    System.out.println("컨트롤러....");
+    System.out.println(vo.getUser_id());
+    mainService.reviewInsert(vo);
 
+  }
+
+  // 여행지 리뷰 보이기
+  @RequestMapping("/touro/tour/selectReview")
+  @ResponseBody
+  public List<TourReviewVO> selectReview(TourReviewVO vo) {
+      // System.out.println("여행번호 : " + vo.getImg_real_name());
+      // if(vo.getImg_real_name() == null) {
+      //   vo.setImg_real_name("default_profile.png");
+      // }
+      List<TourReviewVO> result = mainService.reviewSelect(vo);
+      System.out.println("이미지 : " + vo.getImg_real_name());
+      List<TourReviewVO> review = new ArrayList<TourReviewVO>();
+      for(TourReviewVO tourReview : result) {
+        System.out.println(tourReview);
+        if(tourReview.getImg_real_name().equals("5ee25b671da2a46f118d0a4454d822a5")) {
+          tourReview.setImg_real_name(tourReview.getImg_name());
+        }
+        review.add(tourReview);
+      }
+      return review;
+  }
+
+  // ajax로 리뷰 달기!!! - 여행후기
+  @RequestMapping("/touroview/touroviewReviewInsert")
+  @ResponseBody
+  public void touroviewReviewInsert(TouroviewReviewVO vo) {
+    System.out.println("컨트롤러왔어요?");
+    System.out.println(vo.getTour_num());
+    mainService.touroviewReviewInsert(vo);
+
+  }
+
+  // 여행후기 리뷰 보이기
+  @RequestMapping("/touroview/touroviewSelectReview")
+  @ResponseBody
+  public List<TouroviewReviewVO> touroviewReviewSelect(TouroviewReviewVO vo) {
+     //  System.out.println("여행번호 : " + vo.getImg_real_name());
+      // if(vo.getImg_real_name() == null) {
+      //   vo.setImg_real_name("default_profile.png");
+      // }
+      System.out.println("후기게시판이미지 : " + vo.getImg_real_name());
+      List<TouroviewReviewVO> result = mainService.touroviewReviewSelect(vo);
+      List<TouroviewReviewVO> review = new ArrayList<TouroviewReviewVO>();
+      for(TouroviewReviewVO touroviewReview : result) {
+        System.out.println(touroviewReview);
+        if(touroviewReview.getImg_real_name().equals("5ee25b671da2a46f118d0a4454d822a5")) {
+         touroviewReview.setImg_real_name(touroviewReview.getImg_name());
+        }
+        review.add(touroviewReview);
+      }
+      return review;
+  }
   
 
 }

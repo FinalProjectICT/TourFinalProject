@@ -12,7 +12,9 @@ import com.example.coding.domain.ChartVO;
 import com.example.coding.domain.MainAdminVO;
 import com.example.coding.domain.MainVO;
 import com.example.coding.domain.Reco1VO;
+import com.example.coding.domain.TourReviewVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
 
@@ -198,6 +200,31 @@ public class MainServiceImpl implements MainService{
   public List<AdminVO> popularTour() {
     return mainDAO.popularTour();
   }
+
+  // 여행지 - ajax로 리뷰 달기!!!
+  public void reviewInsert(TourReviewVO vo) {
+    mainDAO.reviewInsert(vo);
+  }
+
+  // 여행지 - 리뷰 가져오기
+  @Override
+  public List<TourReviewVO> reviewSelect(TourReviewVO vo) {
+    List<TourReviewVO> result = mainDAO.reviewSelect(vo);
+    return result;
+  } 
+
+
+   // 여행후기 - ajax로 리뷰 달기!!!
+   public void touroviewReviewInsert(TouroviewReviewVO vo) {
+    mainDAO.touroviewReviewInsert(vo);
+  }
+
+  // 여행후기 - 리뷰 가져오기
+  @Override
+  public List<TouroviewReviewVO> touroviewReviewSelect(TouroviewReviewVO vo) {
+    List<TouroviewReviewVO> result = mainDAO.touroviewReviewSelect(vo);
+    return result;
+  } 
 
  
 

@@ -43,7 +43,7 @@
               <div class="brand-logo">
                 <a href="/touro">
                   <img
-                    src="../assets/images/icon/footer-logo.png"
+                    src="../assets/images/icon/header-logo.png"
                     alt=""
                     class="img-fluid blur-up lazyload"
                   />
@@ -161,6 +161,7 @@
       </div>
     </header>
     <!--  해더 끝 -->
+    
      <!-- 이미지 변환 (Modal) 구성 시작-->
      <div class="modal fade edit-profile-modal" id="image-change" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -170,7 +171,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body dashboard-section d-flex justify-content-center align-items-center">
-                  <section class="w-400" style="height: 500px; padding-top: 0px;">
+                  <section class="w-400" style="padding-top: 0px;">
                       <div class="image-section">
                           <!-- 내용이 중앙에 오도록 수정 -->
                           <div class="image-container row">

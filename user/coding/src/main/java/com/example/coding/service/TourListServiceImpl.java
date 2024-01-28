@@ -42,8 +42,14 @@ public class TourListServiceImpl implements TourListService{
     }
 
     @Override
+    public int deleteWishList(WishListVO vo) {
+        return tourListDAO.deleteWishList(vo);
+    }
+
+    @Override
     public String newInquiry(InquiryVO vo) {
         return tourListDAO.newInquiry(vo);
     }
+
 
 }

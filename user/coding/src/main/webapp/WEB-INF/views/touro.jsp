@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Touro</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -69,11 +69,11 @@ prefix="c" %>
     <link rel="stylesheet" type="text/css" href="../assets/css/chatBot.css" />
 
     <!-- footer용 js -->
-    <script
+    <!-- <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
 
     <!-- 사용자 선호 여행 타입에 따른 지역별 추천 -->
     <script>
@@ -638,7 +638,8 @@ prefix="c" %>
         <img src="../assets/images/tour/background/2.png" alt="" />
         <div class="effect_content">
           <div>
-            <h1>TOURO</h1>
+            <h1>여행을 더욱 특별하게, <br/> TOURO와 함께!</h1>
+            <h3>취향 저격 여행지 AI 추천과 여행 이야기를 공유하세요</h3>
           </div>
         </div>
       </div>
@@ -1203,6 +1204,8 @@ prefix="c" %>
     <%@ include file='./footer/footer.jsp' %>
     <!-- footer end -->
 
+
+
     <!-- tap to top -->
     <div class="tap-top">
       <div>
@@ -1210,29 +1213,6 @@ prefix="c" %>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- setting start -->
-    <!-- <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div> -->
-    <!-- setting end -->
 
     <!-- 챗봇 구역 시작 -->
     <button id="chatButton">
@@ -1271,6 +1251,18 @@ prefix="c" %>
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/snow.js"></script>
+
+    <!-- 메인 이펙트 이미지 스크롤시 크기 변경 스크립트 -->
+    <script>
+      var scrollPos;
+      $(window).on('scroll', function () {
+          scrollPos = $(window).scrollTop();
+          $(".effect_image").css('background-size', 100 + parseInt(scrollPos / 10, 0) + '% ');
+          $(".effect_content h1").css('font-size', 400 - parseInt(scrollPos / 1.5, 0) + '% ');
+          $(".effect_content h3").css('font-size', 120 - parseInt(scrollPos / 4, 0) + '% ');
+          $(".effect_content").css('top', 14 + parseInt(scrollPos / 10, 0) + '% ');
+      });
+    </script>
 
     <!-- 사용자 정보 가져오는 ajax -->
     <script src="../assets/js/userModal.js"></script>
