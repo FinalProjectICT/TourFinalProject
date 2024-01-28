@@ -1,13 +1,10 @@
 package com.example.coding.service;
 
-
-
 import java.util.List;
 
-import com.example.coding.domain.InquiryReviewVO;
 import com.example.coding.domain.InquiryVO;
+import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
-import com.example.coding.domain.TourVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -17,6 +14,11 @@ public interface MyPageService {
 
     // mypage 사용자 정보 가져오기
     public UserVO getUserProfile(String userId);
+
+    // 사용자 프로필 사진 가져오기
+    public String getUserProfileImage(String userId);
+
+
 
     // 마이페이지 - 메인페이지 - 개수
     // 작성한 리뷰 개수 가져오기
@@ -34,6 +36,7 @@ public interface MyPageService {
 
 
 
+    // -----------------------------------------
     // 마이페이지 - 작성한 글
     // 여행 후기
     public List<TouroviewVO> getMyPageTouroviewList(String userId);
@@ -43,6 +46,14 @@ public interface MyPageService {
 
     // 여행지 리뷰 댓글
     public List<TourReviewVO> getMyPageTourReviewList(String userId);
+
+
+
+    // -----------------------------------------
+    // 마이페이지 - 나의 발자취
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size);
+
+    public int getTotalReceiptPages(int size);
 
 
 

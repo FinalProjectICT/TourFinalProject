@@ -7,9 +7,11 @@ import org.springframework.ui.Model;
 
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.LikeVO;
 import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.WishListVO;
 
 @Service
 public interface TouroMateService {
@@ -61,6 +63,15 @@ public interface TouroMateService {
 
     // 게시글 삭제
     void deleteTouroMate(TouroMateVO vo);
+
+    // 좋아요 추가
+    void addWishList(LikeVO vo);
+
+    // 좋아요 확인
+    int ckWishList(LikeVO vo);
+
+    // 좋아요 삭제
+    int deleteWishList(LikeVO vo);
 
     
 }

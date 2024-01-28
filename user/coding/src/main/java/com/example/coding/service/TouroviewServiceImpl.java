@@ -22,11 +22,7 @@ import com.example.coding.domain.UserVO;
 public class TouroviewServiceImpl implements TouroviewService{
 
     @Autowired
-    private final TouroviewDAO touroviewDAO;
-
-    public TouroviewServiceImpl(TouroviewDAO touroviewDAO) {
-        this.touroviewDAO = touroviewDAO;
-    }
+    private  TouroviewDAO touroviewDAO;
 
     @Autowired
     public ImgDetailDAO imgDetailDAO;
