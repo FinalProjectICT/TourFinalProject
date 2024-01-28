@@ -32,6 +32,11 @@ public interface TouroviewService {
     // 
     public int getTotalPages(int size);
     
+    // 여행지 이미지 사진 가져오기
+    public TourVO getTourByNum(String tour_num);
+
+
+
     // ------------------------------ touroview_detail
     // 게시물 id로 touroview 게시물 가져오기
     public TouroviewVO getTouroviewById(int touroview_num);
@@ -45,7 +50,13 @@ public interface TouroviewService {
     // 후기 게시물 리뷰 정보 가져오기
     public TouroviewReviewVO getTouroviewReviewByTouroviewId(int touroview_num);
     
-    
+    // 신고
+    public void insertReportCount(TouroviewVO touroviewVO);
+
+    // 신고한 게시물인지 확인
+    public boolean checkReported(int touroviewNum, String userId);
+
+
     // ----------------------------- 수정, 삭제
     // 후기 게시판 수정
     public void updateTouroview(TouroviewVO touroviewVO);

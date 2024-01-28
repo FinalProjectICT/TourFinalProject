@@ -243,85 +243,7 @@ pageEncoding="UTF-8"%>
                   <div class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
                       <div class="filter-block col">
-                        <div class="collection-collapse-block open">
-                          <h6 class="collapse-block-title">trip duration</h6>
-                          <div class="collection-collapse-block-content">
-                            <div class="collection-brand-filter">
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="english"
-                                />
-                                <label class="form-check-label" for="english"
-                                  >upto 3 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="sign"
-                                />
-                                <label class="form-check-label" for="sign"
-                                  >4 to 7 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="italiano"
-                                />
-                                <label class="form-check-label" for="italiano"
-                                  >7 to 11 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="suomi"
-                                />
-                                <label class="form-check-label" for="suomi"
-                                  >11 to 15 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="espanol"
-                                />
-                                <label class="form-check-label" for="espanol"
-                                  >15 to 21 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="french"
-                                />
-                                <label class="form-check-label" for="french"
-                                  >above 21 nights</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -374,11 +296,11 @@ pageEncoding="UTF-8"%>
                 >
                   <div class="special-box p-0">
                     <!-- 이미지 select 값 -->
-                    <div class="special-img">
+                    <div class="special-img" style="height: 200px;">
                       <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <img
-                          src="../assets/"
-                          class="img-fluid blur-up lazyload bg-img"
+                          src="../${touroview.tour_img1_path}"
+                          class="img-fluid blur-up lazyload "
                           alt=""
                         />
                       </a>

@@ -5,6 +5,16 @@
 <!-- *************************** dao interface 경로+이름 -->
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
+<!-- List-->
+<select id="getTourByNum" parameterType="java.lang.String" resultType="TourVO">
+        SELECT * 
+        FROM tour
+        WHERE tour_num = #{tourNum}
+</select>
+
+
+
+
 <!-- touroview_insert-->
 <!-- 후기 게시물 db저장-->
 <insert id="saveTouroview">
@@ -18,6 +28,8 @@
     FROM touroview
     ORDER BY touroview_num DESC LIMIT 1
 </select>
+
+
 
 <!-- touroview_detail-->
 <!-- detail페이지 db 목록 불러오기-->
@@ -70,6 +82,22 @@
     FROM tour 
     WHERE tour_num = #{touroview_num}
 </select>
+
+<!-- 신고 횟수 조회 -->
+<!-- 신고 -->
+<insert id="insertReportCount">
+    INSERT INTO report(touroview_num, user_id, report_count)
+    VALUES (#{touroview_num}, #{user_id}, 1)
+</insert>
+
+<!-- 신고한 게시물인지 확인 -->
+<select id="checkReported" resultType="int">
+    SELECT  COUNT(*)
+    FROM    report
+    WHERE   touroview_num = #{touroview_num} AND user_id = #{userId}
+</select>
+
+
 
 
 <!-- touroview_update_delete-->

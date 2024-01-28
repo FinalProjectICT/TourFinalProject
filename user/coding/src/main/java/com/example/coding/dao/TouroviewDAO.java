@@ -29,7 +29,12 @@ public interface TouroviewDAO {
     
     // 목록 전체 가져오기
     public int getTotalPages();
-    
+
+    // 여행지 이미지 사진 가져오기
+    public TourVO getTourByNum(String tour_num);
+
+        
+
 
     // ---------------------------------------- detail
     // 게시물 id로 touroview 게시물 가져오기
@@ -44,6 +49,15 @@ public interface TouroviewDAO {
     // 후기 게시물 리뷰 정보 가져오기
     public TouroviewReviewVO getTouroviewReviewByTouroviewId(int touroview_num);
     
+
+    // 신고
+    public void insertReportCount(TouroviewVO touroviewVO);
+    
+    // 사용자가 게시물을 신고했는지 확인
+    public int checkReported(@Param("touroviewNum") int touroviewNum, @Param("userId") String userId);
+
+
+
     
     // ---------------------------------------- update, delete
     // 후기 게시판 수정
