@@ -231,18 +231,21 @@ pageEncoding="UTF-8"%>
                         <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
+                            <h3>${touroMateCount}</h3>
                             <h5>여행친구</h5>
                           </div>
                         </div>
                         <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
+                            <h3>${touroviewCount}</h3>
                             <h5>여행 후기</h5>
                           </div>
                         </div>
                         <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
+                            <h3>${receiptCount}</h3>
                             <h5>나의 발자취</h5>
                           </div>
                         </div>
@@ -308,13 +311,6 @@ pageEncoding="UTF-8"%>
                           <span>전화번호</span>
                           <span>${userVO.user_tel}</span>
                         </li>
-                        <!-- 여행지 취향 -->
-                        <li class="d-flex justify-content-between mb-4">
-                          <span>선호 여행지</span>
-                          <span>${userVO.user_prefer_loc1}</span>
-                          <span>${userVO.user_prefer_loc2}</span>
-                          <span>${userVO.user_prefer_loc3}</span>
-                        </li>
                         <!-- 여행 취향 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>선호 여행 유형</span>
@@ -322,6 +318,72 @@ pageEncoding="UTF-8"%>
                           <span>${userVO.user_prefer_type2}</span>
                           <span>${userVO.user_prefer_type3}</span>
                         </li>
+                        <!-- 여행지 취향 -->
+                        <li class="d-flex justify-content-between mb-4">
+                          <span>선호 여행지</span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc1 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc1}</c:otherwise>
+                          </c:choose></span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc2 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc2}</c:otherwise>
+                          </c:choose></span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc3 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc3}</c:otherwise>
+                          </c:choose></span>
+
+                        </li>
+                        
                       </ul>
                     </div>
                   </div>
@@ -334,8 +396,9 @@ pageEncoding="UTF-8"%>
                       <h4>작성한 게시물</h4>
                     </div>
                     <div class="dashboard-detail">
-                    <c:forEach var="touroview" items="${touroviewVO}" varStatus="status">
+                    <c:forEach var="touroview" items="${touroviewVO}">
                       <div class="booking-box">
+                        <!-- 게시물 정보 표시 -->
                         <div class="detail-middle">
                           <div class="media">
                             <div class="icon"></div>
@@ -355,6 +418,18 @@ pageEncoding="UTF-8"%>
                     </c:forEach>
                     </div>
                   </div>
+                  <div class="pagination">
+                    <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                        <c:choose>
+                            <c:when test="${pageNum == page}">
+                                <span class="current">${pageNum}</span>
+                            </c:when>
+                            <c:otherwise>
+                              <a href="${pageContext.request.contextPath}/mypage?page=${pageNum}">${pageNum}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </div>
 
                   <div class="dashboard-box">
                     <div class="dashboard-title">
@@ -693,7 +768,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label>생년월일</label>
+                  <label>나이</label>
                   <input
                     class="form-control"
                     placeholder="18 april"
@@ -712,100 +787,97 @@ pageEncoding="UTF-8"%>
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputCity">메일주소</label>
+                  <label for="inputEmail">메일주소</label>
                   <input type="text" class="form-control" id="inputCity" value="${userVO.user_email}"/>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState1">여행 취향1</label>
+                  <label for="inputState1">선호 여행 유형1</label>
                   <select id="input" class="form-control">
-                      <option selected>선택</option>
-                      <option ${userVO.user_prefer_loc1 == '관광지' ? 'selected' : ''}>관광지</option>
-                      <option ${userVO.user_prefer_loc1 == '음식점' ? 'selected' : ''}>음식점</option>
-                      <option ${userVO.user_prefer_loc1 == '숙박' ? 'selected' : ''}>숙박</option>
+                      <option value="관광지" ${userVO.user_prefer_type1 == '관광지' ? 'selected' : ''}>관광지</option>
+                      <option value="음식점" ${userVO.user_prefer_type1 == '음식점' ? 'selected' : ''}>음식점</option>
+                      <option value="숙박" ${userVO.user_prefer_type1 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행지 취향1</label>
+                  <label for="inputZip">선호 여행지1</label>
                   <select id="inputarea1" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc1 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc1 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc1 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc1 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc1 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc1 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc1 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc1 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc1 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc1 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc1 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc1 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc1 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc1 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc1 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc1 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc1 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">여행 취향2</label>
+                  <label for="inputState">선호 여행 유형2</label>
                   <select id="inputState2" class="form-control">
-                    <option selected>선택</option>
-                    <option>관광지</option>
-                    <option>음식점</option>
-                    <option>숙박</option>
+                    <option value="관광지" ${userVO.user_prefer_type2 == '관광지' ? 'selected' : ''}>관광지</option>
+                    <option value="음식점" ${userVO.user_prefer_type2 == '음식점' ? 'selected' : ''}>음식점</option>
+                    <option value="숙박" ${userVO.user_prefer_type2 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행지 취향2</label>
+                  <label for="inputZip">선호 여행지2</label>
                   <select id="inputarea2" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc2 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc2 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc2 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc2 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc2 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc2 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc2 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc2 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc2 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc2 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc2 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc2 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc2 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc2 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc2 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc2 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc2 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">여행지 취향3</label>
+                  <label for="inputState">선호 여행 유형3</label>
                   <select id="inputState3" class="form-control">
-                    <option selected>선택</option>
-                    <option>관광지</option>
-                    <option>음식점</option>
-                    <option>숙박</option>
+                    <option value="관광지" ${userVO.user_prefer_type3 == '관광지' ? 'selected' : ''}>관광지</option>
+                    <option value="음식점" ${userVO.user_prefer_type3 == '음식점' ? 'selected' : ''}>음식점</option>
+                    <option value="숙박" ${userVO.user_prefer_type3 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행 취향3</label>
+                  <label for="inputZip">선호 여행지3</label>
                   <select id="inputarea3" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc3 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc3 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc3 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc3 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc3 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc3 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc3 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc3 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc3 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc3 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc3 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc3 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc3 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc3 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc3 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc3 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc3 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
               </div>
@@ -1272,45 +1344,56 @@ pageEncoding="UTF-8"%>
 
 <script>
   function updateProfile() {
-    var user_id = document.getElementById('first').value;
-    var user_tel = document.getElementById('last').value;
-    var user_gender = document.getElementById('gender').value;
-    var user_age = document.getElementById('datepicker').value;
-    var user_email = document.getElementById('inputCity').value;
-    var user_addr = document.getElementById('inputAddress').value;
-    var userTravelPreference = document.getElementById('inputState1').value;
-    var userTravelLocation = document.getElementById('inputState2').value;
+    var userId = "${userId}";
+    console.log(userId);
+    var userTel = document.getElementById('last').value;
+    console.log(last);
+    var userGender = document.getElementById('gender').value;
+    var userAge = document.getElementById('datepicker').value;
+    var userAddr = document.getElementById('inputAddress').value;
+    var userEmail = document.getElementById('inputEmail').value;
+    var userPreferType1 = document.getElementById('inputState1').value;
+    var userPreferArea1 = document.getElementById('inputarea1').value;
+    var userPreferType2 = document.getElementById('inputState2').value;
+    var userPreferArea2 = document.getElementById('inputarea2').value;
+    var userPreferType3 = document.getElementById('inputState3').value;
+    var userPreferArea3 = document.getElementById('inputarea3').value;
 
-    // 서버로 전송할 데이터 생성
-    var data = {
-      user_id: user_id,
-      user_tel: user_tel,
-      user_gender: user_gender,
-      user_age: user_age,
-      user_email: user_email,
-      user_addr: user_addr,
-      user_prefer_type1: userTravelPreference, 
-      user_prefer_loc1: userTravelLocation 
+
+    // 구성된 데이터 객체
+    var userData = {
+      userId: userId,
+        userTel: userTel,
+        userGender: userGender,
+        userAge: userAge,
+        userAddr: userAddr,
+        userEmail: userEmail,
+        userPreferType1: userPreferType1,
+        userPreferArea1: userPreferArea1,
+        userPreferType2: userPreferType2,
+        userPreferArea2: userPreferArea2,
+        userPreferType3: userPreferType3,
+        userPreferArea3: userPreferArea3
     };
 
-    // ajax를 사용하여 서버에 데이터 전송
+    // AJAX 요청
     $.ajax({
-      type: 'POST',
-      url: '/updateUserProfile',
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      success: function (response) {
-        // 성공 시 응답
-        console.log(response);
-        alert('프로필이 성공적으로 업데이트되었습니다.');
-      },
-      error: function (error) {
-        // 오류 처리
-        console.error('프로필 업데이트 중 오류 발생:', error);
-        alert('프로필 업데이트 중 오류 발생');
-      }
+        url: '/profile', // 프로필 업데이트를 처리하는 서버 URL
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(userData),
+        success: function(response) {
+            // 성공 처리
+            alert('프로필이 업데이트되었습니다.');
+            window.location.href = '/mypage'; // 프로필 페이지로 리다이렉트
+        },
+        error: function(xhr, status, error) {
+            // 에러 처리
+            alert('프로필 업데이트에 실패했습니다.');
+        }
     });
-  }
+}
+
 </script>
 
 <!-- 문의 답변 토글 -->
@@ -1369,14 +1452,14 @@ pageEncoding="UTF-8"%>
 
 
 <!-- 페이징 -->
- <script>
+ <!-- <script>
   // 페이지네이션 클릭 이벤트
   $(".pagination a").click(function(e) {
     e.preventDefault(); // 기본 링크 동작 방지
     var page = $(this).attr("href").split("page=")[1]; // 페이지 번호 추출
 
     $.ajax({
-        url: '/mypage/receipts', // 요청할 URL
+        url: '/mypage', // 요청할 URL
         type: 'GET',
         data: { page: page, size: 6 },
         success: function(response) {
@@ -1410,9 +1493,9 @@ pageEncoding="UTF-8"%>
       }
     });
   });
-</script>
+</script> -->
 
 
 
-  </body>
+</body>
 </html>

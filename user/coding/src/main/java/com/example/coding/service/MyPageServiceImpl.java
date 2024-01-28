@@ -65,21 +65,49 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
 
+    // 작성한 게시물
+    // 여행 친구
+    @Override
+    public int countTouroMate(){
+        return myPageDAO.countTouroMate();
+    }
+
+    // 여행 후기
+    @Override
+    public int countTouroview(){
+        return myPageDAO.countTouroview();
+    }
+
+    // 나의 발자취
+    @Override
+    public int countReceipt(){
+        return myPageDAO.countReceipt();
+    }
+
 
     // ---------------------------------------------------------
     // mypage - 작성한 글
     // 여행 후기
     @Override
-    public List<TouroviewVO> getMyPageTouroviewList(String userId){
-        return myPageDAO.getMyPageTouroviewList(userId);
+    public List<TouroviewVO> getMyPageTouroviewList(String userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return myPageDAO.getMyPageTouroviewList(userId, pageSize, offset);
     }
 
+    @Override
+    public int getTotalTouroviewCount(String userId) {
+        return myPageDAO.countTouroviews(userId);
+    }
+
+
     // 여행 후기 리뷰 댓글
+    @Override
     public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId){
         return myPageDAO.getMyPageTouroviewReviewList(userId);
     }
 
     // 여행지 리뷰 댓글
+    @Override
     public List<TourReviewVO> getMyPageTourReviewList(String userId){
         return myPageDAO.getMyPageTourReviewList(userId);
     }
