@@ -157,26 +157,27 @@ public class HSKController {
             // 후기 정보와 연결된 여행지 정보를 가져오기
             int tourNum = Integer.parseInt(touroviewVO.getTour_num()); 
             TourVO tourVO = touroviewService.getTourByTouroviewId(tourNum);
-            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", ""); // 우편번호 000000 처리
+            System.out.println("TourVO 이미지 가져오는지 확인: " + tourVO.getTour_img1_path());
+
+            // 우편번호 000000 처리
+            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", "");
             tourVO.setTour_postnum(postNum); // tourVO에 postNum 넣기
 
-            // UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num); // UserVO
-            // TouroviewReviewVO touroviewReviewVO = touroviewService.getTouroviewReviewByTouroviewId(touroview_num); //touroviewReview
-            UserVO userVO = (UserVO) model.getAttribute("userVO"); // UserVO
+            UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num);
             TouroviewReviewVO touroviewReviewVO = (TouroviewReviewVO) model.getAttribute("touroviewReviewVO"); //touroviewReview
 
             // 모델에 데이터 추가
             model.addAttribute("touroviewVO", touroviewVO);
             model.addAttribute("tourVO", tourVO);
+            model.addAttribute("userVO", userVO);
 
-            // model.addAttribute("userVO", userVO); //UserVO
-            // model.addAttribute("touroviewReviewVO", touroviewReviewVO); //touroviewReview
 
             // 찍어보기
             System.out.println("게시물 후기 번호: " + touroview_num);
             System.out.println("Touroview 정보 : " + touroviewVO);
             System.out.println("Tour 정보 : " + tourVO);
             System.out.println("Tour 번호: " + tourNum);
+            System.out.println("UserVO 가져오기 : " + userVO);
 
             // 자신이 작성한 게시글인 경우 모델에 플래그 추가
             boolean isAuthor = loggedInUserId != null && loggedInUserId.equals(touroviewVO.getUser_id());

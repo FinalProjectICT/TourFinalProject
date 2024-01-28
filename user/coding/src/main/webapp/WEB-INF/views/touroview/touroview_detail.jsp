@@ -190,7 +190,7 @@ prefix="c" %>
                           <h6 class="room-title">${tourVO.tour_name}</h6>
                           <a href="#">
                             <img
-                              src="${tourVO.tour_img1_path}"
+                              src="../assets/${tourVO.tour_img1_path}"
                               class="img-fluid blur-up lazyload"
                               alt=""
                             />

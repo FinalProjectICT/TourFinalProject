@@ -64,6 +64,8 @@ public class MyPageController {
         // 여행지 댓글
         List<TourReviewVO> tourReviewVO = myPageService.getMyPageTourReviewList(userId);
 
+        // 나의 발자취
+        int pageSize = 6;   // 한 페이지에 표시할 항목 수
 
         List<ReceiptVO> receiptVO = myPageService.getMyPageReceiptList(userId, page, size);
         int totalPages = myPageService.getTotalReceiptPages(size);
