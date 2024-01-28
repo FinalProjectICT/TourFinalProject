@@ -23,12 +23,7 @@ public class TouroviewVO {
     private int     receipt_num;        // 영수증 번호
 
 
-    // public void setUser_id(String user_id){
-    //     this.user_id = user_id;
-    //     this.start = start;
-    //     this.
-    // }
-
+   private String tour_img1_path;   // 여행지 이미지
     
     
 }

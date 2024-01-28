@@ -361,11 +361,9 @@ prefix="c" %>
                 </div>
                 <div class="right-part">
                 <!-- 신고 버튼 -->
-                  <a
-                    href="hotel-booking.html"
-                    class="btn btn-rounded btn-sm color1"
-                    >신고
-                  </a>
+                  <input type="hidden" id="touroviewNum" value="${touroviewVO.touroview_num}">
+                  <a onclick="reportPost();" href="#" class="btn btn-rounded btn-sm color1" id="reportbutton">신고</a>
+                  
                   <!-- 수정 버튼 -->
                   <c:if test="${isAuthor}">
                   <a href="${pageContext.request.contextPath}/touroview/touroview_update_delete?touroview_num=${touroviewVO.touroview_num}&action=update"
@@ -470,7 +468,7 @@ prefix="c" %>
                           <h6 class="room-title">${tourVO.tour_name}</h6>
                           <a href="#">
                             <img
-                              src="../assets/${tourVO.tour_img1_path}"
+                              src="../${tourVO.tour_img1_path}"
                               class="img-fluid blur-up lazyload"
                               alt=""
                             />
@@ -487,7 +485,6 @@ prefix="c" %>
                 </div>
 
                 <!-- 리뷰 테이블  -->
-               
 
                 
 
@@ -901,5 +898,36 @@ prefix="c" %>
         format: "dd mmmm",
       });
     </script>
+
+    <!-- 신고 기능 -->
+      <script>
+        function reportPost() {
+            var touroviewNum = document.getElementById('touroviewNum').value;
+            var sessionId = document.getElementById('sessionId').value;
+
+            $.ajax({
+                url: '/touroview/report', // 신고 처리를 위한 서버의 URL
+                type: 'POST',
+                data: { touroview_num: touroviewNum, user_id : sessionId},
+                success: function(response) {
+                    // 성공 처리
+                    alert('신고가 처리되었습니다.');
+                    $("#reportbutton").css("background-color","#fd6668"); // 버튼 색상 변경
+                    document.querySelector("#reportbutton").removeAttribute('href');
+
+                  },
+                error: function(xhr, status, error) {
+              // 에러 처리
+              console.error("Error: " + status + " - " + error);
+              alert('신고 처리 중 오류가 발생했습니다.');
+          }
+      });
+  }
+
+      </script>
+      
+
+
+
   </body>
 </html>
