@@ -3,6 +3,7 @@ package com.example.coding.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
@@ -36,6 +37,17 @@ public interface MyPageDAO {
     // 여행지 담은 개수 가져오기
     public int getTourWishCountByUserId(String userId);
 
+    // ----- 게시글 가져오기
+    // 여행 친구
+    public int countTouroMate();
+
+    // 여행 후기
+    public int countTouroview();
+
+    // 나의 발자취
+    public int countReceipt();
+
+
     // -----------------------------------------------------
     // 마이페이지 - 프로필 수정
     public int updateUserProfile(UserVO userVO);
@@ -43,7 +55,11 @@ public interface MyPageDAO {
     // -----------------------------------------------------
     // 마이페이지 - 작성한 글
     // 여행 후기
-    public List<TouroviewVO> getMyPageTouroviewList(String userId);
+    public List<TouroviewVO> getMyPageTouroviewList(String userId, int limit, int offset);
+    
+    // 전체 게시물 수 조회
+    public int countTouroviews(String userId);
+
 
     // 여행 후기 리뷰 댓글
     public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId);

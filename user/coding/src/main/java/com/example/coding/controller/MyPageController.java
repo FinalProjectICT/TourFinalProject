@@ -38,96 +38,98 @@ public class MyPageController {
 
         // 세션에서 사용자 아이디 가져오기
         String userId = (String) session.getAttribute("loggedId");
+        model.addAttribute("userId", userId); // 세션 id 값
+
+        // ***페이징 관련***
+        int pageSize = 3; // 한페이지에 표시할 게시물 수
+        int totalTouroviews = myPageService.getTotalTouroviewCount(userId);
+        int totalPages = (totalTouroviews + pageSize - 1) / pageSize;
 
         // 사용자 정보 가져와서 userVO에 저장
         UserVO userVO = myPageService.getUserProfile(userId);
+        model.addAttribute("userVO", userVO); // 사용자 프로필
 
         // 사용자 프로필 사진 가져오기
         String profileImage = myPageService.getUserProfileImage(userId);
+        model.addAttribute("profileImage", profileImage);
 
 
+        // -----------------------------------------------------------------
         // 마이페이지 메인페이지 - 개수
         // 작성한 리뷰(여행 후기) 개수 가져오기
         int touroviewCount = myPageService.getTouroviewCountByUserId(userId);
+        model.addAttribute("touroviewCount", touroviewCount); 
+
         // 여행지 댓글 개수 가져오기
         int tourReviewCount = myPageService.getTourReviewCountByUserId(userId);
+        model.addAttribute("tourReviewCount", tourReviewCount); 
+
         // 리뷰 개수 가져오기
         int touroviewReviewCount = myPageService.getTouroviewReviewCountByUserId(userId);
+        model.addAttribute("touroviewReviewCount", touroviewReviewCount); 
+
         // 여행지 담은 개수 가져오기
         int touroWishCount = myPageService.getTourWishCountByUserId(userId);
+        model.addAttribute("touroWishCount", touroWishCount);
 
+
+        // --- 작성한 게시물
+        // 여행 친구 게시물 개수
+        int countTouroMate = myPageService.countTouroMate();
+        model.addAttribute("touroMateCount", countTouroMate);
+
+        // 여행 후기 게시물 개수
+        int countTouroview = myPageService.countTouroview();
+        model.addAttribute("touroviewCount", countTouroview);
+
+        // 나의 발자취 게시물 개수
+        int countReceipt = myPageService.countReceipt();
+        model.addAttribute("receiptCount", countReceipt);
+
+
+
+        // ------------------------------------------------------------------
         // 마이페이지 - 작성한 글
         // 작성한 게시물
-        List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId);
+        List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId, page, pageSize);
+        model.addAttribute("touroviewVO", touroviewVO); // 작성한 게시물 불러오기
+
         // 여행 후기 게시물
         List<TouroviewReviewVO> touroviewReviewVO = myPageService.getMyPageTouroviewReviewList(userId);
+        model.addAttribute("touroviewReviewVO", touroviewReviewVO); // 작성한 게시물 불러오기
+
         // 여행지 댓글
         List<TourReviewVO> tourReviewVO = myPageService.getMyPageTourReviewList(userId);
-
-        // 나의 발자취
-        int pageSize = 6;   // 한 페이지에 표시할 항목 수
+        model.addAttribute("tourReviewVO", tourReviewVO); // 작성한 게시물 불러오기
 
         List<ReceiptVO> receiptVO = myPageService.getMyPageReceiptList(userId, page, size);
-        int totalPages = myPageService.getTotalReceiptPages(size);
-        
-        
+        // int totalPages = myPageService.getTotalReceiptPages(size);
+        model.addAttribute("receiptVO", receiptVO); // 영수증 후기
+
+        // ***페이징 관련***
+        model.addAttribute("totalPages", totalPages); // 총 페이지 수
+        model.addAttribute("currentPage", page); // 현재 페이지 번호
+
+
+        // -----------------------------------------------------------------------
         // 여행지 담기
         // 여행지 찜 목록 가져오기
         List<WishListVO> wishListVO = myPageService.getWishList(userId);
+        model.addAttribute("wishListVO", wishListVO); // WishListVO
+
 
         // 작성한 문의 내역
         // 문의 목록 가져오기
         List<InquiryVO> inquiryVO = myPageService.getInquiryByUserId(userId);
-
-
-        // 모델에 사용자 아이디 추가
-        model.addAttribute("userId", userId); // 세션 id 값
-        // 프로필
-        model.addAttribute("userVO", userVO); // 사용자 프로필
-
-        // 프로필 사진
-        model.addAttribute("profileImage", profileImage);
-
-        // 여행 후기 개수
-        model.addAttribute("touroviewCount", touroviewCount); 
-        // 여행지 리뷰 개수
-        model.addAttribute("tourReviewCount", tourReviewCount); 
-        // 여행지 후기 리뷰 개수
-        model.addAttribute("touroviewReviewCount", touroviewReviewCount); 
-        // 리뷰 총 개수
-        model.addAttribute("totalCommentCount", tourReviewCount + touroviewReviewCount); 
-        // 여행지 담은 개수
-        model.addAttribute("touroWishCount", touroWishCount); 
-
-
-        // 작성한 글
-        model.addAttribute("touroviewVO", touroviewVO); // 작성한 게시물 불러오기
-        model.addAttribute("touroviewReviewVO", touroviewReviewVO); // 작성한 게시물 불러오기
-        model.addAttribute("tourReviewVO", tourReviewVO); // 작성한 게시물 불러오기
-
-        // 나의 발자취
-        model.addAttribute("receiptVO", receiptVO); // 영수증 후기
-        model.addAttribute("totalPages", totalPages); // 총 페이지 수
-        model.addAttribute("currentPage", page); // 현재 페이지 번호
-
-        // 문의내역
-        model.addAttribute("wishListVO", wishListVO); // WishListVO
         model.addAttribute("inquiryVO", inquiryVO); // 사용자 문의
-
-        // 콘솔 출력
-        // System.out.println("사용자 아이디: " + userId);
-        // System.out.println("사용자 프로필 정보: " + userVO);
-        // System.out.println("사용자 찜목록 정보: " + wishListVO);
-        // System.out.println("사용자 문의 내역: " + inquiryVO);
-        // System.out.println("작성한 게시물 내역: " + touroviewVO);
-        // System.out.println("여행 후기 리뷰 댓글 : " + touroviewReviewVO);
-        // System.out.println("여행지 리뷰 댓글: " + tourReviewVO);
+      
 
         return "user/mypage";
 
     }
 
 
+    // 나의 발자취 (영수증)
     @GetMapping("/mypage/receipts")
     @ResponseBody
     public List<ReceiptVO> getReceipts(@RequestParam("page") int page, @RequestParam("size") int size, HttpSession session) {
@@ -163,6 +165,7 @@ public class MyPageController {
 
     @PostMapping("/profile")
     public String updateUserProfile(@RequestBody UserVO userVO) {
+        
         int updatedRows = myPageService.updateUserProfile(userVO);
 
         if (updatedRows > 0) {

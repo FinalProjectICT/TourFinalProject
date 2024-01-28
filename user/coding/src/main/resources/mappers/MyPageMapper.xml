@@ -51,12 +51,30 @@
     WHERE   user_id = #{userId}
 </select>
 
-
 <!-- 작성한 글 수 조회 -->
-<select id="getUserTouroviewCount" resultType="int">
+<!-- <select id="getUserTouroviewCount" resultType="int">
     SELECT  COUNT(*)
     FROM    touroview
     WHERE   user_id = #{userId}
+</select> -->
+
+<!-- 작성한 게시물 -->
+<!-- 여행 친구 -->
+<select id="countTouroMate" resultType="int">
+        SELECT COUNT(*) 
+        FROM touro_mate
+</select>
+
+<!-- 여행 후기 -->
+<select id="countTouroview" resultType="int">
+        SELECT COUNT(*) 
+        FROM touroview
+</select>
+
+<!-- 나의 발자취 -->
+<select id="countReceipt" resultType="int">
+        SELECT COUNT(*) 
+        FROM receipt
 </select>
 
 
@@ -66,43 +84,50 @@
 <update id="updateUserProfile" parameterType="UserVO">
     UPDATE user
     SET
-        user_pass = #{user_pass},
+        user_tel = #{user_tel},
         user_gender = #{user_gender},
         user_age = #{user_age},
-        user_tel = #{user_tel},
-        user_email = #{user_email},
         user_addr = #{user_addr},
-        user_prefer_loc1 = #{user_prefer_loc1},
-        user_prefer_loc2 = #{user_prefer_loc2},
-        user_prefer_loc3 = #{user_prefer_loc3},
+        user_email = #{user_email},
         user_prefer_type1 = #{user_prefer_type1},
         user_prefer_type2 = #{user_prefer_type2},
-        user_prefer_type3 = #{user_prefer_type3}
+        user_prefer_type3 = #{user_prefer_type3},
+        user_prefer_loc1 = #{user_prefer_loc1},
+        user_prefer_loc2 = #{user_prefer_loc2},
+        user_prefer_loc3 = #{user_prefer_loc3}
     WHERE user_id = #{userId}
 </update>
 
 
 
 <!-- 마이페이지 - 작성한 글-->
-<!-- 여행 후기 -->
+<!-- 여행 후기(작성한 게시물) -->
 <select id="getMyPageTouroviewList" parameterType="TouroviewVO">
     SELECT  *
     FROM    touroview
-    WHERE   user_id = #{userId}
+    ORDER BY touroview_regdate DESC
+    LIMIT #{limit} OFFSET #{offset}
 </select>
 
-<!-- 여행 후기 리뷰 댓글 -->
+<!-- 여행 후기 리뷰 댓글(작성한 리뷰) -->
 <select id="getMyPageTouroviewReviewList" parameterType="TouroviewReviewVO">
     SELECT  *
     FROM    touroview_review
     WHERE   user_id = #{userId}
 </select>
 
-<!-- 여행지 리뷰 댓글 -->
+<!-- 여행지 리뷰 댓글(작성한 댓글) -->
 <select id="getMyPageTourReviewList" parameterType="TourReviewVO">
     SELECT  *
     FROM    tour_review
     WHERE   user_id = #{userId}
+</select>
+
+<!-- 페이징 -->
+<select id="countTouroviews" parameterType="String" resultType="int">
+    SELECT COUNT(*) 
+    FROM touroview 
+    WHERE user_id = #{userId}
 </select>
 
 
