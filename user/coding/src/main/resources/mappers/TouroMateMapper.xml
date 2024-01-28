@@ -97,7 +97,6 @@
     </select>
 
 
-
     <select id="getCurrentChatUsers" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM tour_mate_chat_user
         WHERE chat_num = #{touro_mate_num}

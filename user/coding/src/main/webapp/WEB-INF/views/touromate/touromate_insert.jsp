@@ -102,7 +102,7 @@ pageEncoding="UTF-8"%>
 
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
-<!--  해더 끝 -->
+    <!--  해더 끝 -->
 
 
     <!-- breadcrumb start -->

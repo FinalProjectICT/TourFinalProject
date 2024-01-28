@@ -84,14 +84,16 @@
     </section>
     <!-- breadcrumb end -->
 
-
+    
+    
     <!-- section start -->
     <section class="single-section xs-section bg-inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12">
-                    <form action="/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
-
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12">
+            <form action="/touroview/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
+              
+              <input type="hidden" id="sessionId" value="${sessionScope.loggedId}" name="user_id"/>
                       <!-- 이미지만 보여주는 테이블-->
                       <div class="image_section ">
                         <div class="row">
@@ -152,7 +154,6 @@
                               <div class="col-xl-12">
                                   <div class="book-table single-table bg-inner">
                                       <div class="table-form classic-form">
-                                        <form>
                                             
                                               <div class="row w-100">
                                                   <div class="form-group col-9 p-0">
@@ -161,7 +162,7 @@
                                                       <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
                                                       <ul id="searchResults">
                                                         <c:forEach var="tour" items="${tourvo}">
-                                                          <li onclick="showDestinationInfo(${JSON.stringify(tour)})">
+                                                          <li onclick="showDestinationInfo(JSON.stringify(tour))">
                                                               ${tour.tour_name} - ${tour.tour_addr}
                                                           </li>
                                                       </c:forEach>
@@ -172,7 +173,6 @@
                                                   </div>
 
                                               </div>
-                                          </form>
                                       </div>
                                   </div>
                                   <div class="menu-part page-section">
@@ -214,7 +214,7 @@
                                         <br/>
                                         <input type="hidden" id="selectedTourNum" name="tour_num" />
                                         <div>
-                                            <input type="button" id ="searchButton" value="등록" style="background-color: #d9dadb;">
+                                            <input type="submit" id ="searchButton" value="등록" style="background-color: #d9dadb;">
                                         </div>
                                     </div>
                                 </div>
@@ -516,7 +516,7 @@
   </script>
 
   <!-- 후기 게시판 db에 등록-->
-  <script>
+  <!-- <script>
     $(document).ready(function(){
       $("#searchButton").click(function(){
         submitForm();
@@ -528,7 +528,10 @@
     
     function submitForm(){
       // 사용자의 userId를 가져와서 폼에 추가
-      var userId = "${user_id}";
+      var userId = $("#sessionId").val();
+      var touroview_title = $("#touroview_title").val()
+      var touroview_content = $("#touroview_content").val()
+      console.log(userId)
       document.getElementById("userIdInput").value = userId;
 
       // 새로운 FormData 객체 생성
@@ -541,7 +544,7 @@
       $.ajax({
         type:   'POST',
         url:    'saveTouroview', // 서버로 데이터를 보낼 주소
-        data:   formData,
+        data:   {user_id : userId, touroview_title : touroview_title, touroview_content : touroview_content},
         processData : false,
         contentType : false,
         success: function (response) {
@@ -562,7 +565,7 @@
           }
       });
     }
-  </script>
+  </script> -->
 
   <!-- 여행지 검색하기 -->
   <script>
@@ -676,7 +679,7 @@
   </script>
   
   <!-- 작성날짜 날짜 전송하기-->
-  <script>
+  <!-- <script>
     document.getElementById("searchButton").addEventListener("click", function(){
       // touroview_regdate 요소에서 날짜 값 가져오기
       var touroviewRegdate = document.getElementById("touroview_regdate").value;
@@ -692,7 +695,7 @@
 
       // 폼 데이터를 FormData 객체로 생성
       var formData = new FormData();
-      formData.append("touroview_regdate", touroviewRegdate);
+      // formData.append("touroview_regdate", touroviewRegdate);
 
       // 서버로 데이터를 전송
       var xhr = new XMLHttpRequest();
@@ -700,7 +703,7 @@
       xhr.send(formData);
     });
 
-  </script>
+  </script> -->
 
 
   

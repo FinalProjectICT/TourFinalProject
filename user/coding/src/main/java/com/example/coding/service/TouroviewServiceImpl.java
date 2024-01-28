@@ -6,8 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.dao.TouroviewDAO;
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.LikeVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewDetailVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -22,6 +27,9 @@ public class TouroviewServiceImpl implements TouroviewService{
     public TouroviewServiceImpl(TouroviewDAO touroviewDAO) {
         this.touroviewDAO = touroviewDAO;
     }
+
+    @Autowired
+    public ImgDetailDAO imgDetailDAO;
 
     // ----------------------------------------------------- touroview_insert
     // 여행지 검색
@@ -44,6 +52,12 @@ public class TouroviewServiceImpl implements TouroviewService{
     public void saveTouroview(TouroviewVO touroviewVO){
         // 여행 후기 데이터 저장하는 DAO 메소드 호출
         touroviewDAO.saveTouroview(touroviewVO);
+    }
+
+    // 후기 게시물 사진 파일 등록
+    @Override
+    public void insertFileView(ImgDetailVO idvo) {
+        imgDetailDAO.insertFileView(idvo);
     }
 
 
@@ -76,14 +90,12 @@ public class TouroviewServiceImpl implements TouroviewService{
     }
 
 
-
     // 여행지(TourVO) 번호를 이용하여 해당 여행지 정보를 가져오기
     @Override
    public TourVO getTourByTouroviewId(int touroview_num){
         return touroviewDAO.getTourByTouroviewId(touroview_num); 
    }
     
-
 
     // 작성자(사용자) 정보 가져오기
     @Override
@@ -111,6 +123,44 @@ public class TouroviewServiceImpl implements TouroviewService{
     public void deleteTouroview(int touroviewNum){
         touroviewDAO.deleteTouroview(touroviewNum);
     }
+
+    // 여행후기 게시판 등록된 글번호 가져오기
+    @Override
+    public int selectViewNum() {
+        return touroviewDAO.selectViewNum();
+    }
+
+    // 디테일 배경 이미지 가져오기
+    @Override
+    public TouroviewDetailVO getTouroviewImg(int tour_num) {
+        return touroviewDAO.getTouroviewImg(tour_num);
+    }
+
+    // 디테일 배경 이미지 가져오기
+    @Override
+    public List<TouroviewDetailVO> detailviewImg(int touroview_num) {
+        return touroviewDAO.detailviewImg(touroview_num);
+    }
+
+    // 좋아요 추가
+    @Override
+    public void addWishList(LikeVO vo) {
+        touroviewDAO.addWishList(vo);
+    }
+
+    // 좋아요 확인
+    @Override
+    public int ckWishList(LikeVO vo) {
+        return touroviewDAO.ckWishList(vo);
+    }
+
+    // 좋아요 삭제
+    @Override
+    public int deleteWishList(LikeVO vo) {
+        return touroviewDAO.deleteWishList(vo);
+    }
+
+    
 
     
 

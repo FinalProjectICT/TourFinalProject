@@ -6,9 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewDetailVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.LikeVO;
 
 @Mapper
 public interface TouroviewDAO {
@@ -49,4 +51,22 @@ public interface TouroviewDAO {
     
     // 후기 게시판 삭제
     public void deleteTouroview(int touroviewNum);
+
+     // 후기 게시판 글 번호
+    public int selectViewNum();
+
+    // 디테일 배경 이미지 가져오기
+    public TouroviewDetailVO getTouroviewImg(int tour_num);
+
+    // 디테일 배경 이미지 가져오기
+    public List<TouroviewDetailVO> detailviewImg(int touroview_num);
+
+     // 좋아요 추가
+     void addWishList(LikeVO vo);
+
+     // 좋아요 확인
+     int ckWishList(LikeVO vo);
+ 
+     // 좋아요 삭제
+     int deleteWishList(LikeVO vo);
 }

@@ -61,6 +61,117 @@ pageEncoding="UTF-8"%>
       type="text/css"
       href="../assets/css/fileupload.css"
     />
+    <script>
+      $(function(){
+  
+      
+      // 좋아요
+      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+  
+      $(() => {
+        // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+        $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+          // 여행지 값, 사용자 정보 가져오기
+          var num = $(item).attr("title");
+          console.log("num >>> ", num);
+          var id = loggedInUserId;
+          console.log("id >>> ", id);
+  
+          // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+          ckWishList(item, num, id);
+  
+          // 좋아요 누를 때 동작
+          $(item).on("click", (e) => {
+            e.preventDefault();
+  
+            var ck = "0";
+            var icon = $(this).children();
+  
+            // 좋아요 상태 구분으로 중복 찜처리 방지
+            if (id != null && id != "") {
+              if (icon.attr("class") != "fas fa-heart") {
+                $.ajax({
+                  url: "/touroview/addWishList",
+                  type: "post",
+                  dataType: "json",
+                  data: { user_id: id, touroview_num: num },
+                  success: function (result) {
+                    ck = result;
+                  },
+                  error: function (err) {
+                    console.log(err);
+                  },
+                });
+                $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+              } else {
+                  $.ajax({
+                    type:'post',
+                    data : {touroview_num : num, user_id : id},
+                    url : "/touroview/deleteWishList",
+                    success : function (result) {
+                      if(result == "ok") {
+                        $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                      }
+                    },
+                    error : function (err) {
+                      console.log(err)
+                    }
+                  }) // end ajax
+                
+              }
+            } else if (id == null || id == "") alert("로그인이 필요합니다.");
+          });
+        });
+      });
+  
+      // 좋아요 확인
+      function ckWishList(item, num, id) {
+        $.ajax({
+          url: "/touroview/ckWishList",
+          type: "post",
+          dataType: "json",
+          data: { user_id: id, touroview_num: num },
+          success: function (result) {
+            if (result == "1") {
+              $(item)
+                .children()
+                .attr("class", "fas fa-heart")
+                .css("color", "#ff0000");
+            }
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      }
+  
+      // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
+      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+  
+      console.log("loggedInUserId 설정 이후: ", loggedInUserId);
+  
+      function deleteTouroMate(touroMateNum) {
+          console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+          console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+          if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+              // AJAX를 사용하여 삭제 요청을 서버에 전송
+              $.ajax({
+                  type: "POST",
+                  url: "/touromate/deleteTouroMate",
+                  data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
+                  success: function (response) {
+                      alert(response);
+                      window.location.href = "/touromate/touromate_list";
+                  },
+                  error: function (error) {
+                    alert("게시물 삭제 권한이 없습니다.");
+                    console.error("삭제 오류:", error);
+                }
+              });
+          }
+      }
+    }) // end script
+  </script>
   </head>
 
   <body>
@@ -266,7 +377,7 @@ pageEncoding="UTF-8"%>
                     <div class="special-img">
                       <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <img
-                          src="../assets/images/tour/tour/7.jpg"
+                          src="../assets/"
                           class="img-fluid blur-up lazyload bg-img"
                           alt=""
                         />
@@ -278,8 +389,8 @@ pageEncoding="UTF-8"%>
                           class=""
                           data-bs-toggle="tooltip"
                           data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
+                          title="${touroviewVO.touroview_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
                         </a>
