@@ -35,7 +35,7 @@
 <select id="getTotalPages" resultType="int">
         SELECT COUNT(*)
         FROM touroview;
-    </select>
+</select>
 
 <!-- 여행지 검색-->
 <select id="findByKeyword" parameterType="TourVO" resultType="TourVO"> 
@@ -51,6 +51,11 @@
     WHERE tour_num = #{tour_num}
 </select>
 
+<select id="getUserByTouroviewId" resultType="UserVO">
+    SELECT *
+    FROM user
+    WHERE user_id = #{userId}
+</select>
 
 <!-- detail (TouroviewVO) 페이지 -->
 <select id="getTouroviewById" resultType="TouroviewVO">

@@ -228,28 +228,22 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="counter-section">
                       <div class="row">
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 발자취</h5>
+                            <h5>여행친구</h5>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 발자취</h5>
+                            <h5>여행 후기</h5>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 여행지 담기 보기</h5>
-                          </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6">
-                          <div class="counter-box">
-                            <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 여행지 담기 보기</h5>
+                            <h5>나의 발자취</h5>
                           </div>
                         </div>
                       </div>
