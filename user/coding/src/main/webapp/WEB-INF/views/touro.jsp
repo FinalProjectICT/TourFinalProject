@@ -638,7 +638,10 @@ prefix="c" %>
         <img src="../assets/images/tour/background/2.png" alt="" />
         <div class="effect_content">
           <div>
-            <h1>여행을 더욱 특별하게, <br/> TOURO와 함께!</h1>
+            <h1>
+              여행을 더욱 특별하게, <br />
+              TOURO와 함께!
+            </h1>
             <h3>취향 저격 여행지 AI 추천과 여행 이야기를 공유하세요</h3>
           </div>
         </div>
@@ -646,7 +649,7 @@ prefix="c" %>
     </section>
     <!-- 로고, 배경 설정 끝 -->
 
-<!-- 검색창 설정 -->
+    <!-- 검색창 설정 -->
     <section class="section-b-space pt-5" style="padding-bottom: 60px">
       <div class="container">
         <div class="row">
@@ -654,12 +657,10 @@ prefix="c" %>
             <div class="search_section">
               <div class="title-3 detail-title">
                 <span class="title-label">AI Chatbot</span>
-                <h2>
-                  어디로 떠날지 고민이라면?
-                </h2>
+                <h2>어디로 떠날지 고민이라면?</h2>
                 <h5>
                   여행을 떠나고 싶지만 어디로 가야할지 막막하다면?
-                  <span style="color: #fd6668;">AI 챗봇</span>에게 물어보세요!
+                  <span style="color: #fd6668">AI 챗봇</span>에게 물어보세요!
                 </h5>
               </div>
               <div class="book-table single-table input-radius-cls">
@@ -672,10 +673,13 @@ prefix="c" %>
                           type="text"
                           class="form-control"
                           placeholder="오늘따라 울적한데 바닷가로 떠나고 싶어"
-                        /><img
+                        />
+                        <img
                           src="../assets/images/icon/chatbot_r.png"
                           class="img-fluid blur-up lazyloaded"
-                          alt
+                          id="btnCb"
+                          alt=""
+                          style="cursor: pointer"
                         />
                       </div>
                     </div>
@@ -688,7 +692,6 @@ prefix="c" %>
       </div>
     </section>
     <!-- 검색창 설정 끝 -->
-
 
     <!-- 회원 맞춤 여행지 설정 -->
     <section
@@ -705,21 +708,21 @@ prefix="c" %>
             <span class="title-label">touro</span>
             <c:if test="${empty sessionScope.loggedInUser}">
               <h2>
-                게스트님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
+                게스트님의
+                <span class="point" style="color: #fd6668">AI 추천</span> 여행지
+              </h2>
+              <h5>마음에 쏙 들 여행지를 추천해 드릴게요!</h5>
+            </c:if>
+            <c:if test="${not empty sessionScope.loggedInUser}">
+              <h2>
+                ${sessionScope.loggedInUser.user_name}님의
+                <span class="point" style="color: #fd6668">AI 추천</span> 여행지
               </h2>
               <h5>
+                ${sessionScope.loggedInUser.user_name}님의 취향 분석 완료!
                 마음에 쏙 들 여행지를 추천해 드릴게요!
               </h5>
             </c:if>
-            <c:if test="${not empty sessionScope.loggedInUser}">
-            <h2>
-              ${sessionScope.loggedInUser.user_name}님의 <span class="point" style="color: #fd6668;">AI 추천</span> 여행지
-            </h2>
-            <h5>
-              ${sessionScope.loggedInUser.user_name}님의 취향 분석 완료! 마음에
-              쏙 들 여행지를 추천해 드릴게요!
-            </h5>
-          </c:if>
           </div>
           <div class="row">
             <div class="col">
@@ -791,8 +794,7 @@ prefix="c" %>
           <h5>회원님들의 긍정적인 후기로 소문난 여행지를 골라 담았습니다!</h5>
         </div>
         <div class="step-bg ratio_square">
-          <div class="row popular-section" id="yesResult">
-          </div>
+          <div class="row popular-section" id="yesResult"></div>
         </div>
       </div>
     </section>
@@ -919,22 +921,18 @@ prefix="c" %>
           <div class="title-3">
             <span class="title-label">touro</span>
             <c:if test="${empty sessionScope.loggedInUser}">
-              <h2>
-                게스트님의 최애 지역 여행지
-              </h2>
-              <h5>
-                선호 지역에 관한 여행지를 골라 담았습니다!
-              </h5>
+              <h2>게스트님의 최애 지역 여행지</h2>
+              <h5>선호 지역에 관한 여행지를 골라 담았습니다!</h5>
             </c:if>
             <c:if test="${not empty sessionScope.loggedInUser}">
               <h2>
                 ${sessionScope.loggedInUser.user_name}님의 최애 지역 여행지
               </h2>
               <h5>
-                ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에 관한
-                여행지를 골라 담았습니다!
+                ${sessionScope.loggedInUser.user_name}님의 1순위 선호 지역에
+                관한 여행지를 골라 담았습니다!
               </h5>
-          </c:if>
+            </c:if>
           </div>
           <div class="row">
             <div class="col">
@@ -1222,8 +1220,6 @@ prefix="c" %>
     <%@ include file='./footer/footer.jsp' %>
     <!-- footer end -->
 
-
-
     <!-- tap to top -->
     <div class="tap-top">
       <div>
@@ -1235,19 +1231,25 @@ prefix="c" %>
     <!-- 챗봇 구역 시작 -->
     <button id="chatButton">
       <img
-        src="../assets/images/icon/chatbot_r.png"
+        src="../assets/images/icon/chatbot_r_lg.png"
         class="img-fluid blur-up lazyloaded bg-img"
         alt=""
       />
     </button>
 
     <div class="testimonial-section row" id="chatContainer">
+      <div class="enquiry-modal modal-header">
+        <button
+          type="button"
+          class="btn-close forCb"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
       <div class="ratio_square" id="chatContent">
         <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
       </div>
       <input type="text" id="chatInput" placeholder="챗봇 입력창" />
-      <button type="button" class="btn btn-outline-primary">예제</button>
-      <button type="button" class="btn btn-outline-primary">닫기</button>
     </div>
     <!-- 챗봇 구역 끝 -->
 
@@ -1273,12 +1275,24 @@ prefix="c" %>
     <!-- 메인 이펙트 이미지 스크롤시 크기 변경 스크립트 -->
     <script>
       var scrollPos;
-      $(window).on('scroll', function () {
-          scrollPos = $(window).scrollTop();
-          $(".effect_image").css('background-size', 100 + parseInt(scrollPos / 10, 0) + '% ');
-          $(".effect_content h1").css('font-size', 400 - parseInt(scrollPos / 1.5, 0) + '% ');
-          $(".effect_content h3").css('font-size', 120 - parseInt(scrollPos / 4, 0) + '% ');
-          $(".effect_content").css('top', 14 + parseInt(scrollPos / 10, 0) + '% ');
+      $(window).on("scroll", function () {
+        scrollPos = $(window).scrollTop();
+        $(".effect_image").css(
+          "background-size",
+          100 + parseInt(scrollPos / 10, 0) + "% "
+        );
+        $(".effect_content h1").css(
+          "font-size",
+          400 - parseInt(scrollPos / 1.5, 0) + "% "
+        );
+        $(".effect_content h3").css(
+          "font-size",
+          120 - parseInt(scrollPos / 4, 0) + "% "
+        );
+        $(".effect_content").css(
+          "top",
+          14 + parseInt(scrollPos / 10, 0) + "% "
+        );
       });
     </script>
 

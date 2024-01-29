@@ -77,6 +77,14 @@ public class TouroviewServiceImpl implements TouroviewService{
         return totalPages;
     }
 
+    // 여행지 이미지 사진 가져오기
+    public TourVO getTourByNum(String tour_num){
+        return touroviewDAO.getTourByNum(tour_num);
+    }
+
+    
+
+
     // ----------------------------------------------------- touroview_detail
     // 게시물 id로(TouroviewVO) 게시물 가져오기(detail)
     @Override
@@ -103,6 +111,18 @@ public class TouroviewServiceImpl implements TouroviewService{
     @Override
     public TouroviewReviewVO getTouroviewReviewByTouroviewId(int touroview_num){
         return touroviewDAO.getTouroviewReviewByTouroviewId(touroview_num);
+    }
+
+    // 신고
+    @Override
+    public void insertReportCount(TouroviewVO touroviewVO){
+        touroviewDAO.insertReportCount(touroviewVO);
+    }
+
+    // 신고한 게시물인지 확인
+    @Override
+    public boolean checkReported(int touroviewNum, String userId){
+        return touroviewDAO.checkReported(touroviewNum, userId) > 0;
     }
 
 
@@ -155,6 +175,7 @@ public class TouroviewServiceImpl implements TouroviewService{
     public int deleteWishList(LikeVO vo) {
         return touroviewDAO.deleteWishList(vo);
     }
+
 
     
 

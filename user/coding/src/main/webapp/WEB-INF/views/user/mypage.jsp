@@ -228,28 +228,25 @@ pageEncoding="UTF-8"%>
                     </div>
                     <div class="counter-section">
                       <div class="row">
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 발자취</h5>
+                            <h3>${touroMateCount}</h3>
+                            <h5>여행친구</h5>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 발자취</h5>
+                            <h3>${touroviewCount}</h3>
+                            <h5>여행 후기</h5>
                           </div>
                         </div>
-                        <div class="col-xl-3 col-sm-6">
+                        <div class="col-xl-4 col-sm-6">
                           <div class="counter-box">
                             <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 여행지 담기 보기</h5>
-                          </div>
-                        </div>
-                        <div class="col-xl-3 col-sm-6">
-                          <div class="counter-box">
-                            <h3>게시글 가져오기</h3>
-                            <h5>나의 최근 여행지 담기 보기</h5>
+                            <h3>${receiptCount}</h3>
+                            <h5>나의 발자취</h5>
                           </div>
                         </div>
                       </div>
@@ -270,11 +267,12 @@ pageEncoding="UTF-8"%>
                         >수정</span
                       >
                     </div>
-                    <div class="profile-image mb-4">
+                    <div class="profile-image mb-4" >
                       <img
                         src="../assets/images/profile/${profileImage}"
                         class="img-fluid blur-up lazyload"
                         alt=""
+                        width="200"
                       />
                     </div>
                     <div class="dashboard-detail">
@@ -314,13 +312,6 @@ pageEncoding="UTF-8"%>
                           <span>전화번호</span>
                           <span>${userVO.user_tel}</span>
                         </li>
-                        <!-- 여행지 취향 -->
-                        <li class="d-flex justify-content-between mb-4">
-                          <span>선호 여행지</span>
-                          <span>${userVO.user_prefer_loc1}</span>
-                          <span>${userVO.user_prefer_loc2}</span>
-                          <span>${userVO.user_prefer_loc3}</span>
-                        </li>
                         <!-- 여행 취향 -->
                         <li class="d-flex justify-content-between mb-4">
                           <span>선호 여행 유형</span>
@@ -328,6 +319,72 @@ pageEncoding="UTF-8"%>
                           <span>${userVO.user_prefer_type2}</span>
                           <span>${userVO.user_prefer_type3}</span>
                         </li>
+                        <!-- 여행지 취향 -->
+                        <li class="d-flex justify-content-between mb-4">
+                          <span>선호 여행지</span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc1 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc1 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc1}</c:otherwise>
+                          </c:choose></span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc2 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc2 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc2}</c:otherwise>
+                          </c:choose></span>
+                          <span><c:choose>
+                            <c:when test="${userVO.user_prefer_loc3 == '1.0'}">서울</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '2.0'}">인천</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '3.0'}">대전</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '4.0'}">대구</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '5.0'}">광주</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '6.0'}">부산</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '7.0'}">울산</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '8.0'}">세종특별자치시</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '31.0'}">경기도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '32.0'}">강원특별자치도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '33.0'}">충청북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '34.0'}">충청남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '35.0'}">경상북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '36.0'}">경상남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '37.0'}">전라북도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '38.0'}">전라남도</c:when>
+                              <c:when test="${userVO.user_prefer_loc3 == '39.0'}">제주도</c:when>
+                              <c:otherwise>${userVO.user_prefer_loc3}</c:otherwise>
+                          </c:choose></span>
+
+                        </li>
+                        
                       </ul>
                     </div>
                   </div>
@@ -335,12 +392,12 @@ pageEncoding="UTF-8"%>
 
                 <!-- 작성한 글 -->
                 <div class="tab-pane fade" id="write">
-                  <div class="dashboard-box">
+                  <div class="dashboard-box" id="touroview" >
                     <div class="dashboard-title">
                       <h4>작성한 게시물</h4>
                     </div>
                     <div class="dashboard-detail">
-                    <c:forEach var="touroview" items="${touroviewVO}" varStatus="status">
+                    <c:forEach var="touroview" items="${touroviewVO}">
                       <div class="booking-box">
                         <div class="detail-middle">
                           <div class="media">
@@ -357,12 +414,20 @@ pageEncoding="UTF-8"%>
                         <div class="detail-last">
                           <span class="badge bg-info">게시물 보기</span>
                         </div>
-                      </div>
+                      </div> 
                     </c:forEach>
                     </div>
                   </div>
+                  <!-- 작성한 게시물 페이징 컨트롤 -->
+                  <div class="pagination">
+                    <c:forEach begin="1" end="${totalTouroviewPages}" var="pageNum">
+                        <a href="javascript:loadTouroviewData(${pageNum})">${pageNum}</a>
+                    </c:forEach>
+                </div>
 
-                  <div class="dashboard-box">
+            
+
+                  <div class="dashboard-box" id="review">
                     <div class="dashboard-title">
                       <h4>작성한 리뷰</h4>
                     </div>
@@ -388,9 +453,17 @@ pageEncoding="UTF-8"%>
                       </c:forEach>
                     </div>
                   </div>
+                  <!-- 작성한 리뷰 페이징 컨트롤 -->
+                    <!-- 작성한 리뷰 페이징 컨트롤 -->
+                     <div class="pagination" id="review">
+                        <c:forEach begin="1" end="${totalTouroviewReviewPages}" var="reviewPageNum">
+                            <a href="javascript:loadTouroviewReviewData(${reviewPageNum})">${reviewPageNum}</a>
+                        </c:forEach>
+                    </div>
 
 
-                  <div class="dashboard-box">
+
+                  <div class="dashboard-box" id="comment">
                     <div class="dashboard-title">
                       <h4>작성한 댓글</h4>
                     </div>
@@ -413,11 +486,18 @@ pageEncoding="UTF-8"%>
                           <span class="badge bg-secondary">댓글보기</span>
                         </div>
                       </div>
-                    </div>
                    </c:forEach>
                   </div>
                 </div>
+                <!-- 작성한 댓글 페이징 컨트롤 -->
+                <div class="pagination" id="comment">
+                  <c:forEach begin="1" end="${totalTourReviewPages}" var="commentPageNum">
+                      <a href="javascript:loadTourReviewData(${commentPageNum})">${commentPageNum}</a>
+                  </c:forEach>
               </div>
+            </div>                
+
+
                 <!-- 나의 발자취 페이지 -->
                 <div class="tab-pane fade" id="trace">
                   <div class="dashboard-box">
@@ -443,14 +523,9 @@ pageEncoding="UTF-8"%>
                       </div>
                     </div>
 
-                    <!-- 지도 --> 
-                    <div class="menu-part tab-pane fade map" id="location" style="width: 100%; height: 400px;">
-                      <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147718689!2d-74.11976358820196!3d40.69740344169578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1568001991098!5m2!1sen!2sin"
-                        style="border: 0"
-                        allowfullscreen=""
-                      ></iframe>
-                    </div>
+                    <!-- 카카오 지도 --> 
+                    <div id="kakao-map" style="width:100%;height:400px;"></div>
+
 
 
                     <div
@@ -525,21 +600,21 @@ pageEncoding="UTF-8"%>
                       <div class="row content grid">
                       <!-- 여기에 WishlistVO 목록 표시 --> 
                        <c:forEach var="wishList" items="${wishListVO}" varStatus="status">
-                        <!--<div class="col-xl-4 col-sm-6 grid-item">
+                        <div class="col-xl-4 col-sm-6 grid-item">
                               <div class="special-box">
-                                  <div class="special-img">
+                                  <div class="special-img" style="height: 200px;">
                                       <a href="/tourDetail/${wishList.tour_num}">
-                                        <img src="../assets/${wishList.tour_img1_path}" class="img-fluid blur-up lazyload bg-img"
+                                        <img src="../${wishList.tour_img1_path}" class="img-fluid blur-up lazyload"
                                         alt="" />
                                       </a>
                                       <div class="content_inner">
                                           <a href="/tourDetail/${wishList.tour_num}">
-                                              <h5>${wishList.wishlist_num}</h5>
+                                              <h5>${wishList.tour_name}</h5>
                                           </a>
                                           <h6>${wishList.tour_num}</h6>
-                                      </div> -->
+                                      </div>
                                       <!-- 삭제 아이콘 -->
-                                      <!-- <div class="top-icon">
+                                      <div class="top-icon">
                                           <a href="#" class=""
                                             data-bs-toggle="tooltip"
                                             data-placement="top"
@@ -549,12 +624,22 @@ pageEncoding="UTF-8"%>
                                       </div>
                                   </div>
                               </div>
-                          </div>-->
+                          </div>
                         </c:forEach>
                       </div>
+          <nav aria-label="Page navigation">
+  <ul class="pagination" id="pagination">
+    <li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>
+    <!-- 추가 페이지 번호들... -->
+  </ul>
+</nav>
+
+
+
                     </div>
                   </div>
                 </div>
+
 
                 <!--작성한 문의 내역 -->
                 <div class="tab-pane fade" id="inquiry">
@@ -663,8 +748,8 @@ pageEncoding="UTF-8"%>
           <div class="modal-body">
             <form>
               <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="profileImage">프로필 사진</label>
+                <div class="form-group col-md-6" >
+                  <label for="profileImage" >프로필 사진</label>
                   <input type="file" class="form-control" id="profileImage" accept="image/*" onchange="previewImage()" />
                   <img id="imagePreview" src="#" alt="프로필 미리보기" style="display: none; max-width: 100%; margin-top: 10px;">
                 </div>
@@ -699,7 +784,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label>생년월일</label>
+                  <label>나이</label>
                   <input
                     class="form-control"
                     placeholder="18 april"
@@ -718,100 +803,97 @@ pageEncoding="UTF-8"%>
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputCity">메일주소</label>
+                  <label for="inputEmail">메일주소</label>
                   <input type="text" class="form-control" id="inputCity" value="${userVO.user_email}"/>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState1">여행 취향1</label>
+                  <label for="inputState1">선호 여행 유형1</label>
                   <select id="input" class="form-control">
-                      <option selected>선택</option>
-                      <option ${userVO.user_prefer_loc1 == '관광지' ? 'selected' : ''}>관광지</option>
-                      <option ${userVO.user_prefer_loc1 == '음식점' ? 'selected' : ''}>음식점</option>
-                      <option ${userVO.user_prefer_loc1 == '숙박' ? 'selected' : ''}>숙박</option>
+                      <option value="관광지" ${userVO.user_prefer_type1 == '관광지' ? 'selected' : ''}>관광지</option>
+                      <option value="음식점" ${userVO.user_prefer_type1 == '음식점' ? 'selected' : ''}>음식점</option>
+                      <option value="숙박" ${userVO.user_prefer_type1 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행지 취향1</label>
+                  <label for="inputZip">선호 여행지1</label>
                   <select id="inputarea1" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc1 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc1 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc1 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc1 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc1 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc1 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc1 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc1 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc1 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc1 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc1 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc1 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc1 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc1 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc1 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc1 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc1 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">여행 취향2</label>
+                  <label for="inputState">선호 여행 유형2</label>
                   <select id="inputState2" class="form-control">
-                    <option selected>선택</option>
-                    <option>관광지</option>
-                    <option>음식점</option>
-                    <option>숙박</option>
+                    <option value="관광지" ${userVO.user_prefer_type2 == '관광지' ? 'selected' : ''}>관광지</option>
+                    <option value="음식점" ${userVO.user_prefer_type2 == '음식점' ? 'selected' : ''}>음식점</option>
+                    <option value="숙박" ${userVO.user_prefer_type2 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행지 취향2</label>
+                  <label for="inputZip">선호 여행지2</label>
                   <select id="inputarea2" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc2 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc2 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc2 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc2 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc2 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc2 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc2 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc2 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc2 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc2 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc2 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc2 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc2 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc2 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc2 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc2 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc2 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">여행지 취향3</label>
+                  <label for="inputState">선호 여행 유형3</label>
                   <select id="inputState3" class="form-control">
-                    <option selected>선택</option>
-                    <option>관광지</option>
-                    <option>음식점</option>
-                    <option>숙박</option>
+                    <option value="관광지" ${userVO.user_prefer_type3 == '관광지' ? 'selected' : ''}>관광지</option>
+                    <option value="음식점" ${userVO.user_prefer_type3 == '음식점' ? 'selected' : ''}>음식점</option>
+                    <option value="숙박" ${userVO.user_prefer_type3 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">여행 취향3</label>
+                  <label for="inputZip">선호 여행지3</label>
                   <select id="inputarea3" class="form-control">
-                    <option>선택</option>
-                    <option>서울</option>
-                    <option>인천</option>
-                    <option>대전</option>
-                    <option>대구</option>
-                    <option>광주</option>
-                    <option>부산</option>
-                    <option>울산</option>
-                    <option>세종특별자치시</option>
-                    <option>경기도</option>
-                    <option>강원특별자치도</option>
-                    <option>충청북도</option>
-                    <option>충청남도</option>
-                    <option>경상북도</option>
-                    <option>전라북도</option>
-                    <option>전라남도</option>
-                    <option>제주도</option>
+                    <option value="1.0" ${userVO.user_prefer_loc3 == '1.0' ? 'selected' : ''}>서울</option>
+                    <option value="2.0" ${userVO.user_prefer_loc3 == '2.0' ? 'selected' : ''}>인천</option>
+                    <option value="3.0" ${userVO.user_prefer_loc3 == '3.0' ? 'selected' : ''}>대전</option>
+                    <option value="4.0" ${userVO.user_prefer_loc3 == '4.0' ? 'selected' : ''}>대구</option>
+                    <option value="5.0" ${userVO.user_prefer_loc3 == '5.0' ? 'selected' : ''}>광주</option>
+                    <option value="6.0" ${userVO.user_prefer_loc3 == '6.0' ? 'selected' : ''}>부산</option>
+                    <option value="7.0" ${userVO.user_prefer_loc3 == '7.0' ? 'selected' : ''}>울산</option>
+                    <option value="8.0" ${userVO.user_prefer_loc3 == '8.0' ? 'selected' : ''}>세종특별자치시</option>
+                    <option value="31.0" ${userVO.user_prefer_loc3 == '31.0' ? 'selected' : ''}>경기도</option>
+                    <option value="32.0" ${userVO.user_prefer_loc3 == '32.0' ? 'selected' : ''}>강원도</option>
+                    <option value="33.0" ${userVO.user_prefer_loc3 == '33.0' ? 'selected' : ''}>충청북도</option>
+                    <option value="34.0" ${userVO.user_prefer_loc3 == '34.0' ? 'selected' : ''}>충청남도</option>
+                    <option value="35.0" ${userVO.user_prefer_loc3 == '35.0' ? 'selected' : ''}>경상북도</option>
+                    <option value="36.0" ${userVO.user_prefer_loc3 == '36.0' ? 'selected' : ''}>경상남도</option>
+                    <option value="37.0" ${userVO.user_prefer_loc3 == '37.0' ? 'selected' : ''}>전라북도</option>
+                    <option value="38.0" ${userVO.user_prefer_loc3 == '38.0' ? 'selected' : ''}>전라남도</option>
+                    <option value="39.0" ${userVO.user_prefer_loc3 == '39.0' ? 'selected' : ''}>제주도</option>
                   </select>
                 </div>
               </div>
@@ -1226,11 +1308,29 @@ pageEncoding="UTF-8"%>
     <!-- lazyload js-->
     <script src="../assets/js/lazysizes.min.js"></script>
     
-        <!-- 휴대폰 영수증 리뷰 앱 관련 js-->
+    <!-- 휴대폰 영수증 리뷰 앱 관련 js-->
     <script src="../assets/js/moblieApp.js"></script>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 카카오 지도 api 관련-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a31af6306655331640942e32b2f74d3"></script>
+
+
+    <!-- 나의 발자취 (카카오 지도 생성 코드) -->
+    <script>
+      setTimeout(function() {
+      var mapContainer = document.getElementById('kakao-map'), // 지도를 표시할 div
+      mapOption = {
+          center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+      };
+
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+    }, 500); // 500 밀리초(0.5초) 후에 지도 생성
+    </script>
+
 
     <!-- Dropzone | 영수증 리뷰 사진 올리기 --> 
     <script>
@@ -1254,6 +1354,7 @@ pageEncoding="UTF-8"%>
       });
     </script>
 
+    <!-- 프로필 이미지 --> 
     <script>
       function previewImage() {
         var input = document.getElementById('profileImage');
@@ -1272,153 +1373,317 @@ pageEncoding="UTF-8"%>
       }
     </script>
 
+    <!-- 프로필 수정 -->
+    <script>
+        function updateProfile() {
+          var userId = "${userId}";
+          console.log(userId);
+          var userTel = document.getElementById('last').value;
+          console.log(last);
+          var userGender = document.getElementById('gender').value;
+          var userAge = document.getElementById('datepicker').value;
+          var userAddr = document.getElementById('inputAddress').value;
+          var userEmail = document.getElementById('inputEmail').value;
+          var userPreferType1 = document.getElementById('inputState1').value;
+          var userPreferArea1 = document.getElementById('inputarea1').value;
+          var userPreferType2 = document.getElementById('inputState2').value;
+          var userPreferArea2 = document.getElementById('inputarea2').value;
+          var userPreferType3 = document.getElementById('inputState3').value;
+          var userPreferArea3 = document.getElementById('inputarea3').value;
 
 
+          // 구성된 데이터 객체
+          var userData = {
+            userId: userId,
+              userTel: userTel,
+              userGender: userGender,
+              userAge: userAge,
+              userAddr: userAddr,
+              userEmail: userEmail,
+              userPreferType1: userPreferType1,
+              userPreferArea1: userPreferArea1,
+              userPreferType2: userPreferType2,
+              userPreferArea2: userPreferArea2,
+              userPreferType3: userPreferType3,
+              userPreferArea3: userPreferArea3
+          };
 
-
-<script>
-  function updateProfile() {
-    var user_id = document.getElementById('first').value;
-    var user_tel = document.getElementById('last').value;
-    var user_gender = document.getElementById('gender').value;
-    var user_age = document.getElementById('datepicker').value;
-    var user_email = document.getElementById('inputCity').value;
-    var user_addr = document.getElementById('inputAddress').value;
-    var userTravelPreference = document.getElementById('inputState1').value;
-    var userTravelLocation = document.getElementById('inputState2').value;
-
-    // 서버로 전송할 데이터 생성
-    var data = {
-      user_id: user_id,
-      user_tel: user_tel,
-      user_gender: user_gender,
-      user_age: user_age,
-      user_email: user_email,
-      user_addr: user_addr,
-      user_prefer_type1: userTravelPreference, 
-      user_prefer_loc1: userTravelLocation 
-    };
-
-    // ajax를 사용하여 서버에 데이터 전송
-    $.ajax({
-      type: 'POST',
-      url: '/updateUserProfile',
-      contentType: 'application/json',
-      data: JSON.stringify(data),
-      success: function (response) {
-        // 성공 시 응답
-        console.log(response);
-        alert('프로필이 성공적으로 업데이트되었습니다.');
-      },
-      error: function (error) {
-        // 오류 처리
-        console.error('프로필 업데이트 중 오류 발생:', error);
-        alert('프로필 업데이트 중 오류 발생');
-      }
-    });
-  }
-</script>
-
-<!-- 문의 답변 토글 -->
-<script>
-        function toggleDetails(inquiryNum) {
-            var detailsDiv = document.getElementById("details-" + inquiryNum);
-            if (detailsDiv.style.display === "none") {
-                detailsDiv.style.display = "block";
-            } else {
-                detailsDiv.style.display = "none";
-            }
+          // AJAX 요청
+          $.ajax({
+              url: '/profile', // 프로필 업데이트를 처리하는 서버 URL
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(userData),
+              success: function(response) {
+                  // 성공 처리
+                  alert('프로필이 업데이트되었습니다.');
+                  window.location.href = '/mypage'; // 프로필 페이지로 리다이렉트
+              },
+              error: function(xhr, status, error) {
+                  // 에러 처리
+                  alert('프로필 업데이트에 실패했습니다.');
+              }
+          });
         }
     </script>
-</div>
 
 
-
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    function submitInquiry() {
-        var chatInput = $("#inquiryInput").val();
-
-        if (chatInput) {
-            // 사용자가 입력한 채팅을 채팅창에 추가
-            $("#chatMessages").append('<div class="chat-bubble chat-user"><p>' + chatInput + '</p></div>');
-
-            // 서버에 문의 제출
-            $.ajax({
-                type: "POST",
-                url: "/submitInquiry",
-                data: { inquiryContent: chatInput },
-                success: function () {
-                    // 성공적으로 제출되었을 때 처리
-                    console.log("Inquiry submitted successfully.");
-                },
-                error: function () {
-                    // 오류가 발생했을 때 처리
-                    console.error("Failed to submit inquiry.");
+    <!-- 문의 답변 토글 -->
+    <script>
+            function toggleDetails(inquiryNum) {
+                var detailsDiv = document.getElementById("details-" + inquiryNum);
+                if (detailsDiv.style.display === "none") {
+                    detailsDiv.style.display = "block";
+                } else {
+                    detailsDiv.style.display = "none";
                 }
-            });
+            }
+    </script>
 
-            // 입력 필드 초기화
-            $("#inquiryInput").val('');
 
-            // 맨 아래로 스크롤
-            var chatMessages = $("#chatMessages");
-            chatMessages.scrollTop(chatMessages[0].scrollHeight);
+    <!-- 채팅..? -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function submitInquiry() {
+            var chatInput = $("#inquiryInput").val();
+
+            if (chatInput) {
+                // 사용자가 입력한 채팅을 채팅창에 추가
+                $("#chatMessages").append('<div class="chat-bubble chat-user"><p>' + chatInput + '</p></div>');
+
+                // 서버에 문의 제출
+                $.ajax({
+                    type: "POST",
+                    url: "/submitInquiry",
+                    data: { inquiryContent: chatInput },
+                    success: function () {
+                        // 성공적으로 제출되었을 때 처리
+                        console.log("Inquiry submitted successfully.");
+                    },
+                    error: function () {
+                        // 오류가 발생했을 때 처리
+                        console.error("Failed to submit inquiry.");
+                    }
+                });
+
+                // 입력 필드 초기화
+                $("#inquiryInput").val('');
+
+                // 맨 아래로 스크롤
+                var chatMessages = $("#chatMessages");
+                chatMessages.scrollTop(chatMessages[0].scrollHeight);
+            }
         }
+        /*]]>*/
+    </script>
+
+
+
+    <!-- 작성한 글 - 작성한 게시물 : 페이징 -->
+    <script>
+    function loadTouroviewData(pageNum) {
+        $.ajax({
+            url: '/user/mypage/data',
+            data: { page: pageNum },
+            success: function(data) {
+                // 서버로부터 받은 데이터로 게시물 목록 갱신
+                updateTouroviewList(data);
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                console.error("Error: " + status + " - " + error);
+            }
+        });
     }
-    /*]]>*/
-</script>
 
+    function updateTouroviewList(data) {
+        var container = $('#touroview .dashboard-detail'); // 게시물 목록을 담을 컨테이너
+        container.empty(); // 기존 내용을 비웁니다.
 
- <!-- 카카오 지도 api 관련-->
- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c24da0b739365422264a4d30230c887c"></script>
+        // 받은 데이터로 새로운 게시물 목록을 생성합니다.
+        data.forEach(function(touroview) {
+            var touroviewHtml = '<div class="booking-box">' +
+                '<div class="detail-middle">' +
+                '<div class="media">' +
+                '<div class="icon"></div>' +
+                '<div class="media-body">' +
+                '<h6 class="media-heading">' + touroview.touroview_title + '</h6>' +
+                '</div>' +
+                '<div class="media-body">' +
+                '<h6 class="media-heading">' + touroview.user_id + '</h6>' +
+                '<p>' + touroview.touroview_regdate + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="detail-last">' +
+                '<span class="badge bg-info">게시물 보기</span>' +
+                '</div>' +
+                '</div>';
+            container.append(touroviewHtml);
+        });
 
+    }
+    </script>
 
-<!-- 페이징 -->
- <script>
-  // 페이지네이션 클릭 이벤트
-  $(".pagination a").click(function(e) {
-    e.preventDefault(); // 기본 링크 동작 방지
-    var page = $(this).attr("href").split("page=")[1]; // 페이지 번호 추출
+    <!-- 작성한 글 - 작성한 리뷰 : 페이징 -->
+    <script>
+        function loadTouroviewReviewData(reviewPageNum) {
+        $.ajax({
+            url: '/user/mypage/reviewData',
+            data: { reviewPage: reviewPageNum },
+            success: function(data) {
+                updateTouroviewReviewList(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + status + " - " + error);
+            }
+        });
+    }
 
-    $.ajax({
-        url: '/mypage/receipts', // 요청할 URL
-        type: 'GET',
-        data: { page: page, size: 6 },
-        success: function(response) {
-            // 목록을 담을 부분을 비웁니다.
-        var container = $(".product-wrapper-grid .grid");
+    function updateTouroviewReviewList(data) {
+        var container = $('#review .dashboard-detail');
         container.empty();
 
-        // 서버로부터 받은 데이터를 이용해 새로운 목록을 구성합니다.
-        $.each(response, function(index, receipt) {
-          var itemHtml = '<div class="col-xl-4 col-sm-6 grid-item">' +
-                           '<div class="special-box">' +
-                             '<div class="special-img">' +
-                               '<a href="/tourDetail/' + receipt.tour_num + '">' +
-                                 '<img src="'+ receipt.imageUrl +'" class="img-fluid blur-up lazyload bg-img" alt=""/>' +
-                               '</a>' +
-                               '<div class="content_inner">' +
-                                 '<a href="/tourDetail/' + receipt.tour_num + '">' +
-                                   '<h5>' + receipt.receipt_name + '</h5>' +
-                                 '</a>' +
-                                 '<h6>' + receipt.receipt_date + '</h6>' +
-                               '</div>' +
-                             '</div>' +
-                           '</div>' +
-                         '</div>';
-          // 목록에 새로운 항목을 추가합니다.
-          container.append(itemHtml);
+        data.forEach(function(review) {
+            var reviewHtml = '<div class="booking-box">' +
+            '<div class="detail-middle">' +
+            '<div class="media">' +
+            '<div class="icon"></div>' + // icon 부분을 적절히 조정해야 할 수도 있습니다.
+            '<div class="media-body">' +
+            '<h6 class="media-heading">' + review.touroview_review_content + '</h6>' +
+            '</div>' +
+            '<div class="media-body">' +
+            '<h6 class="media-heading">' + review.user_id + '</h6>' +
+            '<p>' + review.touroview_review_register_date + '</p>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="detail-last">' +
+            '<span class="badge bg-success">리뷰 보기</span>' + // 이 부분도 필요에 따라 수정할 수 있습니다.
+            '</div>' +
+            '</div>';
+        container.append(reviewHtml);
         });
-      },
-      error: function(error) {
-        console.log(error);
+    }
+    </script>
+
+    <script>
+    // "작성한 댓글" 섹션의 페이징 데이터를 AJAX로 로드하는 함수
+    function loadTourReviewData(commentPageNum) {
+        $.ajax({
+            url: '/user/mypage/commentData',
+            data: { commentPage: commentPageNum },
+            success: function(data) {
+                updateTourReviewList(data);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + status + " - " + error);
+            }
+        });
+    }
+
+    // "작성한 댓글" 섹션의 UI를 업데이트하는 함수
+    function updateTourReviewList(data) {
+        var container = $('#comment .dashboard-detail');
+        container.empty();
+
+        data.forEach(function(comment) {
+            var commentHtml = '<div class="booking-box">' +
+                '<div class="detail-middle">' +
+                '<div class="media">' +
+                '<div class="icon"></div>' + // icon 부분을 적절히 조정해야 할 수도 있습니다.
+                '<div class="media-body">' +
+                '<h6 class="media-heading">' + comment.tour_review_content + '</h6>' +
+                '</div>' +
+                '<div class="media-body">' +
+                '<h6 class="media-heading">' + comment.user_id + '</h6>' +
+                '<p>' + comment.tour_review_star + '</p>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="detail-last">' +
+                '<span class="badge bg-secondary">댓글보기</span>' + // 이 부분도 필요에 따라 수정할 수 있습니다.
+                '</div>' +
+                '</div>';
+            container.append(commentHtml);
+        });
+    }
+    </script>
+
+
+    <!-- 여행지 담기 페이징 ajax -->
+    <script>
+    function createPagination(totalPages, currentPage) {
+      var paginationHtml = '';
+      for (var i = 1; i <= totalPages; i++) {
+        paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
+                            '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>' +
+                          '</li>';
       }
+      $('#pagination').html(paginationHtml);
+    }
+
+
+    // 페이지 로드 시 페이지네이션 생성
+    $(document).ready(function() {
+        var totalWishListPages = ${totalWishListPages}; // 서버 사이드에서 설정한 총 페이지 수
+        var wishListCurrentPage = ${wishListCurrentPage}; // 서버 사이드에서 설정한 현재 페이지 번호
+
+        createPagination(totalWishListPages, wishListCurrentPage);
+
+        // 페이지네이션 링크에 이벤트 리스너 바인딩
+        $('#pagination').off('click').on('click', '.page-link', function(e) {
+            e.preventDefault();
+            var pageNum = $(this).data('page');
+            loadPage(pageNum);
+        });
     });
-  });
-</script>
+
+    function loadPage(pageNum) {
+      $.ajax({
+        url: '/user/mypage/wishlist', // 서버의 URL
+        type: 'GET',
+        data: {
+          wishlistPage: pageNum
+        },
+        success: function(wishLists) {
+          var html = '';
+          $.each(wishLists, function(i, wishList) {
+            html += '<div class="col-xl-4 col-sm-6 grid-item">' +
+                      '<div class="special-box">' +
+                        '<div class="special-img" style="height: 200px;">' +
+                          '<a href="/tourDetail/' + wishList.tour_num + '">' +
+                            '<img src="../' + wishList.tour_img1_path + '" class="img-fluid blur-up lazyload" alt="" />' +
+                          '</a>' +
+                          '<div class="content_inner">' +
+                            '<a href="/tourDetail/' + wishList.tour_num + '">' +
+                              '<h5>' + wishList.tour_name + '</h5>' +
+                            '</a>' +
+                            '<h6>' + wishList.tour_num + '</h6>' +
+                          '</div>' +
+                          '<div class="top-icon">' +
+                            '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Remove from Wishlist">' +
+                              '<i class="fas fa-times"></i>' +
+                            '</a>' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>';
+          });
+          // 게시물 목록만 업데이트
+          $('#wishListContainer').html(html);
+        },
+        error: function(error) {
+          // 오류 처리
+          console.log(error);
+        }
+      });
+    }
+
+    </script>
 
 
 
-  </body>
+
+</body>
 </html>

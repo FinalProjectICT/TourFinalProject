@@ -188,9 +188,17 @@ public class HSKController {
                                     @RequestParam(name = "searchKeyword", required = false) String searchKeyword,
                                     @RequestParam(name = "page", defaultValue = "0") Integer page,
                                     @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        
         // Touroview 목록 가져오기
         List<TouroviewVO> touroviewList = touroviewService.getTouroviewList(searchKeyword, page, size);
-        System.out.println("touroview 목록: " + touroviewList);
+
+        // 각 TouroviewVO에 대한 tourVO의 이미지 경로 추가
+        for(TouroviewVO touroview : touroviewList){
+            TourVO tourVO = touroviewService.getTourByNum(touroview.getTour_num());
+            if(tourVO != null){
+                touroview.setTour_img1_path(tourVO.getTour_img1_path()); // TouroviewVO에 이미지 경로 설정
+            }
+        }                                
 
         // 전체 페이지 수 계산
         int totalPages = touroviewService.getTotalPages(size);
@@ -222,16 +230,17 @@ public class HSKController {
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroview_num);
 
             int touroviewNum = Integer.parseInt(touroviewVO.getTour_num());
+
             // 배경 이미지
             TouroviewDetailVO touroviewImg = touroviewService.getTouroviewImg(touroviewNum);
             // System.out.println(">>>>>>>>> 배경이미지" + touroviewImg.getTour_img1_path());
             model.addAttribute("touroviewImg", touroviewImg);
 
+
             // 디테일 이미지 가져오기(3개)
             List<TouroviewDetailVO> detailImg = touroviewService.detailviewImg(touroview_num);
             // System.out.println("**********"+touroview_num);
             // System.out.println(">>>>>>>>> 디테일이미지");
-            
             model.addAttribute("detailImg", detailImg);
 
 
@@ -243,26 +252,26 @@ public class HSKController {
             // 후기 정보와 연결된 여행지 정보를 가져오기
             int tourNum = Integer.parseInt(touroviewVO.getTour_num()); 
             TourVO tourVO = touroviewService.getTourByTouroviewId(tourNum);
-            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", ""); // 우편번호 000000 처리
+            System.out.println("TourVO 이미지 가져오는지 확인: " + tourVO.getTour_img1_path());
+            
+
+            // 우편번호 000000 처리
+            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", "");
             tourVO.setTour_postnum(postNum); // tourVO에 postNum 넣기
 
-            // UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num); // UserVO
-            // TouroviewReviewVO touroviewReviewVO = touroviewService.getTouroviewReviewByTouroviewId(touroview_num); //touroviewReview
-            UserVO userVO = (UserVO) model.getAttribute("userVO"); // UserVO
+            UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num);
             TouroviewReviewVO touroviewReviewVO = (TouroviewReviewVO) model.getAttribute("touroviewReviewVO"); //touroviewReview
+
+            // boolean isReported = touroviewService.checkReported(touroviewNum, loggedInUserId);
+
 
             // 모델에 데이터 추가
             model.addAttribute("touroviewVO", touroviewVO);
             model.addAttribute("tourVO", tourVO);
+            model.addAttribute("userVO", userVO);
+            // model.addAttribute("isReported", isReported);
 
-            // model.addAttribute("userVO", userVO); //UserVO
-            // model.addAttribute("touroviewReviewVO", touroviewReviewVO); //touroviewReview
 
-            // 찍어보기
-            System.out.println("게시물 후기 번호: " + touroview_num);
-            System.out.println("Touroview 정보 : " + touroviewVO);
-            System.out.println("Tour 정보 : " + tourVO);
-            System.out.println("Tour 번호: " + tourNum);
 
             // 자신이 작성한 게시글인 경우 모델에 플래그 추가
             boolean isAuthor = loggedInUserId != null && loggedInUserId.equals(touroviewVO.getUser_id());
@@ -278,7 +287,13 @@ public class HSKController {
     }
         
 
+    @PostMapping("/report")
+    @ResponseBody
+    public void report(TouroviewVO touroviewVO) {
+        touroviewService.insertReportCount(touroviewVO);
 
+    }
+    
 
 
         

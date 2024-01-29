@@ -40,7 +40,8 @@ public class MyPageServiceImpl implements MyPageService {
         return myPageDAO.getUserProfileImage(userId);
     }
 
-
+    
+    // --------------------------------------------------
     // mypage - 메인페이지 - 개수
     // 사용자가 작성한 리뷰 개수 가져오기
     @Override
@@ -65,25 +66,67 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
 
+    // --------------------------------------------------
+    // 작성한 게시물
+    // 여행 친구
+    @Override
+    public int countTouroMate(){
+        return myPageDAO.countTouroMate();
+    }
+
+    // 여행 후기
+    @Override
+    public int countTouroview(){
+        return myPageDAO.countTouroview();
+    }
+
+    // 나의 발자취
+    @Override
+    public int countReceipt(){
+        return myPageDAO.countReceipt();
+    }
+
 
     // ---------------------------------------------------------
     // mypage - 작성한 글
     // 여행 후기
     @Override
-    public List<TouroviewVO> getMyPageTouroviewList(String userId){
-        return myPageDAO.getMyPageTouroviewList(userId);
+    public List<TouroviewVO> getMyPageTouroviewList(String userId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize;
+        return myPageDAO.getMyPageTouroviewList(userId, pageSize, offset);
+    }
+    // 개수
+    @Override
+    public int getTotalTouroviewCount(String userId) {
+        return myPageDAO.countTouroviews(userId);
     }
 
     // 여행 후기 리뷰 댓글
-    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId){
-        return myPageDAO.getMyPageTouroviewReviewList(userId);
+    @Override
+    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId, int page, int pageSize){
+        int offset = (page - 1) * pageSize;
+        return myPageDAO.getMyPageTouroviewReviewList(userId, pageSize, offset);
+    }
+    // 개수
+    @Override
+    public int getTotalTouroviewReviewCount(String userId){
+        return myPageDAO.countTouroviewReviews(userId);
     }
 
     // 여행지 리뷰 댓글
-    public List<TourReviewVO> getMyPageTourReviewList(String userId){
-        return myPageDAO.getMyPageTourReviewList(userId);
+    @Override
+    public List<TourReviewVO> getMyPageTourReviewList(String userId, int page, int pageSize){
+        int offset = (page - 1) * pageSize;
+        return myPageDAO.getMyPageTourReviewList(userId, pageSize, offset);
+    }
+    // 개수
+    @Override
+    public int getTotalTourReviewCount(String userId){
+        return myPageDAO.countTourReviews(userId);
     }
 
+
+    
 
 
     // ---------------------------------------------------------
@@ -95,6 +138,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 
 
+    // --------------------------------------------------
     // mypage - 나의 발자취
     @Override
     public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size){
@@ -124,16 +168,21 @@ public class MyPageServiceImpl implements MyPageService {
     // mypage - 여행지 담기 불러오기
    
     @Override
-    public List<WishListVO> getWishList(String userId){
-        return myPageDAO.getWishList(userId);
+    public List<WishListVO> getWishList(String userId, int page, int pagesize){
+        int offset = (page - 1) * pagesize;
+        return myPageDAO.getWishList(userId, pagesize, offset);
+    }
+    
+    
+    @Override
+    public int countWishList(String userId){
+        return myPageDAO.countWishList(userId);
     }
 
 
 
 
     // --------------------------------------------------------
-    
-
     // mypage - 사용자 ID를 기반으로 해당 사용자의 문의 내역 조회
     public List<InquiryVO> getInquiryByUserId(String userId){
         return myPageDAO.getInquiryByUserId(userId);
