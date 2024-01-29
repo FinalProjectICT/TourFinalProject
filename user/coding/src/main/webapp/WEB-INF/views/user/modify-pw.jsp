@@ -106,7 +106,7 @@ pageEncoding="UTF-8"%>
                 <h6>새롭게 변경할 비밀번호를 입력해주세요</h6>
               </div>
               
-              <form action="modify-password" method="POST">
+              <form action="modify-pw" method="POST">
                 <div class="form-group">
                   <label class="col-form-label form-label-title ">새 비밀번호 설정</label>
                   <input type="password" class="form-control" id="user_pass" name="user_pass" placeholder="새 비밀번호">

@@ -78,7 +78,7 @@ const [users, setUsers] = useState([]);
               name="s"
               type="text"
               placeholder="검색하고 싶은 사용자의 이름, 이메일"
-              style={{ marginLeft: "150px" }}
+              // style={{ marginLeft: "150px" }}
               className="form-control"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}

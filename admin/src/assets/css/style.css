@@ -8840,6 +8840,10 @@ select,
   flex-direction: column;
   text-align: center;
 }
+.crancy-single-user__head img {
+  height: 120px;
+  width: 120px;
+}
 .crancy-single-user__label {
   background: #e8edff;
   border-radius: 6px;

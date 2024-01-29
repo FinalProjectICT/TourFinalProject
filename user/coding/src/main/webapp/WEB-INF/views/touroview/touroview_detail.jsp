@@ -336,7 +336,7 @@ prefix="c" %>
     <input type="hidden" value="${tourVO.tour_num}" id="tourNum"/>
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
-    <section class="hotel-single-section pt-0">
+    <section class="hotel-single-section parallax-img pt-0">
       <img
         src="../assets/images/inner-pages/breadcrumb1.jpg"
         class="bg-img bg-bottom img-fluid blur-up lazyload"
