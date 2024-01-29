@@ -40,7 +40,7 @@
 #chatContent {
   padding: 10px;
   overflow-y: auto;
-  height: calc(100% - 90px);
+  height: calc(100% - 100px);
   align-items: center;
   word-break: break-all;
 }
@@ -84,8 +84,10 @@
   border: none;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  border-radius: 10px 10px 10px 10px;
 }
 
+/*
 #chatContainer button {
   align-self: center;
   width: calc(98% / 2);
@@ -96,3 +98,4 @@
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
+*/
