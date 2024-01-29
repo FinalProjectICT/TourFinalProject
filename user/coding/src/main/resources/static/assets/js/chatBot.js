@@ -92,37 +92,75 @@ $(() => {
 
 // 챗봇 응답 양식
 function divBotAns(ansdata) {
-  $("#chatContent").append(
-    `<div class="testimonial botq">
+  if (ansdata.act == "mypage/" && $("#loggedInUser").val() == "") {
+    $("#chatContent").append(
+      `<div class="testimonial botq">
+        <div class="row g-0 justify-content-md-start mb-3">
+          <div class="left-part col-ms-4 col-xl-2">
+            <img src="../assets/images/profile/chatbot2_r.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
+          </div>
+          <div class="right-part col-lg-auto">마이페이지 확인은 로그인이 필요합니다!</div>
+        </div>
+        </div>`
+    );
+  } else {
+    $("#chatContent").append(
+      `<div class="testimonial botq">
       <div class="row g-0 justify-content-md-start mb-3">
         <div class="left-part col-ms-4 col-xl-2">
           <img src="../assets/images/profile/chatbot2_r.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
         </div>
         <div class="right-part col-lg-auto">` +
-      ansdata.say +
-      `</div>
+        ansdata.say +
+        `</div>
       </div>
       </div>`
-  );
+    );
+  }
 }
 
 function divBotAct(ansdata) {
-  if (ansdata.act == "Test") {
+  if (ansdata.act == "tour/") {
     $("#chatContent").append(
       `<div class="testimonial bota">
       <div class="card mb-3 style="width: 10px">
-        <div class="card-body"></div></div></div>`
+        <div class="card-body"><a href="/touro/tour" class="navi">여행지 리스트로 이동</a></div></div></div>`
     );
-  } else {
+  } else if (ansdata.act == "touromate/") {
     $("#chatContent").append(
       `<div class="testimonial bota">
     <div class="card mb-3 style="width: 10px">
-      <div class="card-body">
-        <p>` +
-        ansdata.act +
-        `</p></div></div></div>`
+      <div class="card-body"><a href="/touromate/touromate_list" class="navi">여행 친구 찾기 이동</a></div></div></div>`
     );
+  } else if (ansdata.act == "touroview/") {
+    $("#chatContent").append(
+      `<div class="testimonial bota">
+    <div class="card mb-3 style="width: 10px">
+      <div class="card-body"><a href="/touroview/touroview_list" class="navi">여행 후기로 이동</a></div></div></div>`
+    );
+  } else if (ansdata.act == "image/") {
+    $("#chatContent").append(
+      `<div class="testimonial bota">
+    <div class="card mb-3 style="width: 10px">
+      <div class="card-body"><a data-bs-toggle="modal" data-bs-target="#image-change" href="#" data-touro-mate-num="" class="navi">이미지 변환 열기</a></div></div></div>`
+    );
+  } else if (ansdata.act == "mypage/") {
+    if ($("#loggedInUser").val() != null && $("#loggedInUser").val() != "") {
+      $("#chatContent").append(
+        `<div class="testimonial bota">
+    <div class="card mb-3 style="width: 10px">
+      <div class="card-body"><a href="/user/mypage" class="navi">마이페이지로 이동</a></div></div></div>`
+      );
+    } else {
+      $("#chatContent").append(
+        `<div class="testimonial bota">
+    <div class="card mb-3 style="width: 10px">
+      <div class="card-body"><a href="/user/login" class="navi">로그인 하러가기</a></div></div></div>`
+      );
+    }
+  } else {
   }
+
   $("#chatContent").scrollTop($("#chatContent")[0].scrollHeight);
 }
 
@@ -142,14 +180,13 @@ const divUserQus = (userText, profileImg, sessionId) => {
   $("#chatContent").append(
     `<div class="testimonial user">
       <div class="row g-0 justify-content-md-end mb-3">
-        <div class="left-part col-ms-4 col-xl-2">
-          <img src="` +
-      profileImg +
-      `" class="img-fluid blur-up lazyloaded bg-img" alt=""/>
-        </div>
-        <div class="right-part col-lg-auto">` +
+        <div class="left-part col-lg-auto col-xl-6">` +
       userText +
-      `</div></div></div>`
+      `</div>
+        <div class="right-part col-ms-4 col-xl-2"><img src="` +
+      profileImg +
+      `" class="img-fluid blur-up lazyloaded bg-img" alt=""/> 
+      </div></div></div>`
   );
 
   var chatJson = {

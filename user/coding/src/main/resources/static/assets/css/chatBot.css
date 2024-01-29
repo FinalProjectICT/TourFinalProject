@@ -65,11 +65,17 @@
   text-align: end;
 }
 
+#chatContent .testimonial.botq .right-part {
+  text-align: left;
+}
+
 #chatContent .testimonial.bota {
   padding-bottom: 30px;
   padding-right: 0;
   width: 100px;
   display: contents;
+  text-align: center;
+  align-items: center;
 }
 
 #chatContent img {
