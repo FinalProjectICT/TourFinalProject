@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
+import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -37,6 +38,9 @@ public class MyPageController {
                         @RequestParam(name = "reviewPage", defaultValue = "1") int reviewPage,
                         @RequestParam(name = "commentPage", defaultValue = "1") int commentPage,
                         @RequestParam(name = "wishlistPage", defaultValue = "1") int wishlistPage,
+                        @RequestParam(name = "inquiryPage", defaultValue = "1") int inquiryPage,
+                        @RequestParam(name = "matePage", defaultValue = "1") int matePage,
+                        @RequestParam(name = "receiptPage", defaultValue = "1") int receiptPage,
                         HttpSession session, Model model) {
 
         // 세션에서 사용자 아이디 가져오기
@@ -94,6 +98,14 @@ public class MyPageController {
         int pageSize = 3; // 한페이지에 표시할 게시물 수
 
 
+        // '작성한 여행친구찾기'에 대한 데이터 페이징 정보
+        List<TouroMateVO> touroMateVO = myPageService.getMyPageTouroMateList(userId, matePage, pageSize);
+        int totalTouroMates = myPageService.getTotalTouroMateCount(userId);
+        int totalTouroMatePages = (totalTouroMates + pageSize - 1) / pageSize;
+        model.addAttribute("touroMateVO", touroMateVO);
+        model.addAttribute("totalTouroMatePages", totalTouroMatePages);
+        model.addAttribute("touroMateCurrentPage", matePage);
+        
         // '작성한 게시물'에 대한 데이터와 페이징 정보
         List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId, page, pageSize);
         int totalTouroviews = myPageService.getTotalTouroviewCount(userId);
@@ -119,6 +131,17 @@ public class MyPageController {
         model.addAttribute("tourReviewCurrentPage", commentPage);
 
 
+        // -----------------------------------------------------------------------
+        // 나의 발자취
+        int pagesize3 = 6; // 한페이지에 표시할 게시물 수
+
+        List<ReceiptVO> receiptVO = myPageService.getMyPageReceiptList(userId, receiptPage, pagesize3);
+        int totalReceipts = myPageService.countReceipts(userId);
+        int totalReceiptPages = (totalReceipts + pagesize3 - 1) / pagesize3;
+        model.addAttribute("receiptVO", receiptVO);
+        System.out.println("영수증 후기 가져온 거임 빡치네 : " + receiptVO);
+        model.addAttribute("totalReceiptPages", totalReceiptPages);
+        model.addAttribute("receiptCurrentPage", receiptPage);
 
 
 
@@ -126,7 +149,7 @@ public class MyPageController {
         // 여행지 담기
         // 여행지 찜 목록 가져오기
 
-        int pagesize = 9;
+        int pagesize = 9; // 한페이지에 표시할 게시물 수
         
         List<WishListVO> wishListVO = myPageService.getWishList(userId, wishlistPage, pagesize);
         int totalWishList = myPageService.countWishList(userId);
@@ -138,9 +161,16 @@ public class MyPageController {
 
         // 작성한 문의 내역
         // 문의 목록 가져오기
-        List<InquiryVO> inquiryVO = myPageService.getInquiryByUserId(userId);
+
+        int pagesize2 = 5; // 한페이지에 표시할 게시물 수
+
+        List<InquiryVO> inquiryVO = myPageService.getInquiryByUserId(userId, inquiryPage, pagesize2);
+        int totalInquiryList = myPageService.countInquiryList(userId);
+        int totalInquiryListPages = (totalInquiryList + pagesize2 - 1) / pagesize2;
         model.addAttribute("inquiryVO", inquiryVO); // 사용자 문의
-      
+        model.addAttribute("totalInquiryListPages", totalInquiryListPages);
+        model.addAttribute("InquiryCurrentPage", inquiryPage);
+
 
         return "user/mypage";
 
@@ -148,7 +178,7 @@ public class MyPageController {
 
         // ---------------------------------------------------------------
         // 프로필 수정 - 업데이트 ajax 
-        @PostMapping("/profile")
+        @PostMapping("mypage/profile")
         public String updateUserProfile(@RequestBody UserVO userVO) {
             
             int updatedRows = myPageService.updateUserProfile(userVO);
@@ -165,6 +195,14 @@ public class MyPageController {
 
 
         // ---------------------------------------------------------------
+        // 작성한 글 - 여행친구 찾기 ajax
+        @GetMapping("/mypage/matePage")
+        @ResponseBody
+        public List<TouroMateVO> getTouroMateData(@RequestParam("matePage") int matePage, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            return myPageService.getMyPageTouroMateList(userId, matePage, matePage);
+        }
+
         // 작성한 글 - 게시물 ajax
         @GetMapping("/mypage/data")
         @ResponseBody
@@ -191,9 +229,9 @@ public class MyPageController {
             int pageSize = 3; // 한 페이지에 표시할 댓글 수
             return myPageService.getMyPageTourReviewList(userId, commentPage, pageSize);
         }
-
-
-
+        
+       
+        
         
         
         // ---------------------------------------------------------------
@@ -212,8 +250,10 @@ public class MyPageController {
         @ResponseBody
         public List<ReceiptVO> getReceipts(@RequestParam("page") int page, @RequestParam("size") int size, HttpSession session) {
             String userId = (String) session.getAttribute("loggedId");
+            int pagesize3 = 6;
             return myPageService.getMyPageReceiptList(userId, page, size);
         }
+
 
         // ---------------------------------------------------------------
         // 나의 발자취 - 영수증 리뷰(앱)
@@ -238,6 +278,16 @@ public class MyPageController {
 
             return "user/user/appReview";
 
+        }
+
+
+        // 문의 내역 - ajax
+        @GetMapping("/mypage/inquiry")
+        @ResponseBody
+        public List<InquiryVO> getInquiryData(@RequestParam("inquiryPage") int inquiryPage, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            int pagesize2 = 5;
+            return myPageService.getInquiryByUserId(userId, inquiryPage, pagesize2);
         }
 
 

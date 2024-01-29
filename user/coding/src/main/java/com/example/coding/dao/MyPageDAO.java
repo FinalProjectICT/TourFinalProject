@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
+import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -55,11 +56,13 @@ public interface MyPageDAO {
 
     // -----------------------------------------------------
     // 마이페이지 - 작성한 글
+    // 여행지 여행친구찾기
+    public List<TouroMateVO> getMyPageTouroMateList(String userId, int limit, int offset);
+    public int countTouroMates(String userId);
+
     // 여행 후기
     public List<TouroviewVO> getMyPageTouroviewList(String userId, int limit, int offset);
-    // 전체 게시물 수 조회
     public int countTouroviews(String userId);
-
 
     // 여행 후기 리뷰 댓글
     public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId, int limit, int offset);
@@ -68,14 +71,13 @@ public interface MyPageDAO {
     // 여행지 리뷰 댓글
     public List<TourReviewVO> getMyPageTourReviewList(String userId, int limit, int offset);
     public int countTourReviews(String userId);
+    
 
 
     // -----------------------------------------------------
     // 마이페이지 - 나의 발자취
-
-    public List<ReceiptVO> getMyPageReceiptList(String userId, int start, int size);
-
-    public int getTotalReceiptPages();
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int limit, int offset);
+    public int countReceipts(String userId);
 
 
 
@@ -92,6 +94,9 @@ public interface MyPageDAO {
     // -----------------------------------------------------
     // 작성한 문의 내역
     // 사용자 ID를 기반으로 해당 사용자의 문의 내역 조회
-    public List<InquiryVO> getInquiryByUserId(String userId);
+    public List<InquiryVO> getInquiryByUserId(String userId, int limit, int offset);
+    public int countInquiryList(String userId);
+
+
 
 }

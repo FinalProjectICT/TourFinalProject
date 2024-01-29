@@ -13,6 +13,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
+    
     <title>Rica</title>
 <!-- 수정 -->
     <!--Google font-->
@@ -61,6 +62,10 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+  
+    <!-- 문의 내역 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   </head>
 
   <style>
@@ -97,6 +102,85 @@ pageEncoding="UTF-8"%>
     #submitButton {
         width: 20%;
     }
+
+
+    /* 문의 내역 토글 */
+    .inquiry-response {
+    line-height: 2.0; /* 기본값보다 큰 값으로 설정 */
+    border-bottom: 1px solid #ddd; /* 하단에 선 추가 */
+    padding-bottom: 15px; /* 내용과 선 사이의 간격 조정 */
+    margin-bottom: 15px; /* 선 아래의 간격 조정 */    
+  }
+
+    .toggle-title {
+    cursor: pointer;
+    position: relative;
+    padding-right: 30px; /* 아이콘을 위한 공간 확보 */
+  }
+
+  .toggle-title::after {
+    content: '\25BC'; /* 아래쪽 화살표 */
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+
+    
+  }
+
+    /* 문의 내역 글자 */
+    .inquiry-title {
+    color: #4a90e2;
+  }
+
+  .inquiry-content {
+    color: black;
+  }
+
+  .inquiry-answered {
+    color: #4a90e2;
+  }
+
+  .inquiry-pending {
+    color: #fd6686;
+  }
+
+  /* 작성한 글 페이징 오른쪽 처리 */ 
+  .pagination-right {
+  justify-content: right;
+}
+
+.pagination-right a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px 2px;
+    border: 1px solid #ddd; /* 경계선 */
+    background-color: #f8f9fa; /* 배경색 */
+    color: #007bff; /* 글자색 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    font-size: 14px; /* 글자 크기 */
+}
+
+.pagination-right a:hover {
+    background-color: #e2e6ea; /* 호버 배경색 */
+}
+
+.pagination-right a.active {
+    background-color: #007bff; /* 활성화된 페이지 배경색 */
+    color: white; /* 활성화된 페이지 글자색 */
+    border-color: #007bff; /* 활성화된 페이지 경계선 */
+}
+
+
+.inquiry-date {
+    color: black; /* 글자색 검정 */
+    font-size: 15px; /* 글자 크기 줄임 */
+    /* 필요에 따라 추가 스타일 */
+}
+
+
+
+
 </style>
 
 
@@ -143,6 +227,7 @@ pageEncoding="UTF-8"%>
                   <div class="profile-image">
                     <img
                       src="../assets/images/profile/${profileImage}"
+                      onerror="this.onerror=null; this.src='../assets/images/profile/default_profile.png';"
                       class="img-fluid blur-up lazyload"
                       alt=""
                     />
@@ -391,45 +476,81 @@ pageEncoding="UTF-8"%>
                 </div>
 
                 <!-- 작성한 글 -->
+                <!-- 여행친구찾기 -->
                 <div class="tab-pane fade" id="write">
-                  <div class="dashboard-box" id="touroview" >
+                  <div class="dashboard-box" id="touromate" >
                     <div class="dashboard-title">
-                      <h4>작성한 게시물</h4>
+                      <h4>작성한 여행친구찾기</h4>
                     </div>
                     <div class="dashboard-detail">
-                    <c:forEach var="touroview" items="${touroviewVO}">
+                    <c:forEach var="touromate" items="${touroMateVO}">
                       <div class="booking-box">
                         <div class="detail-middle">
                           <div class="media">
                             <div class="icon"></div>
                             <div class="media-body">
-                              <h6 class="media-heading">${touroview.touroview_title}</h6>
+                              <h6 class="media-heading">${touromate.touro_mate_title}</h6>
                             </div>
                             <div class="media-body">
-                              <h6 class="media-heading">${touroview.user_id}</h6>
-                              <p>${touroview.touroview_regdate}</span></p>
+                              <h6 class="media-heading">${touromate.user_id}</h6>
+                              <p>${touromate.touro_mate_date}</span></p>
                             </div>
                           </div>
                         </div>
                         <div class="detail-last">
-                          <span class="badge bg-info">게시물 보기</span>
+                          <a a href="/touromate/touromate_detail?touro_mate_num=${touromate.touro_mate_num}" class="badge bg-info">게시물 보기</a>
                         </div>
                       </div> 
                     </c:forEach>
                     </div>
                   </div>
                   <!-- 작성한 게시물 페이징 컨트롤 -->
-                  <div class="pagination">
-                    <c:forEach begin="1" end="${totalTouroviewPages}" var="pageNum">
-                        <a href="javascript:loadTouroviewData(${pageNum})">${pageNum}</a>
+                  <div class="pagination pagination-right">
+                    <c:forEach begin="1" end="${totalTouroMatePages}" var="pageNum">
+                        <a href="javascript:loadTouroMateData(${pageNum})">${pageNum}</a>
                     </c:forEach>
                 </div>
 
+                <!-- 여행지후기 -->
+                <div class="dashboard-box" id="touroview" >
+                  <div class="dashboard-title">
+                    <h4>작성한 게시물</h4>
+                  </div>
+                  <div class="dashboard-detail">
+                  <c:forEach var="touroview" items="${touroviewVO}">
+                    <div class="booking-box">
+                      <div class="detail-middle">
+                        <div class="media">
+                          <div class="icon"></div>
+                          <div class="media-body">
+                            <h6 class="media-heading">${touroview.touroview_title}</h6>
+                          </div>
+                          <div class="media-body">
+                            <h6 class="media-heading">${touroview.user_id}</h6>
+                            <p>${touroview.touroview_regdate}</span></p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="detail-last">
+                        <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}" class="badge bg-info">
+                          게시물 보기
+                        </a>
+                        </div>
+                    </div> 
+                  </c:forEach>
+                  </div>
+                </div>
+                <!-- 작성한 게시물 페이징 컨트롤 -->
+                <div class="pagination pagination-right">
+                  <c:forEach begin="1" end="${totalTouroviewPages}" var="pageNum">
+                      <a href="javascript:loadTouroviewData(${pageNum})">${pageNum}</a>
+                  </c:forEach>
+              </div>
             
-
+                  <!-- 여행 후기 댓글-->
                   <div class="dashboard-box" id="review">
                     <div class="dashboard-title">
-                      <h4>작성한 리뷰</h4>
+                      <h4>작성한 여행후기 댓글</h4>
                     </div>
                     <div class="dashboard-detail">
                     <c:forEach var="touroviewreview" items="${touroviewReviewVO}" varStatus="status">
@@ -447,7 +568,9 @@ pageEncoding="UTF-8"%>
                           </div>
                         </div>
                         <div class="detail-last">
-                          <span class="badge bg-success">리뷰 보기</span>
+                          <a href="/touroview/touroview_detail?touroview_num=${touroviewreview.touroview_num}" class="badge bg-secondary">
+                            댓글 보기
+                          </a>                       
                         </div>
                       </div>
                       </c:forEach>
@@ -455,17 +578,17 @@ pageEncoding="UTF-8"%>
                   </div>
                   <!-- 작성한 리뷰 페이징 컨트롤 -->
                     <!-- 작성한 리뷰 페이징 컨트롤 -->
-                     <div class="pagination" id="review">
+                     <div class="pagination pagination-right" id="review" >
                         <c:forEach begin="1" end="${totalTouroviewReviewPages}" var="reviewPageNum">
                             <a href="javascript:loadTouroviewReviewData(${reviewPageNum})">${reviewPageNum}</a>
                         </c:forEach>
                     </div>
 
 
-
+                    <!-- 여행지 댓글 -->
                   <div class="dashboard-box" id="comment">
                     <div class="dashboard-title">
-                      <h4>작성한 댓글</h4>
+                      <h4>작성한 여행지 댓글</h4>
                     </div>
                     <div class="dashboard-detail">
                     <c:forEach var="tourreview" items="${tourReviewVO}" varStatus="status">
@@ -483,14 +606,16 @@ pageEncoding="UTF-8"%>
                           </div>
                         </div>
                         <div class="detail-last">
-                          <span class="badge bg-secondary">댓글보기</span>
-                        </div>
+                          <a href="/touro/${tourreview.tour_num}" class="badge bg-secondary">
+                            댓글보기
+                          </a>                        
+                      </div>
                       </div>
                    </c:forEach>
                   </div>
                 </div>
                 <!-- 작성한 댓글 페이징 컨트롤 -->
-                <div class="pagination" id="comment">
+                <div class="pagination pagination-right" id="comment">
                   <c:forEach begin="1" end="${totalTourReviewPages}" var="commentPageNum">
                       <a href="javascript:loadTourReviewData(${commentPageNum})">${commentPageNum}</a>
                   </c:forEach>
@@ -526,8 +651,6 @@ pageEncoding="UTF-8"%>
                     <!-- 카카오 지도 --> 
                     <div id="kakao-map" style="width:100%;height:400px;"></div>
 
-
-
                     <div
                       class="product-wrapper-grid ratio3_2 special-section grid-box">
                       <div class="row content grid">
@@ -541,7 +664,7 @@ pageEncoding="UTF-8"%>
                                 <img
                                   src=""
                                   class="img-fluid blur-up lazyload bg-img"
-                                  alt=""
+                                  alt="${receipt.receipt_name}"
                                 />
                               </a>
                               <div class="content_inner">
@@ -552,38 +675,19 @@ pageEncoding="UTF-8"%>
                                 <h6>${receipt.receipt_date}</h6>
                               </div>
                               <div class="top-icon">
-                                <a
-                                  href="#"
-                                  class=""
-                                  data-bs-toggle="tooltip"
-                                  data-placement="top"
-                                  title="Remove from Wishlist"
-                                  ><i class="fas fa-times"></i
-                                ></a>
                               </div>
                             </div>
                           </div>
                         </div> 
-                        <!-- 2행 3열 레이아웃을 위한 조건문 -->
-                        <c:if test="${status.index % 3 == 0}">
-                        </div><div class="row">
-                        </c:if>
                       </c:forEach>
                     </div>
-                  </div> 
-                  <!-- 페이징 -->
-                      <div class="row">
-                        <div class="col-md-12">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${totalPages}" var="pageNum">
-                                        <li class="page-item <c:if test="${pageNum == currentPage}">active</c:if>">
-                                            <a class="page-link" href="?page=${pageNum}">${pageNum}</a>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </div>
+                    <div class="pagination-container">
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination" id="receiptPagination">
+                          <li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>
+                        </ul>
+                      </nav>
+                    </div>
                       </div>
                     </div>
                   </div>
@@ -597,7 +701,7 @@ pageEncoding="UTF-8"%>
 
                     <div
                       id="wishListContainer" class="product-wrapper-grid ratio3_2 special-section grid-box" >
-                      <div class="row content grid">
+                      <div id="wishListItems" class="row content grid">
                       <!-- 여기에 WishlistVO 목록 표시 --> 
                        <c:forEach var="wishList" items="${wishListVO}" varStatus="status">
                         <div class="col-xl-4 col-sm-6 grid-item">
@@ -611,7 +715,6 @@ pageEncoding="UTF-8"%>
                                           <a href="/tourDetail/${wishList.tour_num}">
                                               <h5>${wishList.tour_name}</h5>
                                           </a>
-                                          <h6>${wishList.tour_num}</h6>
                                       </div>
                                       <!-- 삭제 아이콘 -->
                                       <div class="top-icon">
@@ -627,18 +730,16 @@ pageEncoding="UTF-8"%>
                           </div>
                         </c:forEach>
                       </div>
-          <nav aria-label="Page navigation">
-  <ul class="pagination" id="pagination">
-    <li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>
-    <!-- 추가 페이지 번호들... -->
-  </ul>
-</nav>
-
-
-
+                    <div class="pagination-container">
+                      <nav aria-label="Page navigation">
+                        <ul class="pagination" id="wishlistPagination">
+                          <li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>
+                        </ul>
+                      </nav>
                     </div>
                   </div>
                 </div>
+              </div>
 
 
                 <!--작성한 문의 내역 -->
@@ -647,46 +748,42 @@ pageEncoding="UTF-8"%>
                     <div class="dashboard-intro" style="width: 270px; background-color: #ebebeb">
                         <h5>문의내역</h5>
                     </div>
-                      <div class="row">
+                      <div id="inquiryItems"class="row">
                           <c:forEach var="inquiry" items="${inquiryVO}" varStatus="status">
-                              <div class="col-md-4">
+                              <div class="col-md-12">
                                   <div class="card mb-4">
-                                      <div class="card-body">
-                                          <h5 class="card-title">제목: ${inquiry.inquiry_title}</h5>
-                                          <p class="card-text">답변 여부: 
-                                              <span th:class="${inquiry.inquiry_process == 1} ? 'text-success' : 'text-warning'">
-                                                  ${inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기'}
+                                    <div class="card-body">
+                                      <!-- 문의 내용 열 -->
+                                        <!-- 클릭 가능한 제목 -->
+                                        <h5 class="card-title toggle-title inquiry-title" onclick="toggleInquiryDetails('details-${inquiry.inquiry_num}', event)">
+                                          제목: ${inquiry.inquiry_title}                   
+                                          <span class="inquiry-date" >${inquiry.inquiry_regdate}</span>
+                                        </h5>
+
+                                        <!-- 숨겨진 문의 내용 및 답변 -->
+                                        <div id="details-${inquiry.inquiry_num}" style="display: none;">
+                                        <p class="card-text inquiry-content" style="font-size: 18px;" >문의 내용: ${inquiry.inquiry_content}</p>
+                                        <p class="card-text">답변 여부: 
+                                          <span class="${inquiry.inquiry_process == 1 ? 'inquiry-answered' : 'inquiry-pending'}">
+                                            ${inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기'}
                                               </span>
-                                          </p>
-                                          <p class="card-text">문의 내용: ${inquiry.inquiry_content}</p>
-
-                                          <!-- 기타 필요한 정보 추가 -->
-
-                                          <!-- 토글 버튼 -->
-                                          <button class="btn btn-link" onclick="toggleDetails(${inquiry.inquiry_num})">답변</button>
-                                          
-                                          <!-- 자세한 내용 -->
-                                          <div id="details-${inquiry.inquiry_num}" style="display: none;">
-                                              <p>답변 내용: ${inquiry.inquiry_review_content}</p>
-                                              <!-- 기타 자세한 내용 추가 -->
+                                            </p>
+                                            <div class="inquiry-response" style="font-size: 18px;">답변 내용: ${inquiry.inquiry_review_content}</div>
                                           </div>
                                       </div>
                                   </div>
                               </div>
-                              <!-- 한 행에 3개씩 나누기 위해 추가한 조건문 -->
-                              <c:if test="${status.index % 3 == 2}">
-                                  </div><div class="row">
-                              </c:if>
-                          </c:forEach>
+                        </c:forEach>
+                      </div>
+                      <div class="pagination-container">
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination" id="inquiryPagination">
+                            <li class="page-item"><a class="page-link" href="#" data-page="1">1</a></li>
+                          </ul>
+                        </nav>
                       </div>
                   </div>
                 </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
     <!-- section end-->
 
@@ -776,30 +873,12 @@ pageEncoding="UTF-8"%>
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="gender">성별</label>
-                  <select id="gender" class="form-control">
-                    <option selected>선택</option>
-                    <option ${userVO.user_gender == '여성' ? 'selected' : ''}>여성</option>
-                    <option ${userVO.user_gender == '남성' ? 'selected' : ''}>남성</option>
-                  </select>
-                </div>
-                <div class="form-group col-md-6">
                   <label>나이</label>
                   <input
                     class="form-control"
                     placeholder="18 april"
                     id="datepicker"
                     value="${userVO.user_age}"
-                  />
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="inputAddress">주소</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="inputAddress"
-                    placeholder="주소"
-                    value="${userVO.user_addr}"
                   />
                 </div>
                 <div class="form-group col-md-6">
@@ -1427,20 +1506,6 @@ pageEncoding="UTF-8"%>
         }
     </script>
 
-
-    <!-- 문의 답변 토글 -->
-    <script>
-            function toggleDetails(inquiryNum) {
-                var detailsDiv = document.getElementById("details-" + inquiryNum);
-                if (detailsDiv.style.display === "none") {
-                    detailsDiv.style.display = "block";
-                } else {
-                    detailsDiv.style.display = "none";
-                }
-            }
-    </script>
-
-
     <!-- 채팅..? -->
     <script th:inline="javascript">
         /*<![CDATA[*/
@@ -1479,6 +1544,52 @@ pageEncoding="UTF-8"%>
 
 
 
+    <!-- 작성한 글 - 작성한 여행친구찾기 : 페이징 -->
+    <script>
+      function loadTouroMateData(pageNum) {
+          $.ajax({
+              url: '/user/mypage/matePage',
+              data: { matePage: pageNum },
+              success: function(data) {
+                  // 서버로부터 받은 데이터로 게시물 목록 갱신
+                  updateTouroMateList(data);
+              },
+              error: function(xhr, status, error) {
+                  // 에러 처리
+                  console.error("Error: " + status + " - " + error);
+              }
+          });
+      }
+  
+      function updateTouroMateList(data) {
+          var container = $('#touromate  .dashboard-detail'); // 게시물 목록을 담을 컨테이너
+          container.empty(); // 기존 내용을 비웁니다.
+  
+          // 받은 데이터로 새로운 게시물 목록을 생성합니다.
+          data.forEach(function(touromate) {
+              var touromateHtml = '<div class="booking-box">' +
+                  '<div class="detail-middle">' +
+                  '<div class="media">' +
+                  '<div class="icon"></div>' +
+                  '<div class="media-body">' +
+                  '<h6 class="media-heading">' + touromate.touro_mate_title + '</h6>' +
+                  '</div>' +
+                  '<div class="media-body">' +
+                  '<h6 class="media-heading">' + touromate.user_id + '</h6>' +
+                  '<p>' + touromate.touro_mate_date + '</p>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="detail-last">' +
+                  '<a href="/touromate/touromate_detail?touro_mate_num=' + touromate.touro_mate_num + '" class="badge bg-info">게시물 보기</a>' +
+                  '</div>' +
+                  '</div>';
+              container.append(touromateHtml);
+          });
+  
+      }
+    </script>
+
     <!-- 작성한 글 - 작성한 게시물 : 페이징 -->
     <script>
     function loadTouroviewData(pageNum) {
@@ -1516,7 +1627,7 @@ pageEncoding="UTF-8"%>
                 '</div>' +
                 '</div>' +
                 '<div class="detail-last">' +
-                '<span class="badge bg-info">게시물 보기</span>' +
+                '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '" class="badge bg-info">게시물 보기</a>' +
                 '</div>' +
                 '</div>';
             container.append(touroviewHtml);
@@ -1525,7 +1636,7 @@ pageEncoding="UTF-8"%>
     }
     </script>
 
-    <!-- 작성한 글 - 작성한 리뷰 : 페이징 -->
+    <!-- 작성한 글 - 작성한 여행후기 댓글 : 페이징 -->
     <script>
         function loadTouroviewReviewData(reviewPageNum) {
         $.ajax({
@@ -1559,7 +1670,7 @@ pageEncoding="UTF-8"%>
             '</div>' +
             '</div>' +
             '<div class="detail-last">' +
-            '<span class="badge bg-success">리뷰 보기</span>' + // 이 부분도 필요에 따라 수정할 수 있습니다.
+            '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '" class="badge bg-info">댓글 보기</a>' +
             '</div>' +
             '</div>';
         container.append(reviewHtml);
@@ -1568,7 +1679,7 @@ pageEncoding="UTF-8"%>
     </script>
 
     <script>
-    // "작성한 댓글" 섹션의 페이징 데이터를 AJAX로 로드하는 함수
+    // "작성한 여행지 댓글" 섹션의 페이징 데이터를 AJAX로 로드하는 함수
     function loadTourReviewData(commentPageNum) {
         $.ajax({
             url: '/user/mypage/commentData',
@@ -1582,7 +1693,7 @@ pageEncoding="UTF-8"%>
         });
     }
 
-    // "작성한 댓글" 섹션의 UI를 업데이트하는 함수
+    // "작성한 여행지 댓글" 섹션의 UI를 업데이트하는 함수
     function updateTourReviewList(data) {
         var container = $('#comment .dashboard-detail');
         container.empty();
@@ -1602,7 +1713,7 @@ pageEncoding="UTF-8"%>
                 '</div>' +
                 '</div>' +
                 '<div class="detail-last">' +
-                '<span class="badge bg-secondary">댓글보기</span>' + // 이 부분도 필요에 따라 수정할 수 있습니다.
+                '<a href="/touro/' + comment.tour_num + '" class="badge bg-secondary">댓글보기</a>' +
                 '</div>' +
                 '</div>';
             container.append(commentHtml);
@@ -1629,10 +1740,10 @@ pageEncoding="UTF-8"%>
         var totalWishListPages = ${totalWishListPages}; // 서버 사이드에서 설정한 총 페이지 수
         var wishListCurrentPage = ${wishListCurrentPage}; // 서버 사이드에서 설정한 현재 페이지 번호
 
-        createPagination(totalWishListPages, wishListCurrentPage);
+        createPagination(totalWishListPages, wishListCurrentPage, "wishlistPagination");
 
         // 페이지네이션 링크에 이벤트 리스너 바인딩
-        $('#pagination').off('click').on('click', '.page-link', function(e) {
+        $('#wishlistPagination').off('click').on('click', '.page-link', function(e) {
             e.preventDefault();
             var pageNum = $(this).data('page');
             loadPage(pageNum);
@@ -1659,7 +1770,6 @@ pageEncoding="UTF-8"%>
                             '<a href="/tourDetail/' + wishList.tour_num + '">' +
                               '<h5>' + wishList.tour_name + '</h5>' +
                             '</a>' +
-                            '<h6>' + wishList.tour_num + '</h6>' +
                           '</div>' +
                           '<div class="top-icon">' +
                             '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Remove from Wishlist">' +
@@ -1671,7 +1781,7 @@ pageEncoding="UTF-8"%>
                     '</div>';
           });
           // 게시물 목록만 업데이트
-          $('#wishListContainer').html(html);
+          $('#wishListItems').html(html); // 게시물 목록 업데이트
         },
         error: function(error) {
           // 오류 처리
@@ -1679,8 +1789,162 @@ pageEncoding="UTF-8"%>
         }
       });
     }
-
     </script>
+
+
+    <!-- 문의 내역 -->
+    <script>
+      // 문의 내용 및 답변 표시 토글 함수
+      function toggleInquiryDetails(detailsId) {
+      var element = document.getElementById(detailsId);
+      if (element.style.display === "none") {
+        element.style.display = "block";
+      } else {
+        element.style.display = "none";
+      }
+    }
+    </script>
+
+    <!-- 문의 내역 페이징 ajax -->
+    <script>
+      function createPagination(totalPages, currentPage, paginationContainerId) {
+        var paginationHtml = '';
+        for (var i = 1; i <= totalPages; i++) {
+            paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '">';
+            paginationHtml += '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+        }
+        $('#' + paginationContainerId).html(paginationHtml);
+    }
+
+
+      // 페이지 로드 시 페이지네이션 생성
+      $(document).ready(function() {
+        var totalInquiryListPages = ${totalInquiryListPages}; // 수정
+        var InquiryCurrentPage = ${InquiryCurrentPage}; // 수정
+
+        createPagination(totalInquiryListPages, InquiryCurrentPage, "inquiryPagination");
+
+        $('#inquiryPagination').off('click').on('click', '.page-link', function(e) {
+            e.preventDefault();
+            var pageNum = $(this).data('page');
+            loadInquiries(pageNum);
+        });
+      });
+
+
+    function loadInquiries(pageNum) {
+        $.ajax({
+            url: '/user/mypage/inquiry',
+            type: 'GET',
+            data: {
+              inquiryPage: pageNum
+            },
+            success: function(inquiry) {
+                var html = '';
+                $.each(inquiry, function(i, inquiry) {
+                  html += '<div class="col-md-12"><div class="card mb-4"><div class="card-body">';
+                    html += '<h5 class="card-title toggle-title inquiry-title" onclick="toggleInquiryDetails(\'details-' + inquiry.inquiry_num + '\')">';
+                    html += '제목: ' + inquiry.inquiry_title + '</h5>';
+
+                    html += '<div id="details-' + inquiry.inquiry_num + '" style="display: none;">';
+                    html += '<p class="card-text inquiry-content" style="font-size: 18px;">문의 내용: ' + inquiry.inquiry_content + '</p>';
+                    html += '<p class="card-text">답변 여부: ';
+                    html += '<span class="' + (inquiry.inquiry_process == 1 ? 'inquiry-answered' : 'inquiry-pending') + '">';
+                    html += (inquiry.inquiry_process == 1 ? '답변 완료' : '답변 대기') + '</span></p>';
+
+                    if (inquiry.inquiry_process == 1) {
+                        html += '<div class="inquiry-response" style="font-size: 18px;">답변 내용: ' + inquiry.inquiry_review_content + '</div>';
+                    }
+
+                    html += '</div></div></div>';
+                });
+                $('#inquiryItems').html(html); // 문의 내역 업데이트
+            },
+            error: function(error) {
+
+                console.log('Error:', error);
+            }
+        });
+    }
+
+
+      </script>
+  
+
+  <!-- 발자취 페이징 (영수증)-->
+  <script>
+    // 페이지 로드 시 첫 번째 페이지 데이터 불러오기
+    $(document).ready(function() {
+        loadReceiptData(1);
+    });
+
+    // 영수증 데이터 불러오기 함수
+    function loadReceiptData(pageNumber) {
+        $.ajax({
+            url: '/path/to/receipt/data', // 서버의 영수증 데이터를 제공하는 URL
+            type: 'GET',
+            data: { page: pageNumber },
+            dataType: 'json',
+            success: function(data) {
+                // 서버로부터 받은 데이터로 영수증 목록 갱신
+                updateReceiptList(data.receipts);
+
+                // 페이지네이션 갱신 (예시에서는 서버로부터 총 페이지 수를 받아온다고 가정)
+                updatePagination(data.totalPages, pageNumber);
+            },
+            error: function(error) {
+                console.error('Error fetching receipt data:', error);
+            }
+        });
+    }
+
+    // 영수증 목록 업데이트 함수
+    function updateReceiptList(receipts) {
+        var container = $('.row.content.grid');
+        container.empty(); // 기존 내용 비우기
+
+        receipts.forEach(function(receipt) {
+            var receiptHtml = '<div class="col-xl-4 col-sm-6 grid-item">' +
+                '<div class="special-box">' +
+                '<div class="special-img">' +
+                '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                '<img src="' + receipt.imageUrl + '" class="img-fluid blur-up lazyload bg-img" alt="' + receipt.receipt_name + '" />' +
+                '</a>' +
+                '<div class="content_inner">' +
+                '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                '<h5>' + receipt.receipt_name + '</h5>' +
+                '</a>' +
+                '<h6>' + receipt.receipt_date + '</h6>' +
+                '</div>' +
+                '<div class="top-icon"></div>' +
+                '</div>' +
+                '</div>' +
+                '</div>';
+            container.append(receiptHtml);
+        });
+    }
+
+    // 페이지네이션 업데이트 함수
+    function updatePagination(totalPages, currentPage) {
+        var paginationContainer = $('#receiptPagination');
+        paginationContainer.empty(); // 기존 내용 비우기
+
+        for (var i = 1; i <= totalPages; i++) {
+            var pageItem = '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
+                '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
+            paginationContainer.append(pageItem);
+        }
+
+        // 페이지네이션 링크 클릭 이벤트 바인딩
+        paginationContainer.off('click').on('click', '.page-link', function(e) {
+            e.preventDefault();
+            var pageNum = $(this).data('page');
+            loadReceiptData(pageNum);
+        });
+    }
+</script>
+
+
 
 
 
