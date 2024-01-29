@@ -23,7 +23,7 @@ public interface AdminService {
     List<AdminVO> touroviewList();
 
     // 후기 게시판 디테일
-    AdminVO touroViewNum(AdminVO vo); 
+    List<AdminVO> touroViewNum(Integer touroview_num); 
 
     // 여행지 이미지 제외 수정
     public int modifyTour(AdminVO vo);

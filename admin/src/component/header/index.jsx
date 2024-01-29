@@ -98,7 +98,7 @@ function Header({ toggleMenu, menu }) {
                         /> */}
                         {/* <!-- Header Zoom --> */}
                         <FullScreenBtn />
-                        <div className="crancy-header__options">
+                        {/* <div className="crancy-header__options"> */}
                           {/* <Alarm
                             subMenu={subNav}
                             setSubMenu={setSubNav}
@@ -109,7 +109,7 @@ function Header({ toggleMenu, menu }) {
                             setSubNav={setSubNav}
                             title="message"
                           /> */}
-                          <div className="crancy-header__settings">
+                          {/* <div className="crancy-header__settings">
                             <button id="crancy-header__settings">
                               <Link to="/settings">
                                 <svg
@@ -127,8 +127,8 @@ function Header({ toggleMenu, menu }) {
                                 </svg>
                               </Link>
                             </button>
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div> */}
                         <Author
                           subNav={subNav}
                           setSubNav={setSubNav}

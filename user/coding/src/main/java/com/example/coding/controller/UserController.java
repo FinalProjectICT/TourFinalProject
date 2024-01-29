@@ -74,7 +74,7 @@ public class UserController {
                 
                 // 디비저장을 위해서 파일정보 덩어리 만들기
                 ImgVO ivo = new ImgVO();
-				ivo.setImg_name(img_name);
+								ivo.setImg_name(img_name);
                 ivo.setImg_real_name(img_real_name);
                 ivo.setImg_path(img_path);
                 System.out.println("<<<<< 파일정보 덩어리 만들기 성공 >>>>>");
@@ -164,7 +164,7 @@ public class UserController {
         return "user/login_failed";
     }
 
-    @RequestMapping("/logout")
+  @RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		// 세션을 제거하여 로그아웃 처리
 		session.invalidate();

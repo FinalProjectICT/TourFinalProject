@@ -90,8 +90,8 @@
 </delete>
 
 <insert id="newInquiry" parameterType="com.example.coding.domain.InquiryVO">
-	INSERT INTO inquiry (inquiry_title, inquiry_content, user_id, tour_num, inquiry_process)
-	VALUES (#{inquiry_title}, #{inquiry_content}, #{user_id}, #{tour_num}, 0)
+	INSERT INTO inquiry (inquiry_title, inquiry_content, user_id, tour_num, inquiry_process, inquiry_regdate)
+	VALUES (#{inquiry_title}, #{inquiry_content}, #{user_id}, #{tour_num}, 0, NOW())
 </insert>
 
 <update id="incTourInquiry_num" parameterType="com.example.coding.domain.TourVO">

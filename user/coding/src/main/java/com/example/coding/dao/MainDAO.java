@@ -70,7 +70,10 @@ public interface MainDAO {
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계
   public List<MainAdminVO> locPrefer();
 
-   // 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리
+  // 관리자 후기 게시판 신고 3번 이상 찾기
+  public Integer touroviewBlindCount(Integer touroview_num);
+
+  // 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리
   public void touroviewBlind(TouroviewVO vo);
 
   // 관리자 문의 답변 보내기 - DB 저장
@@ -100,6 +103,9 @@ public interface MainDAO {
 
   // 여행후기게시판 - 리뷰 가져오기
   public List<TouroviewReviewVO> touroviewReviewSelect(TouroviewReviewVO vo);
+
+  // 관리자 유저 상세정보 보기
+  public AdminVO userListOne(String user_id);
 
   
 

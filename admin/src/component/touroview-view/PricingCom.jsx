@@ -15,17 +15,26 @@ function PricingCom() {
   const baseUrl = "http://localhost:8080";
 
   useEffect(() => {
-    axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num).then((result) => {
-    const touroviews = result.data;
-    console.log(result);
-    setTouroviews({...touroviews});
-      
-  }
-  )
-  .catch((error) => {
+    axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num)
+    .then((result) => {
+      // console.log(result.data);
+      // const touroviews = result.data;
+      // console.log("메메메" + touroviews)
+      // touroviews.map((touroview) => {
+      //   console.log(touroview)
+      //   setTouroviews([...touroview]);
+
+      // })
+      // console.log(result);
+      // console.log("===============")
+      // console.log(touroviews)
+        
+    }
+  ).catch((error) => {
     console.error('검색 오류:', error);
   });
   }, []);
+
 
 
 
@@ -55,7 +64,7 @@ function PricingCom() {
                             type="text"
                             placeholder="게시글 제목"
                             readOnly
-                            value={touroviews.touroview_title}
+                            value={touroviews[0].touroview_title}
                           />
                         </div>
 

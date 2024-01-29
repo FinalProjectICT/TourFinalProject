@@ -51,6 +51,19 @@ public class MainController {
   public void seasonRecommand(HttpServletRequest request, UserVO vo, Model m, MainVO mainvo) {
     // 세션에서 유저 아이디 가져오기
     String userId = (String) request.getSession().getAttribute("loggedId");
+    System.out.println("===="+userId);
+
+    // UserVO user = (UserVO) request.getSession().getAttribute("loggedInUser");
+    // String user_Id = user.getUser_id();
+    // if(user_Id != null) {
+    //   vo.setUser_id(user_Id);                                                                                                                                                                                                                                                                          
+    //   mainvo.setUser_id(user_Id);
+    // } else {
+    //   vo.setUser_id("Byounggon");
+    //   mainvo.setUser_id("Byounggon");
+    // }
+    // System.out.println("^^^^^^^^"+user_Id);
+
     if(userId != null) {
       vo.setUser_id(userId);                                                                                                                                                                                                                                                                          
       mainvo.setUser_id(userId);
@@ -268,6 +281,9 @@ public class MainController {
   public void reviewInsert(TourReviewVO vo) {
     System.out.println("컨트롤러....");
     System.out.println(vo.getUser_id());
+    if(vo.getImg_real_name() == null) {
+      vo.setImg_real_name("default_profile.png");
+    }
     mainService.reviewInsert(vo);
 
   }
@@ -287,6 +303,8 @@ public class MainController {
         System.out.println(tourReview);
         if(tourReview.getImg_real_name().equals("5ee25b671da2a46f118d0a4454d822a5")) {
           tourReview.setImg_real_name(tourReview.getImg_name());
+        } else if(tourReview.getImg_real_name() == null) {
+          tourReview.setImg_real_name("default_profile.png");
         }
         review.add(tourReview);
       }

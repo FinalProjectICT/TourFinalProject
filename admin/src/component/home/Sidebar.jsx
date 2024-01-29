@@ -10,7 +10,7 @@ function Sidebar() {
         <div className="row">
           <Countries />
           <CalenderSm />
-          <TopSeller />
+          {/* <TopSeller /> */}
         </div>
       </div>
     </div>

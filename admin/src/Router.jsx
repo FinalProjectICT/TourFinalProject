@@ -196,7 +196,7 @@ const router = createBrowserRouter([
       },
       
       {
-        path: "/profile-overview",
+        path: "/profile-overview/:user_id",
         Component: ProfileOverview,
         children: [
           {

@@ -34,9 +34,9 @@ function TaskProcess({ className }) {
     <div className="crancy-sidebar__single">
       <div className="crancy-sidebar__heading">
         <h3 className="crancy-sidebar__title m-0">Task Progress</h3>
-        <SelectInput
+        {/* <SelectInput
           options={["Weekly", "Last 7 Days", "Last 15 Days", "Last 30 Days"]}
-        />
+        /> */}
       </div>
       <div className="crancy-flex-center">
         <div className="crancy-task__chart crancy-chart__inside crancy-chart_ptask">

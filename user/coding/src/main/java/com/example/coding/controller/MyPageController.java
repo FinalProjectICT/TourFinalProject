@@ -40,7 +40,8 @@ public class MyPageController {
                         HttpSession session, Model model) {
 
         // 세션에서 사용자 아이디 가져오기
-        String userId = (String) session.getAttribute("loggedId");
+        UserVO user = (UserVO) session.getAttribute("loggedInUser");
+        String userId =  user.getUser_id();
 
         // 사용자 정보 가져와서 userVO에 저장
         UserVO userVO = myPageService.getUserProfile(userId);
@@ -192,10 +193,6 @@ public class MyPageController {
             return myPageService.getMyPageTourReviewList(userId, commentPage, pageSize);
         }
 
-
-
-        
-        
         // ---------------------------------------------------------------
         // 여행지 담기 - ajax
         @GetMapping("/mypage/wishlist")

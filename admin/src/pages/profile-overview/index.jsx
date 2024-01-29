@@ -18,14 +18,14 @@ function ProfileOverview({ children }) {
         <div className="crancy-upinner">
           <div className="row">
             <SidebarProfile />
-            <div className="col-lg-8 col-12 crancy-upinner__column2">
+            {/* <div className="col-lg-8 col-12 crancy-upinner__column2">
               <div className="crancy-upcontent mg-top-30">
                 <TabList />
                 <div className="tab-content" id="nav-tabContent">
                   <Outlet />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </Wrapper>

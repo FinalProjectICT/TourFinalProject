@@ -186,6 +186,14 @@
     LIMIT 4;
   </select>
 
+  <!-- 관리자 후기 게시판 신고 3번 이상 찾기 -->
+  <select id="touroviewBlindCount" parameterType="Integer" resultType="Integer">
+    SELECT count(*)
+    FROM report
+    WHERE touroview_num = #{tourview_num}
+
+  </select>
+
   <!-- 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리 -->
   <update id="touroviewBlind" parameterType="TouroviewVO">
     UPDATE touroview SET touroview_title = '블라인드 처리된 글입니다.'
@@ -211,7 +219,7 @@
 
   <!-- 관리자 대시보드 - 인기 게시물 가져오기 -->
   <select id="popularPost" resultType="AdminVO">
-    SELECT tv.touroview_num touroview_num, t.tour_name tour_name, tv.user_id user_id, li.like_count like_count
+    SELECT distinct tv.touroview_num touroview_num, t.tour_name tour_name, tv.user_id user_id, li.like_count like_count
     FROM  touroview tv INNER JOIN `like` li ON tv.touroview_num = li.touroview_num 
     INNER JOIN tour t ON tv.tour_num = t.tour_num LEFT JOIN report r ON tv.touroview_num = r.touroview_num 
     WHERE r.report_count &lt; 3 OR r.report_count IS NULL
@@ -304,5 +312,38 @@
     WHERE  tr.touroview_num = #{touroview_num}
     ORDER BY tr.touroview_review_num DESC;
   </select>
+
+  <!-- 관리자 유저 상세정보 보기 -->
+  <select id='userListOne' parameterType="String" resultType="AdminVO">
+    SELECT 	DISTINCT u.user_id userId, 
+		u.user_name userName, 
+		u.user_pass userPass, 
+		u.user_tel userTel, 
+		u.user_email userEmail, 
+		u.user_addr userAddr, 
+		u.user_gender userGender, 
+		u.user_age userAge, 
+		u.user_prefer_type1 userPreferType1 , 
+		u.user_prefer_type2 userPreferType2 , 
+		u.user_prefer_type3 userPreferType3, 
+		u.user_prefer_loc1 userPreferLoc1, 
+		u.user_prefer_loc2 userPreferLoc2 ,     
+		u.user_prefer_loc3 userPreferLoc3,              
+		u.admin_authority  adminAuthority ,             
+		u.user_login_authority userLoginAuthority,         
+		DATE_FORMAT(u.user_register_date, '%Y-%m-%d') userRegisterDate,              
+		u.user_delete_date userDeleteDate,
+		i.img_real_name imgRealName
+		FROM `user` u
+		LEFT JOIN
+			`img_detail` imgde ON u.user_id = imgde.user_id
+		LEFT JOIN
+			`img` i ON imgde.img_num = i.img_num
+		WHERE u.admin_authority = 1 AND u.user_id = #{user_id};
+  </select>
+
+
+  <!-- 메인 페이지 베스트 리뷰어 -->
+  
 
 </mapper>
