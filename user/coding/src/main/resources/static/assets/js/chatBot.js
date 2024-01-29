@@ -92,10 +92,7 @@ $(() => {
 
 // 챗봇 응답 양식
 function divBotAns(ansdata) {
-  if (
-    (ansdata.act == "mypage/" && $("#loggedInUser").val() == null) ||
-    $("#loggedInUser").val() == ""
-  ) {
+  if (ansdata.act == "mypage/" && $("#loggedInUser").val() == "") {
     $("#chatContent").append(
       `<div class="testimonial botq">
         <div class="row g-0 justify-content-md-start mb-3">
@@ -106,19 +103,20 @@ function divBotAns(ansdata) {
         </div>
         </div>`
     );
-  }
-  $("#chatContent").append(
-    `<div class="testimonial botq">
+  } else {
+    $("#chatContent").append(
+      `<div class="testimonial botq">
       <div class="row g-0 justify-content-md-start mb-3">
         <div class="left-part col-ms-4 col-xl-2">
           <img src="../assets/images/profile/chatbot2_r.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
         </div>
         <div class="right-part col-lg-auto">` +
-      ansdata.say +
-      `</div>
+        ansdata.say +
+        `</div>
       </div>
       </div>`
-  );
+    );
+  }
 }
 
 function divBotAct(ansdata) {
