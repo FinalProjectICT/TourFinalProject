@@ -17,7 +17,7 @@ function PricingCom() {
   useEffect(() => {
     axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num).then((result) => {
     const touroviews = result.data;
-    console.log(result);
+    console.log(touroviews);
     setTouroviews({...touroviews});
       
   }

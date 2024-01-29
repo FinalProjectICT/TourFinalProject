@@ -54,8 +54,8 @@ function UserCard({ user }) {
             </li>
         </ul>
       </div>
-      <Link to="/inbox" className="crancy-btn__default">
-        Message
+      <Link to={`/profile-overview/${user.userId}`} className="crancy-btn__default">
+        Overview
       </Link>
     </div>
   </div>

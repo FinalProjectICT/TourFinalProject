@@ -163,11 +163,13 @@ public class AdminController {
 
     // 후기 게시판 디테일 페이지 관련 
     @GetMapping("/tour-list/touroviewNum/{touroview_num}")
-    public AdminVO touroViewNum(@PathVariable("touroview_num") Integer touroview_num) {
-        AdminVO vo = new AdminVO();
-        vo.setTouroview_num(touroview_num);
-        AdminVO result = adminService.touroViewNum(vo);
-        result.setTouroview_num(touroview_num);
+    public List<AdminVO> touroViewNum(@PathVariable("touroview_num") Integer touroview_num) {
+        System.out.println("넘" + touroview_num);
+        // AdminVO vo = new AdminVO();
+        // vo.setTouroview_num(touroview_num);
+        List<AdminVO> result = adminService.touroViewNum(touroview_num);
+        // System.out.println("왜 안되니?" + result);
+        // result.setTouroview_num(touroview_num);
         return result;
     }
 

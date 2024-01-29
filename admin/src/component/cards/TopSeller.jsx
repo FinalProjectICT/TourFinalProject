@@ -14,14 +14,14 @@ function TopSeller() {
         {/* <!-- Sidebar Heading --> */}
         <div className="crancy-sidebar__heading">
           <h4 className="crancy-sidebar__title">최근 로그인</h4>
-          <SelectInput
+          {/* <SelectInput
             options={[
               "View All",
               "Last 7 Days",
               "Last 15 Days",
               "Last 30 Days",
             ]}
-          />
+          /> */}
         </div>
         {/* <!-- Sidebar Creator Lists --> */}
         <div className="crancy-sidebar__creators">

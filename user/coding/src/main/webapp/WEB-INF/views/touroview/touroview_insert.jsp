@@ -93,7 +93,7 @@
           <div class="col-xl-12 col-lg-12">
             <form action="/touroview/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
               
-              <input type="hidden" id="sessionId" value="${sessionScope.loggedId}" name="user_id"/>
+              <input type="hidden" id="sessionId" value="${sessionScope.loggedInUser.user_id}" name="user_id"/>
                       <!-- 이미지만 보여주는 테이블-->
                       <div class="image_section ">
                         <div class="row">

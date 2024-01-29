@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%@page import="com.example.coding.domain.UserVO"%>
+
 <% 
- Object loggedIdAttribute = session.getAttribute("loggedId");
- UserVO user = null;
- if (loggedIdAttribute instanceof UserVO) {
-     user = (UserVO) loggedIdAttribute;
-  }
+  Object loggedIdAttribute = session.getAttribute("loggedId");
+  UserVO user = (UserVO) session.getAttribute("loggedInUser");
+  if (loggedIdAttribute instanceof UserVO) {user = (UserVO) loggedIdAttribute;}
 %>
 
 <script>
@@ -32,7 +31,6 @@
 </script>
 
 
-<html>
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <header class="tour-header">
@@ -95,20 +93,6 @@
                           >이미지변환</a
                         >
                       </li>
-                      <c:if test="${empty sessionScope.loggedInUser}">
-                      <li class="nav-submenu">
-                        <a href="/user/login" class="nav-link"
-                          >마이페이지</a
-                        >
-                      </li>
-                      </c:if>
-                      <c:if test="${not empty sessionScope.loggedInUser}">
-                      <li class="nav-submenu">
-                        <a href="/user/mypage" class="nav-link"
-                          >마이페이지</a
-                        >
-                      </li>
-                      </c:if>
                     </ul>
                   </div>
                 </div>
@@ -125,38 +109,17 @@
                 <!-- 세션이 비어 있지 않으면 로그아웃 버튼으로 -->
                 <c:if test="${not empty sessionScope.loggedInUser}">
                   <li class="user user-light rounded5">
-                    <i class="fas fa-user">${sessionScope.loggedInName}님</i>
+                    <a href="/user/mypage">
+                      <i class="fas fa-user"></i>${sessionScope.loggedInUser.user_name}님
+                    </a>
                   </li>
                   <li class="user user-light rounded5">
                     <a href="/user/logout">
-                      <i class="fas fa-sign-out-alt">로그아웃</i>
+                      <i class="fas fa-sign-out-alt"></i>로그아웃
                     </a>
                 </c:if>
                 
                 </li>
-                <!-- <li class="setting">
-                  <a href="#">
-                    <i class="fas fa-cog"></i>
-                  </a>
-                  <ul class="setting-open">
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">USD</option>
-                        <option value="saab">EUR</option>
-                        <option value="opel">INR</option>
-                        <option value="audi">AUD</option>
-                      </select>
-                    </li>
-                    <li class="front-setting">
-                      <select>
-                        <option value="volvo">ENG</option>
-                        <option value="saab">FRE</option>
-                        <option value="opel">SPA</option>
-                        <option value="audi">DUT</option>
-                      </select>
-                    </li>
-                  </ul>
-                </li> -->
               </ul>
             </div>
           </div>
@@ -329,4 +292,3 @@
       <!-- 이미지 양식 끝 -->
   
   </body>
-</html>

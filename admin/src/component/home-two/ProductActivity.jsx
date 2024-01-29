@@ -14,6 +14,12 @@ function ProductActivity() {
 
   const navigate = useNavigate();
 
+   // 현재 페이지에 해당하는 아이템들을 추출
+   const indexOfLastItem = page * show;
+   const indexOfFirstItem = indexOfLastItem - show;
+   
+   const currentItems = popular.slice(indexOfFirstItem, indexOfLastItem);
+
   
   // 디테일 페이지 가기
   const detailTouroviewNum = (e,touroview_num) => {
@@ -43,9 +49,9 @@ function ProductActivity() {
     <div className="crancy-table mg-top-30">
       <div className="crancy-table__heading">
         <h3 className="crancy-table__title mb-0">인기 게시물</h3>
-        <SelectInput
+        {/* <SelectInput
           options={[" Last 7 Days", " Last 15 Days", "Last Month"]}
-        />
+        /> */}
       </div>
       <div className="tab-content" id="myTabContent">
         <div
@@ -147,7 +153,7 @@ function ProductActivity() {
             {/* <!-- crancy Table Body --> */}
             {/* 좋아요 수 기반 게시물 불러와서 여기에 붙이기 */}
             <tbody className="crancy-table__body">
-              {popular?.map((post) => (
+              {currentItems?.map((post) => (
                     <tr key={post.touroview_num}>
                       <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouroviewNum(e, post.touroview_num)}>
                         <div className="crancy-table__product--id">

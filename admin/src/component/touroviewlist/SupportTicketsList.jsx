@@ -32,24 +32,25 @@ function SupportTicketsList() {
     .catch((err) => console.log(err))
   };
 
-    // 현재 페이지에 해당하는 아이템들을 추출
-    const indexOfLastItem = page * show;
-    const indexOfFirstItem = indexOfLastItem - show;
-    
-    const currentItems = touroviews.slice(indexOfFirstItem, indexOfLastItem);
+  // 현재 페이지에 해당하는 아이템들을 추출
+  const indexOfLastItem = page * show;
+  const indexOfFirstItem = indexOfLastItem - show;
+  
+  const currentItems = touroviews.slice(indexOfFirstItem, indexOfLastItem);
 
   
   
   // 디테일 페이지 가기
   const detailTouroviewNum = (e,touroview_num) => {
     e.preventDefault(); // a 태그의 기본 기능 막기
-    axios.get(`${baseUrl}/tour-list/touroviewNum/${touroview_num}`)
-    .then((result) => {
-      const tourDetails = result.data;
-    })
-    .catch((error) => {
-      console.error('에러 발생:', error);
-    }); 
+    // axios.get(`${baseUrl}/tour-list/touroviewNum/${touroview_num}`)
+    // .then((result) => {
+    //   const tourDetails = result.data;
+    //   console.log(tourDetails)
+    // })
+    // .catch((error) => {
+    //   console.error('에러 발생:', error);
+    // }); 
     navigate(`/touroview/${touroview_num}`);
   };
 
@@ -81,11 +82,30 @@ function SupportTicketsList() {
     setTouroviews([]);
   };
 
+  // 후기 게시판 블라인드 횟수 가져오기
+  const blindCount = (touroview_num) => {
+    return axios.get(baseUrl + "/touroview-list/blind/count",{
+      params:{
+        touroview_num : touroview_num,
+      }
+    }).then((result) => {
+      return result.data;
+      // touroviews.report_count = result.data;
+    })
+  }
+
   // 후기 게시판 리스트 페이지
   useEffect(() => {
     axios.get(baseUrl+"/touroview-list/touroviewList")
-    .then((result) => {
+    .then(async (result) => {
       const touroviews = result.data;
+
+      // 각 게시물의 touroview_num을 이용하여 blindCount 호출
+      for (const touroview of touroviews) {
+        const blindCountResult = await blindCount(touroview.touroview_num);
+        // blindCount 결과를 touroview에 업데이트
+        touroview.report_count = blindCountResult;
+      }
       setTouroviews([...touroviews]);
       setOriginalTouroviews([...touroviews]);
       console.log(touroviews);
@@ -124,9 +144,9 @@ function SupportTicketsList() {
                   onChange={(e) => setInputValue(e.target.value)}
                 />
               </form>
-              <SelectInput
+              {/* <SelectInput
                 options={["Last 7 days", "Last 15 days", "Last 30 days"]}
-              />
+              /> */}
             </div>
           </div>
           <div className="tab-content" id="myTabContent">

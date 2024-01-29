@@ -81,8 +81,8 @@ public class GoogleLoginController {
             // 사용자 정보를 세션에 저장
             session.setAttribute("loggedInUser", userVO);
             System.out.println("userVO: " + userVO);
-            // 아이디 세션이 필요해서 추가합니다 - 이지연
-            session.setAttribute("loggedId", userVO.getUser_id());
+            // // 아이디 세션이 필요해서 추가합니다 - 이지연
+            // session.setAttribute("loggedId", userVO.getUser_id());
 
         } catch (IOException e) {
             e.printStackTrace();

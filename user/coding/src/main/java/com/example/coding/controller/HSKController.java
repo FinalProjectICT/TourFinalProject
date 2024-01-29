@@ -53,8 +53,9 @@ public class HSKController {
         
         // 세션에서 로그인 정보 가져오기
         HttpSession session = request.getSession();
-        String userId = (String) session.getAttribute("loggedId");
-        System.out.println("아이디: " + userId); // 로그 출력
+        UserVO user = (UserVO) session.getAttribute("loggedInUser");
+        String userId =  user.getUser_id();
+        System.out.println("아이디: " + user.getUser_id()); // 로그 출력
         
         // 로그인 여부 확인
         if (userId == null){
@@ -220,7 +221,10 @@ public class HSKController {
         
         try{
             // 로그인 된 사용자 아이디 확인
-            String loggedInUserId = (String) session.getAttribute("loggedId");
+            // String loggedInUserId = (String) session.getAttribute("loggedId");
+
+            UserVO user = (UserVO) session.getAttribute("loggedInUser");
+            String loggedInUserId =  user.getUser_id();
 
             // touroviewNum에 해당하는 후기를 서비스를 통해 불러와서 모델에 추가
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroview_num);

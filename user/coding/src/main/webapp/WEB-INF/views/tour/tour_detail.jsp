@@ -200,7 +200,7 @@ prefix="c" %>
 
   <body>
     <!-- 세션 로그인 값 -->
-    <input type="hidden" value="${sessionScope.loggedId}" id="sessionId"/>
+    <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="sessionId"/>
     <input type="hidden" value="${TourData.tour_lati}" id="tour_lati" />
     <input type="hidden" value="${TourData.tour_longi}" id="tour_longi" />
     <input type="hidden" value="${TourData.tour_num}" id="tourNum"/>

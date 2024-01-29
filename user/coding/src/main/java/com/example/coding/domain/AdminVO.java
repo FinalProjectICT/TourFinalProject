@@ -74,8 +74,8 @@ public class AdminVO {
     private String user_prefer_loc3 ;       // 선호 지역3
     private Integer admin_authority ;       // 관리자 권한 여부   
     private Integer user_login_authority ;  // 로그인 여부
-    private Date user_register_date ;       // 회원 가입 날짜 
-    private Date user_delete_date ;         // 탈퇴 날짜
+    private String user_register_date ;       // 회원 가입 날짜 
+    private String user_delete_date ;         // 탈퇴 날짜
     private String tour_img1_path;          // 여행지 이미지1
     private String tour_img2_path;          // 여행지 이미지2
     
@@ -96,8 +96,8 @@ public class AdminVO {
     private String userPreferLoc3 ;        // 선호 지역3
     private Integer adminAuthority ;       // 관리자 권한 여부   
     private Integer userLoginAuthority ;   // 로그인 여부
-    private Date userRegisterDate ;        // 회원 가입 날짜 
-    private Date userDeleteDate ;          // 탈퇴 날짜
+    private String userRegisterDate ;        // 회원 가입 날짜 
+    private String userDeleteDate ;          // 탈퇴 날짜
 
     private Integer touroview_num ;        // 후기 게시판 글 번호      
     private String touroview_title ;       // 게시글제목
@@ -121,20 +121,20 @@ public class AdminVO {
     private Integer inquiry_review_num ;        // 문의 답변 번호
     private String inquiry_review_content ;     // 문의 답변 내용
 
-    public static void main(String[] args) {
-        // VO 인스턴스 생성
-        AdminVO myData = new AdminVO();
+    // public static void main(String[] args) {
+    //     // VO 인스턴스 생성
+    //     AdminVO myData = new AdminVO();
 
-       // 날짜와 시간을 원하는 형식으로 포매팅
-       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-       String formattedDateTime = myData.getTouroview_regdate().format(formatter);
+    //    // 날짜와 시간을 원하는 형식으로 포매팅
+    //    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    //    String formattedDateTime = myData.getTouroview_regdate().format(formatter);
    
-       System.out.println("등록일: " + formattedDateTime);
+    //    System.out.println("등록일: " + formattedDateTime);
    
-       // 수정일자도 포맷팅
-       String formattedDateTimeUpdate = myData.getTouroview_update().format(formatter);
-       System.out.println("수정일: " + formattedDateTimeUpdate);
-    }
+    //    // 수정일자도 포맷팅
+    //    String formattedDateTimeUpdate = myData.getTouroview_update().format(formatter);
+    //    System.out.println("수정일: " + formattedDateTimeUpdate);
+    // }
 
 
 

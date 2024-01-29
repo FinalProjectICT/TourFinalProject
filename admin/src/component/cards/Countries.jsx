@@ -29,14 +29,14 @@ function Countries() {
         <div className="crancy-sidebar__heading">
           <h5 className="crancy-sidebar__title">인기 여행지</h5>
 
-          <SelectInput
+          {/* <SelectInput
             options={[
               "View All",
               "Last 7 Days",
               "Last 15 Days",
               "Last 30 Days",
             ]}
-          />
+          /> */}
         </div>
 
         {/* <!-- Sidebar Creator Lists --> */}

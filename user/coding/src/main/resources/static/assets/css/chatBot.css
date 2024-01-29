@@ -40,7 +40,7 @@
 #chatContent {
   padding: 10px;
   overflow-y: auto;
-  height: calc(100% - 90px);
+  height: calc(100% - 100px);
   align-items: center;
   word-break: break-all;
 }
@@ -65,11 +65,17 @@
   text-align: end;
 }
 
+#chatContent .testimonial.botq .right-part {
+  text-align: left;
+}
+
 #chatContent .testimonial.bota {
   padding-bottom: 30px;
   padding-right: 0;
   width: 100px;
   display: contents;
+  text-align: center;
+  align-items: center;
 }
 
 #chatContent img {
@@ -84,8 +90,10 @@
   border: none;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+  border-radius: 10px 10px 10px 10px;
 }
 
+/*
 #chatContainer button {
   align-self: center;
   width: calc(98% / 2);
@@ -96,3 +104,4 @@
   border-left: 1px solid #ddd;
   border-right: 1px solid #ddd;
 }
+*/

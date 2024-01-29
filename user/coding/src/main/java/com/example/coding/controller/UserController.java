@@ -74,7 +74,7 @@ public class UserController {
                 
                 // 디비저장을 위해서 파일정보 덩어리 만들기
                 ImgVO ivo = new ImgVO();
-				ivo.setImg_name(img_name);
+								ivo.setImg_name(img_name);
                 ivo.setImg_real_name(img_real_name);
                 ivo.setImg_path(img_path);
                 System.out.println("<<<<< 파일정보 덩어리 만들기 성공 >>>>>");
@@ -164,7 +164,7 @@ public class UserController {
         return "user/login_failed";
     }
 
-    @RequestMapping("/logout")
+  @RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		// 세션을 제거하여 로그아웃 처리
 		session.invalidate();
@@ -193,7 +193,7 @@ public class UserController {
 		String user_email = (String)request.getParameter("user_email");
 		String user_id = (String)request.getParameter("user_id");
 		UserVO vo = userService.selectUser(user_email,user_id);
-		System.out.println("====사용자정보 확인 성공==="+vo.getUser_email()+" / "+vo.getUser_id());
+		System.out.println("====사용자정보 확인 성공==="+vo);
 
 		if(vo != null) {
 		Random r = new Random();
@@ -230,7 +230,13 @@ public class UserController {
 				ModelAndView mv = new ModelAndView();
 				mv.setViewName("user/auth-num");
 				mv.addObject("num", num);
+				
+				// 비밀번호 초기화 시 사용자 아이디 값을 넘기기 위해 UserVO 객체를 ModelAndView에 추가
+				mv.addObject("user", vo);
+				// UserVO 객체를 세션에 설정
+				session.setAttribute("user", vo);
 				return mv;
+
 				}else {
 					ModelAndView mv = new ModelAndView();
 					mv.setViewName("user/find-pw");
@@ -246,28 +252,37 @@ public class UserController {
 	
 	// 인증번호 확인
 	@RequestMapping(value = "/auth-pw", method = RequestMethod.POST)
-	public String authNum(@RequestParam(value="email_auth") String email_auth, @RequestParam(value = "num") String num) throws IOException{
+	public String authNum(@RequestParam(value="email_auth") String email_auth, @RequestParam(value = "num") String num, HttpSession session) throws IOException{
 			//인증번호가 일치하면 비밀번호 변경 페이지로 이동
 			if(email_auth.equals(num)) {
-				return "user/modify-password";
+				UserVO vo = (UserVO) session.getAttribute("user");
+				session.setAttribute("user_id", vo.getUser_id());
+				return "user/modify-pw";
 			}
 			else {
-				return "user/find-pw";
+				// 인증번호가 불일치 시 알림페이지로 이동
+				return "user/auth-failed";
 			}
 	}
 	
 	// 새 비밀번호 설정
-	@RequestMapping(value = "/modify-password", method = RequestMethod.POST)
+	@RequestMapping(value = "/modify-pw", method = RequestMethod.POST)
 	public String modifyPassword(UserVO vo, HttpSession session) throws IOException{
-		int result = userService.updatePassword(vo);
+		// 세션에서 user_id 값을 가져옴
+		String user_id = (String) session.getAttribute("user_id");
+		// 가져온 user_id를 vo에 설정
+		vo.setUser_id(user_id);
+		
+		int result = userService.modifyPassword(vo);
 		System.out.println(result);
+
 		// 비밀번호 변경 성공하면 로그인 페이지로 이동
-		if(result == 3) {
+		if(result != 0) {
 			return "user/login";
 		}
 		else {
 			System.out.println("비밀번호 변경 실패");
-			return "user/modify-password";
+			return "user/modify-pw";
 		}
 	}
 }

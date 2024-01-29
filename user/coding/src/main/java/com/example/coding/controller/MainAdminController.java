@@ -96,6 +96,14 @@ public class MainAdminController {
   public List<MainAdminVO> locPrefer() {
       return mainService.locPrefer();
   }
+
+  // // 관리자 후기 게시판 신고 3번 이상 찾기
+  @GetMapping("/touroview-list/blind/count")
+  public Integer touroviewBlindCount(@RequestParam Integer touroview_num) {
+    Integer result =  mainService.touroviewBlindCount(touroview_num);
+    System.out.println("신고신고" + result);
+    return result;
+  }
   
   // 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리
   @PostMapping("/touroview/blind/{touroview_num}")
@@ -139,9 +147,21 @@ public class MainAdminController {
   @GetMapping("/wishlist/popularTour")
   public List<AdminVO> popularTour() {
     List<AdminVO> result = mainService.popularTour();
-    System.out.println(result);
+    // System.out.println(result);
     return result;
   }
+
+
+  // 관리자 유저 상세정보 보기
+  @GetMapping("/user/userListOne/{user_id}")
+  public AdminVO userListOne(@PathVariable("user_id") String user_id) {
+    // System.out.println(user_id);
+    AdminVO result = mainService.userListOne(user_id);
+    System.out.println(result.getUserRegisterDate());
+    return result;
+
+  }
+  
 
 
   

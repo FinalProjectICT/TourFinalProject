@@ -26,7 +26,7 @@ public interface AdminDAO {
     public List<AdminVO> touroviewList();
 
     // 게시판 디테일
-    public AdminVO touroViewNum(AdminVO vo);
+    public List<AdminVO> touroViewNum(Integer touroview_num);
 
 
     // 여행지 수정 (이미지 제외)

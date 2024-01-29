@@ -9,6 +9,27 @@
   padding: 0;
 }
 /* Custom Variable CSS */
+@font-face {
+  font-family: 'NPSfontRegular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontRegular.woff2') format('woff2');
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NPSfontExtraBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/NPSfontExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+}
+
+
 :root {
   --demo-white-color: #fff;
   --demo-dark-body-color: #142233;
@@ -24,7 +45,7 @@ input,
 select,
 optgroup,
 textarea {
-  font-family: "Roboto", sans-serif;
+  font-family: "NPSfontRegular", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 26px;
@@ -49,7 +70,7 @@ h5,
 h5 a,
 h6,
 h6 a {
-  font-family: "Roboto", sans-serif;
+  font-family: "NPSfontRegular", sans-serif;
   font-weight: 500;
   line-height: 140%;
   color: #2f3032;
@@ -57,15 +78,15 @@ h6 a {
 }
 
 .crancy-font-light {
-  font-family: "Roboto", sans-serif;
+  font-family: "NPSfontRegular", sans-serif;
   font-weight: 300;
 }
 .crancy-font-regular {
-  font-family: "Roboto", sans-serif;
+  font-family: "NPSfontBold", sans-serif;
   font-weight: 400;
 }
 .crancy-font-medium {
-  font-family: "Roboto", sans-serif;
+  font-family: "NPSfontExtraBold", sans-serif;
   font-weight: 500;
 }
 .crancy-lspacing {

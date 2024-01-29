@@ -216,8 +216,6 @@ prefix="c" %>
     
     // 좋아요
     var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-
-    $(() => {
       // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
       $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
         // 여행지 값, 사용자 정보 가져오기
@@ -235,7 +233,8 @@ prefix="c" %>
 
           var ck = "0";
           var icon = $(this).children();
-
+          
+          console.log("아이디딩이이이이 :" + id)
           // 좋아요 상태 구분으로 중복 찜처리 방지
           if (id != null && id != "") {
             if (icon.attr("class") != "fas fa-heart") {
@@ -268,10 +267,12 @@ prefix="c" %>
                 }) // end ajax
               
             }
-          } else if (id == null || id == "") alert("로그인이 필요합니다.");
+          } else if (id == null || id == "") {
+            alert("로그인이 필요합니다.")
+          };
         });
       });
-    });
+    
 
     // 좋아요 확인
     function ckWishList(item, num, id) {
@@ -294,31 +295,6 @@ prefix="c" %>
       });
     }
 
-    // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
-    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-
-    console.log("loggedInUserId 설정 이후: ", loggedInUserId);
-
-    function deleteTouroMate(touroMateNum) {
-        console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
-        console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
-        if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
-            // AJAX를 사용하여 삭제 요청을 서버에 전송
-            $.ajax({
-                type: "POST",
-                url: "/touromate/deleteTouroMate",
-                data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
-                success: function (response) {
-                    alert(response);
-                    window.location.href = "/touromate/touromate_list";
-                },
-                error: function (error) {
-                  alert("게시물 삭제 권한이 없습니다.");
-                  console.error("삭제 오류:", error);
-              }
-            });
-        }
-    }
   }) // end script
 </script>
 
@@ -336,7 +312,7 @@ prefix="c" %>
     <input type="hidden" value="${tourVO.tour_num}" id="tourNum"/>
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
-    <section class="hotel-single-section pt-0">
+    <section class="hotel-single-section parallax-img pt-0">
       <img
         src="../assets/images/inner-pages/breadcrumb1.jpg"
         class="bg-img bg-bottom img-fluid blur-up lazyload"

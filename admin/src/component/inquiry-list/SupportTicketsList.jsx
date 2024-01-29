@@ -14,6 +14,12 @@ function SupportTicketsList() {
 
   const [inquirys,setInquirys] = useState([]);
 
+   // 현재 페이지에 해당하는 아이템들을 추출
+   const indexOfLastItem = page * show;
+   const indexOfFirstItem = indexOfLastItem - show;
+   
+   const currentItems = inquirys.slice(indexOfFirstItem, indexOfLastItem);
+
   // 문의 리스트 자체 select
   useEffect(() => {
     axios.get(baseUrl+"/inquiry").then((result) => {
@@ -134,9 +140,9 @@ function SupportTicketsList() {
                   aria-controls="crancy-table__main"
                 />
               </form>
-              <SelectInput
+              {/* <SelectInput
                 options={["Last 7 days", "Last 15 days", "Last 30 days"]}
-              />
+              /> */}
             </div>
           </div>
           <div className="tab-content" id="myTabContent">
@@ -173,7 +179,7 @@ function SupportTicketsList() {
                   </tr>
                 </thead>
                 <tbody className="crancy-table__body">
-                {inquirys.map((inQ,idx) => (
+                {currentItems.map((inQ,idx) => (
                   <tr key={idx} >
                     <td>{inQ.inquiry_num}</td>
                     <td>{inQ.inquiry_title}</td>
