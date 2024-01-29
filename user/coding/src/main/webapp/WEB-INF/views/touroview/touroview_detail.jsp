@@ -452,7 +452,7 @@ prefix="c" %>
                         </td>
                         <td>
                           <h5>${tourVO.tour_addr}</h5>
-                          <h6>${tourVO.tour_postnum}</h6>
+                          <h6>우편번호 : ${tourVO.tour_postnum}</h6>
                           <p>${tourVO.tour_content}</p>
                         </td>
                       </tr>

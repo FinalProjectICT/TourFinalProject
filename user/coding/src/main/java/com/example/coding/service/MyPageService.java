@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
+import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -51,6 +52,10 @@ public interface MyPageService {
 
     // -----------------------------------------
     // 마이페이지 - 작성한 글
+    // 여행지 여행친구찾기
+    public List<TouroMateVO> getMyPageTouroMateList(String userId, int page, int pageSize);
+    public int getTotalTouroMateCount(String userId);
+
     // 여행 후기
     public List<TouroviewVO> getMyPageTouroviewList(String userId, int page, int pageSize);
     public int getTotalTouroviewCount(String userId);
@@ -63,15 +68,12 @@ public interface MyPageService {
     public List<TourReviewVO> getMyPageTourReviewList(String userId, int page, int pageSize);
     public int getTotalTourReviewCount(String userId);
 
-
     
     
     // -----------------------------------------
     // 마이페이지 - 나의 발자취
-    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size);
-    
-    public int getTotalReceiptPages(int size);
-    
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int offset);
+    public int countReceipts(String userId);
     
     
     
@@ -83,13 +85,11 @@ public interface MyPageService {
 
 
 
+
     // ----------------------------------------------
-
-
-
-
     // 사용자 ID를 기반으로 해당 사용자의 문의 내역 조회
-    public List<InquiryVO> getInquiryByUserId(String userId);
+    public List<InquiryVO> getInquiryByUserId(String userId, int page, int pagesize2);
+    public int countInquiryList(String userId);
 
 
 

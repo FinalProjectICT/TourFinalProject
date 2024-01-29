@@ -11,6 +11,7 @@ import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
@@ -89,6 +90,18 @@ public class MyPageServiceImpl implements MyPageService {
 
     // ---------------------------------------------------------
     // mypage - 작성한 글
+    // 여행지 여행친구찾기
+    @Override
+    public List<TouroMateVO> getMyPageTouroMateList(String userId, int page, int pageSize){
+        int offset = (page - 1) * pageSize;
+        return myPageDAO.getMyPageTouroMateList(userId, pageSize, offset);
+    }
+    // 개수
+    @Override
+    public int getTotalTouroMateCount(String userId){
+        return myPageDAO.countTouroMates(userId);
+    }
+
     // 여행 후기
     @Override
     public List<TouroviewVO> getMyPageTouroviewList(String userId, int page, int pageSize) {
@@ -126,8 +139,6 @@ public class MyPageServiceImpl implements MyPageService {
     }
 
 
-    
-
 
     // ---------------------------------------------------------
     // mypage - 프로필 수정
@@ -141,24 +152,16 @@ public class MyPageServiceImpl implements MyPageService {
     // --------------------------------------------------
     // mypage - 나의 발자취
     @Override
-    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size){
-        int start = (page - 1) * size;
-        if(start < 0){
-            start = 0;
-        }
-        return myPageDAO.getMyPageReceiptList(userId, start, size);
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int pagesize3){
+        int offset = (page - 1) * pagesize3;
+        return myPageDAO.getMyPageReceiptList(userId, page, offset);
     }
 
     @Override
-    public int getTotalReceiptPages(int size){
-        // 전체 게시물 수 가져오기
-        int getTotalPages = myPageDAO.getTotalReceiptPages();
-
-        // 전체 페이지 수 계산
-        int totalPages = (int) Math.ceil((double) getTotalPages / size);
-        
-        return totalPages;
+    public int countReceipts(String userId){
+        return myPageDAO.countReceipts(userId);
     }
+   
 
 
 
@@ -173,7 +176,6 @@ public class MyPageServiceImpl implements MyPageService {
         return myPageDAO.getWishList(userId, pagesize, offset);
     }
     
-    
     @Override
     public int countWishList(String userId){
         return myPageDAO.countWishList(userId);
@@ -181,11 +183,17 @@ public class MyPageServiceImpl implements MyPageService {
 
 
 
-
     // --------------------------------------------------------
     // mypage - 사용자 ID를 기반으로 해당 사용자의 문의 내역 조회
-    public List<InquiryVO> getInquiryByUserId(String userId){
-        return myPageDAO.getInquiryByUserId(userId);
+    @Override
+    public List<InquiryVO> getInquiryByUserId(String userId, int page, int pagesize2){
+        int offset = (page - 1) * pagesize2;
+        return myPageDAO.getInquiryByUserId(userId, pagesize2, offset);
+    }
+    
+    @Override
+    public int countInquiryList(String userId){
+        return myPageDAO.countInquiryList(userId);
     }
 
 
