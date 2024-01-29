@@ -27,14 +27,14 @@ function SupportTicketsList() {
   // 디테일 페이지 가기
   const detailTouromateNum = (e,touromate_num) => {
     e.preventDefault(); // a 태그의 기본 기능 막기
-    axios.get(`${baseUrl}/tour-list/touromateNum/${touromate_num}`)
+    axios.get(`${baseUrl}/touromate/touromateNum/${touromate_num}`)
     .then((result) => {
       // const tourDetails = result.data;
     })
     .catch((error) => {
       console.error('에러 발생:', error);
     }); 
-    navigate(`/pricing/${touromate_num}`);
+    navigate(`/touromate/${touromate_num}`);
   };
 
    // 페이지네이션

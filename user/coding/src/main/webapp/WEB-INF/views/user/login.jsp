@@ -71,13 +71,13 @@ pageEncoding="UTF-8"%>
           <h2>login</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">login</li>
             </ol>
           </nav>
         </div>
       </div>
-      <div class="title-breadcrumb">Rica</div>
+      <div class="title-breadcrumb">TOURO</div>
     </section>
     <!-- breadcrumb end -->
 
@@ -140,15 +140,13 @@ pageEncoding="UTF-8"%>
                     placeholder="Password"
                   />
                 </div>
-                <div class="form-group form-check">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1"
-                    >아이디 기억하기</label
-                  >
+                <div class="row">
+                  <a class="col" href="find-id" target="_self">
+                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">아이디 찾기</p>
+                  </a>
+                   / <a class="col" href="find-pw" target="_self">
+                    <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
+                  </a>
                 </div>
                 <div class="button-bottom">
                   <button type="submit" class="w-100 btn btn-solid" >

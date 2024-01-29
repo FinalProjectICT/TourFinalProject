@@ -30,6 +30,9 @@ import com.example.coding.service.AdminService;
 import com.example.coding.util.MD5Generator;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -87,7 +90,9 @@ public class AdminController {
     @DeleteMapping("/tour-list/{tourNum}")
     public void deleteNum(@PathVariable String tourNum) {
         AdminVO vo = new AdminVO();
+        vo.setTour_num(tourNum);
         vo.setTourNum(tourNum);
+        // System.out.println(vo);
         adminService.deleteNum(vo);
     }
 

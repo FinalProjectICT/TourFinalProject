@@ -1,17 +1,26 @@
 package com.example.coding.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 
 import com.example.coding.domain.UserVO;
 import com.example.coding.domain.ImgDetailVO;
@@ -20,6 +29,9 @@ import com.example.coding.service.ImgService;
 import com.example.coding.service.UserService;
 import com.example.coding.util.MD5Generator;
 
+import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -31,6 +43,9 @@ public class UserController {
 
     @Autowired
 	private ImgService imgService;
+
+	@Autowired
+	private JavaMailSender mailSender;
 
 	// 회원가입
 	@RequestMapping("/insertUser") 
@@ -133,6 +148,8 @@ public class UserController {
             s.setAttribute("loggedInUser", vo);
             // 아이디 세션이 필요해서 추가합니다 - 이지연
             s.setAttribute("loggedId", vo.getUser_id());
+						// 이름 세션이 필요해서 추가합니다 - 이지연
+            s.setAttribute("loggedInName", vo.getUser_name());
             // 사용자 정보 중 관리자 권한 여부 확인
             int role = vo.getAdmin_authority();
             // 관리자 권한 여부가 1이면 사용자 페이지(메인페이지)로 이동
@@ -156,4 +173,101 @@ public class UserController {
 		return "redirect:/touro";
 	}
 
+	// 아이디 찾기
+	@RequestMapping(value = "find-id", method = RequestMethod.POST)
+	public ModelAndView findID(String user_email){
+		// 입력받은 이메일로 사용자 아이디 받아오기
+		List<String> user_id = userService.findUserid(user_email);
+		System.out.println(user_id);
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/find-id-result");
+		mv.addObject("user_id", user_id);
+		return mv;
+	}
+
+    // 비밀번호 찾기 - 인증메일발송
+	@RequestMapping(value = "/find-pw", method = RequestMethod.POST)
+	public ModelAndView forgotPassword(HttpSession session, 
+			HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_email = (String)request.getParameter("user_email");
+		String user_id = (String)request.getParameter("user_id");
+		UserVO vo = userService.selectUser(user_email,user_id);
+		System.out.println("====사용자정보 확인 성공==="+vo.getUser_email()+" / "+vo.getUser_id());
+
+		if(vo != null) {
+		Random r = new Random();
+		int num = r.nextInt(999999); // 랜덤난수설정
+		
+			// 입력한 메일주소,아이디가 사용자 정보와 동일할 경우
+			if (vo.getUser_email().equals(user_email) && vo.getUser_id().equals(user_id)) {
+				session.setAttribute("user_email", vo.getUser_email());
+
+				String setfrom = "TOURO@gmail.com"; // gmail 
+				String tomail = user_email; //받는사람
+				String title = "[TOURO] 비밀번호변경 인증 이메일 입니다"; 
+				String content = System.getProperty("line.separator") + "안녕하세요 회원님" + System.getProperty("line.separator")
+						+ "TOURO 비밀번호찾기(변경) 인증번호는 " + num + " 입니다." + System.getProperty("line.separator"); // 
+				System.out.println(content);
+
+				try {
+					MimeMessage message = mailSender.createMimeMessage();
+					MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "utf-8");
+
+					messageHelper.setFrom(setfrom); 
+					messageHelper.setTo(tomail); 
+					messageHelper.setSubject(title);
+					messageHelper.setText(content); 
+
+					// 인증메일 발송
+					mailSender.send(message);
+					System.out.println("===== 메일 발송 성공! =====");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+
+				// 인증 메일 발송 후 인증번호 모델에 담아서 인증번호 입력 페이지로 이동
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("user/auth-num");
+				mv.addObject("num", num);
+				return mv;
+				}else {
+					ModelAndView mv = new ModelAndView();
+					mv.setViewName("user/find-pw");
+					return mv;
+				}
+			}else {
+				ModelAndView mv = new ModelAndView();
+				mv.setViewName("user/find-pw");
+				return mv;
+			}
+	
+}
+	
+	// 인증번호 확인
+	@RequestMapping(value = "/auth-pw", method = RequestMethod.POST)
+	public String authNum(@RequestParam(value="email_auth") String email_auth, @RequestParam(value = "num") String num) throws IOException{
+			//인증번호가 일치하면 비밀번호 변경 페이지로 이동
+			if(email_auth.equals(num)) {
+				return "user/modify-password";
+			}
+			else {
+				return "user/find-pw";
+			}
+	}
+	
+	// 새 비밀번호 설정
+	@RequestMapping(value = "/modify-password", method = RequestMethod.POST)
+	public String modifyPassword(UserVO vo, HttpSession session) throws IOException{
+		int result = userService.updatePassword(vo);
+		System.out.println(result);
+		// 비밀번호 변경 성공하면 로그인 페이지로 이동
+		if(result == 3) {
+			return "user/login";
+		}
+		else {
+			System.out.println("비밀번호 변경 실패");
+			return "user/modify-password";
+		}
+	}
 }

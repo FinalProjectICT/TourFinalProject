@@ -19,6 +19,12 @@ prefix="c" %>
       href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
     <link
       href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap"
       rel="stylesheet"
@@ -57,6 +63,266 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+    <style>
+      #reviewBOX {
+       display: none;
+     }
+    
+   </style>
+
+   <!-- 리뷰 달기 -->
+   <script>
+     $(function(){
+       let stars = ''
+       var review_div = $('#tour_review');
+       var user_id = $('#sessionId').val();
+       var touroview_num = $('#touroviewNum').val();
+       var tour_num = $('#tourNum').val();
+       console.log(tour_num)
+       review_div.html('');
+       // 초기 불러오기
+       getReviewList();
+       // 페이지의 모든 리소스가 로드 되었을 때.
+      
+       $('.dropdown-item').click(function (e) {
+         e.preventDefault();
+         
+         var stars = $(this).data('stars');
+         // 리뷰 삽입
+         
+         // $('#tourReviewBtn').trigger('click', stars);
+
+         $('#tourReviewBtn').data('selectedStars', stars);
+
+       
+       }) // end 별점 등록
+       
+       // 리뷰 등록
+       $('#tourReviewBtn').click((e, stars) => {
+           e.preventDefault();
+           console.log(user_id)
+           if(user_id == " " || user_id == null) {
+             console.log(1)
+             alert("로그인 후 이용해주세요")
+             window.location.href = '/user/login'; // 수정된 부분
+           }
+           else {
+             var stars = $('#tourReviewBtn').data('selectedStars');
+             var reviewText = $('.review_content').val();
+             
+             // 리뷰 등록 ajax
+             $.ajax({
+               type:'post',
+               url : '/touroview/touroviewReviewInsert',
+               data : { touroview_review_content : reviewText, touroview_review_star : stars, user_id : user_id, touroview_num : touroview_num, tour_num : tour_num },
+               success : function(result) {
+                 review_div.html('');
+                 getReviewList();
+                 console.log("리뷰등록" + result);
+                 $('.review_content').val(" ");
+
+                 
+
+               },
+               error : function(err) {
+                 console.log(err)
+               }
+             }) // end ajax
+           }
+          
+       }); // end 리뷰작성 클릭
+
+     // 리뷰 전체 보이게 하기
+     function getReviewList() {
+       $.ajax({
+         type:'get',
+         url : '/touroview/touroviewSelectReview',
+         data : {touroview_num : touroview_num},
+         dataType : 'json',
+         contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+         success : function(result){
+          //  review_div.html('');
+          // 별점 수에 따라 별 개수 
+          function generateStars(starCount) {
+              let starsHtml = '';
+              for (let i = 0; i < 5; i++) {
+                  if (i < starCount) {
+                      starsHtml += '<i class="fas fa-star"></i>';
+                  } else {
+                      starsHtml += '<i class="far fa-star"></i>';
+                  }
+              }
+              return starsHtml;
+          }
+          $(result).each(function(){
+            const ratingStars = generateStars(this.touroview_review_star);
+            console.log(this.touroview_review_content);
+
+            const html = `
+                <div class="review-box row" id="reviewBOX">
+                    <div class="col-2">
+                      <a
+                        data-bs-toggle="modal"
+                        data-bs-target="#edit-profile"
+                        href=""
+                        ><img
+                          src="../assets/images/profile/${'${this.img_real_name}'}"
+                          class="img-fluid blur-up lazyload"
+                          alt=""
+                      /></a>
+                    </div>
+
+                    <div class="col-10">
+                      <div class="rating">
+                        ${'${ratingStars}'}
+                      </div>
+                      <h6>by ${'${this.user_id}'}, ${'${this.touroview_review_register_date}'}</h6>
+                      <p>${'${this.touroview_review_content}'}</p>
+                    </div>
+                  </div>
+                `
+                review_div.append(html);
+
+                
+              });
+              // 별점에 대한 HTML을 생성하는 함수
+              $(".review-box:lt(3)").css('display', 'flex'); // 초기갯수
+
+              $("#moreReview").click(function(e){ // 클릭시 more
+                e.preventDefault();
+                $(".review-box:hidden").slice(0, 3).css('display', 'flex'); // 클릭시 more 갯수 지저정
+                if($(".review-box:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+                  $("#moreReview").hide(); // 컨텐츠 없을시 alert 창 띄우기 
+                }
+           });
+
+         },
+         error : function(err) {
+           console.log(err);
+         }
+
+       }) // end ajax
+     }
+
+
+     // moreReview 클릭 시 5개씩 리뷰 보이게 하기
+     }) // end script
+   </script>
+   <!-- 좋아요  -->
+   <script>
+    $(function(){
+
+    
+    // 좋아요
+    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+    $(() => {
+      // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+      $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+        // 여행지 값, 사용자 정보 가져오기
+        var num = $(item).attr("title");
+        console.log("num >>> ", num);
+        var id = loggedInUserId;
+        console.log("id >>> ", id);
+
+        // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+        ckWishList(item, num, id);
+
+        // 좋아요 누를 때 동작
+        $(item).on("click", (e) => {
+          e.preventDefault();
+
+          var ck = "0";
+          var icon = $(this).children();
+
+          // 좋아요 상태 구분으로 중복 찜처리 방지
+          if (id != null && id != "") {
+            if (icon.attr("class") != "fas fa-heart") {
+              $.ajax({
+                url: "/touroview/addWishList",
+                type: "post",
+                dataType: "json",
+                data: { user_id: id, touroview_num: num },
+                success: function (result) {
+                  ck = result;
+                },
+                error: function (err) {
+                  console.log(err);
+                },
+              });
+              $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+            } else {
+                $.ajax({
+                  type:'post',
+                  data : {touroview_num : num, user_id : id},
+                  url : "/touroview/deleteWishList",
+                  success : function (result) {
+                    if(result == "ok") {
+                      $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                    }
+                  },
+                  error : function (err) {
+                    console.log(err)
+                  }
+                }) // end ajax
+              
+            }
+          } else if (id == null || id == "") alert("로그인이 필요합니다.");
+        });
+      });
+    });
+
+    // 좋아요 확인
+    function ckWishList(item, num, id) {
+      $.ajax({
+        url: "/touroview/ckWishList",
+        type: "post",
+        dataType: "json",
+        data: { user_id: id, touroview_num: num },
+        success: function (result) {
+          if (result == "1") {
+            $(item)
+              .children()
+              .attr("class", "fas fa-heart")
+              .css("color", "#ff0000");
+          }
+        },
+        error: function (err) {
+          console.log(err);
+        },
+      });
+    }
+
+    // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
+    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+    console.log("loggedInUserId 설정 이후: ", loggedInUserId);
+
+    function deleteTouroMate(touroMateNum) {
+        console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+        console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+        if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+            // AJAX를 사용하여 삭제 요청을 서버에 전송
+            $.ajax({
+                type: "POST",
+                url: "/touromate/deleteTouroMate",
+                data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
+                success: function (response) {
+                    alert(response);
+                    window.location.href = "/touromate/touromate_list";
+                },
+                error: function (error) {
+                  alert("게시물 삭제 권한이 없습니다.");
+                  console.error("삭제 오류:", error);
+              }
+            });
+        }
+    }
+  }) // end script
+</script>
+
+
   </head>
 
   <body>
@@ -64,10 +330,15 @@ prefix="c" %>
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
 
+    <!-- 세션 로그인 값 -->
+    <input type="hidden" value="${sessionScope.loggedId}" id="sessionId"/>
+    <input type="hidden" value="${touroviewVO.touroview_num}" id="touroviewNum"/>
+    <input type="hidden" value="${tourVO.tour_num}" id="tourNum"/>
+
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section pt-0">
       <img
-        src="../assets/images/single-hotel/bg-2.jpg"
+        src="../assets/images/inner-pages/breadcrumb1.jpg"
         class="bg-img bg-bottom img-fluid blur-up lazyload"
         alt=""
       />
@@ -80,19 +351,19 @@ prefix="c" %>
                   <div class="top">
                     <h2>${touroviewVO.touroview_title}</h2>
                     <div class="share-buttons">
-                      <href="#" class="btn btn-solid"
-                        ><i class="far fa-heart"></i> 하트</a
+                      <a href="#" class="btn btn-solid" 
+                      data-original-title="Add_to_Wishlist"
+                      title="${touroviewVO.touroview_num}"
+                        ><i class="far fa-heart"></i> 좋아요</a
                       >
                     </div>
                   </div>
                 </div>
                 <div class="right-part">
                 <!-- 신고 버튼 -->
-                  <a
-                    href="hotel-booking.html"
-                    class="btn btn-rounded btn-sm color1"
-                    >신고
-                  </a>
+                  <input type="hidden" id="touroviewNum" value="${touroviewVO.touroview_num}">
+                  <a onclick="reportPost();" href="#" class="btn btn-rounded btn-sm color1" id="reportbutton">신고</a>
+                  
                   <!-- 수정 버튼 -->
                   <c:if test="${isAuthor}">
                   <a href="${pageContext.request.contextPath}/touroview/touroview_update_delete?touroview_num=${touroviewVO.touroview_num}&action=update"
@@ -116,47 +387,54 @@ prefix="c" %>
             <!-- 이미지만 보여주는 테이블-->
             <div class="image_section">
               <div class="row">
-                <div class="col-sm-8">
-                  <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
-                    <div>
-                      <a href="../assets/images/hotel/room/11.jpg">
-                        <img
-                          src="../assets/images/hotel/room/11.jpg"
-                          class="img-fluid blur-up lazyload bg-img w-100"
-                          alt=""
-                        />
-                        <h6 class="view-all">view all images</h6>
-                      </a>
+                <c:forEach items="${detailImg}" var="img" end="0" >
+                  <div class="col-sm-8">
+                    <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
+                      <div>
+                        <a href="../assets/images/touroviewImg/${img.img_real_name}">
+                          <img
+                            src="../assets/images/touroviewImg/${img.img_real_name}"
+                            class="img-fluid blur-up lazyload bg-img w-100"
+                            alt=""
+                          />
+                          <!-- <h6 class="view-all">view all images</h6> -->
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </c:forEach>
+
                 <div class="col-sm-4 d-none d-sm-block">
                   <div class="row">
                     <div class="col-12 ratio_59">
+                      <c:forEach items="${detailImg}" var="img" begin="1" end="1" >
                       <div class="slide-1 zoom-gallery no-arrow">
                         <div>
-                          <a href="../assets/images/hotel/room/4.jpg">
+                          <a href="../assets/images/touroviewImg/${img.img_real_name}">
                             <img
-                              src="../assets/images/hotel/room/4.jpg"
+                              src="../assets/images/touroviewImg/${img.img_real_name}"
                               class="img-fluid blur-up lazyload bg-img w-100"
                               alt=""
                             />
-                            <h6 class="view-all">room images</h6>
+                            <!-- <h6 class="view-all">room images</h6> -->
                           </a>
                         </div>
                       </div>
+                    </c:forEach>
+                    <c:forEach items="${detailImg}" var="img" begin="2" end="2" >
                       <div class="slide-1 zoom-gallery no-arrow m-cls">
                         <div>
-                          <a href="../assets/images/hotel/room/13.jpg">
+                          <a href="../assets/images/touroviewImg/${img.img_real_name}">
                             <img
-                              src="../assets/images/hotel/room/13.jpg"
+                              src="../assets/images/touroviewImg/${img.img_real_name}"
                               class="img-fluid blur-up lazyload bg-img w-100"
                               alt=""
                             />
-                            <h6 class="view-all">poll images</h6>
+                            <!-- <h6 class="view-all">poll images</h6> -->
                           </a>
                         </div>
                       </div>
+                    </c:forEach>
                     </div>
                   </div>
                 </div>
@@ -190,7 +468,7 @@ prefix="c" %>
                           <h6 class="room-title">${tourVO.tour_name}</h6>
                           <a href="#">
                             <img
-                              src="${tourVO.tour_img1_path}"
+                              src="../${tourVO.tour_img1_path}"
                               class="img-fluid blur-up lazyload"
                               alt=""
                             />
@@ -207,56 +485,118 @@ prefix="c" %>
                 </div>
 
                 <!-- 리뷰 테이블  -->
+
+                
+
+                
                 <div class="desc-box">
                   <h4 class="content-title">리뷰</h4>
                   <div class="menu-part page-section review" id="review">
-                    <div class="review-box">
-                      <div class="rating">
-                        <span>해당 리뷰 아이디 </span>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                    <form>
+                      <div class="row">
+                        <div class="form-group col-10">
+                          <label for="exampleFormControlTextarea1">
+                            리뷰 작성
+                          </label>
+                          <textarea
+                            class="form-control review_content"
+                            id="exampleFormControlTextarea1"
+                            rows="2"
+                            placeholder=""
+                          ></textarea>
+                        </div>
+                        <div class="col-2 row">
+                          <div class="dropdown">
+                            <button
+                              class="btn btn-warning btn-rounded dropdown-toggle"
+                              type="button"
+                              id="dropdownStarCount"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              별점 선택
+                            </button>
+                            <ul
+                              class="dropdown-menu"
+                              aria-labelledby="dropdownStarCount"
+                            >
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="5"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="4"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="3"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="2"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                              <li>
+                                <a class="dropdown-item" href="#" data-stars="1"
+                                  ><i class="fas fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i>
+                                  <i class="far fa-star"></i
+                                ></a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="submit-btn">
+                            <button
+                              type="button"
+                              id="tourReviewBtn"
+                              class="btn btn-rounded color1">
+                              리뷰 작성
+                            </button>
+                          </div>
+                        </div>
                       </div>
-                      <h6>여행지</h6>
-                      <h6>해당 리뷰 번호</h6>
-                      <p>해당 리뷰 내용</p>
-                    </div>
+                    </form>
+                    <!-- 댓글 추가하는 부분 -->
+                  <div id="tour_review">
+                    
+                  </div>
+                   
+                    <button
+                      type="button"
+                      class="btn btn-secondary col-2 offset-xl-5"
+                      id="moreReview"
+                    >
+                      리뷰 더보기
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- 다른 게시물 추천 테이블 -->
-            <div class="special-section related-box ratio3_2 grid-box">
-              <div class="slider-3 no-arrow">
-                <div>
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
-                        <img
-                          src="../assets/images/hotel/gallery/4.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                    </div>
-                    <div class="special-content">
-                      <a href="#">
-                        <h5>다른 게시물 제목</h5>
-                      </a>
-                      <p>게시물 내용</p>
-                      <div class="bottom-section">
-                        <div class="rating">
-                          <span>조회수 review</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
           </div>
           <div class="col-xl-3 col-lg-4" id="booking">
             <div class="sticky-cls">
@@ -558,5 +898,36 @@ prefix="c" %>
         format: "dd mmmm",
       });
     </script>
+
+    <!-- 신고 기능 -->
+      <script>
+        function reportPost() {
+            var touroviewNum = document.getElementById('touroviewNum').value;
+            var sessionId = document.getElementById('sessionId').value;
+
+            $.ajax({
+                url: '/touroview/report', // 신고 처리를 위한 서버의 URL
+                type: 'POST',
+                data: { touroview_num: touroviewNum, user_id : sessionId},
+                success: function(response) {
+                    // 성공 처리
+                    alert('신고가 처리되었습니다.');
+                    $("#reportbutton").css("background-color","#fd6668"); // 버튼 색상 변경
+                    document.querySelector("#reportbutton").removeAttribute('href');
+
+                  },
+                error: function(xhr, status, error) {
+              // 에러 처리
+              console.error("Error: " + status + " - " + error);
+              alert('신고 처리 중 오류가 발생했습니다.');
+          }
+      });
+  }
+
+      </script>
+      
+
+
+
   </body>
 </html>

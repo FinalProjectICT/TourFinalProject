@@ -24,4 +24,29 @@
         ORDER BY img_num DESC LIMIT 1
     </select>
 
+
+    <insert id="insertFileMate" parameterType="ImgVO">
+        INSERT INTO img_detail
+               ( 
+                img_num
+                , touro_mate_num
+                ) 
+        VALUES ( 
+                #{img_num}
+                , #{touro_mate_num}
+                )
+    </insert>
+
+    <insert id="insertFileView" parameterType="ImgVO">
+        INSERT INTO img_detail
+               ( 
+                img_num
+                , touroview_num
+                ) 
+        VALUES ( 
+                #{img_num}
+                , #{touroview_num}
+                )
+    </insert>
+
 </mapper>

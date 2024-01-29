@@ -2,15 +2,22 @@ package com.example.coding.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.coding.domain.ImgDetailVO;
+import com.example.coding.domain.ImgVO;
+import com.example.coding.domain.LikeVO;
 import com.example.coding.domain.TourVO;
+import com.example.coding.domain.TouroviewDetailVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.service.ImgService;
 import com.example.coding.service.TouroviewService;
+import com.example.coding.util.MD5Generator;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,6 +30,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -33,6 +41,9 @@ public class HSKController {
 
     @Autowired
     private TouroviewService touroviewService;
+
+    @Autowired
+    public ImgService imgService;
 
     
     // -------------------------- touroview_insert
@@ -61,7 +72,7 @@ public class HSKController {
         // 로그인 된 경우 게시글 작성 폼 이동
         session.setAttribute("userId", userId);
         return "touroview/touroview_insert";
-        }
+    }
 
 
     // 여행지 검색
@@ -81,7 +92,9 @@ public class HSKController {
 
     // 후기 게시물 등록
     @PostMapping("/saveTouroview")
-    public String saveTouroview(@ModelAttribute("touroviewVO") TouroviewVO touroviewVO, HttpServletRequest request, Model model) {
+    public String saveTouroview(@ModelAttribute("touroviewVO") TouroviewVO touroviewVO, 
+                                HttpServletRequest request, Model model, 
+                                @RequestParam(name="files", required = false) MultipartFile[] files) {
             try{
                 // 여행 후기 데이터를 저장하는 서비스 메소드 호출
                 System.out.println("여행지:" + touroviewVO.getTouroview_title()); // 콘솔 찍어보기 여행지
@@ -94,12 +107,70 @@ public class HSKController {
 
                 // 사용자 아이디 설정
                 touroviewVO.setUser_id(userId);
-                
+
                 // 여행 후기 데이터 저장하는 서비스 메소드 호출
                 touroviewService.saveTouroview(touroviewVO);
 
+                // 게시물 번호
+                int touroview_num = touroviewService.selectViewNum();
+
+                // 파일 업로드 처리
+                try {
+                    if (files != null && files.length > 0) {
+                        try{
+                            for (MultipartFile file : files) {
+                                // 각 파일에 대한 처리 로직 추가
+                                // 예를 들어, 파일을 저장하거나 다른 작업을 수행할 수 있습니다.
+                                String img_name = file.getOriginalFilename();
+                                System.out.println("originFilename : " + img_name);
+                                String img_real_name = new MD5Generator(img_name).toString();
+            
+                                // 시스템으로 자동으로 잡아주는 경로 설정
+                                // 생성되는 폴더의 위치를 확인 후 추후 변경
+                                // => static 폴더 밑으로 이동해야 사용자가 그 파일에 접근 가능
+                                String save_path = System.getProperty("user.dir")+"\\src\\main\\resources\\static\\assets\\images\\touroviewImg";
+                                if( !new File(save_path).exists() ){
+                                    new File(save_path).mkdir();
+                                } 
+                                String img_path = save_path + "\\" + img_real_name;
+                                System.out.println("filepath : " + img_path);
+            
+                                // 파일저장
+                            
+                                file.transferTo(new File(img_path));
+                                
+                                
+                                // 디비저장을 위해서 파일정보 덩어리 만들기
+                                ImgVO ivo = new ImgVO();
+                                ivo.setImg_name(img_name);
+                                ivo.setImg_real_name(img_real_name);
+                                ivo.setImg_path(img_path);
+                                System.out.println("<<<<< 파일정보 덩어리 만들기 성공 >>>>>");
+            
+                                imgService.insertFile(ivo);
+                                System.out.println("insertFile() 요청");
+            
+                                // 파일정보 img_detail에 담기
+                                ImgDetailVO idvo = new ImgDetailVO();
+                                // idvo.setUser_id(vo.getUser_id());
+                                idvo.setImg_num(imgService.selectNum());
+                                idvo.setTouroview_num(touroview_num);
+                                System.out.println(idvo.getTouroview_num());
+                                touroviewService.insertFileView(idvo);
+                                System.out.println("아이디 : " + idvo.getTouroview_num()+"이미지번호 : " + idvo.getImg_num());
+                            }
+                        }catch(Exception e) {
+                            System.out.println("file error" + e);
+                        }
+                    }
+                } catch (Exception e) {
+                        System.out.println("file2 error");
+                                
+                }
+
+
                 // 성공 시 리다이렉트
-                return "redirect:/touroview/touroview_detail/" + touroviewVO.getTouroview_num(); // 저장 후 목록 페이지로 리다이렉트
+                return "redirect:/touroview/touroview_detail?touroview_num=" + String.valueOf(touroview_num); // 저장 후 목록 페이지로 리다이렉트
             } catch (Exception e){
                 // 저장 중 오류 발생
                 e.printStackTrace();
@@ -107,9 +178,6 @@ public class HSKController {
             }
         }
 
-
-
-        
         
     // ---------------------------------------------- touroivew_list
     
@@ -119,9 +187,17 @@ public class HSKController {
                                     @RequestParam(name = "searchKeyword", required = false) String searchKeyword,
                                     @RequestParam(name = "page", defaultValue = "0") Integer page,
                                     @RequestParam(name = "size", defaultValue = "10") Integer size) {
+        
         // Touroview 목록 가져오기
         List<TouroviewVO> touroviewList = touroviewService.getTouroviewList(searchKeyword, page, size);
-        System.out.println("touroview 목록: " + touroviewList);
+
+        // 각 TouroviewVO에 대한 tourVO의 이미지 경로 추가
+        for(TouroviewVO touroview : touroviewList){
+            TourVO tourVO = touroviewService.getTourByNum(touroview.getTour_num());
+            if(tourVO != null){
+                touroview.setTour_img1_path(tourVO.getTour_img1_path()); // TouroviewVO에 이미지 경로 설정
+            }
+        }                                
 
         // 전체 페이지 수 계산
         int totalPages = touroviewService.getTotalPages(size);
@@ -149,6 +225,21 @@ public class HSKController {
             // touroviewNum에 해당하는 후기를 서비스를 통해 불러와서 모델에 추가
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroview_num);
 
+            int touroviewNum = Integer.parseInt(touroviewVO.getTour_num());
+
+            // 배경 이미지
+            TouroviewDetailVO touroviewImg = touroviewService.getTouroviewImg(touroviewNum);
+            // System.out.println(">>>>>>>>> 배경이미지" + touroviewImg.getTour_img1_path());
+            model.addAttribute("touroviewImg", touroviewImg);
+
+
+            // 디테일 이미지 가져오기(3개)
+            List<TouroviewDetailVO> detailImg = touroviewService.detailviewImg(touroview_num);
+            // System.out.println("**********"+touroview_num);
+            // System.out.println(">>>>>>>>> 디테일이미지");
+            model.addAttribute("detailImg", detailImg);
+
+
             // 후기 정보가 없을 경우 목록 페이지로 리다이렉트
             if (touroviewVO == null){
                 return "redirect:/touroview/touroview_list";
@@ -157,26 +248,26 @@ public class HSKController {
             // 후기 정보와 연결된 여행지 정보를 가져오기
             int tourNum = Integer.parseInt(touroviewVO.getTour_num()); 
             TourVO tourVO = touroviewService.getTourByTouroviewId(tourNum);
-            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", ""); // 우편번호 000000 처리
+            System.out.println("TourVO 이미지 가져오는지 확인: " + tourVO.getTour_img1_path());
+            
+
+            // 우편번호 000000 처리
+            String postNum = tourVO.getTour_postnum().replaceAll("\\.0$", "");
             tourVO.setTour_postnum(postNum); // tourVO에 postNum 넣기
 
-            // UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num); // UserVO
-            // TouroviewReviewVO touroviewReviewVO = touroviewService.getTouroviewReviewByTouroviewId(touroview_num); //touroviewReview
-            UserVO userVO = (UserVO) model.getAttribute("userVO"); // UserVO
+            UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num);
             TouroviewReviewVO touroviewReviewVO = (TouroviewReviewVO) model.getAttribute("touroviewReviewVO"); //touroviewReview
+
+            // boolean isReported = touroviewService.checkReported(touroviewNum, loggedInUserId);
+
 
             // 모델에 데이터 추가
             model.addAttribute("touroviewVO", touroviewVO);
             model.addAttribute("tourVO", tourVO);
+            model.addAttribute("userVO", userVO);
+            // model.addAttribute("isReported", isReported);
 
-            // model.addAttribute("userVO", userVO); //UserVO
-            // model.addAttribute("touroviewReviewVO", touroviewReviewVO); //touroviewReview
 
-            // 찍어보기
-            System.out.println("게시물 후기 번호: " + touroview_num);
-            System.out.println("Touroview 정보 : " + touroviewVO);
-            System.out.println("Tour 정보 : " + tourVO);
-            System.out.println("Tour 번호: " + tourNum);
 
             // 자신이 작성한 게시글인 경우 모델에 플래그 추가
             boolean isAuthor = loggedInUserId != null && loggedInUserId.equals(touroviewVO.getUser_id());
@@ -192,7 +283,13 @@ public class HSKController {
     }
         
 
+    @PostMapping("/report")
+    @ResponseBody
+    public void report(TouroviewVO touroviewVO) {
+        touroviewService.insertReportCount(touroviewVO);
 
+    }
+    
 
 
         
@@ -260,5 +357,38 @@ public class HSKController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("삭제 중 오류가 발생했습니다.");
         }
     }
+
+
+
+     // 좋아요 추가
+    @PostMapping("/addWishList")
+    @ResponseBody
+	public void addWishList(@ModelAttribute("vo") LikeVO vo){
+        touroviewService.addWishList(vo);
+	}
+
+    // 좋아요 확인
+    @PostMapping("/ckWishList")
+    @ResponseBody
+	public int ckWishList(@ModelAttribute("vo") LikeVO vo){
+		int res = touroviewService.ckWishList(vo);
+        System.out.println("Res값!!:>>>>>> " + res);
+		return res;
+	}
+
+    // 좋아요 삭제
+    @PostMapping("/deleteWishList")
+    @ResponseBody
+	public String deleteWishList(@ModelAttribute("vo") LikeVO vo){
+		int result = touroviewService.deleteWishList(vo);
+        System.out.println("result >>>>!!! >>>> " + result);
+		System.out.println(result);
+		if (result == 1) {
+			return "ok";
+		} else {
+			return "no";
+		}
+		
+	}
   
 }

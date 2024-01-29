@@ -263,7 +263,7 @@
         MONTH;
   </select>
 
-
+  <!-- 관리자 대시보드 영수증 리뷰 그래프 -->
   <select id="receiptCountGraph">
     SELECT DATE_FORMAT(receipt_date, '%y.%m') AS MONTH,
     Count(DATE_FORMAT(receipt_date, '%y.%m')) AS count_month
@@ -273,6 +273,36 @@
         MONTH
     ORDER BY
         MONTH;
+  </select>
+
+  <!-- 여행지 - 리뷰 달기 -->
+  <insert id="reviewInsert" parameterType="TourReviewVO">
+    INSERT INTO tour_review(user_id, tour_num, tour_review_content, tour_review_star, tour_review_regdate)
+    VALUES (#{user_id}, #{tour_num}, #{tour_review_content}, #{tour_review_star}, NOW()) 
+  </insert>
+
+  <!-- 여행지 - 리뷰 가져오기 -->
+  <select id="reviewSelect" parameterType="TourReviewVO" resultType="TourReviewVO">
+    SELECT DISTINCT tr.*, i.*
+    FROM   tour_review tr LEFT JOIN img_detail idn ON tr.user_id = idn.user_id
+    LEFT JOIN img i ON idn.img_num = i.img_num
+    WHERE  tr.tour_num = #{tour_num}
+    ORDER BY tr.tour_review_num DESC;
+  </select>
+
+   <!-- 여행후기 게시판 - 리뷰 달기 -->
+  <insert id="touroviewReviewInsert" parameterType="TouroviewReviewVO">
+    INSERT INTO touroview_review(user_id, touroview_num, touroview_review_content, touroview_review_star, touroview_review_register_date, tour_num)
+    VALUES (#{user_id}, #{touroview_num}, #{touroview_review_content}, #{touroview_review_star}, NOW(), #{tour_num}); 
+  </insert>
+
+  <!-- 여행후기 게시판 - 리뷰 가져오기 -->
+  <select id="touroviewReviewSelect" parameterType="TouroviewReviewVO" resultType="TouroviewReviewVO">
+    SELECT DISTINCT tr.*, i.*
+    FROM   touroview_review tr LEFT JOIN img_detail idn ON tr.user_id = idn.user_id
+    LEFT JOIN img i ON idn.img_num = i.img_num
+    WHERE  tr.touroview_num = #{touroview_num}
+    ORDER BY tr.touroview_review_num DESC;
   </select>
 
 </mapper>

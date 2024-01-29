@@ -31,10 +31,10 @@
         <!-- 첫 번째 INSERT는 touro_mate에 값을 저장 -->
         INSERT INTO touro_mate (touro_mate_num, user_id, touro_mate_title, touro_mate_count, touro_mate_content,
             touro_mate_name1, touro_mate_name2, touro_mate_name3,
-            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3)
+            touro_mate_addr1, touro_mate_addr2, touro_mate_addr3, touro_mate_date)
         VALUES (#{touro_mate_num}, #{user_id}, #{touro_mate_title}, #{touro_mate_count}, #{touro_mate_content},
             #{touro_mate_name1}, #{touro_mate_name2}, #{touro_mate_name3},
-            #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3});
+            #{touro_mate_addr1}, #{touro_mate_addr2}, #{touro_mate_addr3}, NOW());
     </insert>
 
     <insert id="registerTouroMateChat" parameterType="TouroMateVO">
@@ -82,6 +82,21 @@
         WHERE user_id = #{user_id} AND chat_num = #{chat_num}
     </select>
 
+    <!-- 여행친구찾기 이름 찾기 -->
+    <select id="selectMateNum" resultType="int">
+        SELECT touro_mate_num
+        FROM touro_mate
+        ORDER BY touro_mate_num DESC LIMIT 1
+    </select>
+
+    <!-- 디테일 이미지 가져오기 -->
+    <select id="getImages" parameterType="int" resultType="ImgVO">
+        SELECT i.img_real_name img_real_name
+        FROM   img_detail id INNER JOIN img i ON id.img_num = i.img_num 
+        WHERE  id.touro_mate_num = #{touro_mate_num}
+    </select>
+
+
     <select id="getCurrentChatUsers" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM tour_mate_chat_user
         WHERE chat_num = #{touro_mate_num}
@@ -92,5 +107,45 @@
         SELECT chat_user_count FROM tour_mate_chat
         WHERE touro_mate_num = #{touro_mate_num}
     </select>
+
+    <!-- 사용자 프로필 이미지 가져오기 -->
+    <select id="getProfile" parameterType="UserProfileVO" resultType="UserProfileVO">
+        SELECT c.img_real_name
+        FROM user a JOIN img_detail b ON a.user_id = b.user_id
+        JOIN img c ON b.img_num = c.img_num
+        WHERE a.user_id = #{user_id}
+    </select>
+
+    <!-- 게시물 삭제 -->
+    <delete id="deleteTouroMate" parameterType="TouroMateVO">
+        DELETE FROM touro_mate WHERE touro_mate_num = #{touro_mate_num} AND user_id = #{user_id}
+    </delete>
+
+    <!-- 작성자 정보 가져오기 -->
+    <select id="getAuthorInfoById" resultType="UserVO" parameterType="int">
+        SELECT user_id FROM touro_mate WHERE touro_mate_num = #{touro_mate_num}
+    </select>
+
+    <!-- 좋아요 추가 -->
+    <insert id="addWishList" parameterType="LikeVO">
+        INSERT INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
+        VALUES (NULL, #{user_id}, '1', #{touro_mate_num})
+    </insert>
+
+    <!-- 좋아요 확인 -->
+    <select id="ckWishList" resultType="int" parameterType="LikeVO">
+        SELECT count(*) 
+        FROM `like` 
+        WHERE user_id = #{user_id} AND touro_mate_num = #{touro_mate_num}
+    </select>
+
+    <!-- 좋아요 삭제 -->
+    <delete id="deleteWishList" parameterType="LikeVO">
+        DELETE FROM `like` 
+       WHERE user_id = #{user_id} AND touro_mate_num = #{touro_mate_num}
+    </delete>
+
+
+
 
 </mapper> 

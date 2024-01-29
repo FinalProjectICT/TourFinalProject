@@ -38,4 +38,34 @@
         ORDER BY img_num DESC LIMIT 1
     </select>
 
+
+    <insert id="insertMateImg" parameterType="ImgVO">
+        INSERT INTO img
+               ( 
+                img_name
+                , img_real_name
+                , img_path
+                ) 
+        VALUES ( 
+                #{img_name}
+                , #{img_real_name}
+                , #{img_path}
+                )
+    </insert>
+
+
+    <insert id="insertViewImg" parameterType="ImgVO">
+        INSERT INTO img
+               ( 
+                img_name
+                , img_real_name
+                , img_path
+                ) 
+        VALUES ( 
+                #{img_name}
+                , #{img_real_name}
+                , #{img_path}
+                )
+    </insert>
+
 </mapper>

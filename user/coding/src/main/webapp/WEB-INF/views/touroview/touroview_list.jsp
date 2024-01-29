@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -61,6 +61,117 @@ pageEncoding="UTF-8"%>
       type="text/css"
       href="../assets/css/fileupload.css"
     />
+    <script>
+      $(function(){
+  
+      
+      // 좋아요
+      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+  
+      $(() => {
+        // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+        $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+          // 여행지 값, 사용자 정보 가져오기
+          var num = $(item).attr("title");
+          console.log("num >>> ", num);
+          var id = loggedInUserId;
+          console.log("id >>> ", id);
+  
+          // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+          ckWishList(item, num, id);
+  
+          // 좋아요 누를 때 동작
+          $(item).on("click", (e) => {
+            e.preventDefault();
+  
+            var ck = "0";
+            var icon = $(this).children();
+  
+            // 좋아요 상태 구분으로 중복 찜처리 방지
+            if (id != null && id != "") {
+              if (icon.attr("class") != "fas fa-heart") {
+                $.ajax({
+                  url: "/touroview/addWishList",
+                  type: "post",
+                  dataType: "json",
+                  data: { user_id: id, touroview_num: num },
+                  success: function (result) {
+                    ck = result;
+                  },
+                  error: function (err) {
+                    console.log(err);
+                  },
+                });
+                $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+              } else {
+                  $.ajax({
+                    type:'post',
+                    data : {touroview_num : num, user_id : id},
+                    url : "/touroview/deleteWishList",
+                    success : function (result) {
+                      if(result == "ok") {
+                        $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                      }
+                    },
+                    error : function (err) {
+                      console.log(err)
+                    }
+                  }) // end ajax
+                
+              }
+            } else if (id == null || id == "") alert("로그인이 필요합니다.");
+          });
+        });
+      });
+  
+      // 좋아요 확인
+      function ckWishList(item, num, id) {
+        $.ajax({
+          url: "/touroview/ckWishList",
+          type: "post",
+          dataType: "json",
+          data: { user_id: id, touroview_num: num },
+          success: function (result) {
+            if (result == "1") {
+              $(item)
+                .children()
+                .attr("class", "fas fa-heart")
+                .css("color", "#ff0000");
+            }
+          },
+          error: function (err) {
+            console.log(err);
+          },
+        });
+      }
+  
+      // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
+      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+  
+      console.log("loggedInUserId 설정 이후: ", loggedInUserId);
+  
+      function deleteTouroMate(touroMateNum) {
+          console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+          console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+          if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+              // AJAX를 사용하여 삭제 요청을 서버에 전송
+              $.ajax({
+                  type: "POST",
+                  url: "/touromate/deleteTouroMate",
+                  data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
+                  success: function (response) {
+                      alert(response);
+                      window.location.href = "/touromate/touromate_list";
+                  },
+                  error: function (error) {
+                    alert("게시물 삭제 권한이 없습니다.");
+                    console.error("삭제 오류:", error);
+                }
+              });
+          }
+      }
+    }) // end script
+  </script>
   </head>
 
   <body>
@@ -78,12 +189,12 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content overlay-black">
         <div>
-          <h2>holiday package</h2>
+          <h2>여행 후기 공유</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">TOURO</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                holiday package
+                여행 후기 공유
               </li>
             </ol>
           </nav>
@@ -132,85 +243,7 @@ pageEncoding="UTF-8"%>
                   <div class="middle-part collection-collapse-block open">
                     <div class="collection-collapse-block-content row">
                       <div class="filter-block col">
-                        <div class="collection-collapse-block open">
-                          <h6 class="collapse-block-title">trip duration</h6>
-                          <div class="collection-collapse-block-content">
-                            <div class="collection-brand-filter">
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="english"
-                                />
-                                <label class="form-check-label" for="english"
-                                  >upto 3 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="sign"
-                                />
-                                <label class="form-check-label" for="sign"
-                                  >4 to 7 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="italiano"
-                                />
-                                <label class="form-check-label" for="italiano"
-                                  >7 to 11 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="suomi"
-                                />
-                                <label class="form-check-label" for="suomi"
-                                  >11 to 15 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="espanol"
-                                />
-                                <label class="form-check-label" for="espanol"
-                                  >15 to 21 nights</label
-                                >
-                              </div>
-                              <div
-                                class="form-check collection-filter-checkbox"
-                              >
-                                <input
-                                  type="checkbox"
-                                  class="form-check-input"
-                                  id="french"
-                                />
-                                <label class="form-check-label" for="french"
-                                  >above 21 nights</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -263,11 +296,11 @@ pageEncoding="UTF-8"%>
                 >
                   <div class="special-box p-0">
                     <!-- 이미지 select 값 -->
-                    <div class="special-img">
+                    <div class="special-img" style="height: 200px;">
                       <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <img
-                          src="../assets/images/tour/tour/7.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
+                          src="../${touroview.tour_img1_path}"
+                          class="img-fluid blur-up lazyload "
                           alt=""
                         />
                       </a>
@@ -278,8 +311,8 @@ pageEncoding="UTF-8"%>
                           class=""
                           data-bs-toggle="tooltip"
                           data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
+                          title="${touroviewVO.touroview_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
                         </a>
@@ -344,205 +377,9 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- section End -->
 
-    <!-- footer start -->
-    <footer>
-  <div class="footer section-b-space section-t-space">
-     <div class="container">
-        <div class="row order-row">
-           <div class="col-xl-2 col-md-2 order-cls">
-            <div class="footer-title mobile-title">
-              <h5>Touro</h5>
-              </div>
-              <div class="footer-content">
-                <div class="contact-detail">
-                  <div class="footer-logo">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </div>
-                  <p>사이트 소개</p>
-                  <ul class="contact-list">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                      Newyork.
-                    </li>
-                    <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                    <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-4">
-              <div class="footer-title">
-                <h5>인기 여행지</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-place">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="footer-title">
-                <h5>인기 게시물</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-blog row">
-                  <div class="media"></div>
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- footer end -->
+    <!-- 푸터 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../footer/footer.jsp' %>
+    <!--  푸더 끝 -->
 
     <!-- tap to top -->
     <div class="tap-top">
@@ -552,28 +389,6 @@ pageEncoding="UTF-8"%>
     </div>
     <!-- tap to top end -->
 
-    <!-- setting start -->
-    <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div>
-    <!-- setting end -->
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>

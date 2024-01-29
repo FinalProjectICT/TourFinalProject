@@ -30,7 +30,7 @@
 	<!-- 여행지 삭제 -->
 	<delete id="deleteNum" parameterType="AdminVO" >
 
-		DELETE FROM tour WHERE tour_num = #{tourNum}
+		DELETE FROM tour WHERE tour_num = #{tour_num} AND NOT EXISTS (SELECT 1 FROM touroview WHERE touroview.tour_num = tour.tour_num);
 
 	</delete>
 

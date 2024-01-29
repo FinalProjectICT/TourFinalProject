@@ -74,55 +74,41 @@ prefix="c" %>
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
 
-    <!-- image section start -->
-    <section class="pt-0 ratio2_3 zoom-gallery overlay-hover">
-      <div class="container-fluid p-0">
-        <div class="row m-0">
-          <div class="col-md-6 p-0">
-            <a href="../assets/images/single-hotel/slider/10.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/10.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-md-3 col-6 p-0">
-            <a href="../assets/images/single-hotel/slider/11.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/11.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-            <a href="../assets/images/single-hotel/slider/6.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/6.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
-          <div class="col-md-3 col-6 p-0">
-            <a href="../assets/images/single-hotel/slider/7.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/7.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-            <a href="../assets/images/single-hotel/slider/8.jpg">
-              <img
-                src="../assets/images/single-hotel/slider/8.jpg"
-                class="img-fluid blur-up lazyload bg-img"
-                alt=""
-              />
-            </a>
-          </div>
+    <section class="breadcrumb-section parallax-img pt-0">
+      <img
+        src="../assets/images/inner-pages/breadcrumb1.jpg"
+        class="bg-img img-fluid blur-up lazyload"
+        alt=""
+      />
+      <div class="breadcrumb-content overlay-black">
+        <div>
+          <h2>holiday package</h2>
+          <nav aria-label="breadcrumb" class="theme-breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">
+                holiday package
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="bird-animation">
+        <div class="bird-container bird-container--one">
+          <div class="bird bird--one"></div>
+        </div>
+        <div class="bird-container bird-container--two">
+          <div class="bird bird--two"></div>
+        </div>
+        <div class="bird-container bird-container--three">
+          <div class="bird bird--three"></div>
+        </div>
+        <div class="bird-container bird-container--four">
+          <div class="bird bird--four"></div>
         </div>
       </div>
     </section>
-    <!-- image section end -->
+    <!-- breadcrumb end -->
 
     <!-- section start -->
     <section class="single-section small-section bg-inner">
@@ -134,17 +120,14 @@ prefix="c" %>
                 <div class="left-part">
                   <div class="top">
                     <h2>${touroMate.touro_mate_title}</h2>
-                    <div class="rating">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
                     <div class="share-buttons">
-                      <a href="#" class="btn btn-solids"
-                        ><i class="far fa-heart"></i>좋아요</a
-                      >
+                      <a href="#" 
+                         class="btn btn-solids"
+                         title="${touroMate.touro_mate_num}"
+                         data-original-title="Add_to_Wishlist"
+                        ><i class="far fa-heart"></i>좋아요</a>
+                        <a id="delete-button" class="btn btn-solid color1 book-now delete-button"
+                            onclick="deleteTouroMate(`${touroMate.touro_mate_num}`)">삭제</a>
                     </div>
                   </div>
                   <div class="facility-detail">
@@ -155,6 +138,115 @@ prefix="c" %>
               </div>
             </div>
           </div>
+          <script>
+            // 좋아요
+            var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
+            $(() => {
+              // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
+              $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+                // 여행지 값, 사용자 정보 가져오기
+                var num = $(item).attr("title");
+                console.log("num >>> ", num);
+                var id = loggedInUserId;
+                console.log("id >>> ", id);
+
+                // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
+                ckWishList(item, num, id);
+
+                // 좋아요 누를 때 동작
+                $(item).on("click", (e) => {
+                  e.preventDefault();
+
+                  var ck = "0";
+                  var icon = $(this).children();
+
+                  // 좋아요 상태 구분으로 중복 찜처리 방지
+                  if (id != null && id != "") {
+                    if (icon.attr("class") != "fas fa-heart") {
+                      $.ajax({
+                        url: "/touromate/addWishList",
+                        type: "post",
+                        dataType: "json",
+                        data: { user_id: id, touro_mate_num: num },
+                        success: function (result) {
+                          ck = result;
+                        },
+                        error: function (err) {
+                          console.log(err);
+                        },
+                      });
+                      $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+                    } else {
+                        $.ajax({
+                          type:'post',
+                          data : {touro_mate_num : num, user_id : id},
+                          url : "/touromate/deleteWishList",
+                          success : function (result) {
+                            if(result == "ok") {
+                              $(icon).attr("class", "far fa-heart").css("color", "#000000");
+                            }
+                          },
+                          error : function (err) {
+                            console.log(err)
+                          }
+                        }) // end ajax
+                      
+                    }
+                  } else if (id == null || id == "") alert("로그인이 필요합니다.");
+                });
+              });
+            });
+
+            // 좋아요 확인
+            function ckWishList(item, num, id) {
+              $.ajax({
+                url: "/touromate/ckWishList",
+                type: "post",
+                dataType: "json",
+                data: { user_id: id, touro_mate_num: num },
+                success: function (result) {
+                  if (result == "1") {
+                    $(item)
+                      .children()
+                      .attr("class", "fas fa-heart")
+                      .css("color", "#ff0000");
+                  }
+                },
+                error: function (err) {
+                  console.log(err);
+                },
+              });
+            }
+
+            // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
+            var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+        
+            console.log("loggedInUserId 설정 이후: ", loggedInUserId);
+        
+            function deleteTouroMate(touroMateNum) {
+                console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+                console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+                if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+                    // AJAX를 사용하여 삭제 요청을 서버에 전송
+                    $.ajax({
+                        type: "POST",
+                        url: "/touromate/deleteTouroMate",
+                        data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
+                        success: function (response) {
+                            alert(response);
+                            window.location.href = "/touromate/touromate_list";
+                        },
+                        error: function (error) {
+                          alert("게시물 삭제 권한이 없습니다.");
+                          console.error("삭제 오류:", error);
+                      }
+                    });
+                }
+            }
+        </script>
+                
+        
           <div class="col-xl-9 col-lg-8">
             <div class="description-section tab-section">
               <div class="menu-top menu-up">
@@ -185,33 +277,77 @@ prefix="c" %>
                 >
                   <div class="menu-part tab-pane fade show active" id="rooms">
                     <table class="rooms-box">
-                      <tr>
-                        <td>
-                          <h6 class="room-title">여행지 지역</h6>
-                          <a href="#">
-                            <img
-                              src="../assets/images/hotel/room/4.jpg"
-                              class="img-fluid blur-up lazyload"
-                              alt=""
-                            />
-                          </a>
-                        </td>
-                        <td>
-                          <div class="room-detail">
-                            <div class="row">
-                              <div class="col-6 p-0">
-                                <h6>${touroMate.touro_mate_name1}</h6>
-                                <div class="facility-detail">
-                                  <ul>
-                                    <li>${touroMate.touro_mate_addr1}</li>
-                                  </ul>
+                      <c:forEach
+                        items="${mateimgList}"
+                        var="img"
+                        varStatus="status"
+                      >
+                        <c:set var="idx" value="${status.count}"></c:set>
+                        <tr>
+                          <td>
+                            <h6 class="room-title">여행지 지역</h6>
+                            <a href="#">
+                              <img
+                                src="../../assets/images/touromateImg/${img.img_real_name}"
+                                class="img-fluid blur-up lazyload"
+                                alt=""
+                              />
+                            </a>
+                          </td>
+                          <c:choose>
+                            <c:when test="${idx eq 1}">
+                              <td>
+                                <div class="room-detail">
+                                  <div class="row">
+                                    <div class="col-6 p-0">
+                                      <h6>${touroMate.touro_mate_name1}</h6>
+                                      <div class="facility-detail">
+                                        <ul>
+                                          <li>${touroMate.touro_mate_addr1}</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
+                              </td>
+                            </c:when>
+                            <c:when test="${idx eq 2}">
+                              <td>
+                                <div class="room-detail">
+                                  <div class="row">
+                                    <div class="col-6 p-0">
+                                      <h6>${touroMate.touro_mate_name2}</h6>
+                                      <div class="facility-detail">
+                                        <ul>
+                                          <li>${touroMate.touro_mate_addr2}</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </c:when>
+                            <c:when test="${idx eq 3}">
+                              <td>
+                                <div class="room-detail">
+                                  <div class="row">
+                                    <div class="col-6 p-0">
+                                      <h6>${touroMate.touro_mate_name3}</h6>
+                                      <div class="facility-detail">
+                                        <ul>
+                                          <li>${touroMate.touro_mate_addr3}</li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </c:when>
+                          </c:choose>
+                        </tr>
+                      </c:forEach>
+
+                      <!-- <tr>
                         <td>
                           <h6 class="room-title">여행지 지역</h6>
                           <a href="#">
@@ -262,7 +398,7 @@ prefix="c" %>
                             </div>
                           </div>
                         </td>
-                      </tr>
+                      </tr> -->
                     </table>
                   </div>
                   <div class="about menu-part tab-pane fade" id="about">
@@ -288,13 +424,13 @@ prefix="c" %>
                             level: 3, // 지도의 확대 레벨
                           };
 
-                        // 지도를 생성합니다
+                        // 지도를 생성
                         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-                        // 주소-좌표 변환 객체를 생성합니다
+                        // 주소-좌표 변환 객체를 생성
                         var geocoder = new kakao.maps.services.Geocoder();
 
-                        // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+                        // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
                         var bounds = new kakao.maps.LatLngBounds();
 
                         var positions = [
@@ -313,7 +449,7 @@ prefix="c" %>
                         ];
 
                         positions.forEach(function (position) {
-                          // 주소로 좌표를 검색합니다
+                          // 주소로 좌표를 검색
                           geocoder.addressSearch(
                             position.address,
                             function (result, status) {
@@ -324,17 +460,17 @@ prefix="c" %>
                                   result[0].x
                                 );
 
-                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                // 결과값으로 받은 위치를 마커로 표시
                                 var marker = new kakao.maps.Marker({
                                   map: map,
                                   position: coords,
                                 });
                                 marker.setMap(map); //추가한 코드
 
-                                // LatLngBounds 객체에 좌표를 추가합니다
+                                // LatLngBounds 객체에 좌표를 추가
                                 bounds.extend(coords); //추가한 코드, 현재 코드에서 좌표정보는 point[i]가 아닌 coords이다.
 
-                                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                // 인포윈도우로 장소에 대한 설명을 표시
                                 var infowindow = new kakao.maps.InfoWindow({
                                   content:
                                     '<div style="width:150px;text-align:center;padding:6px 0;">' +
@@ -343,7 +479,7 @@ prefix="c" %>
                                 });
                                 infowindow.open(map, marker);
 
-                                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                                // 지도의 중심을 결과값으로 받은 위치로 이동
                                 // map.setCenter(coords); //제거한 코드
                                 setBounds(); //추가한 코드
                               }
@@ -351,9 +487,7 @@ prefix="c" %>
                           );
                         });
                         function setBounds() {
-                          //추가한 함수
-                          // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
-                          // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
+                          // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
                       </script>
@@ -619,6 +753,7 @@ prefix="c" %>
                 </a>
                 <div class="social-box">
                   <p>나이: ${authorInfo.user_age}</p>
+                  <p>성별: ${authorInfo.user_gender}</p>
                   <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
                   <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
                   <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
@@ -632,7 +767,11 @@ prefix="c" %>
                         ><i class="fas fa-check"></i>채팅 참여 인원:
                         ${touroMate.touro_mate_count}</span
                       >
-                      <span><i class="fas fa-check"></i>[남은 인원 수]</span>
+
+                      <span
+                        ><i class="fas fa-check"></i>남은 인원 수:
+                        ${remainingUsers}</span
+                      >
                     </div>
                   </div>
                   <div class="book-btn-section">
@@ -640,7 +779,6 @@ prefix="c" %>
                       id="chat-circle"
                       class="btn btn-raised"
                       data-bs-toggle="modal"
-                       
                       href="#"
                       class="btn btn-rounded btn-sm color1"
                       data-touro-mate-num="${touroMate.touro_mate_num}"
@@ -648,38 +786,37 @@ prefix="c" %>
                     >
                   </div>
                   <script>
-                    $('#chat-circle').click(function () {
+                    $("#chat-circle").click(function () {
                       // 게시글 번호 가져오기
-                      var touroMateNum = $(this).data('touro-mate-num');
-                      console.log('게시글번호 ', touroMateNum);
+                      var touroMateNum = $(this).data("touro-mate-num");
+                      console.log("게시글번호 ", touroMateNum);
                       // AJAX를 이용하여 채팅 참가 요청 보내기
                       $.ajax({
-                          type: 'POST',
-                          url: '/touromate/joinChat',
-                          data: { touro_mate_num: touroMateNum },
-                          success: function (response) {
-                              // 서버에서의 응답 처리
-                              console.log('Server Response:', response);
+                        type: "POST",
+                        url: "/touromate/joinChat",
+                        data: { touro_mate_num: touroMateNum },
+                        success: function (response) {
+                          // 서버에서의 응답 처리
+                          console.log("Server Response:", response);
 
-                              // 응답에 따라 모달 띄우기 또는 띄우지 않기
-                              if (response === '채팅 참가 성공') {
-                                  // 채팅 참가 성공 시 모달 띄우기
-                                  alert(response);
-                                  $('#modalMessage').text(response);
-                                  $('#chatLive').modal('show');
-                              } else {
-                                  // 채팅 참가 실패 시 알림창 띄우기
-                                  alert(response);
-                              }
-                          },
-                          error: function (error) {
-                              // 에러 처리
-                              console.error('Error joining chat:', error);
+                          // 응답에 따라 모달 띄우기 또는 띄우지 않기
+                          if (response === "채팅 참가 성공") {
+                            // 채팅 참가 성공 시 모달 띄우기
+                            alert(response);
+                            $("#modalMessage").text(response);
+                            $("#chatLive").modal("show");
+                          } else {
+                            // 채팅 참가 실패 시 알림창 띄우기
+                            alert(response);
                           }
+                        },
+                        error: function (error) {
+                          // 에러 처리
+                          console.error("Error joining chat:", error);
+                        },
                       });
-                  });
-
-                </script>
+                    });
+                  </script>
                 </div>
               </div>
               <div class="single-sidebar">
@@ -1038,7 +1175,10 @@ prefix="c" %>
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+        role="document"
+      >
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
@@ -1051,7 +1191,7 @@ prefix="c" %>
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body dashboard-section">
+          <div class="modal-body dashboard-section overflow-auto">
             <div class="chat-box-overlay"></div>
             <div class="chat-logs"></div>
           </div>
@@ -1061,7 +1201,12 @@ prefix="c" %>
               id="chat-input"
               placeholder="Send a message..."
             />
-            <button type="button" class="chat-submit" id="chat-submit" data-touro-mate-num="${touroMate.touro_mate_num}">
+            <button
+              type="button"
+              class="chat-submit"
+              id="chat-submit"
+              data-touro-mate-num="${touroMate.touro_mate_num}"
+            >
               <i class="material-icons">send</i>
             </button>
           </div>
@@ -1073,108 +1218,214 @@ prefix="c" %>
     <!-- 채팅 스크립트 코드 -->
     <script>
       let ws;
-  
+
+      // 스크롤을 제일 아래로 내리는 함수
+      function scrollToBottom() {
+        const chatLogs = $(".chat-logs");
+        chatLogs.animate({ scrollTop: chatLogs.prop("scrollHeight") }, 500);
+      }
+
       $(document).ready(function () {
-          function openWebSocket() {
-              if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-                  return;
-              }
-  
-              ws = new WebSocket('ws://localhost:8081/chat');
-  
-              ws.onopen = function () {
-                  console.log('WebSocket Client Connected');
-              };
-  
-              ws.onmessage = function (event) {
-                  const message = JSON.parse(event.data);
-                  if (message.type === 'chat' && message.message.trim() !== '') {
-                      // 받은 메시지를 모달에 표시하는 코드 추가
-                      appendMessageToChat(message.message, message.userId, message.timestamp);
-                  }
-              };
-  
-              ws.onclose = function (event) {
-                  console.log('WebSocket connection closed:', event);
-              };
+        function openWebSocket() {
+          if (
+            ws &&
+            (ws.readyState === WebSocket.OPEN ||
+              ws.readyState === WebSocket.CONNECTING)
+          ) {
+            return;
           }
-  
-          // 클릭 이벤트에 직접 메시지 전송 함수 연결
-          $('#chat-submit').click(function () {
-              sendMessage();
-          });
-  
-          // 폼의 submit 기본 동작 중지
-          $('#chatForm').submit(function (event) {
-              event.preventDefault();
-          });
-  
-          function sendMessage() {
-              const inputMessage = $('#chat-input').val().trim();
-              console.log('Sending message:', inputMessage);
 
-              //게시글 번호 가져오기
-              const postId = $('#chat-submit').data('touro-mate-num');
+          ws = new WebSocket("ws://localhost:8081/chat");
 
-              if (inputMessage !== '' && postId ) {
-                  const userId = '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
-                  ws.send(JSON.stringify({ type: 'chat', message: inputMessage, userId: userId, postId: postId }));
-                  $('#chat-input').val('');
-              }
+          ws.onopen = function () {
+            console.log("WebSocket Client Connected");
+          };
+
+          ws.onmessage = function (event) {
+            const message = JSON.parse(event.data);
+            if (message.type === "chat" && message.message.trim() !== "") {
+              // 받은 메시지를 모달에 표시하는 코드 추가
+              appendMessageToChat(
+                message.message,
+                message.userId,
+                message.timestamp,
+                message.profileImg
+              );
+            }
+          };
+
+          ws.onclose = function (event) {
+            console.log("WebSocket connection closed:", event);
+          };
+        }
+
+        // 클릭 이벤트에 직접 메시지 전송 함수 연결
+        $("#chat-submit").click(function () {
+          sendMessage();
+        });
+
+        // 폼의 submit 기본 동작 중지
+        $("#chatForm").submit(function (event) {
+          event.preventDefault();
+        });
+
+        function sendMessage() {
+          const inputMessage = $("#chat-input").val().trim();
+          console.log("Sending message:", inputMessage);
+
+          //게시글 번호 가져오기
+          const postId = $("#chat-submit").data("touro-mate-num");
+
+          if (inputMessage !== "" && postId) {
+            const userId =
+              '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+
+            $.ajax({
+              url: "/touromate/getprofileImg",
+              type: "POST",
+              data: { user_id: userId },
+              success: function (respons) {
+                console.log("미안해... ", respons);
+                let profileImg;
+                if (respons == "NO") {
+                  profileImg = "../assets/images/profile/default_profile.png";
+                } else {
+                  profileImg = "../assets/images/profile/" + respons;
+                }
+
+                ws.send(
+                  JSON.stringify({
+                    type: "chat",
+                    message: inputMessage,
+                    userId: userId,
+                    postId: postId,
+                    profileImg: profileImg // 프로필 이미지를 전달
+                  })
+                );
+
+                $("#chat-input").val("");
+              },
+              error: function (err) {
+                console.log(err);
+              },
+            });
           }
-  
-          function appendMessageToChat(message, userId, timestamp) {
-              console.log("Appending message:", message);
-              console.log("userid: " + userId);
-  
-              const displayedUserId = `${'${userId}'}:`;
-              const displayedTimestamp = `${'${timestamp}'}`;
-              const messageElement = $('<p>').html(`<strong>${'${displayedUserId}'}</strong>${'${message}'}<p style='font-size:8px'>${'${displayedTimestamp}'}</p>`);
-  
-              console.log("Message Element:", messageElement);
-  
-              // 확인: 실제로 .chat-logs에 메시지를 추가합니다.
-              const chatLogs = $('.chat-logs');
-              const isCurrentUser = userId === '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
-  
-              if (isCurrentUser) {
+        }
+
+        function appendMessageToChat(message, userId, timestamp, profileImg) {
+          console.log("Appending message:", message);
+          console.log("userid: " + userId);
+
+          console.log("유저아이디>>>>>>>>>" + userId);
+
+          // 사용자 로그인 값 여부로 프로필 이미지 가져오기
+          if (userId != null && userId != "") {
+            $.ajax({
+              url: "/touromate/getprofileImg",
+              type: "POST",
+              data: { user_id: userId },
+              success: function (respons) {
+                console.log("미안해... ", respons);
+                if (respons == "NO") {
+                  profileImg = "../assets/images/profile/default_profile.png";
+                } else {
+                  profileImg = "../assets/images/profile/" + respons;
+                }
+
+                const displayedUserId = `${"${userId}"}`;
+                const displayedTimestamp = `${"${timestamp}"}`;
+
+                // 이미지 엘리먼트 생성
+                // const imageElement = `${"${profileImg}"}`;
+                const imageElement = $("<img>")
+                  .attr("src", profileImg)
+                  .addClass("img-flui blur-up lazyloaded bg-img profile-image")
+                  .attr("alt", "");
+                console.log("imageElement: ", imageElement);
+
+                // 출력 메시지 생성
+                const messageElement = $("<div>")
+                  .addClass("message")
+                  .append(
+                    $("<div>")
+                      .addClass("user-details")
+                      .append(imageElement)
+                      .append(
+                        $("<span style='font-size: 13px'>").html(
+                          `${"${displayedUserId}"}`
+                        )
+                      )
+                  )
+                  .append(
+                    $("<div class='text_message'>").html(`${"${message}"}`)
+                  )
+                  .append(
+                    $("<p>").html(
+                      `<span style='font-size:8px'>${"${displayedTimestamp}"}</span>`
+                    )
+                  );
+                console.log("Message Element:", messageElement);
+
+                const chatLogs = $(".chat-logs");
+                const isCurrentUser =
+                  userId ===
+                  '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+
+                if (isCurrentUser) {
                   // 본인이 보낸 경우
-                  messageElement.addClass('right'); // 오른쪽 정렬 클래스 추가
-              } else {
+                  messageElement.addClass("right"); // 오른쪽 정렬 클래스 추가
+                } else {
                   // 다른 사용자가 보낸 경우
-                  messageElement.addClass('left'); // 왼쪽 정렬 클래스 추가
-              }
-  
-              // 추가한 부분: 메시지 추가 직전에 내용을 확인합니다.
-              console.log("Before appending, chat logs content:", chatLogs.html());
-  
-              // 실제로 .chat-logs에 메시지를 추가합니다.
-              chatLogs.append(messageElement);
-  
-              // 추가한 부분: 메시지 추가 직후에 내용을 확인합니다.
-              console.log("After appending, chat logs content:", chatLogs.html());
+                  messageElement.addClass("left"); // 왼쪽 정렬 클래스 추가
+                }
+
+                console.log(
+                  "Before appending, chat logs content:",
+                  chatLogs.html()
+                );
+
+                // chat-logs에 메시지를 추가
+                chatLogs.append(messageElement);
+
+                scrollToBottom();
+
+                console.log(
+                  "After appending, chat logs content:",
+                  chatLogs.html()
+                );
+              },
+              error: function (err) {
+                console.log(err);
+              },
+            });
           }
-  
-          // 모달이 열릴 때 WebSocket 연결 시작
-          $('#chatLive').on('shown.bs.modal', function () {
-              openWebSocket();
-          });
-  
-          // 모달이 닫힐 때 WebSocket 연결 종료
-          $('#chatLive').on('hidden.bs.modal', function () {
-              if (ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)) {
-                  ws.close();
-              }
-          });
-  
-          $('#chat-input').keydown(function (event) {
-              if (event.which === 13) { // Enter 키의 keyCode는 13
-                  sendMessage();
-              }
-          });
+        }
+
+        // 모달이 열릴 때 WebSocket 연결 시작
+        $("#chatLive").on("shown.bs.modal", function () {
+          openWebSocket();
+        });
+
+        // 모달이 닫힐 때 WebSocket 연결 종료
+        $("#chatLive").on("hidden.bs.modal", function () {
+          if (
+            ws &&
+            (ws.readyState === WebSocket.OPEN ||
+              ws.readyState === WebSocket.CONNECTING)
+          ) {
+            ws.close();
+          }
+        });
+
+        // Enter 동작
+        $("#chat-input").keydown(function (event) {
+          if (event.which === 13) {
+            sendMessage();
+          }
+        });
       });
     </script>
-  
+
     <!-- portfolio js -->
     <script src="../assets/js/jquery.magnific-popup.js"></script>
     <script src="../assets/js/zoom-gallery.js"></script>
@@ -1205,21 +1456,60 @@ prefix="c" %>
       });
     </script>
 
-<style>
-  .chat-logs p {
-      margin: 5px 0;
-  }
+    <style>
+      .chat-logs p {
+        margin: 5px 0;
+      }
 
-  .chat-logs .left {
-      text-align: left;
-      color: #333; /* 다른 사용자의 색상 */
-  }
+      .chat-logs .left {
+        text-align: left;
+        color: #333; /* 다른 사용자의 색상 */
+      }
 
-  .chat-logs .right {
-      text-align: right;
-      color: #007bff; /* 본인의 색상 */
-  }
-</style>
+      .chat-logs .left .text_message {
+        position: relative;
+        display: inline-block;
+        background-color: lightyellow;
+        border-radius: 10px;
+        padding: 5px 10px;
+        text-align: left;
+        max-width: 50%;
+        margin-right: auto;
+        white-space: normal;
+      }
 
+      .chat-logs .right {
+        text-align: right;
+        color: #333; /* 본인의 색상 */
+      }
+
+      .chat-logs .right .text_message {
+        position: relative;
+        display: inline-block;
+        background-color: lightblue;
+        border-radius: 10px;
+        padding: 5px 10px;
+        text-align: right;
+        max-width: 50%;
+        margin-left: auto;
+        white-space: normal;
+      }
+
+      .img-flui {
+        max-width: 10%;
+        height: auto;
+        border-radius: 100%;
+      }
+
+      .user-details {
+        margin-bottom: 10px;
+      }
+
+      #delete-button {
+        background-color: #fd6668; /* 빨간색 배경 */
+        color: white; /* 흰색 텍스트 */
+        /* 원하는 스타일 추가 가능 */
+    }
+    </style>
   </body>
 </html>

@@ -9,6 +9,7 @@ import Email from "./pages/email";
 import ToDoList from "./pages/to-dolist";
 import Integrations from "./pages/Integrations";
 import Pricing from "./pages/pricing";
+import Touromate from "./pages/pricing2";
 import Teams from "./pages/team";
 import Gallery from "./pages/gallery";
 import Faq from "./pages/faq";
@@ -159,6 +160,10 @@ const router = createBrowserRouter([
       {
         path: "/touromate-list",
         element: <TouromateList />,
+      },
+      {
+        path: "/touromate/:touromate_num",
+        element: <Touromate />,
       },
       {
         path: "/inquiry-list",

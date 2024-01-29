@@ -52,106 +52,13 @@
 
 <body>
 
-    <!-- header start -->
-    <header class="light_header">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="menu">
-                <div class="brand-logo">
-                  <a href="/jsp/main">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </a>
-                </div>
-                <nav>
-                  <div class="main-navbar">
-                    <div id="mainnav">
-                      <div class="toggle-nav">
-                        <i class="fa fa-bars sidebar-bar"></i>
-                      </div>
-                      <div class="menu-overlay"></div>
-                      <ul class="nav-menu">
-                        <li class="back-btn">
-                          <div class="mobile-back text-end">
-                            <span>Back</span>
-                            <i
-                              aria-hidden="true"
-                              class="fa fa-angle-right ps-2"
-                            ></i>
-                          </div>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/tour/tour_list" class="nav-link">Tour</a>
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touromate/touromate_list" class="nav-link"
-                            >Touromate</a
-                          >
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/touroview/touroview_list" class="nav-link"
-                            >Touroview</a
-                          >
-                        </li>
-                        <li class="nav-submenu">
-                          <a href="/user/img_change" class="nav-link"
-                            >ImgChange</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
-                <ul class="header-right">
-                  <li class="front-setting rounded5">
-                    <select>
-                      <option value="volvo">한국어</option>
-                      <option value="saab">영어</option>
-                    </select>
-                  </li>
-                  <li class="user user-light rounded5">
-                    <a href="/user/login">
-                      <i class="fas fa-user"> 로그인</i>
-                    </a>
-                  </li>
-                  <li class="setting">
-                    <a href="#">
-                      <i class="fas fa-cog"></i>
-                    </a>
-                    <ul class="setting-open">
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">USD</option>
-                          <option value="saab">EUR</option>
-                          <option value="opel">INR</option>
-                          <option value="audi">AUD</option>
-                        </select>
-                      </li>
-                      <li class="front-setting">
-                        <select>
-                          <option value="volvo">ENG</option>
-                          <option value="saab">FRE</option>
-                          <option value="opel">SPA</option>
-                          <option value="audi">DUT</option>
-                        </select>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-    <!--  header end -->
+    <!-- 해더 (로고, 탭메뉴 등 설정) -->
+    <%@ include file='../header/header.jsp' %>
+    <!--  해더 끝 -->
 
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
-    <section class="hotel-single-section pt-0">
+    <!-- <section class="hotel-single-section pt-0">
         <img src="../assets/images/single-hotel/bg-2.jpg" class="bg-img bg-bottom img-fluid blur-up lazyload" alt="">
         <div class="hotel-title-section">
             <div class="container ">
@@ -168,166 +75,157 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
 
+    <!-- breadcrumb start -->
+    <section class="not-found order-food-section pt-0">
+      <img src="../assets/images/restaurant/background/1.jpg" class="bg-img img-fluid blur-up lazyload" alt="">
+    </section>
+    <!-- breadcrumb end -->
 
+    
+    
     <!-- section start -->
     <section class="single-section xs-section bg-inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12">
-                    <form action="/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
-
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12">
+            <form action="/touroview/saveTouroview" method="post" id="touroview" enctype="multipart/form-data">
+              
+              <input type="hidden" id="sessionId" value="${sessionScope.loggedId}" name="user_id"/>
                       <!-- 이미지만 보여주는 테이블-->
                       <div class="image_section ">
                         <div class="row">
-                            <div class="col-sm-8">
-                              <div class="center-content">
-                                  <label for="file1" class="upload1-btn"> </label>
-                                </div>
-                                <!-- 이미지 파일 1-->
-                                <div id="previewImage1">
-                                  <a href="#">
-                                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
-                                    <input type="file" accept="image/*" id="file1" onchange="setThumbnail(event, 'previewImage1');">
-                              </a>
-                            </div>
-                          </div>
                             <div class="col-sm-4 d-none d-sm-block">
-                                <div class="row">
-                                    <div class="col-12 ratio_59">
-                                            <div>
-                                              <!-- 이미지 파일 2-->
-                                              <div id="previewImage2">
-                                                <a href="#">
-                                                    <img src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
-                                                </a>
-                                            </div>
-                                          </div>
-                                        <div class="center-content">
-                                            <label for="file2" class="upload1-btn"> </label>
-                                            <input type="file" accept="image/*" id="file2" onchange="setThumbnail(event, 'previewImage2');">
-                                        </div>
-                                    </div>
+
+                              <div class="row">
+                                <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
+                                </br>
+                                <div style="display: flex; justify-content: center;">
+                                    <div id="imagePreviewContainer1" class="image-preview-container"></div>
+                                    <div id="imagePreviewContainer2" class="image-preview-container"></div>
+                                    <div id="imagePreviewContainer3" class="image-preview-container"></div>
                                 </div>
-                                  <div class="row">
-                                      <div class="col-12 ratio_59">
-                                              <div>
-                                                <!-- 이미지 파일 3-->
-                                                <div id="previewImage3">
-                                                  <a href="#">
-                                                      <img id="previewImage3" src="https://i0.wp.com/adventure.co.kr/wp-content/uploads/2020/09/no-image.jpg" class="image-box bg-img w-100">
-                                                  </a>
-                                                </div>
-                                              </div>
-                                          <div class="center-content">
-                                              <label for="file3" class="upload1-btn"> </label>
-                                              <input type="file" accept="image/*" id="file3" onchange="setThumbnail(event, 'previewImage3');">
-                                          </div>
-                                      </div>
-                                  </div>
+                              </div>
+                              <script>
+                                document.getElementById('fileUpload').addEventListener('change', function (e) {
+                                    const previewContainers = document.querySelectorAll('.image-preview-container');
+                                    const files = e.target.files;
+                    
+                                    for (let i = 0; i < previewContainers.length; i++) {
+                                        if (files[i]) {
+                                            const reader = new FileReader();
+                    
+                                            reader.onload = function (e) {
+                                                const img = document.createElement('img');
+                                                img.src = e.target.result;
+                                                img.alt = 'Image Preview';
+                                                img.style.width = '100%';  // Adjust the image width to fill the container
+                                                img.style.height = '100%'; // Adjust the image height to fill the container
+                                                previewContainers[i].innerHTML = '';
+                                                previewContainers[i].appendChild(img);
+                                            };
+                    
+                                            reader.readAsDataURL(files[i]);
+                                        } else {
+                                            previewContainers[i].innerHTML = ''; // Clear the preview if no file is selected
+                                        }
+                                    }
+                                });
+                              </script>
+
                               </div>
                           </div>
                         </div>
-                    </div>
 
-                            <!-- 게시글  -->
-                                <div class="description-section">
-                                    <div class="description-details">
-                                        <div class="desc-box">
-                                            <div class="col-xl-3 col-lg-4" id="booking">
-                                                <div class="sticky-cls">
-                                                    <div class="abcddessadsa">
-                                                        <div class="single-sidebar">
-                                                            <div class="selection-section">
-                                                              <!-- 작성 날짜 --> 
-                                                                <div class="price-part">
-                                                                    <div class="left-part">
-                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="touroview_regdate" name="touroview_regdate">
-                                                                    </div>
-                                                                </div>  
-                                                                <br/>
-                                                                <!-- 작성자-->
-                                                                <div class="price-part">
-                                                                    작성자<input type="text" class="writer-insert" id ="user_id" name="user_id" value="${sessionScope.userId}" readonly>
-                                                                </div>
-                                                                <input type="hidden" id="userIdInput" name="user_id" value="${user_id}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>  
+                        <div class="description-section">
+                          <div class="description-details">
+                              <div class="col-12">
+                                  <div class="filter-panel right-filter open-cls">
+                                      <div class="left-filter">
+                                      </div>
+                                      <div class="left-panel">
+                                          <i class="fas fa-search"></i> 여행지 찾기
+                                      </div>
+                                  </div>
+                              </div>
 
-                                            <div class="about page-section menu-part" id="about">
-                                                <input type="text" id="destinationInput" placeholder="search 후 선택 된 여행지 이름 띄워">
-                                                <br/>
-                                                <br/>
-                                                <input type="text" class="form-control" id="touroview_title" name="touroview_title"
-                                                placeholder="게시글 제목 ">
-                                                <br/>
-                                                <textarea  class="form-control" id="touroview_content" name="touroview_content"
-                                                placeholder="게시글 상세정보" ></textarea>
-                                                <br/>
-                                                <input type="hidden" id="selectedTourNum" name="tour_num" />
-                                                <div>
-                                                    <input type="button" id ="searchButton" value="등록" style="background-color: #d9dadb;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-
-                            <div class="description-section">
-                                <div class="description-details">
-                                    <div class="col-12">
-                                        <div class="filter-panel right-filter open-cls">
-                                            <div class="left-filter">
-                                            </div>
-                                            <div class="right-panel">
-                                                <a href="javascript:void(0)" class="view-map me-0"><i class="fas fa-search"></i> 여행지 찾기</a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-12 onclick-map">
-                                        <div class="book-table single-table bg-inner">
-                                            <div class="table-form classic-form">
-                                                <form>
-                                                    <div class="row w-100">
-                                                        <div class="form-group col p-0">
-                                                            <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
-                                                                
-                                                            <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
-                                                            <ul id="searchResults">
-                                                              <c:forEach var="tour" items="${tourvo}">
-                                                                <li onclick="showDestinationInfo(${JSON.stringify(tour)})">
-                                                                    ${tour.tour_name} - ${tour.tour_addr}
-                                                                </li>
-                                                            </c:forEach>
-                                                          </ul>
-                                                        </div>
-                                                    </div>
+                              <div class="col-xl-12">
+                                  <div class="book-table single-table bg-inner">
+                                      <div class="table-form classic-form">
+                                            
+                                              <div class="row w-100">
+                                                  <div class="form-group col-9 p-0">
+                                                      <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
+                                                          
+                                                      <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
+                                                      <ul id="searchResults">
+                                                        <c:forEach var="tour" items="${tourvo}">
+                                                          <li onclick="showDestinationInfo(JSON.stringify(tour))">
+                                                              ${tour.tour_name} - ${tour.tour_addr}
+                                                          </li>
+                                                      </c:forEach>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="col-2">
                                                     <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="menu-part page-section">
-                                          <!-- 선택한 여행지 정보 여기에 표시-->
+                                                  </div>
 
-                                          <div id="selectedDestinationInfo">
-                                          </div>
-                                        </div>
-                                    </div> 
-                                    
-                                    <br/>
-                                    
+                                              </div>
+                                      </div>
+                                  </div>
+                                  <div class="menu-part page-section">
+                                    <!-- 선택한 여행지 정보 여기에 표시-->
+
+                                    <div id="selectedDestinationInfo">
+                                    </div>
+                                  </div>
+                              </div> 
+                              
+                              <br/>
+                              
+                          </div>
+                        </div>
+
+                        <!-- 여행지 사진 업로드 -->
+                        <div class="menu-part page-section">
+                          <!-- 선택한 여행지 정보 여기에 표시-->
+
+                          <div id="selectedDestinationInfo">
+                          </div>
+                        </div>
+
+                        <!-- 게시글  -->
+                        <div class="description-section">
+                            <div class="description-details">
+                                <div class="desc-box">
+                                     
+
+                                    <div class="about page-section menu-part" id="about">
+                                        <input type="text" id="destinationInput" placeholder="search 후 선택 된 여행지 이름 띄워">
+                                        <br/>
+                                        <br/>
+                                        <input type="text" class="form-control" id="touroview_title" name="touroview_title"
+                                        placeholder="게시글 제목 ">
+                                        <br/>
+                                        <textarea  class="form-control" id="touroview_content" name="touroview_content"
+                                        placeholder="게시글 상세정보" ></textarea>
+                                        <br/>
+                                        <input type="hidden" id="selectedTourNum" name="tour_num" />
+                                        <div>
+                                            <input type="submit" id ="searchButton" value="등록" style="background-color: #d9dadb;">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                </div>
+                          </div>
+
+                          
+                       </div>
+                    </div>
+                </form>
+              </div>
             </div>
         </div>
     </section>
@@ -618,7 +516,7 @@
   </script>
 
   <!-- 후기 게시판 db에 등록-->
-  <script>
+  <!-- <script>
     $(document).ready(function(){
       $("#searchButton").click(function(){
         submitForm();
@@ -630,7 +528,10 @@
     
     function submitForm(){
       // 사용자의 userId를 가져와서 폼에 추가
-      var userId = "${user_id}";
+      var userId = $("#sessionId").val();
+      var touroview_title = $("#touroview_title").val()
+      var touroview_content = $("#touroview_content").val()
+      console.log(userId)
       document.getElementById("userIdInput").value = userId;
 
       // 새로운 FormData 객체 생성
@@ -643,7 +544,7 @@
       $.ajax({
         type:   'POST',
         url:    'saveTouroview', // 서버로 데이터를 보낼 주소
-        data:   formData,
+        data:   {user_id : userId, touroview_title : touroview_title, touroview_content : touroview_content},
         processData : false,
         contentType : false,
         success: function (response) {
@@ -664,7 +565,7 @@
           }
       });
     }
-  </script>
+  </script> -->
 
   <!-- 여행지 검색하기 -->
   <script>
@@ -703,10 +604,10 @@
 
     // 검색 결과를 동적으로 추가하는 함수
     function appendSearchResults(results) {
-  var searchResultsList = document.getElementById("searchResults");
-  searchResultsList.innerHTML = ""; // 기존 결과 초기화
+      var searchResultsList = document.getElementById("searchResults");
+      searchResultsList.innerHTML = ""; // 기존 결과 초기화
 
-  // 결과가 비어 있을 경우 메시지 추가
+      // 결과가 비어 있을 경우 메시지 추가
       if (results.length === 0) {
           var noResultsMessage = document.createElement("li");
           noResultsMessage.textContent = "검색 결과가 없습니다.";
@@ -717,7 +618,7 @@
       // 결과 동적 추가
       for (let i = 0; i < results.length; i++) {
           var resultItem = document.createElement("li");
-          resultItem.textContent = "[선택한 여행지] : " + results[i].tour_name + " - " + "[주소] :" + results[i].tour_addr;
+          resultItem.textContent = results[i].tour_name + " - " + "[주소] :" + results[i].tour_addr;
         
         // 개행 문자 추가
         if (i < results.length - 1) {
@@ -774,11 +675,11 @@
             </tr>
         </table>
     `;
-}
+  }
   </script>
   
   <!-- 작성날짜 날짜 전송하기-->
-  <script>
+  <!-- <script>
     document.getElementById("searchButton").addEventListener("click", function(){
       // touroview_regdate 요소에서 날짜 값 가져오기
       var touroviewRegdate = document.getElementById("touroview_regdate").value;
@@ -794,7 +695,7 @@
 
       // 폼 데이터를 FormData 객체로 생성
       var formData = new FormData();
-      formData.append("touroview_regdate", touroviewRegdate);
+      // formData.append("touroview_regdate", touroviewRegdate);
 
       // 서버로 데이터를 전송
       var xhr = new XMLHttpRequest();
@@ -802,7 +703,7 @@
       xhr.send(formData);
     });
 
-  </script>
+  </script> -->
 
 
   

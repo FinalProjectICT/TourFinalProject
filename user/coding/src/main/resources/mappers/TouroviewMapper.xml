@@ -5,18 +5,30 @@
 <!-- *************************** dao interface 경로+이름 -->
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
+<!-- List-->
+<select id="getTourByNum" parameterType="java.lang.String" resultType="TourVO">
+        SELECT * 
+        FROM tour
+        WHERE tour_num = #{tourNum}
+</select>
+
+
+
+
 <!-- touroview_insert-->
 <!-- 후기 게시물 db저장-->
 <insert id="saveTouroview">
         INSERT INTO touroview (user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
-        VALUES (#{user_id}, #{tour_num}, #{touroview_title}, #{touroview_regdate}, #{touroview_update}, #{touroview_content});
+        VALUES (#{user_id}, #{tour_num}, #{touroview_title}, NOW(), NOW(), #{touroview_content});
 </insert>
   
-<!-- 후기 게시물 사진 db 저장-->
-<!-- <insert id="insertviewImage" parameterType="ImgVO">
-        INSERT INTO img (img_name, img_real_name, img_size, img_width, img_length)
-        VALUES (#{imgName}, #{imgRealName}, #{imgSize}, #{imgWidth}, #{imgLength})
-</insert> -->
+<!-- 여행친구찾기 이름 찾기 -->
+<select id="selectViewNum" resultType="int">
+    SELECT touroview_num
+    FROM touroview
+    ORDER BY touroview_num DESC LIMIT 1
+</select>
+
 
 
 <!-- touroview_detail-->
@@ -35,7 +47,7 @@
 <select id="getTotalPages" resultType="int">
         SELECT COUNT(*)
         FROM touroview;
-    </select>
+</select>
 
 <!-- 여행지 검색-->
 <select id="findByKeyword" parameterType="TourVO" resultType="TourVO"> 
@@ -51,6 +63,11 @@
     WHERE tour_num = #{tour_num}
 </select>
 
+<select id="getUserByTouroviewId" resultType="UserVO">
+    SELECT *
+    FROM user
+    WHERE user_id = #{userId}
+</select>
 
 <!-- detail (TouroviewVO) 페이지 -->
 <select id="getTouroviewById" resultType="TouroviewVO">
@@ -66,8 +83,24 @@
     WHERE tour_num = #{touroview_num}
 </select>
 
+<!-- 신고 횟수 조회 -->
+<!-- 신고 -->
+<insert id="insertReportCount">
+    INSERT INTO report(touroview_num, user_id, report_count)
+    VALUES (#{touroview_num}, #{user_id}, 1)
+</insert>
 
-<!-- touroview_-->
+<!-- 신고한 게시물인지 확인 -->
+<select id="checkReported" resultType="int">
+    SELECT  COUNT(*)
+    FROM    report
+    WHERE   touroview_num = #{touroview_num} AND user_id = #{userId}
+</select>
+
+
+
+
+<!-- touroview_update_delete-->
 <!-- 게시물 수정-->
 <update id="updateTouroview" parameterType="TouroviewVO">
         UPDATE touroview
@@ -81,5 +114,41 @@
         DELETE FROM touroview
         WHERE  touroview_num = #{touroviewNum}
 </delete>
+
+<!-- 디테일 게시물 기본 배경화면 가져오기 -->
+<select id="getTouroviewImg" parameterType="int" resultType="TouroviewDetailVO">
+    SELECT * 
+    FROM tour t INNER JOIN touroview t2 ON t.tour_num = t2.tour_num 
+    WHERE t.tour_num = #{tour_num}
+</select>
+
+<!-- 디테일 게시물 여러 이미지 3개 가져오기 -->
+<select id="detailviewImg" parameterType="int" resultType="TouroviewDetailVO">
+    SELECT *
+    FROM   img_detail id INNER JOIN img i ON id.img_num = i.img_num 
+    WHERE  id.touroview_num = #{touroview_num}
+</select>
+
+<!-- 좋아요 추가 -->
+ <insert id="addWishList" parameterType="LikeVO">
+    INSERT INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
+    VALUES (#{touroview_num}, #{user_id}, '1', NULL)
+</insert>
+
+<!-- 좋아요 확인 -->
+<select id="ckWishList" resultType="int" parameterType="LikeVO">
+    SELECT count(*) 
+    FROM `like` 
+    WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
+</select>
+
+<!-- 좋아요 삭제 -->
+<delete id="deleteWishList" parameterType="LikeVO">
+    DELETE FROM `like` 
+   WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
+</delete>
+
+
+
 
 </mapper>

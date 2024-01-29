@@ -54,12 +54,156 @@ prefix="c" %>
 
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+
+    <style>
+      #reviewBOX {
+       display: none;
+     }
+    
+   </style>
+
+    <!-- 리뷰 달기 -->
+    <script>
+      $(function(){
+        let stars = ''
+        var review_div = $('#tour_review');
+        var user_id = $('#sessionId').val();
+        var tour_num = $('#tourNum').val();
+        review_div.html('');
+        // 초기 불러오기
+       getReviewList();
+        $('.dropdown-item').click(function (e) {
+          e.preventDefault();
+          
+          var stars = $(this).data('stars');
+          // 리뷰 삽입
+          
+          // $('#tourReviewBtn').trigger('click', stars);
+
+          $('#tourReviewBtn').data('selectedStars', stars);
+
+        
+        }) // end 별점 등록
+        
+        // 리뷰 등록
+        $('#tourReviewBtn').click((e, stars) => {
+            e.preventDefault();
+            console.log(user_id)
+            if(user_id == " " || user_id == null) {
+              console.log(1)
+              alert("로그인 후 이용해주세요")
+              window.location.href = '/user/login'; // 수정된 부분
+            }
+            else {
+              var stars = $('#tourReviewBtn').data('selectedStars');
+              var reviewText = $('.review_content').val();
+              
+              // 리뷰 등록 ajax
+              $.ajax({
+                type:'post',
+                url : '/touro/tour/reviewInsert',
+                data : { tour_review_content : reviewText, tour_review_star : stars, user_id : user_id, tour_num : tour_num },
+                success : function(result) {
+                  review_div.html('');
+                  getReviewList();
+                  console.log("리뷰등록" + result);
+                  $('.review_content').val(" ");
+
+                },
+                error : function(err) {
+                  console.log(err)
+                }
+              }) // end ajax
+            }
+           
+        }); // end 리뷰작성 클릭
+
+      // 리뷰 전체 보이게 하기
+      function getReviewList() {
+        $.ajax({
+          type:'get',
+          url : '/touro/tour/selectReview',
+          data : {tour_num : tour_num},
+          dataType : 'json',
+          contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+          success : function(result){
+            review_div.html('');
+            // 별점 수에 따라 별 개수 
+            function generateStars(starCount) {
+                let starsHtml = '';
+                for (let i = 0; i < 5; i++) {
+                    if (i < starCount) {
+                        starsHtml += '<i class="fas fa-star"></i>';
+                    } else {
+                        starsHtml += '<i class="far fa-star"></i>';
+                    }
+                }
+                return starsHtml;
+            }
+            $(result).each(function(){
+              const ratingStars = generateStars(this.tour_review_star);
+              console.log(this.tour_review_content);
+
+              const html = `
+                  <div class="review-box row" id="reviewBOX">
+                      <div class="col-2">
+                        <a
+                          data-bs-toggle="modal"
+                          data-bs-target="#edit-profile"
+                          href=""
+                          ><img
+                            src="../assets/images/profile/${'${this.img_real_name}'}"
+                            class="img-fluid blur-up lazyload"
+                            alt=""
+                        /></a>
+                      </div>
+  
+                      <div class="col-10">
+                        <div class="rating">
+                          ${'${ratingStars}'}
+                        </div>
+                        <h6>by ${'${this.user_id}'}, ${'${this.tour_review_regdate}'}</h6>
+                        <p>${'${this.tour_review_content}'}</p>
+                      </div>
+                    </div>
+                  `
+                  review_div.append(html);
+            });
+            // 별점에 대한 HTML을 생성하는 함수
+
+            // 별점에 대한 HTML을 생성하는 함수
+            $(".review-box:lt(3)").css('display', 'flex'); // 초기갯수
+
+            $("#moreReview").click(function(e){ // 클릭시 more
+              e.preventDefault();
+              $(".review-box:hidden").slice(0, 3).css('display', 'flex'); // 클릭시 more 갯수 지저정
+              if($(".review-box:hidden").length == 0){ // 컨텐츠 남아있는지 확인
+                $("#moreReview").hide(); // 컨텐츠 없을시 alert 창 띄우기 
+              }
+            })
+
+          },
+          error : function(err) {
+            console.log(err);
+          }
+
+        }) // end ajax
+      }
+
+
+      // moreReview 클릭 시 5개씩 리뷰 보이게 하기
+      }) // end script
+    </script>
+    <!--   -->
+
   </head>
 
   <body>
     <!-- 세션 로그인 값 -->
+    <input type="hidden" value="${sessionScope.loggedId}" id="sessionId"/>
     <input type="hidden" value="${TourData.tour_lati}" id="tour_lati" />
     <input type="hidden" value="${TourData.tour_longi}" id="tour_longi" />
+    <input type="hidden" value="${TourData.tour_num}" id="tourNum"/>
     <input
       type="hidden"
       value="${TourData.tour_cate_code}"
@@ -439,46 +583,46 @@ prefix="c" %>
 
                               <!-- 1번째 날-->
                               <li id = "one_weather">
-                                <%-- <h5> </h5> 
+                                <!-- <%-- <h5> </h5>  -->
                                   <svg
                                     viewBox="0 0 512.00722 512"
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                   </svg>
-                                  <h6></h6> --%>
+                                  <!-- <h6></h6> --%> -->
                               </li>
 
                               <!-- 2번째 날-->
                               <li id = "two_weather">
-                                <%-- <h5>10 Sep</h5>
+                                <!-- <%-- <h5>10 Sep</h5> -->
                                 <svg
                                   viewBox="0 0 512.00119 512"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                 </svg>
-                                <h6>26 °C</h6> --%>
+                                <!-- <h6>26 °C</h6> --%> -->
                               </li>
 
                               <!-- 3번째 날-->
                               <li id = "three_weather">
-                                <%-- <h5>11 Sep</h5>
+                                <!-- <%-- <h5>11 Sep</h5> -->
                                 <svg
                                   viewBox="0 0 512.00038 512"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                 </svg>
-                                <h6>25 °C</h6> --%>
+                                <!-- <h6>25 °C</h6> --%> -->
                               </li>
 
                               <!-- 4번째 날-->
                               <li id = "four_weather">
-                                <%-- <h5>12 Sep</h5>
+                                <!-- <%-- <h5>12 Sep</h5> -->
                                 <svg
                                   viewBox="0 1 511 511.99899"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                 </svg>
-                                <h6>24 °C</h6> --%>
+                                <!-- <h6>24 °C</h6> --%> -->
                               </li>
 
                             </ul>
@@ -487,7 +631,7 @@ prefix="c" %>
                       </div>
                     </div>
 
-
+<!-- 
                     <%-- <div class="card col-lg-6">
                       <div class="card-header" id="headingFive">
                         <h5 class="mb-0">
@@ -510,7 +654,7 @@ prefix="c" %>
                       >
                         <div class="card-body"></div>
                       </div>
-                    </div> --%>
+                    </div> --%> -->
 
                     
                   </div>
@@ -817,83 +961,11 @@ prefix="c" %>
 
                 <!-- 지도 --> 
                 <div class="menu-part tab-pane fade map" id="location" style="width: 100%; height: 400px;">
-                  <%-- <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147718689!2d-74.11976358820196!3d40.69740344169578!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1568001991098!5m2!1sen!2sin"
-                    style="border: 0"
-                    allowfullscreen=""
-                  ></iframe> --%>
+                   
                 </div>
 
                 <!-- 댓글 리뷰 -->
                 <div class="menu-part tab-pane fade review" id="review">
-                  <div class="review-box row">
-                    <div class="col-2">
-                      <a
-                        data-bs-toggle="modal"
-                        data-bs-target="#edit-profile"
-                        href=""
-                        ><img
-                          src="../assets/images/avtar/1.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-
-                    <div class="col-10">
-                      <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                      <h6>by 사용자, jun 18, 2019</h6>
-                      <p>
-                          Our family holiday to Spain was awesome .pocket friendly
-                        rates that make planning a holiday a delight. I got a
-                        good hotels, flight discount for my round trip flight
-                        for the same trip while booking from sites.Thank you
-                        moment for giving us a wonderful experience.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="review-box row">
-                    <div class="col-2">
-                      <a
-                        data-bs-toggle="modal"
-                        data-bs-target="#edit-profile"
-                        href=""
-                        ><img
-                          src="../assets/images/avtar/1.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="col-10">
-                      <div class="rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                      </div>
-                      <h6>by 사용자, jun 18, 2019</h6>
-                      <p>
-                        Our family holiday to Spain was awesome .pocket friendly
-                        rates that make planning a holiday a delight. I got a
-                        good hotels, flight discount for my round trip flight
-                        for the same trip while booking from sites.Thank you
-                        moment for giving us a wonderful experience.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      class="btn btn-secondary col-2 offset-xl-5"
-                    >
-                      리뷰 더보기
-                    </button>
-                  </div>
-
                   <form>
                     <div class="row">
                       <div class="form-group col-10">
@@ -901,7 +973,7 @@ prefix="c" %>
                           리뷰 작성
                         </label>
                         <textarea
-                          class="form-control"
+                          class="form-control review_content"
                           id="exampleFormControlTextarea1"
                           rows="2"
                           placeholder=""
@@ -923,7 +995,7 @@ prefix="c" %>
                             aria-labelledby="dropdownStarCount"
                           >
                             <li>
-                              <a class="dropdown-item" href="#"
+                              <a class="dropdown-item" href="#" data-stars="5"
                                 ><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -932,7 +1004,7 @@ prefix="c" %>
                               ></a>
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#"
+                              <a class="dropdown-item" href="#" data-stars="4"
                                 ><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -941,7 +1013,7 @@ prefix="c" %>
                               ></a>
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#"
+                              <a class="dropdown-item" href="#" data-stars="3"
                                 ><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -950,7 +1022,7 @@ prefix="c" %>
                               ></a>
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#"
+                              <a class="dropdown-item" href="#" data-stars="2"
                                 ><i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="far fa-star"></i>
@@ -959,7 +1031,7 @@ prefix="c" %>
                               ></a>
                             </li>
                             <li>
-                              <a class="dropdown-item" href="#"
+                              <a class="dropdown-item" href="#" data-stars="1"
                                 ><i class="fas fa-star"></i>
                                 <i class="far fa-star"></i>
                                 <i class="far fa-star"></i>
@@ -972,7 +1044,7 @@ prefix="c" %>
                         <div class="submit-btn">
                           <button
                             type="button"
-                            onclick="window.location.href='tour-layout-2';"
+                            id="tourReviewBtn"
                             class="btn btn-rounded color1">
                             리뷰 작성
                           </button>
@@ -980,6 +1052,19 @@ prefix="c" %>
                       </div>
                     </div>
                   </form>
+                 <!-- 댓글 추가하는 부분 -->
+                  <div id="tour_review">
+                    
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-secondary col-2 offset-xl-5"
+                    id="moreReview"
+                  >
+                    리뷰 더보기
+                  </button>
+
+                 
                 </div>
               </div>
             </div>
