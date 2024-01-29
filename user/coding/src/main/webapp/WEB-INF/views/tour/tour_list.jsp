@@ -70,7 +70,7 @@ prefix="c" %>
   <body>
 
     <!-- 세션 로그인 값 -->
-      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
+      <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="loggedInUser" />
 
 
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
@@ -631,7 +631,7 @@ prefix="c" %>
                 <!-- 여행지 리스트 객체 반복 시작 -->
                 <c:forEach items="${TourList}" var="TourData">
                   <div
-                    class="col-xl-3 col-lg-4 col-sm-6 a${TourData.tour_cate_code} grid-item wow fadeInUp"
+                    class="col-xl-3 col-lg-4 col-sm-6 ${TourData.tour_cate_code} grid-item wow fadeInUp"
                     data-class="a${TourData.tour_cate_code}">
                     <div class="special-box p-0">
                       <div class="special-img" style="height: 200px;">
@@ -657,7 +657,7 @@ prefix="c" %>
                         </div>
                       </div>
                       <div class="special-content" style="height: 250px;">
-                        <a href="tour-single-6.html">
+                        <a href="/touro/${TourData.tour_num}">
                           <h5>
                             ${TourData.tour_name}<span
                               >${TourData.tour_addr}</span

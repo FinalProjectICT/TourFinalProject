@@ -165,6 +165,11 @@ public class MainServiceImpl implements MainService{
     return mainDAO.locPrefer();  
   }
 
+  @Override
+  public Integer touroviewBlindCount(Integer touroview_num) {
+    return mainDAO.touroviewBlindCount(touroview_num);
+  } 
+
   // 관리자 후기 게시판 신고 3번 이상 게시글 블라인드 처리
   @Override
   public void touroviewBlind(TouroviewVO vo) {
@@ -224,7 +229,15 @@ public class MainServiceImpl implements MainService{
   public List<TouroviewReviewVO> touroviewReviewSelect(TouroviewReviewVO vo) {
     List<TouroviewReviewVO> result = mainDAO.touroviewReviewSelect(vo);
     return result;
-  } 
+  }
+
+  // 관리자 유저 상세정보 보기
+  @Override
+  public AdminVO userListOne(String user_id) {
+    return mainDAO.userListOne(user_id);
+  }
+
+  
 
  
 

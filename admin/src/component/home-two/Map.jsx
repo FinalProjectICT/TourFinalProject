@@ -244,15 +244,15 @@ function Map() {
     }
   }, [mapData, mapName]);
   return (
-    <div className="col-lg-6 col-12">
+    <div className="col-lg-5 col-12">
       {/* <!-- Charts One --> */}
       <div className="charts-main charts-home-four mg-top-30">
         {/* <!-- Top Heading --> */}
         <div className="charts-main__heading  mg-btm-20">
           <h4 className="charts-main__title">사용자 여행 선호 지역 Top4</h4>
-          <SelectInput
+          {/* <SelectInput
             options={[" Last 7 Days", " Last 15 Days", "Last Month"]}
-          />
+          /> */}
         </div>
         <div className="charts-main__one">
           <div className="tab-content" id="nav-tabContent">

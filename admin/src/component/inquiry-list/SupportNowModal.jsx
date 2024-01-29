@@ -61,6 +61,8 @@ function SupportNowModal({ isOpen, handleClose, inQu, inqNum,
     .then(() => {
       setInquiryUp(updateparam.inquiry_review_content);
       parentComponent
+      reloadPage();
+
     })
     .catch(err => console.log(err))
 

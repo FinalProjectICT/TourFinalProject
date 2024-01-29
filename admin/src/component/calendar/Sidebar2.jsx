@@ -13,9 +13,9 @@ function Sidebar2() {
       <div className="crancy-single__box mg-top-30">
         <div className="crancy-sidebar__heading">
           <h3 className="crancy-sidebar__title m-0">Upcoming Events</h3>
-          <SelectInput
+          {/* <SelectInput
             options={["Last 7 Days", "Last 15 Days", "Last 30 Days"]}
-          />
+          /> */}
         </div>
 
         <div className="tab-content" id="nav-tabContent">

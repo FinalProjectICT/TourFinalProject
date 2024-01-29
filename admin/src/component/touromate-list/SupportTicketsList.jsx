@@ -112,9 +112,9 @@ function SupportTicketsList() {
                   onChange={(e) => setInputValue(e.target.value)}
                 />
               </form>
-              <SelectInput
+              {/* <SelectInput
                 options={["Last 7 days", "Last 15 days", "Last 30 days"]}
-              />
+              /> */}
             </div>
           </div>
           <div className="tab-content" id="myTabContent">

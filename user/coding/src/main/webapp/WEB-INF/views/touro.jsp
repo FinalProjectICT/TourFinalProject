@@ -623,8 +623,8 @@ prefix="c" %>
 
     <!-- <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/> -->
     <!-- 세션이 비어 있지 않으면 로그인 값으로 -->
-    <c:if test="${not empty sessionScope.loggedId}">
-      <input type="hidden" value="${sessionScope.loggedId}" id="loggedInUser" />
+    <c:if test="${not empty sessionScope.loggedInUser}">
+      <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="loggedInUser" />
     </c:if>
     <!-- 세션이 비어있으면 병곤 아이디로 -->
     <c:if test="${empty sessionScope.loggedInUser}">

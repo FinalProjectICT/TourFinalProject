@@ -44,7 +44,7 @@
 	
 	<!--유저 리스트 -->
 	<select id = "userList" parameterType="AdminVO" resultType="AdminVO">
-		SELECT 	u.user_id userId, 
+		SELECT u.user_id userId, 
 		u.user_name userName, 
 		u.user_pass userPass, 
 		u.user_tel userTel, 
@@ -67,18 +67,19 @@
 		LEFT JOIN
 			`img_detail` imgde ON u.user_id = imgde.user_id
 		LEFT JOIN
-			`img` i ON imgde.img_num = i.img_num;
+			`img` i ON imgde.img_num = i.img_num
+		WHERE u.admin_authority = 1;
 	</select>
 
 
 	<!-- 후기 게시판 리스트-->
 	<select  id="touroviewList" parameterType="AdminVO" resultType="AdminVO">
-		SELECT tvw.user_id user_id , 
+		SELECT distinct tvw.user_id user_id , 
 		tvw.touroview_content touroview_content, 
 		li.like_count like_count, 
 		rp.report_count report_count,	
-		tvw.touroview_regdate touroview_regdate, 
-		tvw.touroview_update touroview_update
+		DATE_FORMAT(tvw.touroview_regdate, '%Y-%m-%d') touroview_regdate, 
+		DATE_FORMAT(tvw.touroview_update, '%Y-%m-%d') touroview_update
 		,tvw.touroview_title
 		,tr.tour_name tour_name
 		,tvw.touroview_num touroview_num
@@ -89,7 +90,7 @@
 	</select>
 
 	<!-- 후기 게시판 상세 디테일-->
-	<select id = "touroViewNum" parameterType="AdminVO" resultType="AdminVO">
+	<select id = "touroViewNum" parameterType="Integer" resultType="AdminVO">
 		SELECT * FROM touroview tvw
 		LEFT OUTER JOIN img_detail id ON id.touroview_num = tvw.touroview_num
 		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num

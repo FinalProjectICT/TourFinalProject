@@ -60,8 +60,8 @@ public class AdminServiceImpl implements AdminService {
     return viewList;
     }
     
-    public AdminVO touroViewNum(AdminVO vo) {
-        return adminDAO.touroViewNum(vo);
+    public List<AdminVO> touroViewNum(Integer touroview_num) {
+        return adminDAO.touroViewNum(touroview_num);
     }
 
 

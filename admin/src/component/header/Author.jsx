@@ -1,11 +1,26 @@
 import React from "react";
 import profile from "../../assets/img/profile-pic.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
+import axios from 'axios';
 
 function Author({ subNav, setSubNav, title }) {
+  const navigate = useNavigate();
+
+  const logOut = (e) => {
+    e.preventDefault();
+
+    axios.get('http://localhost:8080/user/logout').then(() => {
+      navigate('http://localhost:8080/touro');
+    
+    })
+  }
+
+
+
+
   return (
     <div className="crancy-header__author" onMouseOver={() => setSubNav(title)}>
-      <Link to="/profile-overview">
+      <Link to="/profile-overview/admin">
         <div className="crancy-header__author-img">
           <img src={profile} alt="#" />
         </div>
@@ -18,7 +33,7 @@ function Author({ subNav, setSubNav, title }) {
         <h3 className="crancy-balance__title">My Profile</h3>
         {/* <!-- crancy Balance List --> */}
         <ul className="crancy-balance_list">
-          <li>
+          {/* <li>
             <div className="crancy-balance-info">
               <div className="crancy-balance__img crancy-sbcolor">
                 <svg
@@ -42,8 +57,8 @@ function Author({ subNav, setSubNav, title }) {
                 <Link to="/profile-overview">My Profile</Link>
               </h4>
             </div>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <div className="crancy-balance-info">
               <div className="crancy-balance__img crancy-color8__bg">
                 <svg
@@ -70,8 +85,8 @@ function Author({ subNav, setSubNav, title }) {
                 </span>
               </h4>
             </div>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <div className="crancy-balance-info">
               <div className="crancy-balance__img crancy-color5__bg">
                 <svg
@@ -102,8 +117,8 @@ function Author({ subNav, setSubNav, title }) {
                 <Link to="/faq">FAQ</Link>
               </h4>
             </div>
-          </li>
-          <li>
+          </li> */}
+          {/* <li>
             <div className="crancy-balance-info">
               <div className="crancy-balance__img crancy-color6__bg">
                 <svg
@@ -123,7 +138,7 @@ function Author({ subNav, setSubNav, title }) {
                 <Link to="/settings">Settings</Link>
               </h4>
             </div>
-          </li>
+          </li> */}
           <li>
             <div className="crancy-balance-info">
               <div className="crancy-balance__img crancy-color4__bg">
@@ -145,7 +160,7 @@ function Author({ subNav, setSubNav, title }) {
                 </svg>
               </div>
               <h4 className="crancy-balance-name">
-                <a href="#">Log Out</a>
+                <a href="" onClick={logOut}>Log Out</a>
               </h4>
             </div>
           </li>

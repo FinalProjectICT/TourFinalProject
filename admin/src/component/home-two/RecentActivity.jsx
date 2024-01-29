@@ -24,12 +24,12 @@ function RecentActivity() {
     }
   }, []);
   return (
-    <div className="col-lg-6  col-12">
+    <div className="col-lg-7  col-12">
       {/* <!-- Charts Three --> */}
       <div className="charts-main  mg-top-30">
         <div className="charts-main__heading mg-btm-30">
           <h4 className="charts-main__title">요일별 접속자 통계</h4>
-          <div className="charts-main-dates">
+          {/* <div className="charts-main-dates">
             <img src={calenderIcon} />
             <input
               id="date-input"
@@ -38,7 +38,7 @@ function RecentActivity() {
               type="text"
             />
             <img src={arrowDown} />
-          </div>
+          </div> */}
         </div>
         <div className="charts-main__three">
           <div className="tab-content" id="nav-tabContent">
