@@ -34,16 +34,13 @@ public class MyPageController {
 
     @GetMapping("/mypage")
     public String myPage(@RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size, HttpSession session, Model model) {
+                        @RequestParam(name = "reviewPage", defaultValue = "1") int reviewPage,
+                        @RequestParam(name = "commentPage", defaultValue = "1") int commentPage,
+                        @RequestParam(name = "wishlistPage", defaultValue = "1") int wishlistPage,
+                        HttpSession session, Model model) {
 
         // 세션에서 사용자 아이디 가져오기
         String userId = (String) session.getAttribute("loggedId");
-        model.addAttribute("userId", userId); // 세션 id 값
-
-        // ***페이징 관련***
-        int pageSize = 3; // 한페이지에 표시할 게시물 수
-        int totalTouroviews = myPageService.getTotalTouroviewCount(userId);
-        int totalPages = (totalTouroviews + pageSize - 1) / pageSize;
 
         // 사용자 정보 가져와서 userVO에 저장
         UserVO userVO = myPageService.getUserProfile(userId);
@@ -73,7 +70,8 @@ public class MyPageController {
         model.addAttribute("touroWishCount", touroWishCount);
 
 
-        // --- 작성한 게시물
+        // -----------------------------------------------------------------------
+        // 작성한 글 페이징 처리 관련 게시물 전체 수
         // 여행 친구 게시물 개수
         int countTouroMate = myPageService.countTouroMate();
         model.addAttribute("touroMateCount", countTouroMate);
@@ -87,35 +85,55 @@ public class MyPageController {
         model.addAttribute("receiptCount", countReceipt);
 
 
+    
 
         // ------------------------------------------------------------------
         // 마이페이지 - 작성한 글
-        // 작성한 게시물
-        List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId, page, pageSize);
-        model.addAttribute("touroviewVO", touroviewVO); // 작성한 게시물 불러오기
-
-        // 여행 후기 게시물
-        List<TouroviewReviewVO> touroviewReviewVO = myPageService.getMyPageTouroviewReviewList(userId);
-        model.addAttribute("touroviewReviewVO", touroviewReviewVO); // 작성한 게시물 불러오기
-
-        // 여행지 댓글
-        List<TourReviewVO> tourReviewVO = myPageService.getMyPageTourReviewList(userId);
-        model.addAttribute("tourReviewVO", tourReviewVO); // 작성한 게시물 불러오기
-
-        List<ReceiptVO> receiptVO = myPageService.getMyPageReceiptList(userId, page, size);
-        // int totalPages = myPageService.getTotalReceiptPages(size);
-        model.addAttribute("receiptVO", receiptVO); // 영수증 후기
 
         // ***페이징 관련***
-        model.addAttribute("totalPages", totalPages); // 총 페이지 수
-        model.addAttribute("currentPage", page); // 현재 페이지 번호
+        int pageSize = 3; // 한페이지에 표시할 게시물 수
+
+
+        // '작성한 게시물'에 대한 데이터와 페이징 정보
+        List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId, page, pageSize);
+        int totalTouroviews = myPageService.getTotalTouroviewCount(userId);
+        int totalTouroviewPages = (totalTouroviews + pageSize - 1) / pageSize;
+        model.addAttribute("touroviewVO", touroviewVO);
+        model.addAttribute("totalTouroviewPages", totalTouroviewPages);
+        model.addAttribute("touroviewCurrentPage", page);
+
+        // '작성한 리뷰'에 대한 데이터와 페이징 정보
+        List<TouroviewReviewVO> touroviewReviewVO = myPageService.getMyPageTouroviewReviewList(userId, reviewPage, pageSize);
+        int totalTouroviewReviews = myPageService.getTotalTouroviewReviewCount(userId);
+        int totalTouroviewReviewPages = (totalTouroviewReviews + pageSize - 1) / pageSize;
+        model.addAttribute("touroviewReviewVO", touroviewReviewVO);
+        model.addAttribute("totalTouroviewReviewPages", totalTouroviewReviewPages);
+        model.addAttribute("touroviewReviewCurrentPage", reviewPage);
+
+        // '작성한 댓글'에 대한 데이터와 페이징 정보
+        List<TourReviewVO> tourReviewVO = myPageService.getMyPageTourReviewList(userId, commentPage, pageSize);
+        int totalTourReviews = myPageService.getTotalTourReviewCount(userId);
+        int totalTourReviewPages = (totalTourReviews + pageSize - 1) / pageSize;
+        model.addAttribute("tourReviewVO", tourReviewVO);
+        model.addAttribute("totalTourReviewPages", totalTourReviewPages);
+        model.addAttribute("tourReviewCurrentPage", commentPage);
+
+
+
 
 
         // -----------------------------------------------------------------------
         // 여행지 담기
         // 여행지 찜 목록 가져오기
-        List<WishListVO> wishListVO = myPageService.getWishList(userId);
+
+        int pagesize = 9;
+        
+        List<WishListVO> wishListVO = myPageService.getWishList(userId, wishlistPage, pagesize);
+        int totalWishList = myPageService.countWishList(userId);
+        int totalWishListPages = (totalWishList + pagesize - 1) / pagesize;
         model.addAttribute("wishListVO", wishListVO); // WishListVO
+        model.addAttribute("totalWishListPages", totalWishListPages);
+        model.addAttribute("wishListCurrentPage", wishlistPage);
 
 
         // 작성한 문의 내역
@@ -128,53 +146,99 @@ public class MyPageController {
 
     }
 
+        // ---------------------------------------------------------------
+        // 프로필 수정 - 업데이트 ajax 
+        @PostMapping("/profile")
+        public String updateUserProfile(@RequestBody UserVO userVO) {
+            
+            int updatedRows = myPageService.updateUserProfile(userVO);
 
-    // 나의 발자취 (영수증)
-    @GetMapping("/mypage/receipts")
-    @ResponseBody
-    public List<ReceiptVO> getReceipts(@RequestParam("page") int page, @RequestParam("size") int size, HttpSession session) {
-        String userId = (String) session.getAttribute("loggedId");
-        return myPageService.getMyPageReceiptList(userId, page, size);
-    }
-    
-
-
-
-    @GetMapping("user/appReview")
-    public String app(HttpSession session, Model model) {
-
-        // 세션에서 사용자 아이디 가져오기
-        String userId = (String) session.getAttribute("loggedId");
-
-        // 사용자 정보 가져와서 userVO에 저장
-        UserVO userVO = myPageService.getUserProfile(userId);
-
-        // 모델에 사용자 아이디 추가
-        model.addAttribute("userId", userId); // 세션 id 값
-
-        // UserVO
-        model.addAttribute("userVO", userVO);
-
-        // 콘솔 출력
-        System.out.println("사용자 아이디: " + userId);
-        System.out.println("사용자 아이디: " + userVO);
-
-        return "user/user/appReview";
-
-    }
-
-    @PostMapping("/profile")
-    public String updateUserProfile(@RequestBody UserVO userVO) {
-        
-        int updatedRows = myPageService.updateUserProfile(userVO);
-
-        if (updatedRows > 0) {
-            // 업데이트 성공
-            return "redirect:/profile"; // 프로필 페이지로 리다이렉트
-        } else {
-            // 업데이트 실패 처리
-            return "error-page"; // 에러 페이지로 이동 또는 다른 처리
+            if (updatedRows > 0) {
+                // 업데이트 성공
+                return "redirect:/profile"; // 프로필 페이지로 리다이렉트
+            } else {
+                // 업데이트 실패 처리
+                return "error-page"; // 에러 페이지로 이동 또는 다른 처리
+            }
         }
-    }
+
+
+
+        // ---------------------------------------------------------------
+        // 작성한 글 - 게시물 ajax
+        @GetMapping("/mypage/data")
+        @ResponseBody
+        public List<TouroviewVO> getTouroviewData(@RequestParam("page") int page, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            int pageSize = 3; // 한 페이지에 표시할 게시물 수
+            return myPageService.getMyPageTouroviewList(userId, page, pageSize);
+        }
+
+        // 작성한 글 - 리뷰 ajax
+        @GetMapping("/mypage/reviewData")
+        @ResponseBody
+        public List<TouroviewReviewVO> getTouroviewReviewData(@RequestParam("reviewPage") int reviewPage, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            int pageSize = 3; // 한 페이지에 표시할 리뷰 수
+            return myPageService.getMyPageTouroviewReviewList(userId, reviewPage, pageSize);
+        }
+
+        // 작성한 글 - 댓글 ajax
+        @GetMapping("/mypage/commentData")
+        @ResponseBody
+        public List<TourReviewVO> getTourReviewData(@RequestParam("commentPage") int commentPage, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            int pageSize = 3; // 한 페이지에 표시할 댓글 수
+            return myPageService.getMyPageTourReviewList(userId, commentPage, pageSize);
+        }
+
+
+
+        
+        
+        // ---------------------------------------------------------------
+        // 여행지 담기 - ajax
+        @GetMapping("/mypage/wishlist")
+        @ResponseBody
+        public List<WishListVO> getWishListData(@RequestParam("wishlistPage") int wishlistPage, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            int pagesize = 9;
+            return myPageService.getWishList(userId, wishlistPage, pagesize);
+        }
+        
+        // ---------------------------------------------------------------
+        // 나의 발자취 (영수증)
+        @GetMapping("/mypage/receipts")
+        @ResponseBody
+        public List<ReceiptVO> getReceipts(@RequestParam("page") int page, @RequestParam("size") int size, HttpSession session) {
+            String userId = (String) session.getAttribute("loggedId");
+            return myPageService.getMyPageReceiptList(userId, page, size);
+        }
+
+        // ---------------------------------------------------------------
+        // 나의 발자취 - 영수증 리뷰(앱)
+        @GetMapping("user/appReview")
+        public String app(HttpSession session, Model model) {
+
+            // 세션에서 사용자 아이디 가져오기
+            String userId = (String) session.getAttribute("loggedId");
+
+            // 사용자 정보 가져와서 userVO에 저장
+            UserVO userVO = myPageService.getUserProfile(userId);
+
+            // 모델에 사용자 아이디 추가
+            model.addAttribute("userId", userId); // 세션 id 값
+
+            // UserVO
+            model.addAttribute("userVO", userVO);
+
+            // 콘솔 출력
+            System.out.println("사용자 아이디: " + userId);
+            System.out.println("사용자 아이디: " + userVO);
+
+            return "user/user/appReview";
+
+        }
+
 
 }

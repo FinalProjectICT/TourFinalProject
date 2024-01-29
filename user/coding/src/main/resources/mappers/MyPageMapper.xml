@@ -5,6 +5,7 @@
 <!-- *************************** dao interface 경로+이름 -->
 <mapper namespace="com.example.coding.dao.MyPageDAO">
 
+
 <!-- 사용자 프로필 가져오기 -->
 <select id="getUserProfile" resultType="UserVO">
     SELECT  *
@@ -21,7 +22,7 @@
 </select>
 
 
-
+<!-- ************************************************* -->
 <!-- 마이페이지 - 메인페이지 - 개수 -->
 <!-- 사용자가 작성한 리뷰 개수 조회 -->
 <select id="getTouroviewCountByUserId" resultType="int" parameterType="string">
@@ -51,12 +52,6 @@
     WHERE   user_id = #{userId}
 </select>
 
-<!-- 작성한 글 수 조회 -->
-<!-- <select id="getUserTouroviewCount" resultType="int">
-    SELECT  COUNT(*)
-    FROM    touroview
-    WHERE   user_id = #{userId}
-</select> -->
 
 <!-- 작성한 게시물 -->
 <!-- 여행 친구 -->
@@ -79,6 +74,8 @@
 
 
 
+
+<!-- ************************************************* -->
 <!-- 마이페이지 - 프로필 수정 -->
 <!-- 프로필 수정(모달)-->
 <update id="updateUserProfile" parameterType="UserVO">
@@ -100,11 +97,13 @@
 
 
 
+<!-- ************************************************* -->
 <!-- 마이페이지 - 작성한 글-->
 <!-- 여행 후기(작성한 게시물) -->
 <select id="getMyPageTouroviewList" parameterType="TouroviewVO">
     SELECT  *
     FROM    touroview
+    WHERE user_id = #{userId}
     ORDER BY touroview_regdate DESC
     LIMIT #{limit} OFFSET #{offset}
 </select>
@@ -113,14 +112,18 @@
 <select id="getMyPageTouroviewReviewList" parameterType="TouroviewReviewVO">
     SELECT  *
     FROM    touroview_review
-    WHERE   user_id = #{userId}
+    WHERE user_id = #{userId}
+    ORDER BY touroview_review_register_date DESC
+    LIMIT #{limit} OFFSET #{offset}
 </select>
 
 <!-- 여행지 리뷰 댓글(작성한 댓글) -->
 <select id="getMyPageTourReviewList" parameterType="TourReviewVO">
     SELECT  *
     FROM    tour_review
-    WHERE   user_id = #{userId}
+    WHERE user_id = #{userId}
+    ORDER BY tour_review_regdate DESC
+    LIMIT #{limit} OFFSET #{offset}
 </select>
 
 <!-- 페이징 -->
@@ -130,8 +133,23 @@
     WHERE user_id = #{userId}
 </select>
 
+<select id="countTouroviewReviews" parameterType="String" resultType="int">
+    SELECT COUNT(*) 
+    FROM touroview_review 
+    WHERE user_id = #{userId}
+</select>
+
+<select id="countTourReviews" parameterType="String" resultType="int">
+    SELECT COUNT(*) 
+    FROM tour_review 
+    WHERE user_id = #{userId}
+</select>
 
 
+
+
+
+<!-- ************************************************* -->
 <!-- 마이페이지 - 나의 발자취-->
 <select id="getMyPageReceiptList" resultType="ReceiptVO">
     SELECT  *
@@ -162,20 +180,27 @@
 
 
 
+<!-- ************************************************* -->
 <!-- 마이페이지 - 여행지 담기 -->
 <!-- 여행지 담기 불러오기-->
-<select id="getWishList" resultType="WishListVO">
+<select id="getWishList" parameterType="WishListVO">
     SELECT wl.*, t.tour_img1_path
-        FROM wishlist wl
-        JOIN tour t ON wl.tour_num = t.tour_num
-        WHERE wl.user_id = #{userId}
+    FROM wishlist wl
+    JOIN tour t ON wl.tour_num = t.tour_num
+    WHERE wl.user_id = #{userId}
+    ORDER BY wl.wishlist_num DESC
+    LIMIT #{limit} OFFSET #{offset}
+</select>
+
+<!-- 페이징 -->
+<select id="countWishList" parameterType="String" resultType="int">
+    SELECT COUNT(*) 
+    FROM wishlist 
+    WHERE user_id = #{userId}
 </select>
 
 
-
-
-
-
+<!-- ************************************************* -->
 <!-- 마이페이지 문의 내역 -->
 <!-- 사용자 문의 답변만 가져오기-->
 <select id="getInquiryByUserId" resultType="InquiryVO">
