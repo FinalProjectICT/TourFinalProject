@@ -52,20 +52,23 @@ public interface MyPageDAO {
     // 마이페이지 - 프로필 수정
     public int updateUserProfile(UserVO userVO);
 
+
     // -----------------------------------------------------
     // 마이페이지 - 작성한 글
     // 여행 후기
     public List<TouroviewVO> getMyPageTouroviewList(String userId, int limit, int offset);
-    
     // 전체 게시물 수 조회
     public int countTouroviews(String userId);
 
 
     // 여행 후기 리뷰 댓글
-    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId);
+    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId, int limit, int offset);
+    public int countTouroviewReviews(String userId);
 
     // 여행지 리뷰 댓글
-    public List<TourReviewVO> getMyPageTourReviewList(String userId);
+    public List<TourReviewVO> getMyPageTourReviewList(String userId, int limit, int offset);
+    public int countTourReviews(String userId);
+
 
     // -----------------------------------------------------
     // 마이페이지 - 나의 발자취
@@ -75,13 +78,16 @@ public interface MyPageDAO {
     public int getTotalReceiptPages();
 
 
+
     // -----------------------------------------
     // 마이페이지 - 여행지 담기
 
     // WishListVO 목록을 가져오는 메서드
-    public List<WishListVO> getWishList(String userId);
+    public List<WishListVO> getWishList(String userId, int limit, int offset);
+    public int countWishList(String userId);
 
-    // public TourVO getTourByWish(int tour_num);
+
+
 
     // -----------------------------------------------------
     // 작성한 문의 내역

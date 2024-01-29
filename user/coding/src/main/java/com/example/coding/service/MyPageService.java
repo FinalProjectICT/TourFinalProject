@@ -43,7 +43,7 @@ public interface MyPageService {
 
 
 
-    
+    // -----------------------------------------
     // 마이페이지 - 프로필 수정
     public int updateUserProfile(UserVO userVO);
 
@@ -53,33 +53,33 @@ public interface MyPageService {
     // 마이페이지 - 작성한 글
     // 여행 후기
     public List<TouroviewVO> getMyPageTouroviewList(String userId, int page, int pageSize);
-
     public int getTotalTouroviewCount(String userId);
 
     // 여행 후기 리뷰 댓글
-    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId);
+    public List<TouroviewReviewVO> getMyPageTouroviewReviewList(String userId, int page, int pageSize);
+    public int getTotalTouroviewReviewCount(String userId);
 
     // 여행지 리뷰 댓글
-    public List<TourReviewVO> getMyPageTourReviewList(String userId);
-
-
-
-    // -----------------------------------------
-    // 마이페이지 - 나의 발자취
-    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size);
-
-    public int getTotalReceiptPages(int size);
-
+    public List<TourReviewVO> getMyPageTourReviewList(String userId, int page, int pageSize);
+    public int getTotalTourReviewCount(String userId);
 
 
     
-
+    
+    // -----------------------------------------
+    // 마이페이지 - 나의 발자취
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int size);
+    
+    public int getTotalReceiptPages(int size);
+    
+    
+    
+    
+    
     // -----------------------------------------
     // WishListVO 목록을 가져오는 메서드
-    public List<WishListVO> getWishList(String userId);
-
-    // public TourVO getTourByWish(int tour_num);
-
+    public List<WishListVO> getWishList(String userId, int page, int pagesize);
+    public int countWishList(String userId);
 
 
 
