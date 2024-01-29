@@ -1,4 +1,4 @@
-const webSocket = new WebSocket("ws://175.114.130.7:8764");
+const webSocket = new WebSocket("ws://118.217.203.50:8764");
 
 webSocket.onmessage = async (event) => {
   anser = event.data;
@@ -59,8 +59,22 @@ $(() => {
     }
   });
 
-  // 버튼 동작
+  // 메인 - 이미지 버튼
+  $("#btnCb").on("click", () => {
+    var userText = $("#mainInput").val();
+    if (userText != null && userText != "") {
+      if ($("#chatContainer").css("display") == "none") {
+        openChatBot();
+      }
+      divUserQus(userText, profileImg, sessionId);
+      $("#mainInput").val("");
+    }
+  });
+
+  // 열림 버튼 동작
   $("#chatButton").on("click", openChatBot);
+  // 닫기 버튼 동작
+  $("button.btn-close.forCb").on("click", openChatBot);
 
   // 챗봇 입력 동작
   $("#chatInput").on("keyup", (e) => {
@@ -115,7 +129,7 @@ function divBotAct(ansdata) {
 const openChatBot = () => {
   $("#chatContainer").toggle();
   if ($("#chatContainer").css("display") != "none") {
-    $("#chatButton").css("right", "400px");
+    $("#chatButton").hide;
     $("#chatButton").text("");
     //$("#chatButton").html(`<i class="fas fa-times"></i>`);
   } else {
