@@ -1231,7 +1231,7 @@ prefix="c" %>
     <!-- 챗봇 구역 시작 -->
     <button id="chatButton">
       <img
-        src="../assets/images/icon/chatbot_r.png"
+        src="../assets/images/icon/chatbot_r_lg.png"
         class="img-fluid blur-up lazyloaded bg-img"
         alt=""
       />

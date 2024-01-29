@@ -20,5 +20,5 @@ public interface UserService {
     // 비밀번호 찾기
     public UserVO selectUser(String user_email,String user_id);
     // 비밀번호 초기화
-    public int updatePassword(UserVO vo);
+    public int modifyPassword(UserVO vo);
 } 

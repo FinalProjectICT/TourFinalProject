@@ -122,6 +122,9 @@
                           <input class="form-control" type="hidden" id="user_pass" name="user_pass" value="google_${googleUserInfo.id}" />
                           <!-- 메일주소 -->
                           <input class="form-control" type="hidden" id="user_email" name="user_email" value="${googleUserInfo.email}" />
+                          <!-- 프로필 이미지 -->
+                          <img class="profile-picture col-4" id="profilePicturePreview" src="../assets/images/profile/default_profile.png" alt="프로필 사진" style="height: 20%; width: 20%; display: none;" >
+                          <input class="form-control-sm col-8" type="file" id="profilePictureUpload" name="file" accept="image/*" onchange="previewProfilePicture()" style="display: none;" />
                           
                           <!-- 주소 -->
                           <div class="form-group">

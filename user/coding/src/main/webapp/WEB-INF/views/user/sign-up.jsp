@@ -145,7 +145,8 @@
         
                           <!-- 비밀번호 -->
                           <div class="form-group">
-                            <label class="col-form-label form-label-title">비밀번호</label><span id="required" class="required">(필수입력사항)</span>
+                            <label class="col-form-label form-label-title">비밀번호</label>
+                            <span id="required" class="required">(필수입력사항)</span>
                             <div class="form-input position-relative">
                               <input class="form-control" type="password" id="user_pass" name="user_pass" placeholder="4자이상 영어와 숫자조합" required />
                               <span id="passError" class="validateError"></span>
