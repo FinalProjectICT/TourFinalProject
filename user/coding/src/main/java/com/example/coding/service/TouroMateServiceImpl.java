@@ -223,20 +223,20 @@ public class TouroMateServiceImpl implements TouroMateService {
 
     // 좋아요 추가
     @Override
-    public void addWishList(LikeVO vo) {
-        TouromateDAO.addWishList(vo);
+    public void addWishListmate(LikeVO vo) {
+        TouromateDAO.addWishListmate(vo);
     }
 
     // 좋아요 확인
     @Override
-    public int ckWishList(LikeVO vo) {
-        return TouromateDAO.ckWishList(vo);
+    public int ckWishListmate(LikeVO vo) {
+        return TouromateDAO.ckWishListmate(vo);
     }
 
     // 좋아요 삭제
     @Override
-    public int deleteWishList(LikeVO vo) {
-        return TouromateDAO.deleteWishList(vo);
+    public int deleteWishListmate(LikeVO vo) {
+        return TouromateDAO.deleteWishListmate(vo);
     }
 
 
@@ -244,5 +244,4 @@ public class TouroMateServiceImpl implements TouroMateService {
     
     
 }
-
 

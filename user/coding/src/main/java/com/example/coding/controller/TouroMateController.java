@@ -215,23 +215,23 @@ public class TouroMateController {
 
     // 사용자 프로필 가져와서 채팅에 붙이기
     @RequestMapping(value = "/getprofileImg", method={RequestMethod.POST})
-	@ResponseBody
-	public String requestMethodName(UserProfileVO vo) {
-		System.out.println("유저아이다>>>>>" + vo.getUser_id());
-		vo = mateService.getProfile(vo);
+   @ResponseBody
+   public String requestMethodName(UserProfileVO vo) {
+      System.out.println("유저아이다>>>>>" + vo.getUser_id());
+      vo = mateService.getProfile(vo);
         System.out.println("vo : " + vo.getImg_real_name());
-		// null 값 경우 default_profile.png 반환
+      // null 값 경우 default_profile.png 반환
         String img_real_name = vo.getImg_real_name();
-		try {
+      try {
             if (vo.getImg_real_name() != null && vo.getImg_real_name() != "" && !img_real_name.equals("5ee25b671da2a46f118d0a4454d822a5")){
                 System.out.println("vo1213>>>>>>> : " + vo.getImg_real_name());
                 return img_real_name;
                 
-            }else return "NO";	
-		} catch (Exception e) {
-			return "default_profile.png";
-		}
-	}
+            }else return "NO";   
+      } catch (Exception e) {
+         return "default_profile.png";
+      }
+   }
 
     // 게시글 삭제
     @PostMapping("/deleteTouroMate")
@@ -251,34 +251,35 @@ public class TouroMateController {
     }
 
     // 좋아요 추가
-    @PostMapping("/addWishList")
+    @PostMapping("/addWishListmate")
     @ResponseBody
-	public void addWishList(@ModelAttribute("vo") LikeVO vo){
-        mateService.addWishList(vo);
-	}
+   public void addWishList(@ModelAttribute("vo") LikeVO vo){
+        System.out.println("asas");
+        mateService.addWishListmate(vo);
+   }
 
     // 좋아요 확인
-    @PostMapping("/ckWishList")
+    @PostMapping("/ckWishListmate")
     @ResponseBody
-	public int ckWishList(@ModelAttribute("vo") LikeVO vo){
-		int res = mateService.ckWishList(vo);
+   public int ckWishList(@ModelAttribute("vo") LikeVO vo){
+      int res = mateService.ckWishListmate(vo);
         System.out.println("Res값!!:>>>>>> " + res);
-		return res;
-	}
+      return res;
+   }
 
     // 좋아요 삭제
-    @PostMapping("/deleteWishList")
+    @PostMapping("/deleteWishListmate")
     @ResponseBody
-	public String deleteWishList(@ModelAttribute("vo") LikeVO vo){
-		int result = mateService.deleteWishList(vo);
+   public String deleteWishList(@ModelAttribute("vo") LikeVO vo){
+      int result = mateService.deleteWishListmate(vo);
         System.out.println("result >>>>!!! >>>> " + result);
-		System.out.println(result);
-		if (result == 1) {
-			return "ok";
-		} else {
-			return "no";
-		}
-		
-	}
+      System.out.println(result);
+      if (result == 1) {
+         return "ok";
+      } else {
+         return "no";
+      }
+      
+   }
 
 }
