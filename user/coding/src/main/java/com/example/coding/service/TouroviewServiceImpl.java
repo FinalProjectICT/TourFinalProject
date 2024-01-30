@@ -78,8 +78,16 @@ public class TouroviewServiceImpl implements TouroviewService{
     }
 
     // 여행지 이미지 사진 가져오기
+    @Override
     public TourVO getTourByNum(String tour_num){
         return touroviewDAO.getTourByNum(tour_num);
+    }
+
+
+    // 검색어
+    @Override
+    public List<TouroviewVO> searchByKeyword(String keyword){
+        return touroviewDAO.searchByKeyword(keyword);
     }
 
     

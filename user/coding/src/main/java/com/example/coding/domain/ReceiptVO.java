@@ -14,6 +14,4 @@ public class ReceiptVO {
     private String  receipt_review_content; // 영수증 댓글 내용
     private String  receipt_date;           // 영수증 날짜
 
-    // TourVO 객체 포함(영수증 리뷰 사진 가져오기)
-    private String tour_img1_path;
 }

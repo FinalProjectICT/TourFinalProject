@@ -7,26 +7,32 @@
 
 <!-- List-->
 <select id="getTourByNum" parameterType="java.lang.String" resultType="TourVO">
-        SELECT * 
-        FROM tour
-        WHERE tour_num = #{tourNum}
+    SELECT  * 
+    FROM    tour
+    WHERE   tour_num = #{tourNum}
 </select>
 
+<!-- 검색어 -->
+<select id="searchByKeyword" resultType="TouroviewVO">
+    SELECT  * 
+    FROM    touroview
+    WHERE   touroview_title LIKE CONCAT('%', #{keyword}, '%') OR touroview_content LIKE CONCAT('%', #{keyword}, '%')
+</select>
 
 
 
 <!-- touroview_insert-->
 <!-- 후기 게시물 db저장-->
 <insert id="saveTouroview">
-        INSERT INTO touroview (user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
-        VALUES (#{user_id}, #{tour_num}, #{touroview_title}, NOW(), NOW(), #{touroview_content});
+    INSERT  INTO touroview (user_id, tour_num, touroview_title, touroview_regdate, touroview_update, touroview_content)
+    VALUES  (#{user_id}, #{tour_num}, #{touroview_title}, NOW(), NOW(), #{touroview_content});
 </insert>
   
 <!-- 여행친구찾기 이름 찾기 -->
 <select id="selectViewNum" resultType="int">
-    SELECT touroview_num
-    FROM touroview
-    ORDER BY touroview_num DESC LIMIT 1
+    SELECT  touroview_num
+    FROM    touroview
+    ORDER   BY touroview_num DESC LIMIT 1
 </select>
 
 
@@ -34,8 +40,8 @@
 <!-- touroview_detail-->
 <!-- detail페이지 db 목록 불러오기-->
 <select id="getTouroviewList" resultType="TouroviewVO">
-    SELECT * 
-    FROM touroview
+    SELECT  * 
+    FROM    touroview
     <where>
         <if test="searchKeyword != null and searchKeyword.length() > 0">
             AND touroview_title LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -45,49 +51,49 @@
 
 <!-- 모든 페이지 수 가져오기-->
 <select id="getTotalPages" resultType="int">
-        SELECT COUNT(*)
-        FROM touroview;
+    SELECT  COUNT(*)
+    FROM    touroview;
 </select>
 
 <!-- 여행지 검색-->
-<select id="findByKeyword" parameterType="TourVO" resultType="TourVO"> 
-    SELECT * 
-    FROM tour
-    WHERE tour_name LIKE CONCAT('%', #{keyword}, '%') OR tour_addr LIKE CONCAT('%', #{keyword}, '%');
+<select id="findByKeyword" parameterType="TourVO" resultType="TourVO">
+    SELECT  * 
+    FROM    tour
+    WHERE   tour_name LIKE CONCAT('%', #{keyword}, '%') OR tour_addr LIKE CONCAT('%', #{keyword}, '%');
 </select>
 
 <!-- TourVO에서 여행지 우편번호, 주소 받아오기 -->
 <select id="getTourById" resultType="TourVO">
-    SELECT *
-    FROM tour
-    WHERE tour_num = #{tour_num}
+    SELECT  *
+    FROM    tour
+    WHERE   tour_num = #{tour_num}
 </select>
 
 <select id="getUserByTouroviewId" resultType="UserVO">
-    SELECT *
-    FROM user
-    WHERE user_id = #{userId}
+    SELECT  *
+    FROM    user
+    WHERE   user_id = #{userId}
 </select>
 
 <!-- detail (TouroviewVO) 페이지 -->
 <select id="getTouroviewById" resultType="TouroviewVO">
-    SELECT * 
-    FROM touroview 
-    WHERE touroview_num = #{touroview_num}
+    SELECT  * 
+    FROM    touroview 
+    WHERE   touroview_num = #{touroview_num}
 </select>
 
 <!-- 여행지 번호를 이용하여 해당 여행지(TourVO) 정보를 가져오기 -->
 <select id="getTourByTouroviewId" resultType="TourVO">
-    SELECT * 
-    FROM tour 
-    WHERE tour_num = #{touroview_num}
+    SELECT  * 
+    FROM    tour 
+    WHERE   tour_num = #{touroview_num}
 </select>
 
 <!-- 신고 횟수 조회 -->
 <!-- 신고 -->
 <insert id="insertReportCount">
-    INSERT INTO report(touroview_num, user_id, report_count)
-    VALUES (#{touroview_num}, #{user_id}, 1)
+    INSERT  INTO report(touroview_num, user_id, report_count)
+    VALUES  (#{touroview_num}, #{user_id}, 1)
 </insert>
 
 <!-- 신고한 게시물인지 확인 -->
@@ -103,23 +109,23 @@
 <!-- touroview_update_delete-->
 <!-- 게시물 수정-->
 <update id="updateTouroview" parameterType="TouroviewVO">
-        UPDATE touroview
-        SET    touroview_title = #{touroviewTitle},
-               touroview_content = #{touroviewContent},
-        WHERE  touroview_num     = #{touroviewNum}
+    UPDATE  touroview
+    SET     touroview_title = #{touroviewTitle},
+            touroview_content = #{touroviewContent},
+    WHERE   touroview_num     = #{touroviewNum}
 </update>
 
 <!-- 게시물 삭제-->
 <delete id="deleteTouroview" parameterType="int">
-        DELETE FROM touroview
-        WHERE  touroview_num = #{touroviewNum}
+    DELETE  FROM touroview
+    WHERE   touroview_num = #{touroviewNum}
 </delete>
 
 <!-- 디테일 게시물 기본 배경화면 가져오기 -->
 <select id="getTouroviewImg" parameterType="int" resultType="TouroviewDetailVO">
-    SELECT * 
-    FROM tour t INNER JOIN touroview t2 ON t.tour_num = t2.tour_num 
-    WHERE t.tour_num = #{tour_num}
+    SELECT  * 
+    FROM    tour t INNER JOIN touroview t2 ON t.tour_num = t2.tour_num 
+    WHERE   t.tour_num = #{tour_num}
 </select>
 
 <!-- 디테일 게시물 여러 이미지 3개 가져오기 -->
@@ -131,13 +137,13 @@
 
 <!-- 좋아요 추가 -->
  <insert id="addWishList" parameterType="LikeVO">
-    INSERT INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
-    VALUES (#{touroview_num}, #{user_id}, '1', NULL)
+    INSERT  INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
+    VALUES  (#{touroview_num}, #{user_id}, '1', NULL)
 </insert>
 
 <!-- 좋아요 확인 -->
 <select id="ckWishList" resultType="int" parameterType="LikeVO">
-    SELECT count(*) 
+    SELECT  count(*) 
     FROM `like` 
     WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
 </select>
@@ -145,7 +151,7 @@
 <!-- 좋아요 삭제 -->
 <delete id="deleteWishList" parameterType="LikeVO">
     DELETE FROM `like` 
-   WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
+    WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
 </delete>
 
 

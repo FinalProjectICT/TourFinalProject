@@ -78,15 +78,15 @@ public class MyPageController {
         // -----------------------------------------------------------------------
         // 작성한 글 페이징 처리 관련 게시물 전체 수
         // 여행 친구 게시물 개수
-        int countTouroMate = myPageService.countTouroMate();
+        int countTouroMate = myPageService.countTouroMate(userId);
         model.addAttribute("touroMateCount", countTouroMate);
 
         // 여행 후기 게시물 개수
-        int countTouroview = myPageService.countTouroview();
+        int countTouroview = myPageService.countTouroview(userId);
         model.addAttribute("touroviewCount", countTouroview);
 
         // 나의 발자취 게시물 개수
-        int countReceipt = myPageService.countReceipt();
+        int countReceipt = myPageService.countReceipt(userId);
         model.addAttribute("receiptCount", countReceipt);
 
 
@@ -103,6 +103,7 @@ public class MyPageController {
         List<TouroMateVO> touroMateVO = myPageService.getMyPageTouroMateList(userId, matePage, pageSize);
         int totalTouroMates = myPageService.getTotalTouroMateCount(userId);
         int totalTouroMatePages = (totalTouroMates + pageSize - 1) / pageSize;
+
         model.addAttribute("touroMateVO", touroMateVO);
         model.addAttribute("totalTouroMatePages", totalTouroMatePages);
         model.addAttribute("touroMateCurrentPage", matePage);
@@ -111,6 +112,7 @@ public class MyPageController {
         List<TouroviewVO> touroviewVO = myPageService.getMyPageTouroviewList(userId, page, pageSize);
         int totalTouroviews = myPageService.getTotalTouroviewCount(userId);
         int totalTouroviewPages = (totalTouroviews + pageSize - 1) / pageSize;
+
         model.addAttribute("touroviewVO", touroviewVO);
         model.addAttribute("totalTouroviewPages", totalTouroviewPages);
         model.addAttribute("touroviewCurrentPage", page);
@@ -119,6 +121,7 @@ public class MyPageController {
         List<TouroviewReviewVO> touroviewReviewVO = myPageService.getMyPageTouroviewReviewList(userId, reviewPage, pageSize);
         int totalTouroviewReviews = myPageService.getTotalTouroviewReviewCount(userId);
         int totalTouroviewReviewPages = (totalTouroviewReviews + pageSize - 1) / pageSize;
+
         model.addAttribute("touroviewReviewVO", touroviewReviewVO);
         model.addAttribute("totalTouroviewReviewPages", totalTouroviewReviewPages);
         model.addAttribute("touroviewReviewCurrentPage", reviewPage);
@@ -127,6 +130,7 @@ public class MyPageController {
         List<TourReviewVO> tourReviewVO = myPageService.getMyPageTourReviewList(userId, commentPage, pageSize);
         int totalTourReviews = myPageService.getTotalTourReviewCount(userId);
         int totalTourReviewPages = (totalTourReviews + pageSize - 1) / pageSize;
+
         model.addAttribute("tourReviewVO", tourReviewVO);
         model.addAttribute("totalTourReviewPages", totalTourReviewPages);
         model.addAttribute("tourReviewCurrentPage", commentPage);
@@ -139,6 +143,7 @@ public class MyPageController {
         List<ReceiptVO> receiptVO = myPageService.getMyPageReceiptList(userId, receiptPage, pagesize3);
         int totalReceipts = myPageService.countReceipts(userId);
         int totalReceiptPages = (totalReceipts + pagesize3 - 1) / pagesize3;
+
         model.addAttribute("receiptVO", receiptVO);
         System.out.println("영수증 후기 가져온 거임 빡치네 : " + receiptVO);
         model.addAttribute("totalReceiptPages", totalReceiptPages);
@@ -155,6 +160,7 @@ public class MyPageController {
         List<WishListVO> wishListVO = myPageService.getWishList(userId, wishlistPage, pagesize);
         int totalWishList = myPageService.countWishList(userId);
         int totalWishListPages = (totalWishList + pagesize - 1) / pagesize;
+
         model.addAttribute("wishListVO", wishListVO); // WishListVO
         model.addAttribute("totalWishListPages", totalWishListPages);
         model.addAttribute("wishListCurrentPage", wishlistPage);
@@ -168,6 +174,7 @@ public class MyPageController {
         List<InquiryVO> inquiryVO = myPageService.getInquiryByUserId(userId, inquiryPage, pagesize2);
         int totalInquiryList = myPageService.countInquiryList(userId);
         int totalInquiryListPages = (totalInquiryList + pagesize2 - 1) / pagesize2;
+
         model.addAttribute("inquiryVO", inquiryVO); // 사용자 문의
         model.addAttribute("totalInquiryListPages", totalInquiryListPages);
         model.addAttribute("InquiryCurrentPage", inquiryPage);
@@ -179,11 +186,10 @@ public class MyPageController {
 
         // ---------------------------------------------------------------
         // 프로필 수정 - 업데이트 ajax 
-        @PostMapping("mypage/profile")
+        @GetMapping("mypage/profile")
         public String updateUserProfile(@RequestBody UserVO userVO) {
             
             int updatedRows = myPageService.updateUserProfile(userVO);
-
             if (updatedRows > 0) {
                 // 업데이트 성공
                 return "redirect:/profile"; // 프로필 페이지로 리다이렉트
@@ -245,10 +251,10 @@ public class MyPageController {
         // 나의 발자취 (영수증)
         @GetMapping("/mypage/receipts")
         @ResponseBody
-        public List<ReceiptVO> getReceipts(@RequestParam("page") int page, @RequestParam("size") int size, HttpSession session) {
+        public List<ReceiptVO> getReceipts(@RequestParam("receiptPage") int receiptPage, HttpSession session) {
             String userId = (String) session.getAttribute("loggedId");
             int pagesize3 = 6;
-            return myPageService.getMyPageReceiptList(userId, page, size);
+            return myPageService.getMyPageReceiptList(userId, receiptPage, pagesize3);
         }
 
 

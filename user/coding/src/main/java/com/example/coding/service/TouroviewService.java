@@ -29,12 +29,14 @@ public interface TouroviewService {
     // (list 페이지) 페이징, 목록
     public List<TouroviewVO> getTouroviewList(String searchKeyword, int page, int size);
     
-    // 
+    // 목록 전체 가져오기
     public int getTotalPages(int size);
     
     // 여행지 이미지 사진 가져오기
     public TourVO getTourByNum(String tour_num);
 
+    // 검색어
+    public List<TouroviewVO> searchByKeyword(String keyword);
 
 
     // ------------------------------ touroview_detail

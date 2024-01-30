@@ -28,25 +28,20 @@ public interface MyPageDAO {
     // 마이페이지 - 메인페이지 - 개수
     // 작성한 리뷰 개수 가져오기(touroview)
     public int getTouroviewCountByUserId(String userId);
-
     // 여행지 리뷰 개수 가져오기
     public int getTourReviewCountByUserId(String userId);
-
     // 여행지 후기 리뷰 개수 가져오기
     public int getTouroviewReviewCountByUserId(String userId);
-
     // 여행지 담은 개수 가져오기
     public int getTourWishCountByUserId(String userId);
 
     // ----- 게시글 가져오기
     // 여행 친구
-    public int countTouroMate();
-
+    public int countTouroMate(String userId);
     // 여행 후기
-    public int countTouroview();
-
+    public int countTouroview(String userId);
     // 나의 발자취
-    public int countReceipt();
+    public int countReceipt(String userId);
 
 
     // -----------------------------------------------------
