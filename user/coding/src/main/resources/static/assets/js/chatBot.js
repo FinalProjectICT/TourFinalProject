@@ -3,6 +3,7 @@ const webSocket = new WebSocket("ws://118.217.203.50:8764");
 webSocket.onmessage = async (event) => {
   anser = event.data;
   ansdata = JSON.parse(anser);
+  console.log(ansdata);
 
   divBotAns(ansdata);
   setTimeout(divBotAct(ansdata), 3000);
@@ -110,7 +111,7 @@ function divBotAns(ansdata) {
         <div class="left-part col-ms-4 col-xl-2">
           <img src="../assets/images/profile/chatbot2_r.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
         </div>
-        <div class="right-part col-lg-auto">` +
+        <div class="right-part col-lg-auto col-xl-8">` +
         ansdata.say +
         `</div>
       </div>
@@ -180,7 +181,7 @@ const divUserQus = (userText, profileImg, sessionId) => {
   $("#chatContent").append(
     `<div class="testimonial user">
       <div class="row g-0 justify-content-md-end mb-3">
-        <div class="left-part col-lg-auto col-xl-6">` +
+        <div class="left-part col-lg-auto col-xl-8">` +
       userText +
       `</div>
         <div class="right-part col-ms-4 col-xl-2"><img src="` +
