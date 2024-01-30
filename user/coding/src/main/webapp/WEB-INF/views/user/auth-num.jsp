@@ -109,7 +109,7 @@ pageEncoding="UTF-8"%>
               <form action="auth-pw" method="POST">
                 <div class="form-group">
                   <label class="col-form-label form-label-title ">인증번호</label>
-                  <input type="text" class="form-control" id="email_auth" name="email_auth" placeholder="인증번호를 입력하세요">
+                  <input type="text" class="form-control" id="email_auth" name="email_auth" placeholder="인증번호를 입력하세요" required>
                   <input type="hidden" name="num" value="${num }">
                 </div>
                 <div class="button-bottom">

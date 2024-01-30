@@ -8786,6 +8786,7 @@ section .black-layer {
       .list-view .list-box .list-content .hotel-info {
         margin-top: 12px; }
       .list-view .list-box .list-content .book-now {
+        border-radius: 100px;
         position: absolute;
         right: 0;
         bottom: 0; }
@@ -9473,6 +9474,19 @@ section .black-layer {
       margin-bottom: 10px;
       line-height: 1.7;
       font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320))); }
+      .single-section .single-sidebar div.social-box span {
+        color: rgba(0, 0, 0, 0.55);
+        margin-bottom: 10px;
+        line-height: 1.7;
+        font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (1920 - 320))); }
+      .single-section .single-sidebar p.prefer {
+        margin-right: 15px;
+        background-color: #4a90e2;
+        color: white;
+        display: inline-block;
+        text-align: center;
+        width: 100px;
+        border-radius: 15px; }
       .single-section .single-sidebar p i {
         font-size: 13px;
         margin-right: 10px;
@@ -9556,8 +9570,11 @@ section .black-layer {
     .single-section .single-sidebar .book-btn-section {
       border-top: 1px solid #f9f9f9;
       margin-top: 10px;
-      padding-top: 15px;
-      text-align: right; }
+      text-align: center;
+      background-color: #fd6668;
+      border-radius: 15px; }
+      .single-section .single-sidebar .book-btn-section a {
+        color: white; }
       .single-section .single-sidebar .book-btn-section ::-webkit-input-placeholder {
         color: #495057;
         text-transform: capitalize;
@@ -12317,6 +12334,8 @@ section .black-layer {
     .faq-content .tab-pane .card:last-child {
       margin-bottom: 0; }
 
+.account-sign-in div.find {
+  margin-bottom: 20px; }
 .account-sign-in .title {
   margin-bottom: 20px; }
   .account-sign-in .title h3 {

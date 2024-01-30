@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -82,12 +82,12 @@ prefix="c" %>
       />
       <div class="breadcrumb-content overlay-black">
         <div>
-          <h2>holiday package</h2>
+          <h2>여행 친구 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                holiday package
+                여행 친구 찾기
               </li>
             </ol>
           </nav>
@@ -754,9 +754,9 @@ prefix="c" %>
                 <div class="social-box">
                   <p>나이: ${authorInfo.user_age}</p>
                   <p>성별: ${authorInfo.user_gender}</p>
-                  <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
-                  <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
-                  <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
+                  <p class="prefer">1순위</p><span>${authorInfo.user_prefer_type1}</span><br/>
+                  <p class="prefer">2순위</p><span>${authorInfo.user_prefer_type2}</span><br/>
+                  <p class="prefer">3순위</p><span>${authorInfo.user_prefer_type3}</span>
                 </div>
               </div>
               <div class="single-sidebar">
@@ -858,210 +858,9 @@ prefix="c" %>
     <!-- section end -->
 
     <!-- footer start -->
-    <footer>
-      <img
-        src="../assets/images/tour/background/13.jpg"
-        class="img-fluid blur-up lazyload bg-img"
-        alt=""
-      />
-      <div class="footer section-b-space section-t-space">
-        <div class="container">
-          <div class="row order-row">
-            <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
-                <h5>Touro</h5>
-              </div>
-              <div class="footer-content">
-                <div class="contact-detail">
-                  <div class="footer-logo">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </div>
-                  <p>사이트 소개</p>
-                  <ul class="contact-list">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                      Newyork.
-                    </li>
-                    <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                    <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-4">
-              <div class="footer-title">
-                <h5>인기 여행지</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-place">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="footer-title">
-                <h5>인기 게시물</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-blog row">
-                  <div class="media"></div>
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <%@ include file='../footer/footer.jsp' %>
     <!-- footer end -->
-
+    
     <!-- tap to top -->
     <div class="tap-top">
       <div>
@@ -1069,29 +868,6 @@ prefix="c" %>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- setting start -->
-    <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div>
-    <!-- setting end -->
 
     <!-- book now section start -->
     <div class="book-panel">
@@ -1506,6 +1282,7 @@ prefix="c" %>
       }
 
       #delete-button {
+        border-radius: 15px;
         background-color: #fd6668; /* 빨간색 배경 */
         color: white; /* 흰색 텍스트 */
         /* 원하는 스타일 추가 가능 */

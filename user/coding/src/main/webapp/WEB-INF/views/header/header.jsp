@@ -28,6 +28,20 @@
         // 트러블슈팅을 위한 추가 코드
         console.log("triggerSessionValueTransfer executed");
     }
+
+    function confirmLogout() {
+      // SweetAlert를 사용하여 로그아웃 여부를 묻는 알림창 띄우기
+      swal({
+        title: "로그아웃 하시겠습니까?",
+        icon: "warning",
+        buttons: ["취소", "확인"],
+      }).then((willLogout) => {
+        if (willLogout) {
+          // 사용자가 확인을 눌렀을 때 로그아웃 처리
+          window.location.href = "/user/logout";
+        }
+      });
+    }
 </script>
 
 
@@ -114,7 +128,7 @@
                     </a>
                   </li>
                   <li class="user user-light rounded5">
-                    <a href="/user/logout">
+                    <a href="#" onclick="confirmLogout();">
                       <i class="fas fa-sign-out-alt"></i>로그아웃
                     </a>
                 </c:if>
@@ -236,6 +250,8 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
     <style>
       /* 기본 스타일 */

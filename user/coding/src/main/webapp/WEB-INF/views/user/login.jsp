@@ -140,11 +140,12 @@ pageEncoding="UTF-8"%>
                     placeholder="Password"
                   />
                 </div>
-                <div class="row">
+                <div class="row find">
                   <a class="col" href="find-id" target="_self">
                     <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">아이디 찾기</p>
                   </a>
-                   / <a class="col" href="find-pw" target="_self">
+                   | 
+                  <a class="col" href="find-pw" target="_self">
                     <p style="font-family: NPSfontRegular; font-size: 16px; color:cornflowerblue; text-align: center;">비밀번호 찾기</p>
                   </a>
                 </div>

@@ -67,7 +67,11 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
   </head>
 
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <!-- 카카오 주소 찾기 -->
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+  <!-- sweetalert.js -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <body>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
@@ -135,8 +139,8 @@
                   
                           <!-- 주소 -->
                           <div class="form-group">
-                            <label class="col-form-label form-label-title">주소</label><span id="required"
-                              class="required">(필수입력사항)</span>
+                            <label class="col-form-label form-label-title">주소</label>
+                            <!-- <span id="required" class="required">(필수입력사항)</span> -->
                             <div class="row g-2 align-items-center">
                               <div class="col">
                                 <div class="form-input position-relative">
@@ -190,6 +194,7 @@
                                 </select>
                               </div>
                             </div>
+                            <span id="travelPreferencesError" class="validateError"></span>
                           </div>
         
                           <!-- 선호 지역 -->
@@ -272,6 +277,7 @@
                                 </select>
                               </div>
                             </div>
+                            <span id="preferredLocationsError" class="validateError"></span>
                           </div>
         
                           <div class="form-group mb-0">
@@ -367,171 +373,63 @@
     <!-- 다음 주소찾기 API -->
     <script>
       function sample6_execDaumPostcode() {
-          new daum.Postcode({
-              oncomplete: function(data) {
-                  // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-      
-                  // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                  // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                  var addr = ''; // 주소 변수
-                  var extraAddr = ''; // 참고항목 변수
-      
-                  //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                  if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                      addr = data.roadAddress;
-                  } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                      addr = data.jibunAddress;
-                  }
-      
-                  // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                  if(data.userSelectedType === 'R'){
-                      // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                      // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                      if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                          extraAddr += data.bname;
-                      }
-                      // 건물명이 있고, 공동주택일 경우 추가한다.
-                      if(data.buildingName !== '' && data.apartment === 'Y'){
-                          extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                      }
-                      // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                      if(extraAddr !== ''){
-                          extraAddr = ' (' + extraAddr + ')';
-                      }
-                      // 조합된 참고항목을 해당 필드에 넣는다.
-                      document.getElementById("sample6_extraAddress").value = extraAddr;
-                  
-                  } else {
-                      document.getElementById("sample6_extraAddress").value = '';
-                  }
-      
-                  // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                  document.getElementById('sample6_postcode').value = data.zonecode;
-                  document.getElementById("sample6_address").value = addr;
-                  // 커서를 상세주소 필드로 이동한다.
-                  document.getElementById("sample6_detailAddress").focus();
-              }
-          }).open();
-      }
-    </script>
+        new daum.Postcode({
+          oncomplete: function (data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-    <!-- 유효성 검사 -->
-    <script>
-      $(function() {     
-          function validatePassword() {
-              var pwd = $("#user_pass").val();
-              var pwdPattern = /^[a-zA-Z0-9]{4,}$/;
-              if (!pwd.match(pwdPattern)) {
-                  $("#passError").text("비밀번호는 4자 이상의 영어와 숫자 조합이어야 합니다.");
-              } else {
-                  $("#passError").text("");
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
+
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+              addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+              addr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+            if (data.userSelectedType === 'R') {
+              // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+              // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+              if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                extraAddr += data.bname;
               }
-          }
-      
-          function validateName() {
-              var name = $("#user_name").val();
-              var namePattern = /^[가-힣]{1,5}$/;
-              if (!name.match(namePattern)) {
-                  $("#nameError").text("이름은 한글로 5자 이내여야 합니다.");
-              } else {
-                  $("#nameError").text("");
+              // 건물명이 있고, 공동주택일 경우 추가한다.
+              if (data.buildingName !== '' && data.apartment === 'Y') {
+                extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
               }
-          }
-      
-          function validatePhone() {
-              var phone = $("#user_tel").val();
-              var phonePattern = /^[0-9]*$/;
-              if (!phone.match(phonePattern)) {
-                  $("#telError").text("전화번호는 숫자만 입력해야 합니다.");
-              } else {
-                  $("#telError").text("");
+              // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+              if (extraAddr !== '') {
+                extraAddr = ' (' + extraAddr + ')';
               }
-          }
-          
-          function validateCheckbox() {
-            var agreeCheckbox = $("#agreeCheckbox");
-            if (!agreeCheckbox.prop("checked")) {
-              $("#checkboxError").text("개인정보 수집에 동의해야 합니다.");
+              // 조합된 참고항목을 해당 필드에 넣는다.
+              document.getElementById("sample6_extraAddress").value = extraAddr;
+
             } else {
-              $("#checkboxError").text("");
+              document.getElementById("sample6_extraAddress").value = '';
             }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode;
+            document.getElementById("sample6_address").value = addr;
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById("sample6_detailAddress").focus();
           }
-      
-          //아이디 중복체크
-        $("#id_chk").click(function(){
-            var user_id = $('#user_id').val();
-            //alert(id);
-            if(user_id != ""){
-              // AJAX를 사용하여 서버로 중복 체크 요청 보내기
-              $.ajax({
-                  type: "POST",
-                  url: "idCheck", // 서버의 중복 체크 컨트롤러 주소
-                  data: { user_id: user_id }, // 아이디를 서버로 보내기
-                  success: function(response) {
-                      //console.log(id);
-                      if (response === "1") {
-                          alert("이미 존재하는 아이디입니다.");
-                          $("#submitBtn").prop('disabled', true);
+        }).open();
+      }
 
-                      } else if (response === "0") {
-                          alert("사용 가능한 아이디입니다.");
-                            // 아이디 중복 확인이 성공했으므로 제출 버튼을 활성화합니다.
-                            $("#submitBtn").prop('disabled', false);
-                      }
-                  },
-                  error: function() {
-                      // 오류 처리
-                      alert("오류가 발생했습니다.");
-                  }
-              });
-            }else{
-              alert("아이디를 입력해주세요.")
-            }
-            
-        });
-
-        // 체크박스 상태 변화 감지
-        $("#agreeCheckbox").change(validateCheckbox);
-          
-        $("form").submit(function(event) {
-              if ($("#idError").text() !== "") {
-                  event.preventDefault(); // 양식 제출 방지
-                  alert("아이디 중복 확인을 해주세요.");
-              }else if($("#birthdate").text() !== ""){
-                  event.preventDefault(); // 양식 제출 방지
-                  alert("생년월일을 입력 해주세요.");
-              }
-          });
-          
-          // 체크박스 유효성 검사
-          // validateCheckbox();
-          // 아이디,비밀번호,이름,전화번호 유효성 검사
-          $("#user_pass").blur(validatePassword);
-          $("#user_name").blur(validateName);
-          $("#user_tel").blur(validatePhone);
-          
-          if ($("#idError").text() !== "") {
-            event.preventDefault(); // 양식 제출 방지
-            alert("아이디 중복 확인을 해주세요.");
-          } else if ($("#birthdate").text() !== "") {
-            event.preventDefault(); // 양식 제출 방지
-            alert("생년월일을 입력 해주세요.");
-          } else if ($("#checkboxError").text() !== "") {
-            event.preventDefault(); // 양식 제출 방지
-            alert("개인정보 수집에 동의해주세요.");
-          }
-              
-          // 상세주소 입력이 완료되면 주소 정보를 hidden 필드에 저장
-        $("#sample6_detailAddress").on("change", function() {
-          var addr = $("#sample6_address").val();
-          var detailaddr = $(this).val();
-          var fullAddress = addr + "," + detailaddr;
-          $("#sample6_extraAddress").val(fullAddress);
-        });
-
+      // 상세주소 입력이 완료되면 주소 정보를 hidden 필드에 저장
+      $("#sample6_detailAddress").on("change", function () {
+        var addr = $("#sample6_address").val();
+        var detailaddr = $(this).val();
+        var fullAddress = addr + "," + detailaddr;
+        $("#sample6_extraAddress").val(fullAddress);
       });
     </script>
 
+    <!-- 네이버에서 넘겨받은 정보 회원가입 폼에 입력 -->
     <script>
       $(document).ready(function () {
         
@@ -595,6 +493,137 @@
         }
       });
     </script>
+
+    <!-- 유효성 검사 -->
+    <script>
+      $(function () {
+        function validateId() {
+          var id = $("#user_id").val();
+          var idPattern = /^[a-zA-Z0-9]{5,10}$/;
+          if (!id.match(idPattern)) {
+            $("#idError").text("아이디는 5자~10자의 영어와 숫자 조합이어야 합니다.");
+          } else {
+            $("#idError").text("");
+          }
+        }
+
+        function validatePassword() {
+          var pwd = $("#user_pass").val();
+          var pwdPattern = /^[a-zA-Z0-9]{4,}$/;
+          if (!pwd.match(pwdPattern)) {
+            $("#passError").text("비밀번호는 4자 이상의 영어와 숫자 조합이어야 합니다.");
+          } else {
+            $("#passError").text("");
+          }
+        }
+
+        function validateName() {
+          var name = $("#user_name").val();
+          var namePattern = /^[가-힣]{1,5}$/;
+          if (!name.match(namePattern)) {
+            $("#nameError").text("이름은 한글로 5자 이내여야 합니다.");
+          } else {
+            $("#nameError").text("");
+          }
+        }
+
+        function validatePhone() {
+          var phone = $("#user_tel").val();
+          var phonePattern = /^[0-9]*$/;
+          if (!phone.match(phonePattern)) {
+            $("#telError").text("전화번호는 숫자만 입력해야 합니다.");
+          } else {
+            $("#telError").text("");
+          }
+        }
+
+        function validateBirthdate() {
+          var birthdate = $("#birthdate").val();
+          if (!birthdate) {
+            $("#birthdateError").text("생년월일을 입력해주세요.");
+          } else {
+            $("#birthdateError").text("");
+          }
+        }
+
+        function validateCheckbox() {
+          var agreeCheckbox = $("#agreeCheckbox");
+          if (!agreeCheckbox.prop("checked")) {
+            $("#checkboxError").text("개인정보 수집에 동의해야 합니다.");
+          } else {
+            $("#checkboxError").text("");
+          }
+        }
+
+        function validateTravelPreferences() {
+          var preferType1 = $("select[name='user_prefer_type1']").val();
+          var preferType2 = $("select[name='user_prefer_type2']").val();
+          var preferType3 = $("select[name='user_prefer_type3']").val();
+
+          if (!preferType1 || !preferType2 || !preferType3) {
+            $("#travelPreferencesError").text("여행 유형을 모두 선택해주세요.");
+          } else {
+            $("#travelPreferencesError").text("");
+          }
+        }
+
+        function validatePreferredLocations() {
+          var preferLoc1 = $("select[name='user_prefer_loc1']").val();
+          var preferLoc2 = $("select[name='user_prefer_loc2']").val();
+          var preferLoc3 = $("select[name='user_prefer_loc3']").val();
+
+          if (!preferLoc1 || !preferLoc2 || !preferLoc3) {
+            $("#preferredLocationsError").text("선호 지역을 모두 선택해주세요.");
+          } else {
+            $("#preferredLocationsError").text("");
+          }
+        }
+
+        // 아이디,비밀번호,이름,전화번호 유효성 검사
+        $("select[name='user_prefer_type1'], select[name='user_prefer_type2'], select[name='user_prefer_type3']").change(validateTravelPreferences);
+        $("select[name^='user_prefer_loc']").change(validatePreferredLocations);
+        // 체크박스 상태 변화 감지
+        $("#agreeCheckbox").change(validateCheckbox);
+          
+        $("form").submit(function(event) {
+
+          validateCheckbox();
+          validateBirthdate();
+          validateTravelPreferences();
+          validatePreferredLocations();
+
+            if ($("#travelPreferencesError").text() !== "") {
+                event.preventDefault(); // 양식 제출 방지
+                swal("", "선호 여행유형 우선순위를 정해주세요", "error");
+              } else if ($("#preferredLocationsError").text() !== "") {
+                event.preventDefault(); // 양식 제출 방지
+                swal("", "선호 지역 우선순위를 정해주세요.", "error");
+              } else if ($("#checkboxError").text() !== "") {
+                event.preventDefault(); // 양식 제출 방지
+                swal("", "개인정보 수집에 동의해주세요.", "error");
+              } else {
+                // 모든 검사가 통과하면 성공 알림을 표시하고 양식을 제출합니다.
+                event.preventDefault();
+                showSuccessAlert();
+              }
+            });
+
+          $("#user_pass").blur(validatePassword);
+          $("#user_name").blur(validateName);
+          $("#user_tel").blur(validatePhone);
+          
+          function showSuccessAlert() {
+            swal("회원가입이 완료되었습니다!", "환영합니다!", "success")
+              .then((value) => {
+                if (value) {
+                  $("form").off("submit").submit();
+                }
+              });
+            }
+      });
+    </script>
+
+    
 
   </body>
 

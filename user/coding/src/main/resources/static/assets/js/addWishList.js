@@ -47,7 +47,9 @@ $(() => {
             }) // end ajax
           
         }
-      } else if (id == null || id == "") alert("로그인이 필요합니다.");
+      } else if (id == null || id == "")
+        swal("", "로그인이 필요한 기능입니다.", "info");
+        // alert("로그인이 필요한 기능입니다.");
     });
   });
 });

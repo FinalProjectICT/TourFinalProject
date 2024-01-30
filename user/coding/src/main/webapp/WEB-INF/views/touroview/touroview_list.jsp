@@ -414,6 +414,9 @@ pageEncoding="UTF-8"%>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+    
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script>
       $("#datepicker").datepicker({
