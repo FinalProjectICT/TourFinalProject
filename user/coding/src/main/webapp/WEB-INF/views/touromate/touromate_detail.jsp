@@ -121,13 +121,19 @@ prefix="c" %>
                   <div class="top">
                     <h2>${touroMate.touro_mate_title}</h2>
                     <div class="share-buttons">
-                      <a href="#" 
-                         class="btn btn-solids"
-                         title="${touroMate.touro_mate_num}"
-                         data-original-title="Add_to_Wishlist"
-                        ><i class="far fa-heart"></i>좋아요</a>
-                        <a id="delete-button" class="btn btn-solid color1 book-now delete-button"
-                            onclick="deleteTouroMate(`${touroMate.touro_mate_num}`)">삭제</a>
+                      <a
+                        href="#"
+                        class="btn btn-solids"
+                        title="${touroMate.touro_mate_num}"
+                        data-original-title="Add_to_Wishlist"
+                        ><i class="far fa-heart"></i>좋아요</a
+                      >
+                      <a
+                        id="delete-button"
+                        class="btn btn-solid color1 book-now delete-button"
+                        onclick="deleteTouroMate(`${touroMate.touro_mate_num}`)"
+                        >삭제</a
+                      >
                     </div>
                   </div>
                   <div class="facility-detail">
@@ -140,11 +146,15 @@ prefix="c" %>
           </div>
           <script>
             // 좋아요
-            var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+            var loggedInUserId =
+              '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
 
             $(() => {
               // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
-              $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
+              $("a[data-original-title=Add_to_Wishlist]").each(function (
+                idx,
+                item
+              ) {
                 // 여행지 값, 사용자 정보 가져오기
                 var num = $(item).attr("title");
                 console.log("num >>> ", num);
@@ -176,24 +186,28 @@ prefix="c" %>
                           console.log(err);
                         },
                       });
-                      $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+                      $(icon)
+                        .attr("class", "fas fa-heart")
+                        .css("color", "#ff0000");
                     } else {
-                        $.ajax({
-                          type:'post',
-                          data : {touro_mate_num : num, user_id : id},
-                          url : "/touromate/deleteWishList",
-                          success : function (result) {
-                            if(result == "ok") {
-                              $(icon).attr("class", "far fa-heart").css("color", "#000000");
-                            }
-                          },
-                          error : function (err) {
-                            console.log(err)
+                      $.ajax({
+                        type: "post",
+                        data: { touro_mate_num: num, user_id: id },
+                        url: "/touromate/deleteWishList",
+                        success: function (result) {
+                          if (result == "ok") {
+                            $(icon)
+                              .attr("class", "far fa-heart")
+                              .css("color", "#000000");
                           }
-                        }) // end ajax
-                      
+                        },
+                        error: function (err) {
+                          console.log(err);
+                        },
+                      }); // end ajax
                     }
-                  } else if (id == null || id == "") alert("로그인이 필요합니다.");
+                  } else if (id == null || id == "")
+                    alert("로그인이 필요합니다.");
                 });
               });
             });
@@ -220,33 +234,36 @@ prefix="c" %>
             }
 
             // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
-            var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-        
+            var loggedInUserId =
+              '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+
             console.log("loggedInUserId 설정 이후: ", loggedInUserId);
-        
+
             function deleteTouroMate(touroMateNum) {
-                console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
-                console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
-                if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
-                    // AJAX를 사용하여 삭제 요청을 서버에 전송
-                    $.ajax({
-                        type: "POST",
-                        url: "/touromate/deleteTouroMate",
-                        data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
-                        success: function (response) {
-                            alert(response);
-                            window.location.href = "/touromate/touromate_list";
-                        },
-                        error: function (error) {
-                          alert("게시물 삭제 권한이 없습니다.");
-                          console.error("삭제 오류:", error);
-                      }
-                    });
-                }
+              console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
+              console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
+              if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
+                // AJAX를 사용하여 삭제 요청을 서버에 전송
+                $.ajax({
+                  type: "POST",
+                  url: "/touromate/deleteTouroMate",
+                  data: {
+                    touro_mate_num: touroMateNum,
+                    user_id: loggedInUserId,
+                  },
+                  success: function (response) {
+                    alert(response);
+                    window.location.href = "/touromate/touromate_list";
+                  },
+                  error: function (error) {
+                    alert("게시물 삭제 권한이 없습니다.");
+                    console.error("삭제 오류:", error);
+                  },
+                });
+              }
             }
-        </script>
-                
-        
+          </script>
+
           <div class="col-xl-9 col-lg-8">
             <div class="description-section tab-section">
               <div class="menu-top menu-up">
@@ -997,12 +1014,14 @@ prefix="c" %>
 
       // 스크롤을 제일 아래로 내리는 함수
       function scrollToBottom() {
-        const chatLogs = $(".chat-logs");
-        chatLogs.animate({ scrollTop: chatLogs.prop("scrollHeight") }, 500);
+        // const chatLogs = $(".chat-logs");
+        $(".chat-logs").scrollTop($(".chat-logs")[0].scrollHeight);
       }
 
       $(document).ready(function () {
-        function openWebSocket() {
+        // 웹 소캣 연결을 담당하는 함수
+        function openWebSocket(postId, userId) {
+          // 이미 연결된 웹 소캣이 있고, 연결 상태가 open 또는 connecting 이면 중복 연결을 방지
           if (
             ws &&
             (ws.readyState === WebSocket.OPEN ||
@@ -1010,26 +1029,61 @@ prefix="c" %>
           ) {
             return;
           }
+          console.log("넘버 받아오나?!!!!!!!>>> ", postId);
+          console.log("아이디는?!!!!!! >>> " + userId);
 
-          ws = new WebSocket("ws://localhost:8081/chat");
+          // 새로운 웹 소켓 연결 생성
+          ws = new WebSocket(
+            `ws://175.114.130.19:8081/chat?post-id=${"${postId}"}&user-id=${"${userId}"}`
+          );
 
+          // 웹 소켓 연결이 열린 경우 이벤트 핸들러
           ws.onopen = function () {
             console.log("WebSocket Client Connected");
+            console.log("넘버 받아오나>>> ", postId);
+            console.log("아이디는>>> " + userId);
           };
 
+          // 웹 소켓으로부터 메세지를 받은 경우의 이벤트 핸들러
           ws.onmessage = function (event) {
+            console.log("Received message from server:", event.data);
+
+            // 서버로부터 받은 메세지를 파싱
             const message = JSON.parse(event.data);
-            if (message.type === "chat" && message.message.trim() !== "") {
-              // 받은 메시지를 모달에 표시하는 코드 추가
+
+            if (message.type === "init") {
+              // 초기 채팅 데이터를 처리
+              const initData = message.data;
+
+              if (initData && initData.length > 0) {
+                initData.forEach((chat) => {
+                  appendMessageToChat(
+                    chat.message,
+                    chat.userId,
+                    chat.timestamp,
+                    chat.profileImg
+                  );
+                });
+
+                scrollToBottom();
+              }
+            } else if (
+              message.type === "chat" &&
+              message.message.trim() !== ""
+            ) {
+              // 채팅 메세지이고, 내용이 비어있지 않은 경우에만 처리
               appendMessageToChat(
                 message.message,
                 message.userId,
                 message.timestamp,
                 message.profileImg
               );
+
+              scrollToBottom();
             }
           };
 
+          // 웹 소켓 연결이 종료된 경우의 이벤트 핸들러
           ws.onclose = function (event) {
             console.log("WebSocket connection closed:", event);
           };
@@ -1045,6 +1099,7 @@ prefix="c" %>
           event.preventDefault();
         });
 
+        // 채팅 메세지 전송 함수
         function sendMessage() {
           const inputMessage = $("#chat-input").val().trim();
           console.log("Sending message:", inputMessage);
@@ -1056,6 +1111,7 @@ prefix="c" %>
             const userId =
               '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
 
+            // 프로필 이미지를 가져오는 AJAX 요청
             $.ajax({
               url: "/touromate/getprofileImg",
               type: "POST",
@@ -1069,15 +1125,18 @@ prefix="c" %>
                   profileImg = "../assets/images/profile/" + respons;
                 }
 
+                // 서버로 메세지 전송
                 ws.send(
                   JSON.stringify({
                     type: "chat",
                     message: inputMessage,
                     userId: userId,
                     postId: postId,
-                    profileImg: profileImg // 프로필 이미지를 전달
+                    profileImg: profileImg, // 프로필 이미지를 전달
                   })
                 );
+
+                console.log(`Sent message to server: ${inputMessage}`);
 
                 $("#chat-input").val("");
               },
@@ -1088,6 +1147,7 @@ prefix="c" %>
           }
         }
 
+        // 채팅 메세지를 채팅창에 추가하는 함수
         function appendMessageToChat(message, userId, timestamp, profileImg) {
           console.log("Appending message:", message);
           console.log("userid: " + userId);
@@ -1177,9 +1237,62 @@ prefix="c" %>
           }
         }
 
+        // 채팅 데이터를 요청하는 함수
+        function requestChatData(postId) {
+          // 서버에 채팅 데이터 요청
+          $.ajax({
+            url: `http://localhost:8081/getChatData`,
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ postId: postId }),
+            success: function (data) {
+              console.log("Received chat data:", data);
+
+              // 받아온 데이터를 화면에 표시
+              handleChatData(data);
+            },
+            error: function (err) {
+              console.error("Error fetching chat data:", err);
+            },
+          });
+        }
+
+        // 받아온 채팅 데이터를 처리하는 함수
+        function handleChatData(data) {
+          // data를 이용하여 화면에 채팅 데이터 표시
+          const chatLogs = $(".chat-logs");
+
+          // 예시: 받아온 데이터를 이용하여 화면에 추가
+          data.forEach((chat) => {
+            appendMessageToChat(
+              chat.message,
+              chat.userId,
+              chat.timestamp,
+              chat.profileImg
+            );
+          });
+
+          // 채팅 데이터를 받아온 후 스크롤을 아래로 이동
+          scrollToBottom();
+        }
+
         // 모달이 열릴 때 WebSocket 연결 시작
-        $("#chatLive").on("shown.bs.modal", function () {
-          openWebSocket();
+        $("#chatLive").on("shown.bs.modal", async function () {
+          const postId = $("#chat-submit").data("touro-mate-num");
+          const userId =
+            '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+
+          console.log("#chat-submit >>> " + postId);
+          console.log("USERID >> " + userId);
+
+          // 채팅 데이터 요청
+          requestChatData(postId);
+
+          // WebSocket 연결 시 사용자 ID와 게시글 ID 전송
+          openWebSocket(postId, userId);
+
+          scrollToBottom();
+
         });
 
         // 모달이 닫힐 때 WebSocket 연결 종료
@@ -1193,7 +1306,7 @@ prefix="c" %>
           }
         });
 
-        // Enter 동작
+        // Enter 동작 처리
         $("#chat-input").keydown(function (event) {
           if (event.which === 13) {
             sendMessage();
@@ -1286,7 +1399,7 @@ prefix="c" %>
         background-color: #fd6668; /* 빨간색 배경 */
         color: white; /* 흰색 텍스트 */
         /* 원하는 스타일 추가 가능 */
-    }
+      }
     </style>
   </body>
 </html>
