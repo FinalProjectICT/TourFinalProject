@@ -66,6 +66,9 @@ pageEncoding="UTF-8"%>
     <!-- 문의 내역 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
+    <!-- 발자취 발모양-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
   </head>
 
   <style>
@@ -161,9 +164,6 @@ pageEncoding="UTF-8"%>
     font-size: 14px; /* 글자 크기 */
 }
 
-.pagination-right a:hover {
-    background-color: #e2e6ea; /* 호버 배경색 */
-}
 
 .pagination-right a.active {
     background-color: #007bff; /* 활성화된 페이지 배경색 */
@@ -177,6 +177,55 @@ pageEncoding="UTF-8"%>
     font-size: 15px; /* 글자 크기 줄임 */
     /* 필요에 따라 추가 스타일 */
 }
+
+
+/*나의 발자취 발걸음*/ 
+ .footprints-section {
+  margin-top: 20px;
+} 
+
+/* 섹션 제목 스타일 */
+ .footprints-section h3 {
+  text-align: center;
+  margin-bottom: 15px;
+} 
+
+/* 발자국 아이콘 스타일 */
+ #footprints i {
+  color: #4a4a4a;
+  margin-right: 5px;
+} 
+
+.footprints {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.footprints i {
+  color: #4a4a4a; /* 아이콘 색상 */
+  transition: transform 0.3s ease; /* 위로 올라가는 효과 */
+}
+
+.footprints:hover i {
+  transform: translateY(-10px); /* 아이콘 위로 이동 */
+}
+
+.footprints .title {
+  position: absolute;
+  bottom: 100%; /* 아이콘 위에 위치 */
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  transition: transform 0.3s ease;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  /* 추가 스타일링... */
+}
+
+.footprints:hover .title {
+  transform: translateX(-50%) scaleY(1); /* 텍스트 보이기 */
+}
+
+
 
 
 
@@ -336,8 +385,18 @@ pageEncoding="UTF-8"%>
                         </div>
                       </div>
                     </div>
+                    <div class="footprints-section">
+                      <h3>나의 발자취 걸음</h3>
+                      <p id="stepCount">현재 발걸음 수: <span>${receiptCount}</span> 걸음</p>
+                      <div id="footprints"></div>
+                    </div>
                   </div>
                 </div>
+                
+
+
+
+
 
                 <!-- 프로필 수정 페이지 -->
                 <div class="tab-pane fade" id="profile">
@@ -649,25 +708,23 @@ pageEncoding="UTF-8"%>
                     </div>
 
                     <!-- 카카오 지도 --> 
-                    <div id="kakao-map" style="width:100%;height:400px;"></div>
+                    <div id="kakao-map" style="width:100%; height:400px;"></div>
 
                     <div
                       class="product-wrapper-grid ratio3_2 special-section grid-box">
-                      <div class="row content grid">
+                      <div id="receiptItems" class="row content grid">
                         <!-- 여기에 receipt 목록 -->
                       <c:forEach var="receipt" items="${receiptVO}" varStatus="status">
                         <div class="col-xl-4 col-sm-6 grid-item">
                           <div class="special-box">
                             <div class="special-img">
-                              <a href="/tourDetail/${receipt.tour_num}">
+                              <a href="">
                                 <!-- 이미지 -->
-                                <img
-                                  src=""
-                                  class="img-fluid blur-up lazyload bg-img"
-                                  alt="${receipt.receipt_name}"
-                                />
+                                <img class="img-fluid blur-up lazyload bg-img fixed-size-img"/>
                               </a>
                               <div class="content_inner">
+                                <!-- 여행지 주소-->
+                                <h5>${receipt.receipt_business_addr}</h5>
                                 <!-- 여행지 제목-->
                                 <a href="/tourDetail/${receipt.tour_num}"">
                                   <h5>${receipt.receipt_name}</h5>
@@ -707,12 +764,12 @@ pageEncoding="UTF-8"%>
                         <div class="col-xl-4 col-sm-6 grid-item">
                               <div class="special-box">
                                   <div class="special-img" style="height: 200px;">
-                                      <a href="/tourDetail/${wishList.tour_num}">
+                                      <a href="/touro/${wishList.tour_num}">
                                         <img src="../${wishList.tour_img1_path}" class="img-fluid blur-up lazyload"
                                         alt="" />
                                       </a>
                                       <div class="content_inner">
-                                          <a href="/tourDetail/${wishList.tour_num}">
+                                          <a href="/touro/${wishList.tour_num}">
                                               <h5>${wishList.tour_name}</h5>
                                           </a>
                                       </div>
@@ -1724,72 +1781,72 @@ pageEncoding="UTF-8"%>
 
     <!-- 여행지 담기 페이징 ajax -->
     <script>
-    function createPagination(totalPages, currentPage) {
-      var paginationHtml = '';
-      for (var i = 1; i <= totalPages; i++) {
-        paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
-                            '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>' +
-                          '</li>';
+      function createPagination(totalPages, currentPage) {
+        var paginationHtml = '';
+        for (var i = 1; i <= totalPages; i++) {
+          paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
+                              '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>' +
+                            '</li>';
+        }
+        $('#pagination').html(paginationHtml);
       }
-      $('#pagination').html(paginationHtml);
-    }
-
-
-    // 페이지 로드 시 페이지네이션 생성
-    $(document).ready(function() {
-        var totalWishListPages = ${totalWishListPages}; // 서버 사이드에서 설정한 총 페이지 수
-        var wishListCurrentPage = ${wishListCurrentPage}; // 서버 사이드에서 설정한 현재 페이지 번호
-
-        createPagination(totalWishListPages, wishListCurrentPage, "wishlistPagination");
-
-        // 페이지네이션 링크에 이벤트 리스너 바인딩
-        $('#wishlistPagination').off('click').on('click', '.page-link', function(e) {
-            e.preventDefault();
-            var pageNum = $(this).data('page');
-            loadPage(pageNum);
-        });
-    });
-
-    function loadPage(pageNum) {
-      $.ajax({
-        url: '/user/mypage/wishlist', // 서버의 URL
-        type: 'GET',
-        data: {
-          wishlistPage: pageNum
-        },
-        success: function(wishLists) {
-          var html = '';
-          $.each(wishLists, function(i, wishList) {
-            html += '<div class="col-xl-4 col-sm-6 grid-item">' +
-                      '<div class="special-box">' +
-                        '<div class="special-img" style="height: 200px;">' +
-                          '<a href="/tourDetail/' + wishList.tour_num + '">' +
-                            '<img src="../' + wishList.tour_img1_path + '" class="img-fluid blur-up lazyload" alt="" />' +
-                          '</a>' +
-                          '<div class="content_inner">' +
+  
+  
+      // 페이지 로드 시 페이지네이션 생성
+      $(document).ready(function() {
+          var totalWishListPages = ${totalWishListPages}; // 서버 사이드에서 설정한 총 페이지 수
+          var wishListCurrentPage = ${wishListCurrentPage}; // 서버 사이드에서 설정한 현재 페이지 번호
+  
+          createPagination(totalWishListPages, wishListCurrentPage, "wishlistPagination");
+  
+          // 페이지네이션 링크에 이벤트 리스너 바인딩
+          $('#wishlistPagination').off('click').on('click', '.page-link', function(e) {
+              e.preventDefault();
+              var pageNum = $(this).data('page');
+              loadPage(pageNum);
+          });
+      });
+  
+      function loadPage(pageNum) {
+        $.ajax({
+          url: '/user/mypage/wishlist', // 서버의 URL
+          type: 'GET',
+          data: {
+            wishlistPage: pageNum
+          },
+          success: function(wishLists) {
+            var html = '';
+            $.each(wishLists, function(i, wishList) {
+              html += '<div class="col-xl-4 col-sm-6 grid-item">' +
+                        '<div class="special-box">' +
+                          '<div class="special-img" style="height: 200px;">' +
                             '<a href="/tourDetail/' + wishList.tour_num + '">' +
-                              '<h5>' + wishList.tour_name + '</h5>' +
+                              '<img src="../' + wishList.tour_img1_path + '" class="img-fluid blur-up lazyload" alt="" />' +
                             '</a>' +
-                          '</div>' +
-                          '<div class="top-icon">' +
-                            '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Remove from Wishlist">' +
-                              '<i class="fas fa-times"></i>' +
-                            '</a>' +
+                            '<div class="content_inner">' +
+                              '<a href="/tourDetail/' + wishList.tour_num + '">' +
+                                '<h5>' + wishList.tour_name + '</h5>' +
+                              '</a>' +
+                            '</div>' +
+                            '<div class="top-icon">' +
+                              '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Remove from Wishlist">' +
+                                '<i class="fas fa-times"></i>' +
+                              '</a>' +
+                            '</div>' +
                           '</div>' +
                         '</div>' +
-                      '</div>' +
-                    '</div>';
-          });
-          // 게시물 목록만 업데이트
-          $('#wishListItems').html(html); // 게시물 목록 업데이트
-        },
-        error: function(error) {
-          // 오류 처리
-          console.log(error);
-        }
-      });
-    }
-    </script>
+                      '</div>';
+            });
+            // 게시물 목록만 업데이트
+            $('#wishListItems').html(html); // 게시물 목록 업데이트
+          },
+          error: function(error) {
+            // 오류 처리
+            console.log(error);
+          }
+        });
+      }
+      </script>
 
 
     <!-- 문의 내역 -->
@@ -1804,6 +1861,7 @@ pageEncoding="UTF-8"%>
       }
     }
     </script>
+
 
     <!-- 문의 내역 페이징 ajax -->
     <script>
@@ -1844,7 +1902,9 @@ pageEncoding="UTF-8"%>
                 $.each(inquiry, function(i, inquiry) {
                   html += '<div class="col-md-12"><div class="card mb-4"><div class="card-body">';
                     html += '<h5 class="card-title toggle-title inquiry-title" onclick="toggleInquiryDetails(\'details-' + inquiry.inquiry_num + '\')">';
-                    html += '제목: ' + inquiry.inquiry_title + '</h5>';
+                    html += '제목: ' + inquiry.inquiry_title;
+                    html += '<span class="inquiry-date">' + inquiry.inquiry_regdate + '</span>';
+                    html += '</h5>';
 
                     html += '<div id="details-' + inquiry.inquiry_num + '" style="display: none;">';
                     html += '<p class="card-text inquiry-content" style="font-size: 18px;">문의 내용: ' + inquiry.inquiry_content + '</p>';
@@ -1873,78 +1933,92 @@ pageEncoding="UTF-8"%>
 
   <!-- 발자취 페이징 (영수증)-->
   <script>
-    // 페이지 로드 시 첫 번째 페이지 데이터 불러오기
+    function createPagination(totalPages, currentPage) {
+      var paginationHtml = '';
+      for (var i = 1; i <= totalPages; i++) {
+        paginationHtml += '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
+                            '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a>' +
+                          '</li>';
+      }
+      $('#receiptPagination').html(paginationHtml); // 수정: 영수증 목록의 페이지네이션 컨테이너 ID
+    }
+
+    // 페이지 로드 시 페이지네이션 생성
     $(document).ready(function() {
-        loadReceiptData(1);
-    });
+        var totalReceiptPages = ${totalReceiptPages}; // 수정: 영수증 목록의 총 페이지 수
+        var receiptCurrentPage = ${receiptCurrentPage}; // 수정: 영수증 목록의 현재 페이지 번호
 
-    // 영수증 데이터 불러오기 함수
-    function loadReceiptData(pageNumber) {
-        $.ajax({
-            url: '/path/to/receipt/data', // 서버의 영수증 데이터를 제공하는 URL
-            type: 'GET',
-            data: { page: pageNumber },
-            dataType: 'json',
-            success: function(data) {
-                // 서버로부터 받은 데이터로 영수증 목록 갱신
-                updateReceiptList(data.receipts);
+        createPagination(totalReceiptPages, receiptCurrentPage);
 
-                // 페이지네이션 갱신 (예시에서는 서버로부터 총 페이지 수를 받아온다고 가정)
-                updatePagination(data.totalPages, pageNumber);
-            },
-            error: function(error) {
-                console.error('Error fetching receipt data:', error);
-            }
-        });
-    }
-
-    // 영수증 목록 업데이트 함수
-    function updateReceiptList(receipts) {
-        var container = $('.row.content.grid');
-        container.empty(); // 기존 내용 비우기
-
-        receipts.forEach(function(receipt) {
-            var receiptHtml = '<div class="col-xl-4 col-sm-6 grid-item">' +
-                '<div class="special-box">' +
-                '<div class="special-img">' +
-                '<a href="/tourDetail/' + receipt.tour_num + '">' +
-                '<img src="' + receipt.imageUrl + '" class="img-fluid blur-up lazyload bg-img" alt="' + receipt.receipt_name + '" />' +
-                '</a>' +
-                '<div class="content_inner">' +
-                '<a href="/tourDetail/' + receipt.tour_num + '">' +
-                '<h5>' + receipt.receipt_name + '</h5>' +
-                '</a>' +
-                '<h6>' + receipt.receipt_date + '</h6>' +
-                '</div>' +
-                '<div class="top-icon"></div>' +
-                '</div>' +
-                '</div>' +
-                '</div>';
-            container.append(receiptHtml);
-        });
-    }
-
-    // 페이지네이션 업데이트 함수
-    function updatePagination(totalPages, currentPage) {
-        var paginationContainer = $('#receiptPagination');
-        paginationContainer.empty(); // 기존 내용 비우기
-
-        for (var i = 1; i <= totalPages; i++) {
-            var pageItem = '<li class="page-item' + (i === currentPage ? ' active' : '') + '">' +
-                '<a class="page-link" href="#" data-page="' + i + '">' + i + '</a></li>';
-            paginationContainer.append(pageItem);
-        }
-
-        // 페이지네이션 링크 클릭 이벤트 바인딩
-        paginationContainer.off('click').on('click', '.page-link', function(e) {
+        // 페이지네이션 링크에 이벤트 리스너 바인딩
+        $('#receiptPagination').off('click').on('click', '.page-link', function(e) {
             e.preventDefault();
             var pageNum = $(this).data('page');
             loadReceiptData(pageNum);
         });
+    });
+
+    function loadReceiptData(pageNum) {
+      $.ajax({
+        url: '/user/mypage/receipts', // 수정: 영수증 데이터를 제공하는 서버의 URL
+        type: 'GET',
+        data: {
+          receiptPage: pageNum
+        },
+        success: function(receipts) {
+          var html = '';
+          $.each(receipts, function(i, receipt) {
+            html += '<div class="col-xl-4 col-sm-6 grid-item">' +
+                      '<div class="special-box">' +
+                        '<div class="special-img" style="height: 200px;">' +
+                          '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                            '<img class="img-fluid blur-up lazyload bg-img fixed-size-img" />' + 
+                          '</a>' +
+                          '<div class="content_inner">' +
+                            '<a href="/tourDetail/' + receipt.tour_num + '">' +
+                              '<h5>' + receipt.receipt_name + '</h5>' +
+                            '</a>' +
+                            '<h6>' + receipt.receipt_date + '</h6>' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>' +
+                    '</div>';
+          });
+          // 게시물 목록 업데이트
+          $('#receiptItems').html(html); // 수정: 영수증 목록을 담고 있는 요소의 선택자
+        },
+        error: function(error) {
+          // 오류 처리
+          console.log(error);
+        }
+      });
     }
 </script>
 
 
+<!-- 발자취 발걸음 -->
+
+
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+    var receiptData = /*[[${receiptVO}]]*/ [];
+    /*]]>*/
+  </script>
+
+<script>
+  $(document).ready(function() {
+    var footprints = "";
+    receiptData.forEach(function(receipt) {
+      var title = receipt.receipt_name || "제목 없음"; // 영수증 이름 필드에 따라 변경 필요
+      footprints += '<div class="footprint" data-title="' + title + '">'
+                  + '<i class="fas fa-shoe-prints"></i>'
+                  + '<span class="title">' + title + '</span>'
+                  + '</div>';
+    });
+    $("#footprints").html(footprints);
+  });
+  </script>
+  
 
 
 

@@ -22,8 +22,10 @@ public class TouroviewVO {
     private int     touro_mate_num;     // 여행 친구찾기 번호
     private int     receipt_num;        // 영수증 번호
 
-
    private String tour_img1_path;   // 여행지 이미지
+
+   private String user_tel;
+   private String user_email;
     
     
 }

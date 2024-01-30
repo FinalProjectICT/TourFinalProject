@@ -34,13 +34,11 @@ public interface MyPageService {
 
     // 게시글 가져오기
     // 여행 친구
-    public int countTouroMate();
-
+    public int countTouroMate(String userId);
     // 여행 후기
-    public int countTouroview();
-
+    public int countTouroview(String userId);
     // 나의 발자취
-    public int countReceipt();
+    public int countReceipt(String userId);
 
 
 
@@ -72,7 +70,7 @@ public interface MyPageService {
     
     // -----------------------------------------
     // 마이페이지 - 나의 발자취
-    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int offset);
+    public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int pagesize3);
     public int countReceipts(String userId);
     
     

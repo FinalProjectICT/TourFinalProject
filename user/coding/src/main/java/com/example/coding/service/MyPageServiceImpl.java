@@ -32,9 +32,7 @@ public class MyPageServiceImpl implements MyPageService {
 
         // 데이터베이스에서 사용자 정보 조회
         return myPageDAO.getUserProfile(userId);
-
     }
-
 
     // 사용자 프로필 사진 가져오기
     public String getUserProfileImage(String userId){
@@ -47,7 +45,6 @@ public class MyPageServiceImpl implements MyPageService {
     // 사용자가 작성한 리뷰 개수 가져오기
     @Override
     public int getTouroviewCountByUserId(String userId){
-
         return myPageDAO.getTouroviewCountByUserId(userId);
     }
     // 여행지 리뷰 개수 가져오기
@@ -66,25 +63,22 @@ public class MyPageServiceImpl implements MyPageService {
         return myPageDAO.getTourWishCountByUserId(userId);
     }
 
-
     // --------------------------------------------------
     // 작성한 게시물
-    // 여행 친구
+    // 여행 친구 개수
     @Override
-    public int countTouroMate(){
-        return myPageDAO.countTouroMate();
+    public int countTouroMate(String userId){
+        return myPageDAO.countTouroMate(userId);
     }
-
-    // 여행 후기
+    // 여행 후기 개수
     @Override
-    public int countTouroview(){
-        return myPageDAO.countTouroview();
+    public int countTouroview(String userId){
+        return myPageDAO.countTouroview(userId);
     }
-
-    // 나의 발자취
+    // 나의 발자취 개수
     @Override
-    public int countReceipt(){
-        return myPageDAO.countReceipt();
+    public int countReceipt(String userId){
+        return myPageDAO.countReceipt(userId);
     }
 
 
@@ -154,7 +148,7 @@ public class MyPageServiceImpl implements MyPageService {
     @Override
     public List<ReceiptVO> getMyPageReceiptList(String userId, int page, int pagesize3){
         int offset = (page - 1) * pagesize3;
-        return myPageDAO.getMyPageReceiptList(userId, page, offset);
+        return myPageDAO.getMyPageReceiptList(userId, pagesize3, offset);
     }
 
     @Override

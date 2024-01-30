@@ -515,58 +515,6 @@
     }
   </script>
 
-  <!-- 후기 게시판 db에 등록-->
-  <!-- <script>
-    $(document).ready(function(){
-      $("#searchButton").click(function(){
-        submitForm();
-      });
-      
-    });
-    // const formData = new FormData(document.getElementById("touroview"));
-    // console.log(formData);
-    
-    function submitForm(){
-      // 사용자의 userId를 가져와서 폼에 추가
-      var userId = $("#sessionId").val();
-      var touroview_title = $("#touroview_title").val()
-      var touroview_content = $("#touroview_content").val()
-      console.log(userId)
-      document.getElementById("userIdInput").value = userId;
-
-      // 새로운 FormData 객체 생성
-      const formData = new FormData(document.getElementById("touroview"));
-
-      // // user_id를 formData에 추가
-      // formData.append('user_id', userId);
-      
-      // Ajax 사용해 서버에 등록 데이터 전송
-      $.ajax({
-        type:   'POST',
-        url:    'saveTouroview', // 서버로 데이터를 보낼 주소
-        data:   {user_id : userId, touroview_title : touroview_title, touroview_content : touroview_content},
-        processData : false,
-        contentType : false,
-        success: function (response) {
-              // 등록 성공 시
-              alert('입력되었습니다.');
-
-            // response에서 user_id를 가져오고, 없으면 기본값 'defaultUserId' 사용
-            var userId = response && response.user_id ? response.user_id : 'defaultUserId';
-
-            // 페이지 이동
-            window.location.href = '/touroview/touroview_detail/' + userId;
-          },
-          error: function (xhr, status, error) {
-              // Ajax 오류 처리
-              alert('서버와의 통신 중 오류가 발생했습니다.' + error);
-              // 페이지 이동
-              window.location.href = '/touroview/touroview_insert'; // 오류 발생 시 이동할 페이지
-          }
-      });
-    }
-  </script> -->
-
   <!-- 여행지 검색하기 -->
   <script>
     // 페이지 로드 시 초기 검색 결과 표시
@@ -586,7 +534,7 @@
         // Ajax 사용해 서버에서 검색 결과 가져오기
         $.ajax({
             type: 'GET',
-            url: 'search',
+            url: 'findByKeyword',
             data: {
                 keyword: keyword
             },
@@ -677,36 +625,6 @@
     `;
   }
   </script>
-  
-  <!-- 작성날짜 날짜 전송하기-->
-  <!-- <script>
-    document.getElementById("searchButton").addEventListener("click", function(){
-      // touroview_regdate 요소에서 날짜 값 가져오기
-      var touroviewRegdate = document.getElementById("touroview_regdate").value;
-      console.log(touroviewRegdate);
-
-      // 날짜가 비어 있거나 유효하지 않은 경우
-      if (!touroviewRegdate){
-        alert('날짜를 선택해주세요.');
-        return;
-      }
-
-      console.log("Date: ", touroviewRegdate);
-
-      // 폼 데이터를 FormData 객체로 생성
-      var formData = new FormData();
-      // formData.append("touroview_regdate", touroviewRegdate);
-
-      // 서버로 데이터를 전송
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "saveTouroview", true);
-      xhr.send(formData);
-    });
-
-  </script> -->
-
-
-  
 
 
 </body>

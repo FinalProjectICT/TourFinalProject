@@ -21,6 +21,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 
 
@@ -77,12 +80,11 @@ public class HSKController {
 
 
     // 여행지 검색
-    @GetMapping("/search")
+    @GetMapping("/findByKeyword")
     @ResponseBody
     public List<TourVO> findByKeyword(TourVO vo) {
         try {
             // 여행지 검색 로직을 수행 결과
-            // System.out.println("keyword: " + vo.getKeyword());
             return touroviewService.findByKeyword(vo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,6 +200,13 @@ public class HSKController {
             if(tourVO != null){
                 touroview.setTour_img1_path(tourVO.getTour_img1_path()); // TouroviewVO에 이미지 경로 설정
             }
+
+            // 사용자 정보 가져오기 및 설정
+            // UserVO userVO = touroviewService.getUserByTouroviewId(touroview.getTouroview_num());
+            // if(userVO != null){
+            //     touroview.setUser_tel(userVO.getUser_tel());        // 사용자 전화번호
+            //     touroview.setUser_email(userVO.getUser_email());    // 사용자 이메일
+            // }
         }                                
 
         // 전체 페이지 수 계산
@@ -213,6 +222,17 @@ public class HSKController {
     }
 
         
+    // 여행지 검색
+    @RequestMapping(value = "/search", method=RequestMethod.GET)
+    @ResponseBody
+    public List<TouroviewVO> searchByKeyword(@RequestParam("keyword") String keyword, Model model) {
+        return touroviewService.searchByKeyword(keyword);
+    }
+    
+
+
+
+
         
     // ---------------------------------------------- touroview_detail
     // 해당 사용자가 작성한 게시글 불러오기 (detail 페이지)

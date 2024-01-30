@@ -55,21 +55,24 @@
 
 <!-- 작성한 게시물 -->
 <!-- 여행 친구 -->
-<select id="countTouroMate" resultType="int">
+<select id="countTouroMate" resultType="int" parameterType="string">
     SELECT  COUNT(*) 
     FROM    touro_mate
+    WHERE   user_id = #{userId}
 </select>
 
 <!-- 여행 후기 -->
-<select id="countTouroview" resultType="int">
+<select id="countTouroview" resultType="int" parameterType="string">
     SELECT  COUNT(*) 
     FROM    touroview
+    WHERE   user_id = #{userId}
 </select>
 
 <!-- 나의 발자취 -->
-<select id="countReceipt" resultType="int">
+<select id="countReceipt" resultType="int" parameterType="string">
     SELECT  COUNT(*) 
     FROM    receipt
+    WHERE   user_id = #{userId}
 </select>
 
 

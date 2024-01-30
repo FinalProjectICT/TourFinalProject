@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
     <meta name="description" content="rica" />
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
-    <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
+    <link rel="icon" href="../../assets/images/favicon.png" type="image/x-icon" />
     <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
@@ -28,150 +28,120 @@ pageEncoding="UTF-8"%>
     <link
       rel="stylesheet"
       type="text/css"
-      href="../assets/css/font-awesome.css"
+      href="../../assets/css/font-awesome.css"
     />
 
     <!-- Animation -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/animate.css" />
 
     <!-- Date-time picker css -->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../assets/css/datepicker.min.css"
+      href="../../assets/css/datepicker.min.css"
     />
 
     <!--Slick slider css-->
-    <link rel="stylesheet" type="text/css" href="../assets/css/slick.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/slick.css" />
     <link
       rel="stylesheet"
       type="text/css"
-      href="../assets/css/slick-theme.css"
+      href="../../assets/css/slick-theme.css"
     />
 
     <!-- Bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap.css" />
 
     <!-- Theme css -->
-    <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
+    <link rel="stylesheet" type="text/css" href="../../assets/css/color1.css" />
 
     <!-- 추가한 css 파일-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="../assets/css/fileupload.css"
+      href="../../assets/css/fileupload.css"
     />
+
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
     <script>
-      $(function(){
-  
-      
-      // 좋아요
-      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-  
-      $(() => {
-        // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
-        $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
-          // 여행지 값, 사용자 정보 가져오기
-          var num = $(item).attr("title");
-          console.log("num >>> ", num);
-          var id = loggedInUserId;
-          console.log("id >>> ", id);
-  
-          // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
-          ckWishList(item, num, id);
-  
-          // 좋아요 누를 때 동작
-          $(item).on("click", (e) => {
-            e.preventDefault();
-  
-            var ck = "0";
-            var icon = $(this).children();
-  
-            // 좋아요 상태 구분으로 중복 찜처리 방지
-            if (id != null && id != "") {
-              if (icon.attr("class") != "fas fa-heart") {
-                $.ajax({
-                  url: "/touroview/addWishList",
-                  type: "post",
-                  dataType: "json",
-                  data: { user_id: id, touroview_num: num },
-                  success: function (result) {
-                    ck = result;
-                  },
-                  error: function (err) {
-                    console.log(err);
-                  },
-                });
-                $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
+      $(document).ready(function() {
+        // 검색 폼 제출 이벤트 핸들러
+        $("#search").on("submit", function(e) {
+          e.preventDefault(); // 기본 제출 동작 방지
+    
+          var keyword = $("#exampleFormControlInput1").val(); // 검색어 가져오기
+          if (!keyword) {
+            alert("검색어를 입력해주세요.");
+            return;
+          }
+    
+          // AJAX 요청
+          $.ajax({
+            url: '/touroview/search', // 검색 요청을 처리할 서버의 URL
+            type: 'GET',
+            data: { keyword: keyword },
+            success: function(response) {
+              if (response.length === 0) {
+                  // 검색 결과가 없는 경우
+                  $('#searchResults').html("해당 게시물이 없습니다.");
+                  console.log("해당 게시물이 없습니다.");
               } else {
-                  $.ajax({
-                    type:'post',
-                    data : {touroview_num : num, user_id : id},
-                    url : "/touroview/deleteWishList",
-                    success : function (result) {
-                      if(result == "ok") {
-                        $(icon).attr("class", "far fa-heart").css("color", "#000000");
-                      }
-                    },
-                    error : function (err) {
-                      console.log(err)
-                    }
-                  }) // end ajax
-                
-              }
-            } else if (id == null || id == "") alert("로그인이 필요합니다.");
+                // 검색 결과가 있는 경우
+                var html = '';
+                $.each(response, function(i, touroview) {
+                  html += '<div class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp" data-class="popular">'
+                      + '<div class="special-box p-0">'
+                      + '<div class="special-img" style="height: 200px;">'
+                      + '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '">'
+                      + '<img src="../' + touroview.tour_img1_path + '" class="img-fluid blur-up lazyload" alt="" />'
+                      + '</a>'
+                      + '<div class="top-icon">'
+                      + '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Add_to_Wishlist">'
+                      + '<i class="far fa-heart"></i>'
+                      + '</a>'
+                      + '</div>'
+                      + '</div>'
+                      + '<div class="special-content">'
+                      + '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '">'
+                      + '<h5>' + touroview.touroview_title + '</h5>'
+                      + '</a>'
+                      + '<div class="tour-detail">'
+                      + '<div class="include-sec">'
+                      + '<div>' + touroview.touroview_content + '</div>'
+                      + '</div>'
+                      + '<div class="bottom-section">'
+                      + '<div class="price">'
+                      + '<span>' + touroview.user_id + '</span><br />'
+                      + '<span>' + touroview.touroview_regdate + '</span><br />'
+                      + '<span>' + touroview.touroview_update + '</span>'
+                      + '</div>'
+                      + '</div>'
+                      + '</div>'
+                      + '</div>'
+                      + '</div>';
+                });
+                $('#searchResults').html(html);
+                }
+            },
+            error: function(error) {
+              // 오류 처리
+              alert("검색 실패: " + error.statusText);
+              console.log(error);
+            }
           });
         });
       });
-  
-      // 좋아요 확인
-      function ckWishList(item, num, id) {
-        $.ajax({
-          url: "/touroview/ckWishList",
-          type: "post",
-          dataType: "json",
-          data: { user_id: id, touroview_num: num },
-          success: function (result) {
-            if (result == "1") {
-              $(item)
-                .children()
-                .attr("class", "fas fa-heart")
-                .css("color", "#ff0000");
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          },
-        });
-      }
-  
-      // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
-      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-  
-      console.log("loggedInUserId 설정 이후: ", loggedInUserId);
-  
-      function deleteTouroMate(touroMateNum) {
-          console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
-          console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
-          if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
-              // AJAX를 사용하여 삭제 요청을 서버에 전송
-              $.ajax({
-                  type: "POST",
-                  url: "/touromate/deleteTouroMate",
-                  data: { touro_mate_num: touroMateNum, user_id: loggedInUserId },
-                  success: function (response) {
-                      alert(response);
-                      window.location.href = "/touromate/touromate_list";
-                  },
-                  error: function (error) {
-                    alert("게시물 삭제 권한이 없습니다.");
-                    console.error("삭제 오류:", error);
-                }
-              });
-          }
-      }
-    }) // end script
-  </script>
+    </script>
+    
+
+
+    
   </head>
 
   <body>
@@ -261,18 +231,19 @@ pageEncoding="UTF-8"%>
           <div class="col-xl-12 onclick-map">
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
-                <form>
+                <form id="search">
                   <div class="row w-100">
                     <div class="form-group col p-0">
                       <input
                         type="text"
                         class="form-control"
                         id="exampleFormControlInput1"
+                        name="keyword"
                         placeholder="게시글 찾기"
                       />
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-rounded color1">Search</a>
+                  <button type="submit" class="btn btn-rounded color1">Search</button>
                 </form>
               </div>
             </div>
@@ -426,6 +397,12 @@ pageEncoding="UTF-8"%>
       });
       new WOW().init();
     </script>
+
+
+
+
+
+
 
 
 </body>

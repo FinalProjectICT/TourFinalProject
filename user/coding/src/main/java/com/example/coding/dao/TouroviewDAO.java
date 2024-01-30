@@ -33,7 +33,8 @@ public interface TouroviewDAO {
     // 여행지 이미지 사진 가져오기
     public TourVO getTourByNum(String tour_num);
 
-        
+    // 검색어
+    public List<TouroviewVO> searchByKeyword(String keyword);
 
 
     // ---------------------------------------- detail
