@@ -24,16 +24,7 @@ function UsersCom() {
     axios.get(baseUrl + "/user/userList").then((result) => {
       const users = result.data;
       console.log(users);
-      // 이미지가 있는 유저만 값을 변경(경로)
-      // users.map(user => {
-      //   if (user.imgRealName) {
-      //     // imgRealName 필드가 있는 경우에만 값을 변경
-      //     // 여기에서 변경 로직을 추가하면 됨
-      //     user.imgRealName = "../../../../user/coding/src/main/resources/static/assets/images/profile/"+user.imgRealName;
-      //   }
-      //   return user;
-      // });
-      
+    
       setUsers([...users]);
     });
   }, []);

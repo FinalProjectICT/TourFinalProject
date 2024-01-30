@@ -1322,6 +1322,7 @@ pageEncoding="UTF-8"%>
     <script>
       setTimeout(function() {
       var mapContainer = document.getElementById('kakao-map'), // 지도를 표시할 div
+      mapContainer.style.display = 'block';
       mapOption = {
           center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
           level: 3 // 지도의 확대 레벨

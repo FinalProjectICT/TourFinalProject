@@ -71,7 +71,6 @@ $(() => {
         var $Weather4 =(resp.list[26].weather[0].main) ;
         // 아이콘 날씨4
         var $Icon4 = (resp.list[26].weather[0].icon).substr(0,2)
-
         console.log($date1,"//",$Temp1,"//",$Weather1,"//",$Icon1);
         console.log($date2,"//",$Temp2,"//",$Weather2,"//",$Icon2 );
         console.log($date3,"//",$Temp3,"//",$Weather3,"//",$Icon3 );
