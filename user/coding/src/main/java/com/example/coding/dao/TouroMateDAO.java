@@ -86,13 +86,13 @@ public interface TouroMateDAO {
     UserVO getAuthorInfoById(int touro_mate_num);
 
     // 좋아요 추가
-    void addWishList(LikeVO vo);
+    void addWishListmate(LikeVO vo);
 
     // 좋아요 확인
-    int ckWishList(LikeVO vo);
+    int ckWishListmate(LikeVO vo);
 
     // 좋아요 삭제
-    int deleteWishList(LikeVO vo);
+    int deleteWishListmate(LikeVO vo);
 
 
 }

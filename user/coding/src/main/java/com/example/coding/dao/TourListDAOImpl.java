@@ -33,13 +33,13 @@ public class TourListDAOImpl implements TourListDAO{
 
     @Override
     public String addWishList(WishListVO vo) {
-        int res = mybatis.insert("addWishList", vo);
+        int res = mybatis.insert("addWishListById", vo);
         return String.valueOf(res);
     }
 
     @Override
     public String ckWishList(WishListVO vo) {
-        if (mybatis.selectOne("ckWishList", vo) == null)
+        if (mybatis.selectOne("ckWishListById", vo) == null)
         {
             return "0";
         }else return "1";
@@ -55,7 +55,7 @@ public class TourListDAOImpl implements TourListDAO{
 
     @Override
     public int deleteWishList(WishListVO vo) {
-        return mybatis.delete("deleteWishList", vo);
+        return mybatis.delete("deleteWishListById", vo);
     }
 
 }

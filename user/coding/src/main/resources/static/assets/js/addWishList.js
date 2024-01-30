@@ -71,6 +71,6 @@ function ckWishList(item, num, id) {
     },
     error: function (err) {
       console.log(err);
-    },
+    }
   });
 }

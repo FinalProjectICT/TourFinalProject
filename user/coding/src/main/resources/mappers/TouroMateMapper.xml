@@ -97,6 +97,7 @@
     </select>
 
 
+
     <select id="getCurrentChatUsers" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM tour_mate_chat_user
         WHERE chat_num = #{touro_mate_num}
@@ -127,20 +128,20 @@
     </select>
 
     <!-- 좋아요 추가 -->
-    <insert id="addWishList" parameterType="LikeVO">
+    <insert id="addWishListmate" parameterType="LikeVO">
         INSERT INTO `like` (touroview_num, user_id, like_count, touro_mate_num)
         VALUES (NULL, #{user_id}, '1', #{touro_mate_num})
     </insert>
 
     <!-- 좋아요 확인 -->
-    <select id="ckWishList" resultType="int" parameterType="LikeVO">
+    <select id="ckWishListmate" resultType="int" parameterType="LikeVO">
         SELECT count(*) 
         FROM `like` 
         WHERE user_id = #{user_id} AND touro_mate_num = #{touro_mate_num}
     </select>
 
     <!-- 좋아요 삭제 -->
-    <delete id="deleteWishList" parameterType="LikeVO">
+    <delete id="deleteWishListmate" parameterType="LikeVO">
         DELETE FROM `like` 
        WHERE user_id = #{user_id} AND touro_mate_num = #{touro_mate_num}
     </delete>
