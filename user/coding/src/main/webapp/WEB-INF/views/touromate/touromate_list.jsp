@@ -176,7 +176,7 @@ pageEncoding="UTF-8"%>
                         <!-- 이미지 출력 부분 -->
                         <!-- </a> -->
                         <!-- </div> -->
-                        <div class="list-content">
+                        <div class="list-content col">
                             <div>
                               <!-- 게시글 제목과 링크 -->
                                 <a href="touromate_detail?touro_mate_num=${touromate.touro_mate_num}">
@@ -238,6 +238,7 @@ pageEncoding="UTF-8"%>
       </div>
     </div>
     <!-- tap to top end -->
+
 
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>

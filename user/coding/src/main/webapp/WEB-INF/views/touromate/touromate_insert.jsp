@@ -14,7 +14,7 @@ pageEncoding="UTF-8"%>
     <meta name="author" content="rica">
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=06fc5245a1f95d2f4b68d45eedf183cd"></script>
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link

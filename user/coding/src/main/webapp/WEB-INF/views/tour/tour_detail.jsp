@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -91,7 +91,8 @@ prefix="c" %>
             console.log(user_id)
             if(user_id == " " || user_id == null) {
               console.log(1)
-              alert("로그인 후 이용해주세요")
+              swal("", "로그인이 필요한 기능입니다.", "warning");
+              // alert("로그인 후 이용해주세요")
               window.location.href = '/user/login'; // 수정된 부분
             }
             else {
@@ -1530,7 +1531,9 @@ prefix="c" %>
 
     <!-- 카카오 지도 api 관련-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c24da0b739365422264a4d30230c887c"></script>
-	
+
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   </body>
 </html>

@@ -802,6 +802,9 @@ prefix="c" %>
     <!-- 별점용 js-->
     <script src="../assets/js/starRating.js"></script>
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script>
       $("#datepicker").datepicker({
         uiLibrary: "bootstrap4",

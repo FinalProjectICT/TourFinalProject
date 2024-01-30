@@ -109,11 +109,9 @@ pageEncoding="UTF-8"%>
               <form action="find-pw" method="post">
                 <div class="form-group">
                   <label for="exampleInputId">아이디</label>
-                  <input type="text" class="form-control form-control-user"
-                        placeholder="아이디" name="user_id">
+                  <input type="text" class="form-control form-control-user" placeholder="아이디" name="user_id" required>
                   <label for="exampleInputEmail">이메일 주소</label>
-                  <input type="email" class="form-control form-control-user"
-                        id="exampleInputEmail" aria-describedby="emailHelp"
+                  <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp"
                         placeholder="이메일 주소" name="user_email">
                 </div>
                 <div class="button-bottom">

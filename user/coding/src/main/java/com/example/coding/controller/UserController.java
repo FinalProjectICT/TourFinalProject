@@ -148,7 +148,7 @@ public class UserController {
             s.setAttribute("loggedInUser", vo);
             // 아이디 세션이 필요해서 추가합니다 - 이지연
             s.setAttribute("loggedId", vo.getUser_id());
-						// 이름 세션이 필요해서 추가합니다 - 이지연
+			// 이름 세션이 필요해서 추가합니다 - 이지연
             s.setAttribute("loggedInName", vo.getUser_name());
             // 사용자 정보 중 관리자 권한 여부 확인
             int role = vo.getAdmin_authority();
