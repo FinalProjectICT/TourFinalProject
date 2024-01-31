@@ -122,11 +122,15 @@ function divBotAns(ansdata) {
 
 function divBotAct(ansdata) {
   if (ansdata.act == "tour/") {
-    $("#chatContent").append(
-      `<div class="testimonial bota">
+    if (ansdata.sub != null && ansdata.sub != "") {
+      tourProcess(ansdata.sub);
+    } else {
+      $("#chatContent").append(
+        `<div class="testimonial bota">
       <div class="card mb-3 style="width: 10px">
         <div class="card-body"><a href="/touro/tour" class="navi">여행지 리스트로 이동</a></div></div></div>`
-    );
+      );
+    }
   } else if (ansdata.act == "touromate/") {
     $("#chatContent").append(
       `<div class="testimonial bota">
@@ -212,11 +216,36 @@ const divUserQus = (userText, profileImg, sessionId) => {
 };
 
 // 여행지
-// 분류, 검색어, 지역, 별점 등 (page= range= listSize= tour_cate_code= keyword= Locs= Star=)
-const tourProcess = () => {
-  $.ajax({});
-};
+// 분류, 검색어, 지역, 별점 등 (keyword= Locs= Star=)
+const tourProcess = (code) => {
+  // code에 따른 동작
+  switch (code) {
+    case "tour_cate_code=12":
+      cate = "관광지";
+      break;
 
+    case "tour_cate_code=32":
+      cate = "숙박업";
+      break;
+
+    case "tour_cate_code=39":
+      cate = "음식점";
+      break;
+
+    default:
+      cate = "여행지";
+      break;
+  }
+  $("#chatContent").append(
+    `<div class="testimonial bota">
+  <div class="card mb-3 style="width: 10px">
+    <div class="card-body"><a href="/touro/tour?` +
+      code +
+      `&keyword=&Locs=&Star=" class="navi">` +
+      cate +
+      ` 리스트로 이동</a></div></div></div>`
+  );
+};
 // 친구 찾기
 //
 
