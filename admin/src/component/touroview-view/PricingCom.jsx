@@ -24,10 +24,18 @@ function PricingCom() {
       const touroviews = result.data[0];
       const touroviews1 = result.data[1];
       const touroviews2 = result.data[2];
+      // console.log("touroviews")
       console.log(touroviews)
-      setTouroviews(touroviews)
-      setTouroviewsImg1(touroviews1.img_real_name)
-      setTouroviewsImg2(touroviews2.img_real_name)
+      if(touroviews.img_real_name == null || touroviews1.img_real_name == null || touroviews2.img_real_name == null) {
+        touroviews.img_real_name = "";
+        setTouroviewsImg1("")
+        setTouroviewsImg2("")
+        setTouroviews(touroviews)
+      }else {
+        setTouroviews(touroviews)
+        setTouroviewsImg1(touroviews1.img_real_name)
+        setTouroviewsImg2(touroviews2.img_real_name)
+      }
       // console.log(result);
       // console.log("===============")
       // console.log(touroviews)
@@ -111,28 +119,37 @@ function PricingCom() {
                           </label>
                           <div className="col-md-6">
                             <div className="mb-3">
+                              {touroviews.img_real_name &&
                               <img
                                 style={{ height:'400px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touroviewImg/"+touroviews.img_real_name}
+                                alt="이미지 없음"
                               />
+                            }
                             </div>
                           </div>
 
                           <div className="col-md-6">
                             <div className="mb-3">
+                            {touroviewsImg1 &&
                               <img
                                 style={{ height:'192px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touroviewImg/"+touroviewsImg1}
+                                alt="이미지 없음"
                               />
+                            }
                             </div>
                             <div className="mb-3">
+                            {touroviewsImg2 &&
                               <img
                                 style={{ height:'192px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touroviewImg/"+touroviewsImg2}
+                                alt="이미지 없음"
                               />
+                            }
                             </div>
                           </div>
                         </div>

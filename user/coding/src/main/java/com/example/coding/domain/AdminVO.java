@@ -101,8 +101,8 @@ public class AdminVO {
 
     private Integer touroview_num ;        // 후기 게시판 글 번호      
     private String touroview_title ;       // 게시글제목
-    private LocalDateTime  touroview_regdate ;       // 등록일
-    private LocalDateTime  touroview_update ;        // 수정일
+    private String  touroview_regdate ;       // 등록일
+    private String  touroview_update ;        // 수정일
     private String touroview_content ;     // 게시글 상세 정보 
     private Integer like_num ;             // 좋아요 번호
     private String like_count ;            // 좋아요 갯수
