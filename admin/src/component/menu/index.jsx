@@ -210,7 +210,7 @@ function Menu({ toggleMenu, menu }) {
                         />
                       </svg>
                     </span>
-                    <span className="menu-bar__name">Touroview</span>
+                    <span className="menu-bar__name">여행후기</span>
                   </span>
                   {/* <div className="crancy-menu-group">
                     <span href="#">
@@ -246,7 +246,7 @@ function Menu({ toggleMenu, menu }) {
                         />
                       </svg>
                     </span>
-                    <span className="menu-bar__name">Touromate</span>
+                    <span className="menu-bar__name">여행친구찾기</span>
                   </span>
                   {/* <div className="crancy-menu-group">
                     <span href="#">

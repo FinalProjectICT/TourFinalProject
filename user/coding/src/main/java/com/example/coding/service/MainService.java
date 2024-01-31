@@ -116,6 +116,9 @@ public interface MainService {
   // 관리자 유저 상세정보 보기
   public AdminVO userListOne(String user_id);
 
+  // 관리자 여행친구찾기 게시판 상세보기
+  public List<AdminVO> touroMateNum(Integer touro_mate_num);
+
 
  
 

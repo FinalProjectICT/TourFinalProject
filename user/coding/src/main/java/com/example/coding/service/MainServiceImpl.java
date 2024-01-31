@@ -111,6 +111,12 @@ public class MainServiceImpl implements MainService{
     return mainDAO.searchMate(search_mate);
   }
 
+  // 관리자 여행친구찾기 게시판 상세보기
+  @Override
+  public List<AdminVO> touroMateNum(Integer touro_mate_num) {
+    return mainDAO.touroMateNum(touro_mate_num);
+  }
+
   // 관리자 대시보드 - 회원수 가져오기
   @Override
   public Integer userCount() {
@@ -164,7 +170,7 @@ public class MainServiceImpl implements MainService{
   public List<MainAdminVO> locPrefer() {
     return mainDAO.locPrefer();  
   }
-
+  // 각 게시물 블라인드 수 가져오기
   @Override
   public Integer touroviewBlindCount(Integer touroview_num) {
     return mainDAO.touroviewBlindCount(touroview_num);
@@ -236,6 +242,8 @@ public class MainServiceImpl implements MainService{
   public AdminVO userListOne(String user_id) {
     return mainDAO.userListOne(user_id);
   }
+
+ 
 
   
 

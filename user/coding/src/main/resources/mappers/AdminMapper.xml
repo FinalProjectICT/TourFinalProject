@@ -95,7 +95,7 @@
 		LEFT OUTER JOIN img_detail id ON id.touroview_num = tvw.touroview_num
 		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
 		LEFT OUTER JOIN tour tr ON tr.tour_num = tvw.tour_num
-		WHERE tvw.touroview_num = #{touroview_num}
+		WHERE id.touroview_num = #{touroview_num}
 	</select>
 	
 	<!-- 여행지 이미지 제외 수정-->

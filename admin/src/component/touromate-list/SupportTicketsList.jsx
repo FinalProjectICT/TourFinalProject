@@ -25,16 +25,16 @@ function SupportTicketsList() {
   const currentItems = touromates.slice(indexOfFirstItem, indexOfLastItem);
 
   // 디테일 페이지 가기
-  const detailTouromateNum = (e,touromate_num) => {
+  const detailTouromateNum = (e,touro_mate_num) => {
     e.preventDefault(); // a 태그의 기본 기능 막기
-    axios.get(`${baseUrl}/touromate/touromateNum/${touromate_num}`)
+    axios.get(`${baseUrl}/touromate/touromateNum/${touro_mate_num}`)
     .then((result) => {
       // const tourDetails = result.data;
     })
     .catch((error) => {
       console.error('에러 발생:', error);
     }); 
-    navigate(`/touromate/${touromate_num}`);
+    navigate(`/touromate/${touro_mate_num}`);
   };
 
    // 페이지네이션
@@ -152,33 +152,33 @@ function SupportTicketsList() {
                 </thead>
                 {/* <!-- crancy Table Body --> */}
                 <tbody className="crancy-table__body">
-                {currentItems?.map((touromate) => (
-                    <tr key={touromate.touromate_num}>
-                      <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouromateNum(e, touromate.touromate_num)}>
+                {currentItems?.map((touromate, idx) => (
+                    <tr key={idx}>
+                      <td className="crancy-table__column-1 crancy-table__data-1" onClick={(e) => detailTouromateNum(e, touromate.touro_mate_num)}>
                         <div className="crancy-table__product--id">
                           <p className="crany-table__product--number">
                             <a to="/ticket-details">{touromate.user_id?.toString()}</a>
                           </p>
                         </div>
                       </td>
-                      <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouromateNum(e, touromate.touromate_num)}>
+                      <td className="crancy-table__column-2 crancy-table__data-2" onClick={(e) => detailTouromateNum(e, touromate.touro_mate_num)}>
                         <div className="crancy-table__product--id">
                           <p className="crany-table__product--number">
                             <a to="/ticket-details">{touromate.touro_mate_title?.toString()}</a>
                           </p>
                         </div>
                       </td>
-                      <td className="crancy-table__column-3 crancy-table__data-3" onClick={(e) => detailTouromateNum(e, touromate.touromate_num)}>
+                      <td className="crancy-table__column-3 crancy-table__data-3" onClick={(e) => detailTouromateNum(e, touromate.touro_mate_num)}>
                         <h5 className="crancy-table__inner--title">
                           <a to="/ticket-details">{touromate.touro_mate_content?.toString()}</a>
                         </h5>
                       </td>
-                      <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouromateNum(e, touromate.touromate_num)}>
+                      <td className="crancy-table__column-4 crancy-table__data-4" onClick={(e) => detailTouromateNum(e, touromate.touro_mate_num)}>
                         <p className="crancy-table__text crancy-table__time">
                           {touromate.like_count}
                         </p>
                       </td>
-                      <td className="crancy-table__column-5 crancy-table__data-5" onClick={(e) => detailTouromateNum(e, touromate.touromate_num)}>
+                      <td className="crancy-table__column-5 crancy-table__data-5" onClick={(e) => detailTouromateNum(e, touromate.touro_mate_num)}>
                         <p className="crancy-table__text crancy-table__time">
                           {touromate.touro_mate_date}
                         </p>

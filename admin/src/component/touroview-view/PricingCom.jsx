@@ -11,6 +11,9 @@ function PricingCom() {
   const navigate = useNavigate();
   const { touroview_num } = useParams();
   const [touroviews, setTouroviews] = useState([]);
+  const [touroviewsImg1, setTouroviewsImg1] = useState("");
+  const [touroviewsImg2, setTouroviewsImg2] = useState("");
+
 
   const baseUrl = "http://localhost:8080";
 
@@ -18,13 +21,13 @@ function PricingCom() {
     axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num)
     .then((result) => {
       // console.log(result.data);
-      // const touroviews = result.data;
-      // console.log("메메메" + touroviews)
-      // touroviews.map((touroview) => {
-      //   console.log(touroview)
-      //   setTouroviews([...touroview]);
-
-      // })
+      const touroviews = result.data[0];
+      const touroviews1 = result.data[1];
+      const touroviews2 = result.data[2];
+      console.log(touroviews)
+      setTouroviews(touroviews)
+      setTouroviewsImg1(touroviews1.img_real_name)
+      setTouroviewsImg2(touroviews2.img_real_name)
       // console.log(result);
       // console.log("===============")
       // console.log(touroviews)
@@ -53,7 +56,7 @@ function PricingCom() {
                 <div className="col-sm-12">
                   <div className="card">
                     <div className="card-header">
-                      <h5>상세 페이지11</h5>
+                      <h5>상세 페이지</h5>
                     </div>
                     <div className="card-body">
                       <form className="theme-form mega-form">
@@ -64,7 +67,7 @@ function PricingCom() {
                             type="text"
                             placeholder="게시글 제목"
                             readOnly
-                            value={touroviews[0].touroview_title}
+                            value={touroviews.touroview_title}
                           />
                         </div>
 
@@ -108,33 +111,27 @@ function PricingCom() {
                           </label>
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <input
+                              <img
                                 style={{ height:'400px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
+                                src={"http://localhost:8080/assets/images/touroviewImg/"+touroviews.img_real_name}
                               />
                             </div>
                           </div>
 
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <input
+                              <img
                                 style={{ height:'192px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
+                                src={"http://localhost:8080/assets/images/touroviewImg/"+touroviewsImg1}
                               />
                             </div>
                             <div className="mb-3">
-                              <input
+                              <img
                                 style={{ height:'192px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
+                                src={"http://localhost:8080/assets/images/touroviewImg/"+touroviewsImg2}
                               />
                             </div>
                           </div>

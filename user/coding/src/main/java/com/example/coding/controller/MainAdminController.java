@@ -43,6 +43,18 @@ public class MainAdminController {
       return mainService.searchMate(search_mate);
   }
 
+  // 관리자 touromate 디테일 페이지 관련 
+  @GetMapping("/touromate/touromateNum/{touro_mate_num}")
+  public List<AdminVO> touroMateNum(@PathVariable("touro_mate_num") Integer touro_mate_num) {
+      System.out.println("넘" + touro_mate_num);
+      // AdminVO vo = new AdminVO();
+      // vo.setTouroview_num(touroview_num);
+      List<AdminVO> result = mainService.touroMateNum(touro_mate_num);
+      // System.out.println("왜 안되니?" + result);
+      // result.setTouroview_num(touroview_num);
+      return result;
+  }
+
   // 관리자 대시보드 - 회원수 가져오기
   @GetMapping("/dashboard/userCount")
   public Integer userCount() {
