@@ -144,12 +144,12 @@ prefix="c" %>
                     </div>
                   </div>
 
-                <!--
+                
                 <div class="respon-filter-btn">
                   <h6>filter <i class="fas fa-sort-down"></i></h6>
                   <span class="according-menu"></span>
                 </div>
-                <div class="filters respon-filter-content filter-button-group">
+                <div class="filters respon-filter-content filter-button-group" style="display: none;">
                   <ul class="cate_list" >
                     <li class="active" data-filter="*">전체</li>
                     <li data-filter=".a12">#관광</li>
@@ -157,7 +157,7 @@ prefix="c" %>
                     <li data-filter=".a39">#음식</li>
                   </ul>
                 </div>
-                -->
+                
               </div>
               <div class="right-panel search_filter">
                 <!--
