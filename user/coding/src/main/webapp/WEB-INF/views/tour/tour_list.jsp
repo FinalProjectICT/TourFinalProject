@@ -120,6 +120,31 @@ prefix="c" %>
             <form>
             <div class="filter-panel">
               <div class="left-filter">
+                    <div class="row">
+                      <div class=" col-3">
+                        <select id="tour_cate_code" class="btn btn-rounded color1">
+                          <option value="" >전체</option>
+                          <option value="12">관광</option>
+                          <option value="32">숙박</option>
+                          <option value="39">음식</option>
+                        </select>
+                      </div>
+                      <div class=" col-5">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="keyword"
+                          placeholder="검색어 입력"
+                          value="${search.keyword}"
+                        />
+                      </div>
+                    <div class=" col-3">
+                      <input type="hidden" value="${search.tour_cate_code}" id="tour_cate_code"/>
+                      <button id="btnSearch" class="btn btn-rounded color1">검색</button>
+                    </div>
+                  </div>
+
+                <!--
                 <div class="respon-filter-btn">
                   <h6>filter <i class="fas fa-sort-down"></i></h6>
                   <span class="according-menu"></span>
@@ -132,11 +157,13 @@ prefix="c" %>
                     <li data-filter=".a39">#음식</li>
                   </ul>
                 </div>
+                -->
               </div>
               <div class="right-panel search_filter">
+                <!--
                 <a href="javascript:void(0)" class="view-map"
                   ><i class="fas fa-search"></i> 검색
-                </a>
+                </a>-->
                 <a
                   href="javascript:void(0)"
                   class="filter_button filter-bottom-title"
@@ -467,7 +494,6 @@ prefix="c" %>
                                   ><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></label
                                 >
                               </div>
-
                             </div>
                           </div>
                         </div>
@@ -547,6 +573,7 @@ prefix="c" %>
                     </div>
                   </div>
                 </div>
+
                 <div class="collection-grid-view">
                   <ul>
                     <li>
@@ -587,10 +614,12 @@ prefix="c" %>
                     </li>
                   </ul>
                 </div>
+
               </div>
             </div>
           </form>
           </div>
+          <!--
           <div class="col-xl-12 onclick-map " >
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
@@ -625,6 +654,7 @@ prefix="c" %>
               </div>
             </div>
           </div>
+          -->
           <div class="col-lg-12 ratio_square">
             <div class="product-wrapper-grid special-section grid-box">
               <div class="row content grid">
