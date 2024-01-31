@@ -85,7 +85,7 @@ function SupportTicketsList() {
       {/* <div className="col-xxl-9 col-lg-8 col-12"> */}
         <div className="crancy-table crancy-table__support mg-top-30">
           <div className="crancy-table__heading">
-            <h3 className="crancy-table__title mb-0">Touromate</h3>
+            <h3 className="crancy-table__title mb-0">여행친구찾기</h3>
 
             <div className="crancy-table__right">
               <form className="crancy-header__form-inner" id="dataTables_filter" onSubmit={handleSubmit}>
