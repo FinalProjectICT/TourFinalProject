@@ -9,8 +9,8 @@ function PricingCom() {
 
   const [imagesG, setImages] = useState(images);
   const navigate = useNavigate();
-  const { touroview_num } = useParams();
-  const [touroviews, setTouroviews] = useState([]);
+  const { touromate_num } = useParams();
+  const [touromates, setTouromates] = useState([]);
 
   const baseUrl = "http://localhost:8080";
 

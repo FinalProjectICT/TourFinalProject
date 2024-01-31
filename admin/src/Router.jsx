@@ -162,7 +162,7 @@ const router = createBrowserRouter([
         element: <TouromateList />,
       },
       {
-        path: "/touromate/:touromate_num",
+        path: "/touromate/:touro_mate_num",
         element: <Touromate />,
       },
       {

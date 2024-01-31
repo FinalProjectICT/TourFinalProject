@@ -9,16 +9,22 @@ function PricingCom() {
 
   const [imagesG, setImages] = useState(images);
   const navigate = useNavigate();
-  const { touroview_num } = useParams();
-  const [touroviews, setTouroviews] = useState([]);
+  const { touro_mate_num } = useParams();
+  const [touromates, setTouromates] = useState([]);
+  const [touromateImg1, setTouromateImg1] = useState("");
+  const [touromateImg2, setTouromateImg2] = useState("");
 
   const baseUrl = "http://localhost:8080";
 
   useEffect(() => {
-    axios.get(baseUrl+"/tour-list/touroviewNum/" + touroview_num).then((result) => {
-    const touroviews = result.data;
-    console.log(touroviews);
-    setTouroviews({...touroviews});
+    axios.get(baseUrl+"/touromate/touromateNum/" + touro_mate_num).then((result) => {
+    const touromates = result.data[0];
+    const touromates1 = result.data[1];
+    const touromates2 = result.data[2];
+    console.log(touromates)
+    setTouromates(touromates);
+    setTouromateImg1(touromates1.img_real_name);
+    setTouromateImg2(touromates2.img_real_name);
       
   }
   )
@@ -44,7 +50,7 @@ function PricingCom() {
                 <div className="col-sm-12">
                   <div className="card">
                     <div className="card-header">
-                      <h5>상세 페이지11</h5>
+                      <h5>상세 페이지</h5>
                     </div>
                     <div className="card-body">
                       <form className="theme-form mega-form">
@@ -55,7 +61,7 @@ function PricingCom() {
                             type="text"
                             placeholder="게시글 제목"
                             readOnly
-                            value={touroviews.touroview_title}
+                            value={touromates.touro_mate_title}
                           />
                         </div>
 
@@ -67,7 +73,7 @@ function PricingCom() {
                             type="text"
                             placeholder="작성자"
                             readOnly
-                            value={touroviews.user_id}
+                            value={touromates.user_id}
                           />
                         </div>
 
@@ -85,7 +91,7 @@ function PricingCom() {
                                 type="text"
                                 placeholder="여행지 설명"
                                 readOnly
-                                value={touroviews.touroview_content}
+                                value={touromates.touro_mate_content}
                               />
                             </div>
                           </div>
@@ -99,33 +105,27 @@ function PricingCom() {
                           </label>
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <input
+                              <img
                                 style={{ height:'400px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
+                                src={"http://localhost:8080/assets/images/touromateImg/"+touromates.img_real_name}
                               />
                             </div>
                           </div>
 
                           <div className="col-md-6">
                             <div className="mb-3">
-                              <input
+                              <img 
                                 style={{ height:'192px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
-                              />
+                                src={"http://localhost:8080/assets/images/touromateImg/"+touromateImg1}
+                             />
                             </div>
                             <div className="mb-3">
-                              <input
+                              <img
                                 style={{ height:'192px' }}
-                                type="text"
                                 className="form-control"
-                                readOnly
-                                value={touroviews.img_name}
+                                src={"http://localhost:8080/assets/images/touromateImg/"+touromateImg2}
                               />
                             </div>
                           </div>

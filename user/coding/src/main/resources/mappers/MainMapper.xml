@@ -81,7 +81,7 @@
 
   <!-- 관리자 여행 찾기 게시판 리스트-->
 	<select  id="touromateList" parameterType="AdminTouroMateVO" resultType="AdminTouroMateVO">
-		SELECT tm.user_id user_id, 
+		SELECT distinct tm.user_id user_id, 
     tm.touro_mate_title touro_mate_title, 
     tm.touro_mate_content touro_mate_content,
     li.like_count like_count, 
@@ -105,6 +105,14 @@
     OR tm.touro_mate_title LIKE CONCAT('%', #{touro_mate_title}, '%')
     OR tm.touro_mate_content LIKE CONCAT('%', #{touro_mate_content}, '%')
 	</select>
+
+  <!-- 관리자 여행찾기 상세 디테일 -->
+  <select id="touroMateNum" parameterType="Integer" resultType="AdminVO">
+    SELECT * FROM touro_mate tm
+		LEFT OUTER JOIN img_detail id ON id.touro_mate_num = tm.touro_mate_num
+		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
+		WHERE id.touro_mate_num = #{touro_mate_num}
+  </select>
 
   <!-- 관리자 대시보드 - 회원수 가져오기 -->
   <select id="userCount" resultType="Integer">
