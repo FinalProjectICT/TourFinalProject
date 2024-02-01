@@ -155,7 +155,7 @@
 	LEFT OUTER JOIN `like` l ON l.touroview_num = tvw.touroview_num
 	LEFT OUTER JOIN `tour` t ON tvw.tour_num = t.tour_num
 	ORDER BY l.like_count DESC
-	LIMIT 4
+	LIMIT 6;
 	</select>
 
 
