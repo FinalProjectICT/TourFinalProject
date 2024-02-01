@@ -156,7 +156,7 @@
     WHERE r.report_count = 0 OR r.report_count IS NULL AND like_count <![CDATA[>=]]> 0
     GROUP BY tvw.touroview_num, t.tour_name, tvw.user_id
     ORDER BY like_count DESC
-   	LIMIT 4;
+   	LIMIT 6;
 	</select>
 
 

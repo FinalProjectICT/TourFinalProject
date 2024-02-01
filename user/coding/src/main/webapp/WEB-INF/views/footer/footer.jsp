@@ -82,62 +82,55 @@ pageEncoding="UTF-8"%>
               </div>
             </div>
           </div>
-          <div class="col-xl-6 col-md-6">
+          <div class="col-xl-4 col-md-4">
             <div class="footer-title">
               <h5>인기 게시물</h5>
             </div>
             <div class="footer-content">
-              <div class="footer-blog row">
-                <div class="media"></div>
-                
-                <!-- 좋아요 수 많은 후기 게시판 4개 반복 -->
 
-                <div class="col-6">
-                  <div class="img-part rounded5">
+              <div class="footer-place">
+                <div class="row">
+                  <!-- 반복 (여행지에서 가장 별점 높은 6개) --> 
+                  <div class="col-4">
+                    <div class="blog rounded5">
+
+                    </div>
 
                   </div>
+                  
+                  <div class="col-4">
+                    <div class="blog rounded5">
+
+
+                    </div>
+
+                  </div>
+                  <div class="col-4">
+                    <div class="blog rounded5">
+
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="blog rounded5">
+ 
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="blog rounded5">
+
+                    </div>
+                  </div>
+
+
+                  <div class="col-4">
+                    <div class="blog rounded5">
+                      <a href="#">
+
+                      </a>
+                    </div>
+                  </div>
+                  
                 </div>
-
-                <div class="col-6">
-                  <div class="img-part rounded5">
-
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="img-part rounded5">
-
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="img-part rounded5">
-
-                  </div>
-                </div>
-
-
-                <!-- <div class="media col-6">
-                  <div class="img-part rounded5">
-                  </div>
-                </div>
-
-                <div class="media col-6">
-                  <div class="img-part rounded5">
-                  </div>
-                </div>
-
-                <div class="media col-6">
-                  <div class="img-part rounded5">
-                  </div>
-                </div>
-
-                <div class="media col-6">
-                  <div class="img-part rounded5">
-                  </div>
-                </div> -->
-
-
               </div>
             </div>
           </div>
