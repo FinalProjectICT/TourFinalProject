@@ -10,10 +10,12 @@ webSocket.onmessage = async (event) => {
 };
 
 webSocket.onopen = () => {
+  divBotAns({ say: "Touro 챗봇 입니다, 무엇을 도와드릴까요." });
   console.log("소캣 연결");
 };
 
 webSocket.onclose = () => {
+  divBotAns({ say: "챗봇 서버 종료" });
   console.log("소캣 종료");
 };
 
@@ -93,14 +95,17 @@ $(() => {
 
 // 챗봇 응답 양식
 function divBotAns(ansdata) {
-  if (ansdata.act == "mypage/" && $("#loggedInUser").val() == "") {
+  if (
+    (ansdata.act == "mypage/" && $("#loggedInUser").val() == "") ||
+    (ansdata.act == "mypage/" && $("#loggedInUser").val() == null)
+  ) {
     $("#chatContent").append(
       `<div class="testimonial botq">
         <div class="row g-0 justify-content-md-start mb-3">
           <div class="left-part col-ms-4 col-xl-2">
             <img src="../assets/images/profile/chatbot2_r.png" class="img-fluid blur-up lazyloaded bg-img" alt="">
           </div>
-          <div class="right-part col-lg-auto">마이페이지 확인은 로그인이 필요합니다!</div>
+          <div class="right-part col-lg-auto">로그인이 필요한 작업입니다.</div>
         </div>
         </div>`
     );
@@ -245,6 +250,69 @@ const tourProcess = (code) => {
       cate +
       ` 리스트로 이동</a></div></div></div>`
   );
+
+  /*const tourProcess = (code) => {
+  switch (code) {
+    case "tour_cate_code=12":
+      cate = 12;
+      break;
+
+    case "tour_cate_code=32":
+      cate = 32;
+      break;
+
+    case "tour_cate_code=39":
+      cate = 39;
+      break;
+
+    default:
+      cate = "*";
+      break;
+  }
+  var search = {
+    page: 1,
+    range: 1,
+    tour_cate_code: cate,
+    keyword: "",
+    Locs: "",
+    Star: "",
+  };
+  $.ajax({
+    url: "/touro/chatBot/tour",
+    type: "POST",
+    dataType: "JSON",
+    contentType: "application/json; charset=utf-8",
+    data: search,
+    success: function (respons) {
+      console.log(respons);
+      $("#chatContent").append(
+        `<div class="testimonial bota">
+          <div class="card mb-3 style="width: 10px">
+            <div class="card-body">
+              <div class="special-content"">
+                <a href="/touro/` + respons.tour_num0 + `">
+                  <h7>`
+                    + respons.tour_name0 +
+                  `</h7>
+                </a>
+             </div>
+             <div class="special-content"">
+                <a href="/touro/` + respons.tour_num1 + `">
+                  <h7>`
+                    + respons.tour_name1 +
+                  `</h7>
+                </a>
+             </div>
+             <div class="special-content"">
+                <a href="/touro/` + respons.tour_num2 + `">
+                  <h7>`
+                    + respons.tour_name2 +
+                  `</h7>
+                </a>
+             </div>
+            </div>
+          </div>
+        </div>`*/
 };
 // 친구 찾기
 //

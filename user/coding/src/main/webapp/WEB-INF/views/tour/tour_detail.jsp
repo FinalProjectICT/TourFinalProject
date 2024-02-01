@@ -335,6 +335,10 @@ prefix="c" %>
                             data-placement=""
                             title="${TourData.tour_num}"
                             data-original-title="Add_to_Wishlist"
+                            style="
+                            padding-left: 0px;
+                            padding-right: 0px;
+                            "
                           >
                             <i class="far fa-heart"></i
                           ></a>
