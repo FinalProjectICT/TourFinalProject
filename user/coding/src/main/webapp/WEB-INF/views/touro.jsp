@@ -631,10 +631,10 @@ prefix="c" %>
       />
     </c:if>
 
-    <!-- 세션이 비어있으면 병곤 아이디로 
+    <!-- 세션이 비어있으면 병곤 아이디로  -->
     <c:if test="${empty sessionScope.loggedInUser}">
       <input type="hidden" value="dlwldus" id="loggedInUser" />
-    </c:if>-->
+    </c:if>
 
     <!-- 로고, 배경 설정 (home_effect)-->
     <section class="home_effect effect-cls pt-0">
