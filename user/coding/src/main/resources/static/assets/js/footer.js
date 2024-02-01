@@ -39,14 +39,13 @@ $(function () {
                     `<div class="media col-6">
                         <div class="img-part rounded5">
                           <a href="">
-                            <img src="../${tourInfo.tour_img1_path}" class="img-fluid blur-up lazyload" alt="" />
+                            <img src="../${tourInfo.tour_img1_path}" class="img-fluid blur-up lazyload" alt="" style="width:133px; height:100px; margin-bottom:3px;"/>
                           </a>
                         </div>
                         <div class="media-body">
-                          <h5>${tourInfo.touroview_title}</h5>
-                          <p>${tourInfo.touroview_content}</p>
+                          <p style="width: 200px; margin-bottom:3px;">${tourInfo.touroview_title} > ${tourInfo.tour_content}..</p>
                         </div>
-                    </div>`
+                        </div>`
                 );
                 $(this).append(newElement);
                 //console.log(newElement);

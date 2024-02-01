@@ -80,6 +80,8 @@ public class MainController {
     // System.out.println(result);
     // return result;
     m.addAttribute("winter", result);
+    List<MainVO> bestReviewer = mainService.bestReviewer();
+    m.addAttribute("bestReview", bestReviewer);
   }
 
   // // 메인 유저 선호 1순위 여행지 타입에 대한 여행지 추천

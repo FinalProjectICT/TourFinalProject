@@ -244,7 +244,7 @@ function Map() {
     }
   }, [mapData, mapName]);
   return (
-    <div className="col-lg-5 col-12">
+    <div className="col-lg-6 col-12">
       {/* <!-- Charts One --> */}
       <div className="charts-main charts-home-four mg-top-30">
         {/* <!-- Top Heading --> */}

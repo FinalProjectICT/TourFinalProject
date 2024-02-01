@@ -97,6 +97,11 @@ public class MainServiceImpl implements MainService{
     return result;
   }
 
+  @Override
+  public List<MainVO> bestReviewer() {
+    return mainDAO.bestReviewer();
+  }
+
   // 관리자 여행 찾기 게시판 리스트
   @Override
   public List<AdminTouroMateVO> touromateList() {
@@ -163,6 +168,12 @@ public class MainServiceImpl implements MainService{
   @Override
   public List<ChartVO> receiptCountGraph() {
     return mainDAO.receiptCountGraph();
+  }
+
+  // 관리자 대시보드 - 연령대 별 회원 수
+  @Override
+  public AdminVO getAgeUser() {
+    return mainDAO.getAgeUser();
   }
 
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계

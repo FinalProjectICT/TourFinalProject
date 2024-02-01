@@ -5,6 +5,7 @@ import com.example.coding.domain.TouroMateVO;
 import com.example.coding.domain.UserProfileVO;
 import com.example.coding.domain.UserVO;
 import com.example.coding.domain.WishListVO;
+import com.example.coding.controller.Touro;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.LikeVO;
@@ -93,6 +94,9 @@ public interface TouroMateDAO {
 
     // 좋아요 삭제
     int deleteWishListmate(LikeVO vo);
+
+    // 랜덤 여행지 3개
+    List<Touro> getRandTour();
 
 
 }

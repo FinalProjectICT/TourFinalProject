@@ -1016,16 +1016,35 @@ prefix="c" %>
         <div class="title-3">
           <span class="title-label"> Touro </span>
           <h2>베스트 리뷰어</h2>
-          <h5>aa</h5>
+          <h5></h5>
         </div>
 
         <div>
           <div class="row">
             <div class="testimonial_section offset-xl-2">
               <div class="testimonial">
+                <c:forEach items="${bestReview}" var="best" begin="0" end="0">
+                  <div class="left-part col-2">
+                    <a
+                      id="userInfo_${best.user_id}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#profile"
+                      href="#"
+                    >
+                      <img
+                        src="../assets/images/avtar/1.jpg"
+                        class="img-fluid blur-up lazyload"
+                        alt=""
+                      />
+                      <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                    </a>
+                  </div>
+
+                </c:forEach>
+                <c:forEach items="${bestReview}" var="best" begin="1" end="1">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_bmh5544"
+                    id="userInfo_${best.user_id}"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1038,9 +1057,11 @@ prefix="c" %>
                     <div class="bottom-part"><h3>사용자 아이디</h3></div>
                   </a>
                 </div>
+              </c:forEach>
+              <c:forEach items="${bestReview}" var="best" begin="2" end="2">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_chunsikjjang"
+                    id="userInfo_${best.user_id}"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1053,9 +1074,11 @@ prefix="c" %>
                     <div class="bottom-part"><h3>사용자 아이디</h3></div>
                   </a>
                 </div>
+              </c:forEach>
+              <c:forEach items="${bestReview}" var="best" begin="3" end="3">
                 <div class="left-part col-2">
                   <a
-                    id="userInfo_Hangil"
+                    id="userInfo_${best.user_id}"
                     data-bs-toggle="modal"
                     data-bs-target="#profile"
                     href="#"
@@ -1068,21 +1091,7 @@ prefix="c" %>
                     <div class="bottom-part"><h3>사용자 아이디</h3></div>
                   </a>
                 </div>
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_wldusfl"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
+              </c:forEach>
               </div>
             </div>
           </div>

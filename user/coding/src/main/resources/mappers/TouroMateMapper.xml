@@ -146,7 +146,12 @@
        WHERE user_id = #{user_id} AND touro_mate_num = #{touro_mate_num}
     </delete>
 
-
+    <!-- 랜덤 여행지 - 3개 -->
+    <select id="getRandTour" resultType="TourVO">
+        SELECT *, SUBSTRING(tour_content, 1, 200) AS tour_contents FROM tour
+        ORDER BY RAND()
+        LIMIT 3;
+    </select>
 
 
 </mapper> 

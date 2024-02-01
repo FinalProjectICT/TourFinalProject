@@ -67,8 +67,11 @@ function PricingCom() {
                         </div>
 
                         <br />
-
-                        <div className="mb-3">
+                        <div className="row">
+                        <div className="col-md-6">
+                          <label className="form-label-title ">
+                               작성자
+                          </label>
                           <input
                             className="form-control"
                             type="text"
@@ -77,8 +80,32 @@ function PricingCom() {
                             value={touromates.user_id}
                           />
                         </div>
+                        <div className="col-md-6">
+                          <label className="form-label-title ">
+                               채팅 참여 인원
+                          </label>
+                          <input
+                            className="form-control"
+                            type="text"
+                            placeholder="작성자"
+                            readOnly
+                            value={touromates.touro_mate_count}
+                          />
+                        </div>
+                        </div>
 
-                        <br />
+                        {/* <br /> */}
+                        {/* <div className="mb-3">
+                          <label className="form-label-title">채팅참여자</label>
+                          <input
+                            className="form-control"
+                            type="text"
+                            placeholder="게시글 제목"
+                            readOnly
+                            value={touromates.touro_mate_title}
+                          />
+                        </div> */}
+                        <br/>  
 
                         <div className="row">
                           <div className="col-md-12">
