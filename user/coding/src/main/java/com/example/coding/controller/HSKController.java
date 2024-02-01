@@ -218,8 +218,8 @@ public class HSKController {
 
         // 페이징 처리
         int totalSearchCount = touroviewService.getTotalItemCount(keyword); // 총 아이템 수
-        int pageSize = 9; // 페이지당 아이템 수 
-        int touroviewPage = (int) Math.ceil((double) totalSearchCount / pageSize); // 총 페이지 수
+        int pageSize = 12; // 페이지당 아이템 수 
+        int touroviewPage = (int) Math.floor((double) totalSearchCount / pageSize); // 총 페이지 수
         
         // 페이지 범위를 넘어가지 않도록 처리
         currentPage = Math.min(currentPage, touroviewPage);
