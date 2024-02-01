@@ -147,13 +147,11 @@ pageEncoding="UTF-8"%>
                     </div>
                   </div>
                 </div>
-              <c:if test="${not empty sessionScope.loggedInUser}">
                 <div class="collection-grid-view">
                   <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
                     >글 쓰기</a
                   >
               </div>
-              </c:if>
             </div>
           </div>
           <!-- 키워드 검색 폼 -->

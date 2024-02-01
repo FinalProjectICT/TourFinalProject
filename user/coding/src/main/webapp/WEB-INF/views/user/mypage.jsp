@@ -234,12 +234,16 @@ pageEncoding="UTF-8"%>
   transform: translateX(-50%) scaleY(1); /* 텍스트 보이기 */
 }
 
-<style>
 .milestone {
   font-weight: bold;
   color: red; /* 메시지 색상 */
   margin: 10px 0; /* 상하 여백 */
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8174229935e69868b15b724c0791915612cb0c3e
 
 
 #kakao-map {

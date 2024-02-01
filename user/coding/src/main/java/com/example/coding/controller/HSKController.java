@@ -224,7 +224,11 @@ public class HSKController {
         startIndex = Math.max((currentPage - 1) * pageSize, 0);
 
 
+<<<<<<< HEAD
         List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage,pageSize);
+=======
+        List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage, pageSize);
+>>>>>>> 8174229935e69868b15b724c0791915612cb0c3e
         model.addAttribute("touroviewList", touroviewList);
         model.addAttribute("keyword", keyword);
         model.addAttribute("touroviewPage", touroviewPage);

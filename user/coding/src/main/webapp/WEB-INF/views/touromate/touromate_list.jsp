@@ -139,11 +139,9 @@ pageEncoding="UTF-8"%>
                 <a href="javascript:void(0)" class="view-map me-0"
                   ><i class="fas fa-search"></i> 친구 찾기</a
                 >
-                <c:if test="${not empty sessionScope.loggedInUser}">
                   <div class="collection-grid-view">
                     <a href="/touromate/touromate_insert" class="btn btn-rounded color1">친구 찾기 쓰기</a>
                   </div>
-                </c:if>
                
               </div>
             </div>

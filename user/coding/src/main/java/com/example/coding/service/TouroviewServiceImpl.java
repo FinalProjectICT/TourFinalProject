@@ -87,7 +87,11 @@ public class TouroviewServiceImpl implements TouroviewService{
 
     // 검색어
     @Override
+<<<<<<< HEAD
     public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage,int pageSize){
+=======
+    public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage, int pageSize){
+>>>>>>> 8174229935e69868b15b724c0791915612cb0c3e
         pageSize = 9;
         int offset = (currentPage - 1) * pageSize;
         RowBounds rowBounds = new RowBounds(offset, pageSize);
