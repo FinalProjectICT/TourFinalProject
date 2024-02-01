@@ -93,6 +93,22 @@ pageEncoding="UTF-8"%>
       }) // end script
 
     </script>
+    <!-- 게시물 보기 권한 - 로그인 시 가능 -->
+    <script>
+      $(function() {
+        $('.book-now').click((e) => {
+          e.preventDefault();
+          if(!sessionId) {
+            swal('',"로그인 후 이용해주세요.",'error').then(() => {
+              window.location.href = "/user/login";
+            });
+          }
+        })
+
+      }) // end script
+      const sessionId = $("#sessionId").val();
+
+    </script>
 
 
 
