@@ -534,7 +534,7 @@ prefix="c" %>
                         />
                       </a>
                       <div class="top-icon">
-                        <a
+                        <!-- <a
                           href="#"
                           class=""
                           data-bs-toggle="tooltip"
@@ -543,7 +543,7 @@ prefix="c" %>
                           data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
-                        </a>
+                        </a> -->
                       </div>
                     </div>
                     <div class="special-content">
@@ -557,14 +557,14 @@ prefix="c" %>
                         ${rand.tour_contents}...
                       </p>
                       <div class="bottom-section">
-                        <div class="rating">
+                        <!-- <div class="rating">
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
+                          <i class="far fa-star"></i> -->
                           <!-- <span>26412 review</span> -->
-                        </div>
+                        <!-- </div> -->
                         <div class="price">
                           <!-- <del>$1300</del>
                           <span>$1245</span>
@@ -579,179 +579,10 @@ prefix="c" %>
                 </div>
                 <div>
                 </c:forEach>
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
-                        <img
-                          src="../assets/images/hotel/room/13.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="#">
-                        <h5>
-                          the venetian
-                          <span
-                            ><i class="fas fa-map-marker-alt"></i> Newyork</span
-                          >
-                        </h5>
-                      </a>
-                      <p>
-                        Lorem Ipsum is simply dummy text the printing Ipsum is
-                        simply Lorem Ipsum is simply dummy text of the
-                        ..............
-                      </p>
-                      <div class="bottom-section">
-                        <div class="rating">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <span>26412 review</span>
-                        </div>
-                        <div class="price">
-                          <del>$1300</del>
-                          <span>$1245</span>
-                          <div class="facility-detail">
-                            <span>swimming</span>
-                            <span>parking</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </div>
-                <div>
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
-                        <img
-                          src="../assets/images/hotel/room/10.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="#">
-                        <h5>
-                          the venetian
-                          <span
-                            ><i class="fas fa-map-marker-alt"></i> Newyork</span
-                          >
-                        </h5>
-                      </a>
-                      <p>
-                        Lorem Ipsum is simply dummy text the printing Ipsum is
-                        simply Lorem Ipsum is simply dummy text of the
-                        ..............
-                      </p>
-                      <div class="bottom-section">
-                        <div class="rating">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <span>26412 review</span>
-                        </div>
-                        <div class="price">
-                          <del>$1300</del>
-                          <span>$1245</span>
-                          <div class="facility-detail">
-                            <span>swimming</span>
-                            <span>parking</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
-                        <img
-                          src="../assets/images/hotel/room/15.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
-                          alt=""
-                        />
-                      </a>
-                      <div class="top-icon">
-                        <a
-                          href="#"
-                          class=""
-                          data-bs-toggle="tooltip"
-                          data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
-                        >
-                          <i class="far fa-heart"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="special-content">
-                      <a href="#">
-                        <h5>
-                          the venetian
-                          <span
-                            ><i class="fas fa-map-marker-alt"></i> Newyork</span
-                          >
-                        </h5>
-                      </a>
-                      <p>
-                        Lorem Ipsum is simply dummy text the printing Ipsum is
-                        simply Lorem Ipsum is simply dummy text of the
-                        ..............
-                      </p>
-                      <div class="bottom-section">
-                        <div class="rating">
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="fas fa-star"></i>
-                          <i class="far fa-star"></i>
-                          <span>26412 review</span>
-                        </div>
-                        <div class="price">
-                          <del>$1300</del>
-                          <span>$1245</span>
-                          <div class="facility-detail">
-                            <span>swimming</span>
-                            <span>parking</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+               
+                
               </div>
             </div>
           </div>
@@ -892,7 +723,7 @@ prefix="c" %>
     <!-- tap to top end -->
 
     <!-- setting start -->
-    <div class="theme-setting">
+    <!-- <div class="theme-setting">
       <div class="dark">
         <input class="tgl tgl-skewed" id="dark" type="checkbox" />
         <label
@@ -911,7 +742,7 @@ prefix="c" %>
           for="rtl"
         ></label>
       </div>
-    </div>
+    </div> -->
     <!-- setting end -->
 
     <!-- book now section start -->
