@@ -60,7 +60,7 @@ public class TouroMateController {
         UserVO loggedInUser = (UserVO) session.getAttribute("loggedInUser");
         
          // 노드 서버와 통신할 때 사용할 URL
-        String nodeServerUrl = "http://localhost:" + nodeServerPort + "/chat";
+        String nodeServerUrl = "http://175.114.130.19:" + nodeServerPort + "/chat";
 
         
         // 전체 페이지 수를 가져오는 메서드
