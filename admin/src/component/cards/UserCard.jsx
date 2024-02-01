@@ -31,9 +31,10 @@ function UserCard({ user }) {
     <div className="col-xxl-3 col-lg-4 col-md-6 col-12">
     <div className="crancy-single-user mg-top-30">
       <div className="crancy-single-user__head">
-        {user.imgRealName 
-        ? <img src={`${baseUrl}/${user.imgRealName}`} alt="프로필~" style={{height:"120px", borderRadius:'50%'}}/> 
-        : <img src={defaultImg} alt="프로필~" style={{height:"120px"}}/>}
+      {user.imgRealName 
+      ? <img src={`${baseUrl}/${user.imgRealName}`} alt="프로필~" style={{height:"120px", borderRadius:'50%'}}/> 
+      : <img src={defaultImg} alt="프로필~" style={{height:"120px"}}/>}
+
         
         <h4 className="crancy-single-user__title">
           {user.userName}

@@ -24,8 +24,8 @@ public class TouroviewVO {
 
    private String tour_img1_path;   // 여행지 이미지
 
-   private String user_tel;
-   private String user_email;
+   private String user_tel; //  유저 번호
+   private String user_email; // 유저 이메일 
     
     
 }

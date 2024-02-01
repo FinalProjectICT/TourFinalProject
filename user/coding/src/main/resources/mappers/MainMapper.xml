@@ -111,7 +111,7 @@
     SELECT * FROM touro_mate tm
 		LEFT OUTER JOIN img_detail id ON id.touro_mate_num = tm.touro_mate_num
 		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
-		WHERE id.touro_mate_num = #{touro_mate_num}
+		WHERE tm.touro_mate_num = #{touro_mate_num}
   </select>
 
   <!-- 관리자 대시보드 - 회원수 가져오기 -->
@@ -230,7 +230,7 @@
     SELECT distinct tv.touroview_num touroview_num, t.tour_name tour_name, tv.user_id user_id, li.like_count like_count
     FROM  touroview tv INNER JOIN `like` li ON tv.touroview_num = li.touroview_num 
     INNER JOIN tour t ON tv.tour_num = t.tour_num LEFT JOIN report r ON tv.touroview_num = r.touroview_num 
-    WHERE r.report_count &lt; 3 OR r.report_count IS NULL
+    WHERE r.report_count = 0 OR r.report_count IS NULL
     ORDER BY li.like_count 
   </select>
 

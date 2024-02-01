@@ -22,10 +22,11 @@ function PricingCom() {
     const touromates1 = result.data[1];
     const touromates2 = result.data[2];
     console.log(touromates)
+    
     setTouromates(touromates);
     setTouromateImg1(touromates1.img_real_name);
     setTouromateImg2(touromates2.img_real_name);
-      
+
   }
   )
   .catch((error) => {
@@ -50,7 +51,7 @@ function PricingCom() {
                 <div className="col-sm-12">
                   <div className="card">
                     <div className="card-header">
-                      <h5>상세 페이지</h5>
+                      <h5>여행친구찾기 상세</h5>
                     </div>
                     <div className="card-body">
                       <form className="theme-form mega-form">
@@ -105,28 +106,37 @@ function PricingCom() {
                           </label>
                           <div className="col-md-6">
                             <div className="mb-3">
+                              {touromates.img_real_name && 
                               <img
                                 style={{ height:'400px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touromateImg/"+touromates.img_real_name}
+                                alt="이미지 없음"
                               />
+                            }
                             </div>
                           </div>
 
                           <div className="col-md-6">
                             <div className="mb-3">
+                            {touromateImg1 &&
                               <img 
                                 style={{ height:'192px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touromateImg/"+touromateImg1}
+                                alt="이미지 없음"
                              />
+                            }
                             </div>
                             <div className="mb-3">
+                            {touromateImg2 &&
                               <img
                                 style={{ height:'192px' }}
                                 className="form-control"
                                 src={"http://localhost:8080/assets/images/touromateImg/"+touromateImg2}
+                                alt="이미지 없음"
                               />
+                            }
                             </div>
                           </div>
                         </div>
