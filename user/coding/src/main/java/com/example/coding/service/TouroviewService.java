@@ -71,9 +71,12 @@ public interface TouroviewService {
     // ----------------------------- 수정, 삭제
     // 후기 게시판 수정
     public void updateTouroview(TouroviewVO touroviewVO);
+   
+    // 이미지 수정
+    public void UpdateImgDetail(ImgVO imgVO);
     
     // 후기 게시판 삭제
-    public void deleteTouroview(int touroviewNum);
+    public void deleteTouroview(int touroview_num);
 
     // 파일 업로드
     public void insertFileView(ImgDetailVO idvo);
@@ -96,5 +99,7 @@ public interface TouroviewService {
     // 좋아요 삭제
     public int deleteWishList(LikeVO vo);
     
+    // Touroview에서 Tour 정보 가져오기
+    public TourVO getTourNameByTourNum(String tour_num);
     
 } 

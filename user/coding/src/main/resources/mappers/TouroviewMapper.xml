@@ -27,8 +27,12 @@
 <select id="countItemsByKeyword" resultType="int">
     SELECT COUNT(*)
     FROM touroview
-    WHERE touroview_title LIKE CONCAT('%', #{keyword}, '%') OR
-          touroview_content LIKE CONCAT('%', #{keyword}, '%')
+    <where>
+        <if test="keyword != null and keyword.length() >= 2">
+            AND (touroview_title LIKE CONCAT('%', #{keyword}, '%') OR 
+                 touroview_content LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+    </where>
 </select>
 
 <!-- 인기 게시물 -->
@@ -144,15 +148,28 @@
 <!-- 게시물 수정-->
 <update id="updateTouroview" parameterType="TouroviewVO">
     UPDATE  touroview
-    SET     touroview_title = #{touroviewTitle},
-            touroview_content = #{touroviewContent},
-    WHERE   touroview_num     = #{touroviewNum}
+    SET     tour_num = #{tour_num},
+            touroview_title = #{touroview_title},
+            touroview_content = #{touroview_content},
+            touroview_update = NOW()
+    WHERE   touroview_num = #{touroview_num}
 </update>
+
+
+ <!-- 이미지 정보 업데이트 -->
+<update id="updateImgDetail" parameterType="ImgVO">
+    UPDATE  img
+    SET     img_name = #{img_name},
+            img_real_name = #{img_real_name},
+            img_path = #{img_path}
+    WHERE   touroview_num   = #{touroview_num}
+</update>
+
 
 <!-- 게시물 삭제-->
 <delete id="deleteTouroview" parameterType="int">
     DELETE  FROM touroview
-    WHERE   touroview_num = #{touroviewNum}
+    WHERE   touroview_num = #{touroview_num}
 </delete>
 
 <!-- 디테일 게시물 기본 배경화면 가져오기 -->
@@ -188,7 +205,12 @@
     WHERE user_id = #{user_id} AND touroview_num = #{touroview_num}
 </delete>
 
-
+<!-- Touroview 에서 tour 가져오기-->
+<select id="getTourNameByTourNum" parameterType="String" resultType="TourVO">
+    SELECT  * 
+    FROM    tour 
+    WHERE   tour_num = #{tour_num}
+</select>
 
 
 </mapper>

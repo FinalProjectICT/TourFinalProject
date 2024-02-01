@@ -14,4 +14,6 @@ public class ImgVO {
     private String  img_width;          // 이미지 가로 크기
     private String  img_length;         // 이미지 세로 크기
 
+    private int touroview_num;          // touroview 번호
+
 }
