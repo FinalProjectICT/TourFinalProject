@@ -279,7 +279,7 @@ prefix="c" %>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a data-bs-toggle="tab" class="nav-link" href="#location">
+                    <a data-bs-toggle="tab" class="nav-link" href="#location" id="kakaomap">
                       지도
                     </a>
                   </li>

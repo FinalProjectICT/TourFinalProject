@@ -115,25 +115,38 @@ $(() => {
 
 
     var container = document.getElementById('location'); // 지도를 담을 영역의 DOM 레퍼런스
+    var tabs = document.querySelectorAll('.nav-link');
     
-    // 지도 생성할 때에는 화면에 표시되어야 함
-    container.style.display = 'block';
-    var options = {
-      center: new kakao.maps.LatLng(tour_lati, tour_longi),
-      level: 6
-    };
-    
-    var map = new kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
+    // tab의 위치가 아이디가 location이 아닐 경우 숨기기 코드
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        if (tab.getAttribute('href') === '#location') {
+          // 여기에 지도 생성 및 마커 설정 코드 추가
+          container.style.display = 'block';
+          var options = {
+            center: new kakao.maps.LatLng(tour_lati, tour_longi),
+            level: 6
+          };
+          
+          var map = new kakao.maps.Map(container, options); // 지도 생성 및 객체 리턴
 
-    // 마커가 표시될 위치입니다 
-    var markerPosition  = new kakao.maps.LatLng(tour_lati, tour_longi); 
+          // 마커가 표시될 위치입니다 
+          var markerPosition  = new kakao.maps.LatLng(tour_lati, tour_longi); 
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-      position: markerPosition
+          // 마커를 생성합니다
+          var marker = new kakao.maps.Marker({
+            position: markerPosition
+          });
+
+          marker.setMap(map);
+              } 
+          else {
+                container.style.display = 'none';
+        }
+      });
     });
-
-    marker.setMap(map);
+    // 지도 생성할 때에는 화면에 표시되어야 함
+    
     
     // 나중에 지도 객체를 참조하려면 아래처럼 사용
     //map.relayout();

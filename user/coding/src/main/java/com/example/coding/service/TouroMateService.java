@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.coding.controller.Touro;
 import com.example.coding.domain.ImgDetailVO;
 import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.LikeVO;
@@ -72,6 +73,9 @@ public interface TouroMateService {
 
     // 좋아요 삭제
     int deleteWishListmate(LikeVO vo);
+
+    // 랜덤 여행지 - 3개
+    List<Touro> getRandTour();
 
     
 }

@@ -105,7 +105,7 @@ public class AdminVO {
     private String  touroview_update ;        // 수정일
     private String touroview_content ;     // 게시글 상세 정보 
     private Integer like_num ;             // 좋아요 번호
-    private String like_count ;            // 좋아요 갯수
+    private Integer like_count ;            // 좋아요 갯수
     private Integer report_num ;           // 신고 번호
     private String report_count ;          // 신고 갯수
     private String tour_tel ;               // 여행지 전화번호
@@ -136,6 +136,14 @@ public class AdminVO {
     private String touro_mate_addr2; // 여행지 주소 2
     private String touro_mate_addr3; // 여행지 주소 3
     private String touro_mate_date; // 작성 날짜, 수정 날짜
+
+    // 연령대 별
+    private Integer age_0_19;       
+    private Integer age_20_30;
+    private Integer age_31_40;
+    private Integer age_41_50;
+    private Integer age_51_60;
+    private Integer age_61_and_above;
 
     // public static void main(String[] args) {
     //     // VO 인스턴스 생성

@@ -146,8 +146,8 @@ prefix="c" %>
           </div>
           <script>
             // 좋아요
-            var loggedInUserId =
-              '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+            // var loggedInUserId =
+            //   '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
 
             $(() => {
               // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
@@ -516,12 +516,13 @@ prefix="c" %>
             <div class="special-section related-box ratio3_2 grid-box">
               <div class="slider-3 no-arrow">
                 <div>
+                  <c:forEach items="${randTour}" var="rand">
                   <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
+                    <div class="special-img" style="height: 200px;">
+                      <a href="/touro/${rand.tour_num}">
                         <img
-                          src="../assets/images/hotel/room/14.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
+                          src="../${rand.tour_img1_path}"
+                          class="img-fluid blur-up lazyload"
                           alt=""
                         />
                       </a>
@@ -531,26 +532,22 @@ prefix="c" %>
                           class=""
                           data-bs-toggle="tooltip"
                           data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
+                          title="${rand.tour_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
                         </a>
                       </div>
                     </div>
                     <div class="special-content">
-                      <a href="#">
+                      <a href="/touro/${rand.tour_num}">
                         <h5>
-                          the venetian
-                          <span
-                            ><i class="fas fa-map-marker-alt"></i> Newyork</span
-                          >
+                          ${rand.tour_name}
+                          
                         </h5>
                       </a>
                       <p>
-                        Lorem Ipsum is simply dummy text the printing Ipsum is
-                        simply Lorem Ipsum is simply dummy text of the
-                        ..............
+                        ${rand.tour_contents}...
                       </p>
                       <div class="bottom-section">
                         <div class="rating">
@@ -559,21 +556,22 @@ prefix="c" %>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="far fa-star"></i>
-                          <span>26412 review</span>
+                          <!-- <span>26412 review</span> -->
                         </div>
                         <div class="price">
-                          <del>$1300</del>
+                          <!-- <del>$1300</del>
                           <span>$1245</span>
                           <div class="facility-detail">
                             <span>swimming</span>
                             <span>parking</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div>
+                </c:forEach>
                   <div class="special-box p-0">
                     <div class="special-img">
                       <a href="#">

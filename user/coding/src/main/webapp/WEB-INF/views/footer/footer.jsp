@@ -92,8 +92,32 @@ pageEncoding="UTF-8"%>
                 
                 <!-- 좋아요 수 많은 후기 게시판 4개 반복 -->
 
+                <div class="col-6">
+                  <div class="img-part rounded5">
 
-                <div class="media col-6">
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="img-part rounded5">
+
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="img-part rounded5">
+
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="img-part rounded5">
+
+                  </div>
+                </div>
+
+
+                <!-- <div class="media col-6">
                   <div class="img-part rounded5">
                   </div>
                 </div>
@@ -111,7 +135,7 @@ pageEncoding="UTF-8"%>
                 <div class="media col-6">
                   <div class="img-part rounded5">
                   </div>
-                </div>
+                </div> -->
 
 
               </div>
