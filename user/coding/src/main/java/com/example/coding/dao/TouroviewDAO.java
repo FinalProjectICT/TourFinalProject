@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.example.coding.domain.TourVO;
 import com.example.coding.domain.TouroviewDetailVO;
@@ -33,8 +34,18 @@ public interface TouroviewDAO {
     // 여행지 이미지 사진 가져오기
     public TourVO getTourByNum(String tour_num);
 
-    // 검색어
-    public List<TouroviewVO> searchByKeyword(String keyword);
+    // 게시물 검색하기
+    public List<TouroviewVO> searchByKeyword(String keyword, RowBounds rowBounds);
+
+    // 페이징
+    public int countItemsByKeyword(String keyword);
+
+    // 인기 게시물
+    public List<LikeVO> getPopularTouroview();
+
+
+
+
 
 
     // ---------------------------------------- detail
@@ -49,6 +60,10 @@ public interface TouroviewDAO {
     
     // 후기 게시물 리뷰 정보 가져오기
     public TouroviewReviewVO getTouroviewReviewByTouroviewId(int touroview_num);
+
+    // 작성자 정보
+    public UserVO getUserById(String userId);
+
     
 
     // 신고

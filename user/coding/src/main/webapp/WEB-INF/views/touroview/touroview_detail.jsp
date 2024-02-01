@@ -592,17 +592,10 @@ prefix="c" %>
               </div>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
-                <p>
-                <i class="fas fa-phone-alt"></i>
-                
-                  <%-- ${touroviewVO.user_tel} --%>
-                 
-                </p>
 
+                <p><i class="fas fa-phone-alt"></i>${touroviewAuthor.user_tel}</p>
                 <a href="#">
-                  <p><i class="fas fa-envelope"></i>
-                  <%-- ${touroviewVO.user_email} --%>
-                  </p>
+                  <p><i class="fas fa-envelope"></i>${touroviewAuthor.user_email}</p>
                 </a>
                 <div class="social-box"></div>
               </div>

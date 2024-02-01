@@ -2,6 +2,9 @@ package com.example.coding.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
@@ -41,10 +44,12 @@ public interface MyPageService {
     public int countReceipt(String userId);
 
 
-
     // -----------------------------------------
     // 마이페이지 - 프로필 수정
-    public int updateUserProfile(UserVO userVO);
+    public void updateUserProfile(UserVO userVO);
+    // public void saveImageInfo(ImgVO imgVO);
+    // public ImgVO getImgInfo(String img_real_name);
+    // public String storeImage(MultipartFile file);
 
 
 

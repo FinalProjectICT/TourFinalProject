@@ -91,19 +91,28 @@
 <update id="updateUserProfile" parameterType="UserVO">
     UPDATE user
     SET
-            user_tel = #{user_tel},
-            user_gender = #{user_gender},
-            user_age = #{user_age},
-            user_addr = #{user_addr},
-            user_email = #{user_email},
-            user_prefer_type1 = #{user_prefer_type1},
-            user_prefer_type2 = #{user_prefer_type2},
-            user_prefer_type3 = #{user_prefer_type3},
-            user_prefer_loc1 = #{user_prefer_loc1},
-            user_prefer_loc2 = #{user_prefer_loc2},
-            user_prefer_loc3 = #{user_prefer_loc3}
-    WHERE user_id = #{userId}
+        user_tel = #{user_tel},
+        user_age = #{user_age},
+        user_email = #{user_email},
+        user_prefer_type1 = #{user_prefer_type1},
+        user_prefer_type2 = #{user_prefer_type2},
+        user_prefer_type3 = #{user_prefer_type3},
+        user_prefer_loc1 = #{user_prefer_loc1},
+        user_prefer_loc2 = #{user_prefer_loc2},
+        user_prefer_loc3 = #{user_prefer_loc3}
+    WHERE user_id = #{user_id}
 </update>
+
+<!-- <insert id="saveImageInfo" parameterType="ImgVO">
+    INSERT INTO img (img_name, img_real_name, img_path)
+    VALUES (#{img_name}, #{img_real_name}, #{img_path})
+</insert>
+
+<select id="getImgInfo" resultType="ImgVO">
+    SELECT  * 
+    FROM    img 
+    WHERE   img_real_name = #{img_real_name}
+</select> -->
 
 
 

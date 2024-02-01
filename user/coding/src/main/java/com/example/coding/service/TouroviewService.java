@@ -35,8 +35,14 @@ public interface TouroviewService {
     // 여행지 이미지 사진 가져오기
     public TourVO getTourByNum(String tour_num);
 
-    // 검색어
-    public List<TouroviewVO> searchByKeyword(String keyword);
+    // 검색한 리스트 불러오기
+    public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage, int pageSize);
+
+    // 페이징
+    public int getTotalItemCount(String keyword);
+
+    // 인기 게시물
+    public List<LikeVO> getPopularTouroview();
 
 
     // ------------------------------ touroview_detail
@@ -57,6 +63,9 @@ public interface TouroviewService {
 
     // 신고한 게시물인지 확인
     public boolean checkReported(int touroviewNum, String userId);
+
+    // 작성자 정보 
+    public UserVO getUserById(String userId);
 
 
     // ----------------------------- 수정, 삭제
