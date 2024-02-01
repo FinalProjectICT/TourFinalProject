@@ -217,9 +217,9 @@ prefix="c" %>
    <script>
     $(function(){
 
-    
+      const loggedInUserId = $("#sessionId").val();
     // 좋아요
-    var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+    // var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
       // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
       $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
         // 여행지 값, 사용자 정보 가져오기

@@ -84,6 +84,8 @@ pageEncoding="UTF-8"%>
             swal('',"로그인 후 이용해주세요.",'error').then(() => {
               window.location.href = "/user/login";
             });
+          } else {
+            window.location.href = "/touromate/touromate_insert";
           }
             // Add your logic here for the click event when sessionId is available
         });

@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
     <script>
       $(function(){
       // 좋아요
-      const loggedInUserId = $("#sessionId").val();;
+      const loggedInUserId = $("#sessionId").val();
   
       $(() => {
         // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
@@ -241,7 +241,7 @@ pageEncoding="UTF-8"%>
                 <div class="filters respon-filter-content filter-button-group">
                   <ul>
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".popular">popular</li>
+                    <!-- <li data-filter=".popular">popular</li> -->
                   </ul>
                 </div>
               </div>

@@ -179,7 +179,7 @@ public class HSKController {
     // 페이징 및 list 목록 조회
     @GetMapping("/touroview_list")
     public String showTouroviewList(Model model,
-                                    @RequestParam(name = "searchKeyword", required = false) String searchKeyword,
+                                    @RequestParam(name = "keyword", required = false) String searchKeyword,
                                     @RequestParam(name = "page", defaultValue = "0") Integer page,
                                     @RequestParam(name = "size", defaultValue = "10") Integer size) {
         
@@ -278,14 +278,14 @@ public class HSKController {
     @GetMapping("/touroview_detail")
     public String showTouroviewDetail(@RequestParam(name = "touroview_num") int touroview_num, Model model, HttpSession session) {
         
-        try{
             // 로그인 된 사용자 아이디 확인
             // String loggedInUserId = (String) session.getAttribute("loggedId");
+            // UserVO user = (UserVO) session.getAttribute("loggedInUser");
+            // String loggedInUserId =  user.getUser_id();
 
-            UserVO user = (UserVO) session.getAttribute("loggedInUser");
-            String loggedInUserId =  user.getUser_id();
+            // if(loggedInUserId != null) {
 
-            // touroviewNum에 해당하는 후기를 서비스를 통해 불러와서 모델에 추가
+            // }
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroview_num);
 
             // 후기 정보가 없을 경우 목록 페이지로 리다이렉트
@@ -328,16 +328,13 @@ public class HSKController {
 
 
             // 자신이 작성한 게시글인 경우 모델에 플래그 추가
-            boolean isAuthor = loggedInUserId != null && loggedInUserId.equals(touroviewVO.getUser_id());
-            model.addAttribute("isAuthor", isAuthor);
+            // boolean isAuthor = loggedInUserId != null && loggedInUserId.equals(touroviewVO.getUser_id());
+            // model.addAttribute("isAuthor", isAuthor);
 
             return "touroview/touroview_detail";
+            // touroviewNum에 해당하는 후기를 서비스를 통해 불러와서 모델에 추가
             
-        }catch (Exception e){
-            // 오류 처리
-            e.printStackTrace();
-            return "redirect:/touroview/touroview_list";
-        }
+        
     }
         
 
@@ -348,9 +345,6 @@ public class HSKController {
 
     }
     
-
-
-        
         
     // ---------------------------------------------- touroview_update_delete
     

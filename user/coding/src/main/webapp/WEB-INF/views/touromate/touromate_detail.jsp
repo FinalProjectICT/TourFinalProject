@@ -80,6 +80,8 @@ prefix="c" %>
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
 
+    <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="sessionId"/>
+
     <section class="breadcrumb-section parallax-img pt-0">
       <img
         src="../assets/images/inner-pages/breadcrumb1.jpg"
@@ -152,7 +154,7 @@ prefix="c" %>
           </div>
           <script>
             // 좋아요
-            // var loggedInUserId =
+            var loggedInUserId = $('#sessionId').val();
             //   '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
 
             $(() => {
@@ -240,8 +242,8 @@ prefix="c" %>
             }
 
             // 세션에서 loggedInUserId 값을 가져와서 변수에 설정
-            var loggedInUserId =
-              '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+            var loggedInUserId = $('#sessionId').val()
+              // '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
 
             console.log("loggedInUserId 설정 이후: ", loggedInUserId);
 
@@ -550,7 +552,7 @@ prefix="c" %>
                         />
                       </a>
                       <div class="top-icon">
-                        <a
+                        <!-- <a
                           href="#"
                           class=""
                           data-bs-toggle="tooltip"
@@ -559,7 +561,7 @@ prefix="c" %>
                           data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
-                        </a>
+                        </a> -->
                       </div>
                     </div>
                     <div class="special-content">
@@ -573,14 +575,14 @@ prefix="c" %>
                         ${rand.tour_contents}...
                       </p>
                       <div class="bottom-section">
-                        <div class="rating">
+                        <!-- <div class="rating">
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="far fa-star"></i>
-                          <!-- <span>26412 review</span> -->
-                        </div>
+                          <span>26412 review</span>
+                        </div> -->
                         <div class="price">
                           <!-- <del>$1300</del>
                           <span>$1245</span>
@@ -1227,8 +1229,8 @@ prefix="c" %>
 
                 const chatLogs = $(".chat-logs");
                 const isCurrentUser =
-                  userId ===
-                  '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+                  userId === $('#sessionId').val()
+                  // '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>'
 
                 if (isCurrentUser) {
                   // 본인이 보낸 경우
@@ -1303,8 +1305,8 @@ prefix="c" %>
         // 모달이 열릴 때 WebSocket 연결 시작
         $("#chatLive").on("shown.bs.modal", async function () {
           const postId = $("#chat-submit").data("touro-mate-num");
-          const userId =
-            '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>';
+          const userId = $('#sessionId').val()
+            // '<%= ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() %>'
 
           console.log("#chat-submit >>> " + postId);
           console.log("USERID >> " + userId);
