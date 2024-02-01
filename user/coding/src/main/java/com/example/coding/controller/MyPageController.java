@@ -1,6 +1,9 @@
 package com.example.coding.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -256,6 +259,26 @@ public class MyPageController {
             int pagesize3 = 6;
             return myPageService.getMyPageReceiptList(userId, receiptPage, pagesize3);
         }
+
+        // ---------------------------------------------------------------
+        // 나의 발자취 ( 마커 찍기 )
+        @GetMapping("/mypage/getReceiptsmarker")
+        @ResponseBody
+        public List<Map<String, String>> getReceiptsmarker( HttpSession session ) {
+            String userId = (String) session.getAttribute("loggedId");
+            List<ReceiptVO> receipts = myPageService.getReceiptsByUserId(userId);
+
+            List<Map<String, String>> positions = new ArrayList<>();
+            for(ReceiptVO receipt : receipts) {
+                Map<String, String> position = new HashMap<>();
+                position.put("title", receipt.getReceipt_name());
+                position.put("address", receipt.getReceipt_business_addr());
+                positions.add(position);
+            }
+
+            return positions;
+        }
+
 
 
         // ---------------------------------------------------------------

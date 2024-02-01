@@ -574,15 +574,15 @@ pageEncoding="UTF-8"%>
                         </div>
                         
                         <script>
-
+                        setTimeout(function(){    
                             var mapContainer_add = document.getElementById('map_add'), // 지도를 표시할 div
-
                                 mapOption_add = {
                                     center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
                                     level: 1 // 지도의 확대 레벨
                                 };  
                             // 지도를 생성합니다    
-                            var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add); 
+                            var map_add = new kakao.maps.Map(mapContainer_add, mapOption_add);
+                            
                             
                             // 주소-좌표 변환 객체를 생성
                             var geocoder_add = new kakao.maps.services.Geocoder();
@@ -643,6 +643,7 @@ pageEncoding="UTF-8"%>
                                     }
                                 }    
                             }
+                        }, 1000);
                         </script>
 
                     </div>
