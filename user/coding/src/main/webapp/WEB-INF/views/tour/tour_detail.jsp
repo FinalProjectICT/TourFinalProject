@@ -191,6 +191,16 @@ prefix="c" %>
         }) // end ajax
       }
 
+      // $('#inquiry_modal').click((e) => {
+      //   e.preventDefault();
+      //   $('#tour-q').attr('class', 'modal fade hide')
+      //   if(user_id == null || user_id == "") {
+      //     swal('', '로그인이 필요한 기능입니다.', 'info')
+      //   } else {
+      //     $('#tour-q').modal('show')
+      //   }
+      // })
+
 
       // moreReview 클릭 시 5개씩 리뷰 보이게 하기
       }) // end script
@@ -348,6 +358,7 @@ prefix="c" %>
                             data-bs-toggle="modal"
                             data-bs-target="#tour-q"
                             title=""
+                            id="inquiry_modal"
                           >
                             문의하기
                           </a>

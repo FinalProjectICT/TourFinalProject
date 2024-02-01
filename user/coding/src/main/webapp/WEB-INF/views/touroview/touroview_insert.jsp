@@ -104,19 +104,26 @@
               
               <input type="hidden" id="sessionId" value="${sessionScope.loggedInUser.user_id}" name="user_id"/>
                       <!-- 이미지만 보여주는 테이블-->
-                      <div class="image_section ">
-                        <div class="row">
-                            <div class="col-sm-4 d-none d-sm-block">
+                      <div class="description-section">
+                        <div class="description-details">
+                            <div class="col-12">
+                                <div class="image_section ">
+                                    <div class="row">
+                                        <div class="col-sm-4 d-none d-sm-block">
 
-                              <div class="row">
-                                <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
-                                </br>
-                                <div style="display: flex; justify-content: center;">
-                                    <div id="imagePreviewContainer1" class="image-preview-container"></div>
-                                    <div id="imagePreviewContainer2" class="image-preview-container"></div>
-                                    <div id="imagePreviewContainer3" class="image-preview-container"></div>
-                                </div>
-                              </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
+                                            </div>
+                                            <div class="row">
+                                                <div id="imagePreviewContainer1" class="col-4 image-preview-container"></div>
+                                                <div id="imagePreviewContainer2" class="col-4 image-preview-container"></div>
+                                                <div id="imagePreviewContainer3" class="col-4 image-preview-container"></div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
                               <script>
                                 document.getElementById('fileUpload').addEventListener('change', function (e) {
                                     const previewContainers = document.querySelectorAll('.image-preview-container');
@@ -130,8 +137,12 @@
                                                 const img = document.createElement('img');
                                                 img.src = e.target.result;
                                                 img.alt = 'Image Preview';
-                                                img.style.width = '100%';  // Adjust the image width to fill the container
+                                                img.style.marginTop = '5px';
+                                                img.style.width = '300px';  // Adjust the image width to fill the container
                                                 img.style.height = '100%'; // Adjust the image height to fill the container
+                                                if(i == 0) img.style.marginLeft = '0px';
+                                                else if(i == 1) img.style.marginLeft = '200px';
+                                                else if(i == 2) img.style.marginLeft = '400px';
                                                 previewContainers[i].innerHTML = '';
                                                 previewContainers[i].appendChild(img);
                                             };
@@ -169,13 +180,22 @@
                                                       <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
                                                           
                                                       <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
-                                                      <ul id="searchResults">
+                                                      <!-- <ul id="searchResults" style="max-height: 200px; overflow-y: auto;">
                                                         <c:forEach var="tour" items="${tourvo}">
                                                           <li onclick="showDestinationInfo(JSON.stringify(tour))">
                                                               ${tour.tour_name} - ${tour.tour_addr}
                                                           </li>
                                                       </c:forEach>
-                                                    </ul>
+                                                    </ul> -->
+                                                    <div id="searchResults" style="max-height: 200px; overflow-y: auto;">
+                                                        <c:forEach var="tour" items="${tourvo}">
+                                                          <div class="searchResultCard" onclick="showDestinationInfo(JSON.stringify(tour))">
+                                                            <p>${tour.tour_name}</p>
+                                                            <p>${tour.tour_addr}</p>
+                                                          </div>
+                                                        </c:forEach>
+                                                      </div>
+                                                      
                                                   </div>
                                                   <div class="col-2">
                                                     <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
@@ -421,20 +441,19 @@
                 <td>
                     <h6 class="room-title">여행지 이름</h6>
                     <a href="#">
-                        <img src="../${destination.tour_img1_path}" class="img-fluid blur-up lazyload" alt="">
+                        <img src="../${'${destination.tour_img1_path}'}" class="img-fluid blur-up lazyload" alt="">
                     </a>
                 </td>
                 <td>
-                    <h5>여행지 이름: ${destination.tour_name}</h5>
-                    <h6>주소: ${destination.tour_addr}</h6>
-                    <p>여행지 내용: ${destination.tour_content}</p>
+                    <h5>여행지 이름: ${'${destination.tour_name}'}</h5>
+                    <h6>주소: ${'${destination.tour_addr}'}</h6>
+                    <p>여행지 내용: ${'${destination.tour_content}'}</p>
                 </td>
             </tr>
         </table>
     `;
   }
   </script>
-
 
 </body>
 

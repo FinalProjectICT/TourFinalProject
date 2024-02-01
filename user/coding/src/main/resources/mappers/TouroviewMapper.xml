@@ -73,14 +73,14 @@
     SELECT tv.*
     FROM touroview tv
     LEFT OUTER JOIN report r ON tv.touroview_num = r.touroview_num
-    GROUP BY tv.touroview_num
-    HAVING COUNT(r.report_count) <![CDATA[<]]> 3;
     
     <where>
         <if test="keyword != null and keyword.length() >= 2">
             AND touroview_title LIKE CONCAT('%', #{keyword}, '%')
         </if>
     </where>
+    GROUP BY tv.touroview_num
+    HAVING COUNT(r.report_count) <![CDATA[<]]> 3;
 </select>
 
 <!-- 모든 페이지 수 가져오기-->
