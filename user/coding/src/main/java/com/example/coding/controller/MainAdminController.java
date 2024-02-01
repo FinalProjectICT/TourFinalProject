@@ -103,13 +103,20 @@ public class MainAdminController {
      return mainService.receiptCountGraph();
    }
 
+   // 관리자 대시보드 - 연령대 별 회원 수
+   @GetMapping("/dashboard/getAgeUser")
+   public AdminVO getAgeUser() {
+       return mainService.getAgeUser();
+   }
+   
+
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계
   @GetMapping("/dashboard/locPrefer")
   public List<MainAdminVO> locPrefer() {
       return mainService.locPrefer();
   }
 
-  // // 관리자 후기 게시판 신고 3번 이상 찾기
+  // 관리자 후기 게시판 신고 3번 이상 찾기
   @GetMapping("/touroview-list/blind/count")
   public Integer touroviewBlindCount(@RequestParam Integer touroview_num) {
     Integer result =  mainService.touroviewBlindCount(touroview_num);

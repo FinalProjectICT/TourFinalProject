@@ -20,6 +20,8 @@ public class MainVO {
     private String user_prefer_loc2_name; // 2순위 선호지역 이름
     private String user_prefer_loc3_name; // 3순위 선호지역 이름
     private String user_id;               // 유저 아이디
+    private Double average_rating;        // 평균 평점
+    private Integer comment_count;        // 리뷰 개수
 
 
   

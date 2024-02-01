@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
 import com.example.coding.domain.TourReviewVO;
@@ -42,11 +44,14 @@ public interface MyPageDAO {
     public int countTouroview(String userId);
     // 나의 발자취
     public int countReceipt(String userId);
-
+    
 
     // -----------------------------------------------------
     // 마이페이지 - 프로필 수정
-    public int updateUserProfile(UserVO userVO);
+    public void updateUserProfile(UserVO userVO);
+    // 프로필 사진
+    // public void saveImageInfo(ImgVO imgVO);
+    // public ImgVO getImgInfo(String img_real_name);
 
 
     // -----------------------------------------------------
@@ -73,6 +78,11 @@ public interface MyPageDAO {
     // 마이페이지 - 나의 발자취
     public List<ReceiptVO> getMyPageReceiptList(String userId, int limit, int offset);
     public int countReceipts(String userId);
+
+    
+    // -----------------------------------------------------
+    // 마이페이지 - 나의 발자취 마커찍기
+    List<ReceiptVO> getReceiptsByUserId(String userId);
 
 
 

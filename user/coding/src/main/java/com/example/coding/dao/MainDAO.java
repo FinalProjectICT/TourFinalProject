@@ -28,6 +28,9 @@ public interface MainDAO {
   // 메인 유저 선호 1순위 여행지 타입에 대한 여행지 추천
   public List<TourVO> getReco(Reco1VO vo);
 
+  // 연령대 별 유저 수
+  public AdminVO getAgeUser();
+
   // 유저 선호 지역정보 가져오기
   public MainVO getUserInfo(MainVO vo);
 
@@ -36,6 +39,9 @@ public interface MainDAO {
 
   // 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천
   public List<TourVO> yesResult(Reco1VO vo);
+
+  // 베스트 리뷰어 bestReviewer
+  public List<MainVO> bestReviewer();
 
   // 관리자 여행 친구 찾기 리스트 보여주기
   public List<AdminTouroMateVO> touromateList();

@@ -179,11 +179,15 @@ public class TouroMateController {
 
         int remainingUsers = mateService.getRemainingChatUsers(touro_mate_num);
 
+        // 랜덤 여행지 - 3개
+        List<Touro> randTour = mateService.getRandTour();
+
         m.addAttribute("touroMate", touroMate);
         m.addAttribute("travelPlaces", travelPlaces);
         m.addAttribute("authorInfo", authorInfo);
         m.addAttribute("mateimgList", imgList);
         m.addAttribute("remainingUsers", remainingUsers);
+        m.addAttribute("randTour", randTour);
     }
 
     // 채팅 버튼 클릭 시 tour_mate_chat_user 테이블 저장

@@ -19,7 +19,7 @@ function TouromateList() {
         isOpen={supportNow}
         handleClose={() => setSupportNow(false)}
       />
-      <BreadCrumb title="Touromate 목록" link="/touromate-list" />
+      <BreadCrumb title="여행친구찾기 목록" link="/touromate-list" />
       <Wrapper>
       <div className="container-fluid p-0">
           <div className="row crancy-gap-30">

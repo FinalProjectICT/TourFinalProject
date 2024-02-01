@@ -94,8 +94,7 @@
 		SELECT * FROM touroview tvw
 		LEFT OUTER JOIN img_detail id ON id.touroview_num = tvw.touroview_num
 		LEFT OUTER JOIN img ig ON ig.img_num = id.img_num
-		LEFT OUTER JOIN tour tr ON tr.tour_num = tvw.tour_num
-		WHERE id.touroview_num = #{touroview_num}
+		WHERE tvw.touroview_num = #{touroview_num}
 	</select>
 	
 	<!-- 여행지 이미지 제외 수정-->
@@ -138,24 +137,26 @@
 	</select>
 
 	<select id ="footer_toroview_list" resultType="AdminVO">
-	SELECT 
-		tvw.touroview_num touroview_num ,
-		tvw.user_id user_id,
-		tvw.tour_num tour_num,
-		tvw.touroview_content touroview_content,
-		l.like_count like_count ,
-		t.tour_name tour_name,
-		t.tour_num tour_num,
-		t.tour_star tour_star,
-		t.tour_img1_path tour_img1_path,
-		t.tour_img2_path tour_img2_path,
+		SELECT 
+    tvw.touroview_num touroview_num, 
+    tvw.user_id user_id,
+    tvw.tour_num tour_num,
 		SUBSTRING(tvw.touroview_title, 1, 3) AS touroview_title,
-		SUBSTRING(t.tour_content, 1, 10) AS tour_content
-	FROM touroview tvw
-	LEFT OUTER JOIN `like` l ON l.touroview_num = tvw.touroview_num
-	LEFT OUTER JOIN `tour` t ON tvw.tour_num = t.tour_num
-	ORDER BY l.like_count DESC
-	LIMIT 6;
+    SUBSTRING(t.tour_content, 1, 10) AS tour_content,
+    t.tour_name, tvw.user_id, SUM(li.like_count) as like_count,
+    t.tour_name tour_name,
+    t.tour_num tour_num,
+	t.tour_star tour_star,
+	t.tour_img1_path tour_img1_path,
+	t.tour_img2_path tour_img2_path
+    FROM touroview tvw
+    INNER JOIN tour t ON tvw.tour_num = t.tour_num
+    LEFT JOIN `like` li ON tvw.touroview_num = li.touroview_num
+    LEFT JOIN report r ON tvw.touroview_num = r.touroview_num
+    WHERE r.report_count = 0 OR r.report_count IS NULL AND like_count <![CDATA[>=]]> 0
+    GROUP BY tvw.touroview_num, t.tour_name, tvw.user_id
+    ORDER BY like_count DESC
+   	LIMIT 6;
 	</select>
 
 

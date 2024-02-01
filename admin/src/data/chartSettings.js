@@ -568,25 +568,18 @@ var myChart_ten = {
 const myChart_Three = {
   data: {
     labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
+      "0~19세",
+      "20~30세",
+      "31~40세",
+      "41~50세",
+      "51~60세",
+      "60~세",
     ],
     datasets: [
       {
         label: "Sells",
         data: [80, 60, 90, 80, 75, 60, 80],
-        borderColor: "#0A82FD",
-        borderWidth: 5,
-        fill: true,
-        tension: 0.4,
-        fillColor: "#fff",
-        fill: "start",
-        pointRadius: 3,
+        
       },
     ],
   },
@@ -595,30 +588,7 @@ const myChart_Three = {
     maintainAspectRatio: false,
     responsive: true,
     scales: {
-      x: {
-        ticks: {
-          color: "#9AA2B1",
-        },
-        grid: {
-          drawBorder: false,
-          color: "#E6F3FF",
-          lineWidth: 2,
-          borderDash: [5, 5],
-        },
-        suggestedMax: 100,
-        suggestedMin: 50,
-      },
-      y: {
-        grid: {
-          display: false,
-          drawBorder: false,
-        },
-        suggestedMax: 100,
-        suggestedMin: 50,
-        ticks: {
-          display: false,
-        },
-      },
+      
     },
     plugins: {
       tooltip: {
@@ -640,8 +610,8 @@ const myChart_Three = {
         bodySpacing: 100,
       },
       legend: {
-        position: "bottom",
-        display: false,
+        position: "right",
+        display: true,
       },
       title: {
         display: false,

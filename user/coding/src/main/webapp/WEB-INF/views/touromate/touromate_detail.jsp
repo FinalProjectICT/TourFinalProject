@@ -146,8 +146,8 @@ prefix="c" %>
           </div>
           <script>
             // 좋아요
-            var loggedInUserId =
-              '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+            // var loggedInUserId =
+            //   '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
 
             $(() => {
               // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
@@ -432,8 +432,13 @@ prefix="c" %>
                         src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"
                       ></script>
                       <script>
-                        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-                          mapOption = {
+                      setTimeout(function(){
+                        var mapContainer = document.getElementById("map"); // 지도를 표시할 div
+
+                        mapContainer.style.display = 'block';
+
+                        // 지도의 초기 옵션 설정
+                        var mapOption = {
                             center: new kakao.maps.LatLng(
                               33.450701,
                               126.570667
@@ -450,6 +455,7 @@ prefix="c" %>
                         // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
                         var bounds = new kakao.maps.LatLngBounds();
 
+                        // 여러 장소에 대한 정보를 배열로 정의
                         var positions = [
                           {
                             title: "${touroMate.touro_mate_name1}",
@@ -507,6 +513,7 @@ prefix="c" %>
                           // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
+                      }, 1000);
                       </script>
                     </div>
                   </div>
@@ -516,12 +523,13 @@ prefix="c" %>
             <div class="special-section related-box ratio3_2 grid-box">
               <div class="slider-3 no-arrow">
                 <div>
+                  <c:forEach items="${randTour}" var="rand">
                   <div class="special-box p-0">
-                    <div class="special-img">
-                      <a href="#">
+                    <div class="special-img" style="height: 200px;">
+                      <a href="/touro/${rand.tour_num}">
                         <img
-                          src="../assets/images/hotel/room/14.jpg"
-                          class="img-fluid blur-up lazyload bg-img"
+                          src="../${rand.tour_img1_path}"
+                          class="img-fluid blur-up lazyload"
                           alt=""
                         />
                       </a>
@@ -531,26 +539,22 @@ prefix="c" %>
                           class=""
                           data-bs-toggle="tooltip"
                           data-placement="top"
-                          title=""
-                          data-original-title="Add to Wishlist"
+                          title="${rand.tour_num}"
+                          data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
                         </a>
                       </div>
                     </div>
                     <div class="special-content">
-                      <a href="#">
+                      <a href="/touro/${rand.tour_num}">
                         <h5>
-                          the venetian
-                          <span
-                            ><i class="fas fa-map-marker-alt"></i> Newyork</span
-                          >
+                          ${rand.tour_name}
+                          
                         </h5>
                       </a>
                       <p>
-                        Lorem Ipsum is simply dummy text the printing Ipsum is
-                        simply Lorem Ipsum is simply dummy text of the
-                        ..............
+                        ${rand.tour_contents}...
                       </p>
                       <div class="bottom-section">
                         <div class="rating">
@@ -559,21 +563,22 @@ prefix="c" %>
                           <i class="fas fa-star"></i>
                           <i class="fas fa-star"></i>
                           <i class="far fa-star"></i>
-                          <span>26412 review</span>
+                          <!-- <span>26412 review</span> -->
                         </div>
                         <div class="price">
-                          <del>$1300</del>
+                          <!-- <del>$1300</del>
                           <span>$1245</span>
                           <div class="facility-detail">
                             <span>swimming</span>
                             <span>parking</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div>
+                </c:forEach>
                   <div class="special-box p-0">
                     <div class="special-img">
                       <a href="#">
@@ -875,208 +880,7 @@ prefix="c" %>
     <!-- section end -->
 
     <!-- footer start -->
-    <footer>
-      <img
-        src="../assets/images/tour/background/13.jpg"
-        class="img-fluid blur-up lazyload bg-img"
-        alt=""
-      />
-      <div class="footer section-b-space section-t-space">
-        <div class="container">
-          <div class="row order-row">
-            <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
-                <h5>Touro</h5>
-              </div>
-              <div class="footer-content">
-                <div class="contact-detail">
-                  <div class="footer-logo">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </div>
-                  <p>사이트 소개</p>
-                  <ul class="contact-list">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                      Newyork.
-                    </li>
-                    <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                    <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-4">
-              <div class="footer-title">
-                <h5>인기 여행지</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-place">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="footer-title">
-                <h5>인기 게시물</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-blog row">
-                  <div class="media"></div>
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <%@ include file='../footer/footer.jsp' %>
     <!-- footer end -->
 
     <!-- tap to top -->
@@ -1199,7 +1003,7 @@ prefix="c" %>
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              ${touroMate.touro_mate_num}번 채팅방
+              "${touroMate.touro_mate_title}" 채팅방
             </h5>
             <button
               type="button"
@@ -1238,8 +1042,8 @@ prefix="c" %>
 
       // 스크롤을 제일 아래로 내리는 함수
       function scrollToBottom() {
-        // const chatLogs = $(".chat-logs");
-        $(".chat-logs").scrollTop($(".chat-logs")[0].scrollHeight);
+        const chatLogs = $(".chat-logs");
+        chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
       }
 
       $(document).ready(function () {
@@ -1453,6 +1257,7 @@ prefix="c" %>
                   "After appending, chat logs content:",
                   chatLogs.html()
                 );
+                scrollToBottom();
               },
               error: function (err) {
                 console.log(err);
@@ -1516,7 +1321,6 @@ prefix="c" %>
           openWebSocket(postId, userId);
 
           scrollToBottom();
-
         });
 
         // 모달이 닫힐 때 WebSocket 연결 종료
@@ -1534,6 +1338,7 @@ prefix="c" %>
         $("#chat-input").keydown(function (event) {
           if (event.which === 13) {
             sendMessage();
+            scrollToBottom(); // 엔터 키가 눌렸을 때 스크롤을 아래로 내림
           }
         });
       });
@@ -1622,6 +1427,11 @@ prefix="c" %>
         background-color: #fd6668; /* 빨간색 배경 */
         color: white; /* 흰색 텍스트 */
         /* 원하는 스타일 추가 가능 */
+      }
+
+      #map{
+        margin: 0;
+        padding: 0;
       }
     </style>
   </body>

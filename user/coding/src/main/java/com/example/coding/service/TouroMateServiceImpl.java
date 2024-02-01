@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.example.coding.controller.Touro;
 import com.example.coding.dao.ImgDAO;
 import com.example.coding.dao.ImgDetailDAO;
 import com.example.coding.dao.TouroMateDAO;
@@ -237,6 +238,12 @@ public class TouroMateServiceImpl implements TouroMateService {
     @Override
     public int deleteWishListmate(LikeVO vo) {
         return TouromateDAO.deleteWishListmate(vo);
+    }
+
+    // 랜덤 여행지 3개
+    @Override
+    public List<Touro> getRandTour() {
+        return TouromateDAO.getRandTour();
     }
 
 

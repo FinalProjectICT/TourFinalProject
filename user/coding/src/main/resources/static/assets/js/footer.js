@@ -36,6 +36,7 @@ $(function () {
             $('.col-4 > div.blog').each(function (index) {
                 var tourInfo = res[index]; 
                 var newElement = $(
+
                     `<a href="../touroview/touroview_detail?touroview_num=${tourInfo.touroview_num}">
                         <img
                             src="../${tourInfo.tour_img1_path}"
@@ -46,6 +47,7 @@ $(function () {
                             <h6>${tourInfo.touroview_title}</h6>
                         </div>
                     </a>`
+
                 );
                 $(this).append(newElement);
                 //console.log(newElement);

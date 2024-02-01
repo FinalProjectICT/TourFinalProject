@@ -8,6 +8,7 @@ public class TourVO {
     private String tour_cate_code;  // 여행지 코드
     private String tour_name;       // 여행지 이름
     private String tour_content;    // 여행지 내용
+    private String tour_contents;    // 여행지 내용
     private String tour_addr;       // 여행지 주소
     private String tour_postnum;    // 여행지 우편번호
     private String tour_site_addr;  // 여행지 사이트 주소

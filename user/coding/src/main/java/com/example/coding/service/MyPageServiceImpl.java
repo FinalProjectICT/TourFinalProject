@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.coding.dao.MyPageDAO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.InquiryReviewVO;
 import com.example.coding.domain.InquiryVO;
 import com.example.coding.domain.ReceiptVO;
@@ -137,10 +138,24 @@ public class MyPageServiceImpl implements MyPageService {
     // ---------------------------------------------------------
     // mypage - 프로필 수정
     @Override
-    public int updateUserProfile(UserVO userVO){
-        return myPageDAO.updateUserProfile(userVO);
+    public void updateUserProfile(UserVO userVO){
+        myPageDAO.updateUserProfile(userVO);
     }
 
+    // 프로필 사진
+    // @Override
+    // public void saveImageInfo(ImgVO imgVO){
+    //     myPageDAO.saveImageInfo(imgVO);
+    // }
+    // @Override
+    // public ImgVO getImgInfo(String img_real_name){
+    //     return myPageDAO.getImgInfo(img_real_name);
+    // }
+    // @Override
+    // public String storeImage(MultipartFile file){
+    //     return myPageDAO.storeImage(file);
+
+    // }
 
 
     // --------------------------------------------------
@@ -157,6 +172,12 @@ public class MyPageServiceImpl implements MyPageService {
     }
    
 
+    // --------------------------------------------------
+    // mypage - 나의 발자취 마커찍기
+    @Override
+    public List<ReceiptVO> getReceiptsByUserId(String userId) {
+        return myPageDAO.getReceiptsByUserId(userId);
+    }
 
 
 
@@ -189,7 +210,6 @@ public class MyPageServiceImpl implements MyPageService {
     public int countInquiryList(String userId){
         return myPageDAO.countInquiryList(userId);
     }
-
 
 
 }

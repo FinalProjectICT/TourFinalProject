@@ -87,6 +87,7 @@ pageEncoding="UTF-8"%>
               <h5>인기 게시물</h5>
             </div>
             <div class="footer-content">
+
               <div class="footer-place">
                 <div class="row">
                   <!-- 반복 (여행지에서 가장 별점 높은 6개) --> 
@@ -94,12 +95,15 @@ pageEncoding="UTF-8"%>
                     <div class="blog rounded5">
 
                     </div>
+
                   </div>
                   
                   <div class="col-4">
                     <div class="blog rounded5">
 
+
                     </div>
+
                   </div>
                   <div class="col-4">
                     <div class="blog rounded5">
@@ -116,6 +120,7 @@ pageEncoding="UTF-8"%>
 
                     </div>
                   </div>
+
 
                   <div class="col-4">
                     <div class="blog rounded5">
@@ -134,8 +139,11 @@ pageEncoding="UTF-8"%>
     </div>
   </footer>
   <!-- footer end -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
  <!-- 가장 별점 높은 6개 값 던지기 가져오기 -->
-    <script src="../assets/js/footer.js"></script>
+<script src="../assets/js/footer.js"></script>
+
 </body>
 
 </html>

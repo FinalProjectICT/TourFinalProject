@@ -46,6 +46,9 @@ public interface MainService {
   // 후기 게시글의 긍정 부정 판단으로 사용자 선호 지역 중에 여행지 추천
   public List<TourVO> yesResult(Reco1VO vo);
 
+  // 베스트 리뷰어
+  public List<MainVO> bestReviewer();
+
   // 관리자 여행 찾기 게시판 리스트
   public List<AdminTouroMateVO> touromateList();
 
@@ -75,6 +78,9 @@ public interface MainService {
 
   // 관리자 대시보드 - 영수증 리뷰 차트 값...
   public List<ChartVO> receiptCountGraph();
+
+  // 관리자 대시보드 - 연령대 별 회원 수
+  public AdminVO getAgeUser();
 
   // 관리자 대시보드 - 우리나라 지도 : 선호도 순위 4개 통계
   public List<MainAdminVO> locPrefer();

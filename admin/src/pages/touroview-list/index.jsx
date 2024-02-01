@@ -19,7 +19,7 @@ function TouroviewList() {
         isOpen={supportNow}
         handleClose={() => setSupportNow(false)}
       />
-      <BreadCrumb title="Touroview 목록" link="/touroview-list" />
+      <BreadCrumb title="여행후기 목록" link="/touroview-list" />
       <Wrapper>
       <div className="container-fluid p-0">
           <div className="row crancy-gap-30">

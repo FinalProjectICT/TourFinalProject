@@ -74,6 +74,7 @@ prefix="c" %>
    <!-- 리뷰 달기 -->
    <script>
      $(function(){
+      
        let stars = ''
        var review_div = $('#tour_review');
        var user_id = $('#sessionId').val();
@@ -89,9 +90,7 @@ prefix="c" %>
          e.preventDefault();
          
          var stars = $(this).data('stars');
-         // 리뷰 삽입
          
-         // $('#tourReviewBtn').trigger('click', stars);
 
          $('#tourReviewBtn').data('selectedStars', stars);
 
@@ -126,6 +125,7 @@ prefix="c" %>
 
                },
                error : function(err) {
+                console.log("aaaaaaaaaaaa");
                  console.log(err)
                }
              }) // end ajax
@@ -310,6 +310,8 @@ prefix="c" %>
     <input type="hidden" value="${sessionScope.loggedId}" id="sessionId"/>
     <input type="hidden" value="${touroviewVO.touroview_num}" id="touroviewNum"/>
     <input type="hidden" value="${tourVO.tour_num}" id="tourNum"/>
+    <input type="hidden" value="${touroviewVO.user_tel}" id="user_tel"/>
+    <input type="hidden" value="${touroviewVO.user_email}" id="user_email"/>
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section parallax-img pt-0">
@@ -590,12 +592,14 @@ prefix="c" %>
               </div>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
-                <p><i class="fas fa-phone-alt"></i>전화번호</p>
+
+                <p><i class="fas fa-phone-alt"></i>${touroviewAuthor.user_tel}</p>
                 <a href="#">
-                  <p><i class="fas fa-envelope"></i>이메일</p>
+                  <p><i class="fas fa-envelope"></i>${touroviewAuthor.user_email}</p>
                 </a>
                 <div class="social-box"></div>
               </div>
+
             </div>
           </div>
         </div>
@@ -604,208 +608,7 @@ prefix="c" %>
     <!-- section end -->
 
     <!-- footer start -->
-    <footer>
-      <img
-        src="../assets/images/tour/background/13.jpg"
-        class="img-fluid blur-up lazyload bg-img"
-        alt=""
-      />
-      <div class="footer section-b-space section-t-space">
-        <div class="container">
-          <div class="row order-row">
-            <div class="col-xl-2 col-md-2 order-cls">
-              <div class="footer-title mobile-title">
-                <h5>Touro</h5>
-              </div>
-              <div class="footer-content">
-                <div class="contact-detail">
-                  <div class="footer-logo">
-                    <img
-                      src="../assets/images/icon/footer-logo.png"
-                      alt=""
-                      class="img-fluid blur-up lazyload"
-                    />
-                  </div>
-                  <p>사이트 소개</p>
-                  <ul class="contact-list">
-                    <li>
-                      <i class="fas fa-map-marker-alt"></i> A-32, Albany,
-                      Newyork.
-                    </li>
-                    <li><i class="fas fa-phone-alt"></i> 518 - 457 - 5181</li>
-                    <li><i class="fas fa-envelope"></i> contact@gmail.com</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-4 col-md-4">
-              <div class="footer-title">
-                <h5>인기 여행지</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-place">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="place rounded5">
-                        <a href="#">
-                          <img
-                            src="../assets/images/tour/background/12.jpg"
-                            class="img-fluid blur-up lazyload"
-                            alt=""
-                          />
-                          <div class="overlay">
-                            <h6>여행지 명</h6>
-                          </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="footer-title">
-                <h5>인기 게시물</h5>
-              </div>
-              <div class="footer-content">
-                <div class="footer-blog row">
-                  <div class="media"></div>
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-
-                  <div class="media col-6">
-                    <div class="img-part rounded5">
-                      <a href=""
-                        ><img
-                          src="../assets/images/cab/blog-footer/2.jpg"
-                          class="img-fluid blur-up lazyload"
-                          alt=""
-                      /></a>
-                    </div>
-                    <div class="media-body">
-                      <h5>일반 게시물</h5>
-                      <p>간략한 내용</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+   <%@ include file='../footer/footer.jsp' %>
     <!-- footer end -->
 
     <!-- tap to top -->
@@ -863,6 +666,9 @@ prefix="c" %>
 
     <!-- Theme js-->
     <script src="../assets/js/script.js"></script>
+
+    <!-- 유저 정보-->
+    <script src="../assets/js/userInfoHide.js"></script>    
 
     <script>
       $("#datepicker").datepicker({

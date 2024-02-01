@@ -56,11 +56,11 @@ pageEncoding="UTF-8"%>
     <link rel="stylesheet" type="text/css" href="../../assets/css/color1.css" />
 
     <!-- 추가한 css 파일-->
-    <link
+    <%-- <link
       rel="stylesheet"
       type="text/css"
       href="../../assets/css/fileupload.css"
-    />
+    /> --%>
 
 
     <script
@@ -68,166 +68,6 @@ pageEncoding="UTF-8"%>
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-
-    <script>
-      $(document).ready(function() {
-        // 검색 폼 제출 이벤트 핸들러
-        $("#search").on("submit", function(e) {
-          e.preventDefault(); // 기본 제출 동작 방지
-    
-          var keyword = $("#exampleFormControlInput1").val(); // 검색어 가져오기
-          if (!keyword) {
-            alert("검색어를 입력해주세요.");
-            return;
-          }
-    
-          // AJAX 요청
-          $.ajax({
-            url: '/touroview/search', // 검색 요청을 처리할 서버의 URL
-            type: 'GET',
-            data: { keyword: keyword },
-            success: function(response) {
-              if (response.length === 0) {
-                  // 검색 결과가 없는 경우
-                  $('#searchResults').html("해당 게시물이 없습니다.");
-                  console.log("해당 게시물이 없습니다.");
-              } else {
-                // 검색 결과가 있는 경우
-                var html = '';
-                $.each(response, function(i, touroview) {
-                  html += '<div class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp" data-class="popular">'
-                      + '<div class="special-box p-0">'
-                      + '<div class="special-img" style="height: 200px;">'
-                      + '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '">'
-                      + '<img src="../' + touroview.tour_img1_path + '" class="img-fluid blur-up lazyload" alt="" />'
-                      + '</a>'
-                      + '<div class="top-icon">'
-                      + '<a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="Add_to_Wishlist">'
-                      + '<i class="far fa-heart"></i>'
-                      + '</a>'
-                      + '</div>'
-                      + '</div>'
-                      + '<div class="special-content">'
-                      + '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '">'
-                      + '<h5>' + touroview.touroview_title + '</h5>'
-                      + '</a>'
-                      + '<div class="tour-detail">'
-                      + '<div class="include-sec">'
-                      + '<div>' + touroview.touroview_content + '</div>'
-                      + '</div>'
-                      + '<div class="bottom-section">'
-                      + '<div class="price">'
-                      + '<span>' + touroview.user_id + '</span><br />'
-                      + '<span>' + touroview.touroview_regdate + '</span><br />'
-                      + '<span>' + touroview.touroview_update + '</span>'
-                      + '</div>'
-                      + '</div>'
-                      + '</div>'
-                      + '</div>'
-                      + '</div>';
-                });
-                $('#searchResults').html(html);
-                }
-            },
-            error: function(error) {
-              // 오류 처리
-              alert("검색 실패: " + error.statusText);
-              console.log(error);
-            }
-          });
-        });
-      });
-    </script>
-
-    <!-- 좋아요 -->
-    <script>
-      $(function(){
-
-      
-      // 좋아요
-      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
-        // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
-        $("a[data-original-title=Add_to_Wishlist]").each(function (idx, item) {
-          // 여행지 값, 사용자 정보 가져오기
-          var num = $(item).attr("title");
-          console.log("num >>> ", num);
-          var id = loggedInUserId;
-          console.log("id >>> ", id);
-
-          // 좋아요 기록 확인 - 있으면 하트 체크 - 없다면 넘김
-          ckWishList(item, num, id);
-
-          // 좋아요 누를 때 동작
-          $(item).on("click", (e) => {
-            e.preventDefault();
-
-            var ck = "0";
-            var icon = $(this).children();
-            
-            console.log("아이디딩이이이이 :" + id)
-            // 좋아요 상태 구분으로 중복 찜처리 방지
-            if (id != null && id != "") {
-              if (icon.attr("class") != "fas fa-heart") {
-                $.ajax({
-                  url: "/touroview/addWishList",
-                  type: "post",
-                  dataType: "json",
-                  data: { user_id: id, touroview_num: num },
-                  success: function (result) {
-                    ck = result;
-                  },
-                  error: function (err) {
-                    console.log(err);
-                  },
-                });
-                $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
-              } else {
-                  $.ajax({
-                    type:'post',
-                    data : {touroview_num : num, user_id : id},
-                    url : "/touroview/deleteWishList",
-                    success : function (result) {
-                      if(result == "ok") {
-                        $(icon).attr("class", "far fa-heart").css("color", "#ffffff");
-                      }
-                    },
-                    error : function (err) {
-                      console.log(err)
-                    }
-                  }) // end ajax
-                
-              }
-            } else if (id == null || id == "") {
-              alert("로그인이 필요합니다.")
-            };
-          });
-        });
-      
-
-      // 좋아요 확인
-      function ckWishList(item, num, id) {
-        $.ajax({
-          url: "/touroview/ckWishList",
-          type: "post",
-          dataType: "json",
-          data: { user_id: id, touroview_num: num },
-          success: function (result) {
-            if (result == "1") {
-              $(item)
-                .children()
-                .attr("class", "fas fa-heart")
-                .css("color", "#ff0000");
-            }
-          },
-          error: function (err) {
-            console.log(err);
-          },
-        });
-      }
-
-    }) // end script
-    </script>
-      
 
 
     
@@ -337,7 +177,7 @@ pageEncoding="UTF-8"%>
               </div>
             </div>
           </div>
-
+          <div id="touroviewListContainer">
           <!-- 페이징 처리와 동적으로 게시글 목록 보여주는 부분-->
           <div class="col-lg-12 ratio3_2">
             <div class="product-wrapper-grid special-section grid-box">
@@ -371,7 +211,7 @@ pageEncoding="UTF-8"%>
                           class=""
                           data-bs-toggle="tooltip"
                           data-placement="top"
-                          title="${touroview.touroview_num}"
+                          title="${touroviewVO.touroview_num}"
                           data-original-title="Add_to_Wishlist"
                         >
                           <i class="far fa-heart"></i>
@@ -409,20 +249,20 @@ pageEncoding="UTF-8"%>
               <ul class="pagination">
                 <!-- 이전 페이지 이동 버튼-->
                 <li class="page-item">
-                  <a class="page-link" href="javascript:void(0)" aria-label="Previous">
+                  <a class="page-link" href="/touroview/touroview_list?page=${status.index}" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                   </a>
                 </li>
                 <!-- 페이징 번호 동적으로 생성 -->
-                <c:forEach begin="0" end="${touroviewPage - 1}" varStatus="status">
+                <c:forEach begin="1" end="${touroviewPage}" varStatus="status">
                     <li class="page-item ${status.index == currentPage ? 'active' : ''}">
                       <a class="page-link" href="/touroview/touroview_list?page=${status.index}">
-                        ${status.index + 1}
+                        ${status.index}
                       </a>
                   </li>
                 </c:forEach>
-
+                <!-- 다음 페이지 이동 버튼 -->
                 <li class="page-item">
                   <a class="page-link" href="/touroview/touroview_list?page=${currentPage + 1}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
@@ -431,6 +271,7 @@ pageEncoding="UTF-8"%>
                 </li>
               </ul>
             </nav>
+          </div>
           </div>
         </div>
       </div>
@@ -490,6 +331,82 @@ pageEncoding="UTF-8"%>
       new WOW().init();
     </script>
 
+    <script>
+    $(document).ready(function() {
+    $("#search").submit(function(event) {
+        event.preventDefault(); // 기본 폼 제출 동작 방지
+        var keyword = $("#exampleFormControlInput1").val();
+        $.ajax({
+            url: '/touroview/searchTouroviewList',
+            type: 'GET',
+            data: { keyword: keyword, page: 1 },
+            success: function(response) {
+                // 검색 결과 및 페이징 정보를 페이지에 업데이트
+                $("#touroviewListContainer").html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error occurred: " + xhr.status + " " + error);
+            }
+        });
+    });
+});
+    </script>
+
+<script>
+// AJAX를 사용하여 서버로부터 데이터를 가져오는 예시
+$(document).ready(function() {
+$('li[data-filter=".popular"]').on('click', function() {
+$.ajax({
+    url: '/touroview/popular',
+    type: 'GET',
+    success: function(data) {
+        var container = $('#touroviewListContainer .grid');
+        container.empty(); // 기존 목록을 비웁니다.
+
+        // 받은 데이터로 여행 후기 목록을 생성합니다.
+        data.forEach(function(touroview) {
+            var touroviewHtml = `
+                <div class="col-xl-3 col-lg-4 col-sm-6 popular grid-item wow fadeInUp" data-class="popular">
+                    <div class="special-box p-0">
+                        <div class="special-img" style="height: 200px;">
+                            <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
+                                <img src="../${touroview.tour_img1_path}" class="img-fluid blur-up lazyload" alt="">
+                            </a>
+                            <div class="top-icon">
+                                <a href="#" class="" data-bs-toggle="tooltip" data-placement="top" title="${touroview.like_count}">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="special-content">
+                            <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
+                                <h5>${touroview.touroview_title}</h5>
+                            </a>
+                            <div class="tour-detail">
+                                <div class="include-sec">
+                                    <div>${touroview.touroview_content}</div>
+                                </div>
+                                <div class="bottom-section">
+                                    <div class="price">
+                                        <span>${touroview.user_id}</span><br>
+                                        <span>${touroview.touroview_regdate}</span><br>
+                                        <span>${touroview.touroview_update}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            container.append(touroviewHtml);
+        });
+    },
+    error: function(error) {
+        console.log(error);
+    }
+});
+});
+});
+</script>
 
 
 
