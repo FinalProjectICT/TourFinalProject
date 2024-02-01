@@ -520,7 +520,7 @@ prefix="c" %>
                           // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
-                      }, 1000);
+                      }, 1500);
                       </script>
                     </div>
                   </div>

@@ -1549,7 +1549,7 @@ pageEncoding="UTF-8"%>
               function setBounds() {
                   map.setBounds(bounds);
               }
-          }, 1200);
+          }, 1500);
 </script>
 
 
