@@ -240,19 +240,18 @@ pageEncoding="UTF-8"%>
   color: red; /* 메시지 색상 */
   margin: 10px 0; /* 상하 여백 */
 }
-</style>
-
-
 
 
 #kakao-map {
     margin: 0;
     padding: 0;
 }
-
-
-
 </style>
+
+
+
+
+
 
 
   <body>
@@ -1550,7 +1549,7 @@ pageEncoding="UTF-8"%>
               function setBounds() {
                   map.setBounds(bounds);
               }
-          }, 1200);
+          }, 1500);
 </script>
 
 
