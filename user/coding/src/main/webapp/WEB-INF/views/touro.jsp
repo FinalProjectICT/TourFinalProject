@@ -624,9 +624,14 @@ prefix="c" %>
     <!-- <input type="hidden" value="${sessionScope.loggedInUser}" id="loggedInUser"/> -->
     <!-- 세션이 비어 있지 않으면 로그인 값으로 -->
     <c:if test="${not empty sessionScope.loggedInUser}">
-      <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="loggedInUser" />
+      <input
+        type="hidden"
+        value="${sessionScope.loggedInUser.user_id}"
+        id="loggedInUser"
+      />
     </c:if>
-    <!-- 세션이 비어있으면 병곤 아이디로 -->
+
+    <!-- 세션이 비어있으면 병곤 아이디로  -->
     <c:if test="${empty sessionScope.loggedInUser}">
       <input type="hidden" value="dlwldus" id="loggedInUser" />
     </c:if>
@@ -1039,59 +1044,58 @@ prefix="c" %>
                       <div class="bottom-part"><h3>사용자 아이디</h3></div>
                     </a>
                   </div>
-
                 </c:forEach>
                 <c:forEach items="${bestReview}" var="best" begin="1" end="1">
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_${best.user_id}"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-              </c:forEach>
-              <c:forEach items="${bestReview}" var="best" begin="2" end="2">
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_${best.user_id}"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-              </c:forEach>
-              <c:forEach items="${bestReview}" var="best" begin="3" end="3">
-                <div class="left-part col-2">
-                  <a
-                    id="userInfo_${best.user_id}"
-                    data-bs-toggle="modal"
-                    data-bs-target="#profile"
-                    href="#"
-                  >
-                    <img
-                      src="../assets/images/avtar/1.jpg"
-                      class="img-fluid blur-up lazyload"
-                      alt=""
-                    />
-                    <div class="bottom-part"><h3>사용자 아이디</h3></div>
-                  </a>
-                </div>
-              </c:forEach>
+                  <div class="left-part col-2">
+                    <a
+                      id="userInfo_${best.user_id}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#profile"
+                      href="#"
+                    >
+                      <img
+                        src="../assets/images/avtar/1.jpg"
+                        class="img-fluid blur-up lazyload"
+                        alt=""
+                      />
+                      <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                    </a>
+                  </div>
+                </c:forEach>
+                <c:forEach items="${bestReview}" var="best" begin="2" end="2">
+                  <div class="left-part col-2">
+                    <a
+                      id="userInfo_${best.user_id}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#profile"
+                      href="#"
+                    >
+                      <img
+                        src="../assets/images/avtar/1.jpg"
+                        class="img-fluid blur-up lazyload"
+                        alt=""
+                      />
+                      <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                    </a>
+                  </div>
+                </c:forEach>
+                <c:forEach items="${bestReview}" var="best" begin="3" end="3">
+                  <div class="left-part col-2">
+                    <a
+                      id="userInfo_${best.user_id}"
+                      data-bs-toggle="modal"
+                      data-bs-target="#profile"
+                      href="#"
+                    >
+                      <img
+                        src="../assets/images/avtar/1.jpg"
+                        class="img-fluid blur-up lazyload"
+                        alt=""
+                      />
+                      <div class="bottom-part"><h3>사용자 아이디</h3></div>
+                    </a>
+                  </div>
+                </c:forEach>
               </div>
             </div>
           </div>

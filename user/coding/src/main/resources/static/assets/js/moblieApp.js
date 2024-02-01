@@ -12,7 +12,8 @@ $(function(){
         if (reviewMenuItem && !isMobileDevice()) {
             reviewMenuItem.onclick = function (event) {
                 event.preventDefault();
-                alert("모바일만 가능한 메뉴입니다.");
+                swal("", "모바일만 가능한 메뉴입니다.", "info");
+                // alert("모바일만 가능한 메뉴입니다.");
             };
         }
     }

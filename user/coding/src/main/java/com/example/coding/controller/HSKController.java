@@ -227,7 +227,6 @@ public class HSKController {
         int startIndex = (currentPage - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalSearchCount);
 
-
         List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage, pageSize);
         model.addAttribute("touroviewList", touroviewList);
         model.addAttribute("keyword", keyword);

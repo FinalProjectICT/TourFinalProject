@@ -58,6 +58,9 @@ prefix="c" %>
     <!-- starRating css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/starRating.css" />
 
+    <!-- chatBot css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/chatBot.css" />
+
     <!-- footer용 js -->
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -144,12 +147,12 @@ prefix="c" %>
                     </div>
                   </div>
 
-                <!--
+                
                 <div class="respon-filter-btn">
                   <h6>filter <i class="fas fa-sort-down"></i></h6>
                   <span class="according-menu"></span>
                 </div>
-                <div class="filters respon-filter-content filter-button-group">
+                <div class="filters respon-filter-content filter-button-group" style="display: none;">
                   <ul class="cate_list" >
                     <li class="active" data-filter="*">전체</li>
                     <li data-filter=".a12">#관광</li>
@@ -157,7 +160,7 @@ prefix="c" %>
                     <li data-filter=".a39">#음식</li>
                   </ul>
                 </div>
-                -->
+                
               </div>
               <div class="right-panel search_filter">
                 <!--
@@ -798,6 +801,31 @@ prefix="c" %>
     </div>
     <!-- tap to top end -->
 
+    <!-- 챗봇 구역 시작 -->
+    <button id="chatButton">
+      <img
+        src="../assets/images/icon/chatbot_r_lg.png"
+        class="img-fluid blur-up lazyloaded bg-img"
+        alt=""
+      />
+    </button>
+
+    <div class="testimonial-section row" id="chatContainer">
+      <div class="enquiry-modal modal-header">
+        <button
+          type="button"
+          class="btn-close forCb"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="ratio_square" id="chatContent">
+        <!-- 여기에 챗봇 대화 내용이 들어갈 부분 -->
+      </div>
+      <input type="text" id="chatInput" placeholder="챗봇 입력창" />
+    </div>
+    <!-- 챗봇 구역 끝 -->
+
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
@@ -831,6 +859,9 @@ prefix="c" %>
 
     <!-- 별점용 js-->
     <script src="../assets/js/starRating.js"></script>
+
+    <!-- 챗봇 동작 가져오기 -->
+    <script src="../assets/js/chatBot.js"></script>
 
     <!-- sweetalert.js -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

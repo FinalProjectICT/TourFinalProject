@@ -13471,6 +13471,42 @@ footer .footer {
       -webkit-transition: all 0.5s ease;
       transition: all 0.5s ease;
       cursor: pointer; }
+    
+  footer .footer .footer-content .footer-place .blog {
+    overflow: hidden;
+    position: relative; }
+    footer .footer .footer-content .footer-place .blog .overlay {
+      opacity: 0;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      text-align: center;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      background: rgba(0, 0, 0, 0.4);
+      -webkit-transform: scale(0);
+              transform: scale(0);
+      -webkit-transition: all 0.5s ease;
+      transition: all 0.5s ease; }
+      footer .footer .footer-content .footer-place .blog .overlay h6 {
+        color: white;
+        text-transform: capitalize;
+        font-weight: 700; }
+    footer .footer .footer-content .footer-place .blog:hover .overlay {
+      opacity: 1;
+      -webkit-transform: scale(1);
+              transform: scale(1);
+      -webkit-transition: all 0.5s ease;
+      transition: all 0.5s ease;
+      cursor: pointer; }
 
 footer .sub-footer {
   background-color: #1e1e1e;

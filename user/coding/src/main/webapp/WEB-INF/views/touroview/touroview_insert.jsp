@@ -48,6 +48,10 @@
     <!-- 추가한 css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fileupload.css">
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 </head>
 
 <body>
@@ -79,8 +83,13 @@
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
 
     <!-- breadcrumb start -->
-    <section class="not-found order-food-section pt-0">
-      <img src="../assets/images/restaurant/background/1.jpg" class="bg-img img-fluid blur-up lazyload" alt="">
+    <section class="hotel-single-section parallax-img pt-0">
+        <img
+          src="../assets/images/inner-pages/breadcrumb3.jpg"
+          class="bg-img bg-bottom img-fluid blur-up lazyload"
+          alt=""
+        />
+        
     </section>
     <!-- breadcrumb end -->
 
@@ -344,7 +353,8 @@
             error: function () {
                 console.log("Ajax request failed.");
                 // 오류 처리
-                alert('서버와의 통신 중 오류가 발생했습니다.');
+                swal("", "서버와의 통신 중 오류가 발생했습니다.", "error");
+                // alert('서버와의 통신 중 오류가 발생했습니다.');
             }
         });
     }

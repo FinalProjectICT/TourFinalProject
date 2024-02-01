@@ -64,6 +64,9 @@ prefix="c" %>
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <style>
       #reviewBOX {
        display: none;
@@ -103,7 +106,8 @@ prefix="c" %>
            console.log(user_id)
            if(user_id == " " || user_id == null) {
              console.log(1)
-             alert("로그인 후 이용해주세요")
+             swal("", "로그인이 필요한 기능입니다.", "info");
+            //  alert("로그인 후 이용해주세요")
              window.location.href = '/user/login'; // 수정된 부분
            }
            else {
@@ -268,7 +272,8 @@ prefix="c" %>
               
             }
           } else if (id == null || id == "") {
-            alert("로그인이 필요합니다.")
+            swal("", "로그인이 필요한 기능입니다.", "info");
+            // alert("로그인이 필요합니다.")
           };
         });
       });
@@ -316,7 +321,7 @@ prefix="c" %>
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section parallax-img pt-0">
       <img
-        src="../assets/images/inner-pages/breadcrumb1.jpg"
+        src="../assets/images/inner-pages/breadcrumb2.jpg"
         class="bg-img bg-bottom img-fluid blur-up lazyload"
         alt=""
       />
@@ -683,7 +688,8 @@ prefix="c" %>
                 data: { touroview_num: touroviewNum, user_id : sessionId},
                 success: function(response) {
                     // 성공 처리
-                    alert('신고가 처리되었습니다.');
+                    swal("", "신고가 처리되었습니다.", "success");
+                    // alert('신고가 처리되었습니다.');
                     $("#reportbutton").css("background-color","#fd6668"); // 버튼 색상 변경
                     document.querySelector("#reportbutton").removeAttribute('href');
 
@@ -691,7 +697,8 @@ prefix="c" %>
                 error: function(xhr, status, error) {
               // 에러 처리
               console.error("Error: " + status + " - " + error);
-              alert('신고 처리 중 오류가 발생했습니다.');
+              swal("", "신고 처리 중 오류가 발생했습니다.", "error");
+              // alert('신고 처리 중 오류가 발생했습니다.');
           }
       });
   }

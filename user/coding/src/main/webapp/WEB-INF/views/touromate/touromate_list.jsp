@@ -131,7 +131,6 @@ pageEncoding="UTF-8"%>
                 <div class="filters respon-filter-content filter-button-group">
                   <ul>
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".popular">popular</li>
                   </ul>
                 </div>
               </div>
@@ -139,11 +138,9 @@ pageEncoding="UTF-8"%>
                 <a href="javascript:void(0)" class="view-map me-0"
                   ><i class="fas fa-search"></i> 친구 찾기</a
                 >
-                <c:if test="${not empty sessionScope.loggedInUser}">
                   <div class="collection-grid-view">
                     <a href="/touromate/touromate_insert" class="btn btn-rounded color1">친구 찾기 쓰기</a>
                   </div>
-                </c:if>
                
               </div>
             </div>
@@ -159,15 +156,33 @@ pageEncoding="UTF-8"%>
                         class="form-control"
                         id="exampleFormControlInput1"
                         name="searchKeyword"
-                        placeholder="2글자 이상 입력하세요."
+                        placeholder="찾고싶은 게시글 제목 2글자 이상 입력하세요."
+                        onkeypress="checkEnter(event)"
                       />
                     </div>
                   </div>
-                  <a href="#" class="btn btn-rounded color1">search</a>
+                  <a href="#" class="btn btn-rounded color1" onclick="checkEnter(event)">search</a>
                 </form>
               </div>
             </div>
           </div>
+
+          <script>
+            function checkEnter(event) {
+                // Enter 키 코드는 13
+                if (event.keyCode === 13 || event.type === 'click') {
+                    var searchKeyword = document.getElementById('exampleFormControlInput1').value;
+        
+                    // 검색어의 길이를 확인하고 2글자 이상이 아니면 alert 창 띄우기
+                    if (searchKeyword.length < 2 || searchKeyword.trim() === '') {
+                        swal('', '2글자 이상 입력하세요.', 'error');
+                        event.preventDefault();  // 이벤트의 기본 동작을 막아서 엔터 키에 의한 폼 제출을 막음
+                        // 검색어를 초기화하거나 다른 조치를 취할 수 있음
+                    }
+                }
+            }
+        </script>
+          
           <div class="col-lg-12 ratio3_2">
             <div class="container">
 

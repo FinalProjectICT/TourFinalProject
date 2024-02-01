@@ -11,7 +11,7 @@ prefix="c" %>
     <meta name="keywords" content="rica" />
     <meta name="author" content="rica" />
     <link rel="icon" href="../assets/images/favicon.png" type="image/x-icon" />
-    <title>Rica</title>
+    <title>여행을 더욱 특별하게, TOURO</title>
 
     <!--Google font-->
     <link
@@ -22,6 +22,9 @@ prefix="c" %>
       href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <!-- Icons -->
     <link
@@ -60,6 +63,9 @@ prefix="c" %>
     <!-- latest jquery-->
     <script src="../assets/js/jquery-3.5.1.min.js"></script>
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script
       type="text/javascript"
       src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"
@@ -82,12 +88,12 @@ prefix="c" %>
       />
       <div class="breadcrumb-content overlay-black">
         <div>
-          <h2>holiday package</h2>
+          <h2>여행 친구 찾기</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+              <li class="breadcrumb-item"><a href="/touro">Home</a></li>
               <li class="breadcrumb-item active" aria-current="page">
-                holiday package
+                Touro Mate
               </li>
             </ol>
           </nav>
@@ -207,7 +213,7 @@ prefix="c" %>
                       }); // end ajax
                     }
                   } else if (id == null || id == "")
-                    alert("로그인이 필요합니다.");
+                    swal("", "로그인이 필요한 기능입니다.", "info");
                 });
               });
             });
@@ -256,7 +262,8 @@ prefix="c" %>
                     window.location.href = "/touromate/touromate_list";
                   },
                   error: function (error) {
-                    alert("게시물 삭제 권한이 없습니다.");
+                    swal("", "게시물 삭제 권한이 없습니다.", "error");
+                    // alert("게시물 삭제 권한이 없습니다.");
                     console.error("삭제 오류:", error);
                   },
                 });
@@ -513,7 +520,7 @@ prefix="c" %>
                           // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
-                      }, 1000);
+                      }, 1500);
                       </script>
                     </div>
                   </div>
@@ -776,9 +783,9 @@ prefix="c" %>
                 <div class="social-box">
                   <p>나이: ${authorInfo.user_age}</p>
                   <p>성별: ${authorInfo.user_gender}</p>
-                  <p>여행유형1: ${authorInfo.user_prefer_type1}</p>
-                  <p>여행유형2: ${authorInfo.user_prefer_type2}</p>
-                  <p>여행유형3: ${authorInfo.user_prefer_type3}</p>
+                  <p class="prefer">1순위</p><span>${authorInfo.user_prefer_type1}</span><br/>
+                  <p class="prefer">2순위</p><span>${authorInfo.user_prefer_type2}</span><br/>
+                  <p class="prefer">3순위</p><span>${authorInfo.user_prefer_type3}</span>
                 </div>
               </div>
               <div class="single-sidebar">
@@ -824,12 +831,14 @@ prefix="c" %>
                           // 응답에 따라 모달 띄우기 또는 띄우지 않기
                           if (response === "채팅 참가 성공") {
                             // 채팅 참가 성공 시 모달 띄우기
-                            alert(response);
+                            swal("", response, "success");
+                            // alert(response);
                             $("#modalMessage").text(response);
                             $("#chatLive").modal("show");
                           } else {
                             // 채팅 참가 실패 시 알림창 띄우기
-                            alert(response);
+                            swal("", response, "error");
+                            // alert(response);
                           }
                         },
                         error: function (error) {
@@ -841,7 +850,7 @@ prefix="c" %>
                   </script>
                 </div>
               </div>
-              <div class="single-sidebar">
+              <!-- <div class="single-sidebar">
                 <h6 class="contact-title">Touro</h6>
                 <p class="address">
                   <i class="fas fa-map-marker-alt"></i> 서울특별시 마포구 백범로
@@ -871,7 +880,7 @@ prefix="c" %>
                   <h6>** : 2:00 PM</h6>
                   <h6>** : 12:00 PM</h6>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -890,29 +899,6 @@ prefix="c" %>
       </div>
     </div>
     <!-- tap to top end -->
-
-    <!-- setting start -->
-    <div class="theme-setting">
-      <div class="dark">
-        <input class="tgl tgl-skewed" id="dark" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="Dark"
-          data-tg-on="Light"
-          for="dark"
-        ></label>
-      </div>
-      <div class="rtl">
-        <input class="tgl tgl-skewed" id="rtl" type="checkbox" />
-        <label
-          class="tgl-btn"
-          data-tg-off="RTL"
-          data-tg-on="LTR"
-          for="rtl"
-        ></label>
-      </div>
-    </div>
-    <!-- setting end -->
 
     <!-- book now section start -->
     <div class="book-panel">
@@ -1020,7 +1006,7 @@ prefix="c" %>
             <input
               type="text"
               id="chat-input"
-              placeholder="Send a message..."
+              placeholder="내용을 입력해주세요"
             />
             <button
               type="button"

@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
       />
       <div class="breadcrumb-content">
         <div>
-          <h2>login</h2>
+          <h2>로그인</h2>
           <nav aria-label="breadcrumb" class="theme-breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="/touro">Home</a></li>

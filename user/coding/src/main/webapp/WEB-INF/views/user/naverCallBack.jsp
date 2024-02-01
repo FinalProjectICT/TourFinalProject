@@ -34,8 +34,10 @@
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css" />
     
-
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   
   </head>
 
@@ -584,6 +586,7 @@
                     alert("아이디 중복 확인을 해주세요.");
                 }else if($("#birthdate").text() !== ""){
                     event.preventDefault(); // 양식 제출 방지
+
                     alert("생년월일을 입력 해주세요.");
                 }
             });

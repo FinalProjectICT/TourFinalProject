@@ -5,7 +5,8 @@
     <!-- 여행 친구 찾기 게시글 리스트 -->
    <select id="getSelectedMateList" resultType="TouroMateVO">
         SELECT touro_mate_num, touro_mate_title, touro_mate_date, user_id
-        FROM touro_mate;
+        FROM touro_mate
+        ORDER BY touro_mate_date DESC;
     </select>
     
     <!-- 검색 게시물 -->
