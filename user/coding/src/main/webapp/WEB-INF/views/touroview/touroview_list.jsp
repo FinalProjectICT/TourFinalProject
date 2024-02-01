@@ -72,8 +72,6 @@ pageEncoding="UTF-8"%>
 
     <script>
       $(function(){
-  
-      
       // 좋아요
       var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
   
@@ -153,10 +151,29 @@ pageEncoding="UTF-8"%>
           },
         });
       }
-    })
+    }) // end script
       </script>
 
+    <script>
+      $(function(){ 
+        const sessionId = $("#sessionId").val();
+    
+        // If sessionId is available, continue with your logic
+        $('#findFriend').click((e) => {
+          e.preventDefault();
+          if(!sessionId) {
+            swal('',"로그인 후 이용해주세요.",'error').then(() => {
+              window.location.href = "/user/login";
+            });
+          }
+            // Add your logic here for the click event when sessionId is available
+        });
 
+      }) // end script
+
+    </script>
+
+    
     
   </head>
 
@@ -235,7 +252,7 @@ pageEncoding="UTF-8"%>
                   </div>
                 </div>
                 <div class="collection-grid-view">
-                  <a href="/touroview/touroview_insert" class="btn btn-rounded color1"
+                  <a href="/touroview/touroview_insert" class="btn btn-rounded color1" id="findFriend"
                     >글 쓰기</a
                   >
               </div>
@@ -245,7 +262,7 @@ pageEncoding="UTF-8"%>
           <div class="col-xl-12 onclick-map">
             <div class="book-table single-table bg-inner">
               <div class="table-form classic-form">
-                <form id="search">
+                <form>
                   <div class="row w-100">
                     <div class="form-group col p-0">
                       <input
@@ -253,15 +270,32 @@ pageEncoding="UTF-8"%>
                         class="form-control"
                         id="exampleFormControlInput1"
                         name="keyword"
-                        placeholder="게시글 찾기"
+                        placeholder="찾고싶은 게시글 제목 2글자 이상 입력하세요."
+                        onkeypress="checkEnter(event)"
                       />
                     </div>
                   </div>
-                  <button type="submit" class="btn btn-rounded color1">Search</button>
+                  <button type="submit" class="btn btn-rounded color1" onclick="checkEnter(event)">Search</button>
                 </form>
               </div>
             </div>
           </div>
+          <script>
+            function checkEnter(event) {
+                // Enter 키 코드는 13
+                if (event.keyCode === 13 || event.type === 'click') {
+                    var searchKeyword = document.getElementById('exampleFormControlInput1').value;
+    
+                    // 검색어의 길이를 확인하고 2글자 이상이 아니면 alert 창 띄우기
+                    if (searchKeyword.length < 2 || searchKeyword.trim() === '') {
+                        swal('', '2글자 이상 입력하세요.', 'error');
+                        event.preventDefault();  // 이벤트의 기본 동작을 막아서 엔터 키에 의한 폼 제출을 막음
+                        // 검색어를 초기화하거나 다른 조치를 취할 수 있음
+                    }
+                }
+            }
+  
+        </script>
           <div id="touroviewListContainer">
           <!-- 페이징 처리와 동적으로 게시글 목록 보여주는 부분-->
           <div class="col-lg-12 ratio3_2">
@@ -285,7 +319,7 @@ pageEncoding="UTF-8"%>
                       <a href="/touroview/touroview_detail?touroview_num=${touroview.touroview_num}">
                         <img
                           src="../${touroview.tour_img1_path}"
-                          class="img-fluid blur-up lazyload "
+                          class="img-fluid blur-up lazyload"
                           alt=""
                         />
                       </a>

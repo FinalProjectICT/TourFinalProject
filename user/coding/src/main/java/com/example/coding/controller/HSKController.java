@@ -221,7 +221,6 @@ public class HSKController {
         
         int startIndex = (currentPage - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalSearchCount);
-        startIndex = Math.max((currentPage - 1) * pageSize, 0);
 
 
         List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage, pageSize);
@@ -235,7 +234,8 @@ public class HSKController {
 
          return "touroview/touroview_list";
 
-     }
+     
+     } 
 
 
      // 인기 게시물
