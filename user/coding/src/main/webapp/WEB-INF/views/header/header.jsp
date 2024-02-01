@@ -236,7 +236,7 @@
                                     formData.append("style", selectedStyle);
     
                                     axios
-                                        .post("http://localhost:5050/upload", formData)
+                                        .post("http://175.114.130.19:5050/upload", formData)
                                         .then(function (response) {
                                             var resultImageData = response.data.result_image;
                                             var resultImageElement =
