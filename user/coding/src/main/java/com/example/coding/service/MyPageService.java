@@ -74,7 +74,11 @@ public interface MyPageService {
     public int countReceipts(String userId);
     
     
+    // -----------------------------------------
+    // 마이페이지 - 나의 발자취 마커찍기
     
+    public List<ReceiptVO> getReceiptsByUserId(String userId);
+
     
     // -----------------------------------------
     // WishListVO 목록을 가져오는 메서드
@@ -88,8 +92,6 @@ public interface MyPageService {
     // 사용자 ID를 기반으로 해당 사용자의 문의 내역 조회
     public List<InquiryVO> getInquiryByUserId(String userId, int page, int pagesize2);
     public int countInquiryList(String userId);
-
-
 
 
 }

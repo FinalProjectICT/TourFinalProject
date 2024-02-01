@@ -75,6 +75,13 @@
     WHERE   user_id = #{userId}
 </select>
 
+<!-- 나의 발자취 - 마커찍기 -->
+<select id="getReceiptsByUserId" parameterType="String" resultType="ReceiptVO">
+    SELECT receipt_name, receipt_business_addr
+    FROM receipt 
+    WHERE user_id = #{userId}
+</select>
+
 
 
 

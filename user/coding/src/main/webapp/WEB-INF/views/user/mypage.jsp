@@ -1455,29 +1455,82 @@ pageEncoding="UTF-8"%>
     <script src="../assets/js/script.js"></script>
 
     <!-- 카카오 지도 api 관련-->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a31af6306655331640942e32b2f74d3"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a31af6306655331640942e32b2f74d3&libraries=services,clusterer"></script>
 
 
     <!-- 나의 발자취 (카카오 지도 생성 코드) -->
+   
     <script>
       setTimeout(function() {
-          var mapContainer = document.getElementById('kakao-map');
-          mapContainer.style.display = 'block';
+      var mapContainer = document.getElementById('kakao-map'); // 지도를 표시할 div
+      mapContainer.style.display = 'block';
+      mapOption = {
+          center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
+          level: 3 // 지도의 확대 레벨
+      };
 
-          var mapOption = {
-              center: new kakao.maps.LatLng(37.5665, 126.9780),
-              level: 3
-          };
+      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
+      
+       // 윈도우 크기가 변경될 때 지도 크기를 조정
+      window.addEventListener('resize', function() {
+          mapContainer.style.height = '400px';
+          map.relayout();
+      });
+        
 
-          var map = new kakao.maps.Map(mapContainer, mapOption);
+      // 주소-좌표 변환 객체를 생성
+      var geocoder = new kakao.maps.services.Geocoder();
 
-          // 윈도우 크기가 변경될 때 지도 크기를 조정
-          window.addEventListener('resize', function() {
-              mapContainer.style.height = '400px';
-              map.relayout();
-          });
-      }, 1200);
-    </script>
+      // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
+      var bounds = new kakao.maps.LatLngBounds();
+
+      // 여러 장소에 대한 정보를 배열로 정의
+      var positions = [];
+
+      // 서버에서 데이터 비동기적으로 받아오기
+      $.ajax({
+          type: 'GET',
+          url: '/user/mypage/getReceiptsmarker',
+          success: function(data) {
+            console.log("data >>> " + JSON.stringify(data));
+              positions = data;
+
+              // 받아온 데이터를 이용하여 지도에 마커 찍기
+              positions.forEach(function(position) {
+                  geocoder.addressSearch(
+                      position.address,
+                      function(result, status) {
+                          if (status === kakao.maps.services.Status.OK) {
+                              var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                              var marker = new kakao.maps.Marker({
+                                  map: map,
+                                  position: coords,
+                              });
+                              marker.setMap(map);
+
+                              bounds.extend(coords);
+
+                              var infowindow = new kakao.maps.InfoWindow({
+                                  content: '<div style="width:150px;text-align:center;padding:6px 0;">' +
+                                      position.title + "</div>",
+                              });
+                              infowindow.open(map, marker);
+                              setBounds();
+                          }
+                      }
+                  );
+              });
+          },
+          error: function() {
+              console.error('Failed to fetch data.');
+          }
+      });
+
+              function setBounds() {
+                  map.setBounds(bounds);
+              }
+          }, 1200);
+</script>
 
 
     <!-- Dropzone | 영수증 리뷰 사진 올리기 --> 

@@ -157,6 +157,12 @@ public class MyPageServiceImpl implements MyPageService {
     }
    
 
+    // --------------------------------------------------
+    // mypage - 나의 발자취 마커찍기
+    @Override
+    public List<ReceiptVO> getReceiptsByUserId(String userId) {
+        return myPageDAO.getReceiptsByUserId(userId);
+    }
 
 
 
@@ -189,7 +195,6 @@ public class MyPageServiceImpl implements MyPageService {
     public int countInquiryList(String userId){
         return myPageDAO.countInquiryList(userId);
     }
-
 
 
 }

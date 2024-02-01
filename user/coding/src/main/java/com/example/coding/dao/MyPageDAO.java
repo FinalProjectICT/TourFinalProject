@@ -74,6 +74,11 @@ public interface MyPageDAO {
     public List<ReceiptVO> getMyPageReceiptList(String userId, int limit, int offset);
     public int countReceipts(String userId);
 
+    
+    // -----------------------------------------------------
+    // 마이페이지 - 나의 발자취 마커찍기
+    List<ReceiptVO> getReceiptsByUserId(String userId);
+
 
 
     // -----------------------------------------

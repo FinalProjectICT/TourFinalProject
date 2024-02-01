@@ -432,8 +432,13 @@ prefix="c" %>
                         src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"
                       ></script>
                       <script>
-                        var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-                          mapOption = {
+                      setTimeout(function(){
+                        var mapContainer = document.getElementById("map"); // 지도를 표시할 div
+
+                        mapContainer.style.display = 'block';
+
+                        // 지도의 초기 옵션 설정
+                        var mapOption = {
                             center: new kakao.maps.LatLng(
                               33.450701,
                               126.570667
@@ -450,6 +455,7 @@ prefix="c" %>
                         // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성
                         var bounds = new kakao.maps.LatLngBounds();
 
+                        // 여러 장소에 대한 정보를 배열로 정의
                         var positions = [
                           {
                             title: "${touroMate.touro_mate_name1}",
@@ -507,6 +513,7 @@ prefix="c" %>
                           // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정
                           map.setBounds(bounds);
                         }
+                      }, 1000);
                       </script>
                     </div>
                   </div>
@@ -998,7 +1005,7 @@ prefix="c" %>
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
-              ${touroMate.touro_mate_num}번 채팅방
+              "${touroMate.touro_mate_title}" 채팅방
             </h5>
             <button
               type="button"
@@ -1037,8 +1044,8 @@ prefix="c" %>
 
       // 스크롤을 제일 아래로 내리는 함수
       function scrollToBottom() {
-        // const chatLogs = $(".chat-logs");
-        $(".chat-logs").scrollTop($(".chat-logs")[0].scrollHeight);
+        const chatLogs = $(".chat-logs");
+        chatLogs.scrollTop(chatLogs.prop("scrollHeight"));
       }
 
       $(document).ready(function () {
@@ -1252,6 +1259,7 @@ prefix="c" %>
                   "After appending, chat logs content:",
                   chatLogs.html()
                 );
+                scrollToBottom();
               },
               error: function (err) {
                 console.log(err);
@@ -1315,7 +1323,6 @@ prefix="c" %>
           openWebSocket(postId, userId);
 
           scrollToBottom();
-
         });
 
         // 모달이 닫힐 때 WebSocket 연결 종료
@@ -1333,6 +1340,7 @@ prefix="c" %>
         $("#chat-input").keydown(function (event) {
           if (event.which === 13) {
             sendMessage();
+            scrollToBottom(); // 엔터 키가 눌렸을 때 스크롤을 아래로 내림
           }
         });
       });
@@ -1421,6 +1429,11 @@ prefix="c" %>
         background-color: #fd6668; /* 빨간색 배경 */
         color: white; /* 흰색 텍스트 */
         /* 원하는 스타일 추가 가능 */
+      }
+
+      #map{
+        margin: 0;
+        padding: 0;
       }
     </style>
   </body>
