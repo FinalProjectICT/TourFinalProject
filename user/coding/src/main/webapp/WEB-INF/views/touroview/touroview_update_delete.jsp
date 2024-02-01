@@ -84,93 +84,136 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-9 col-lg-8">
-                    <form action="${pageContext.request.contextPath}/touroview/touroview_update_delete" method="post">
+                    <form action="${pageContext.request.contextPath}/touroview/touroview_update_delete" method="post" enctype="multipart/form-data">
+                        <!-- 이미지만 보여주는 테이블-->
+                        <input type="hidden" id="sessionId" value="${sessionScope.loggedInUser.user_id}" name="user_id"/>
+                        <input type="hidden" id="touroviewNum" value="${touroviewVO.touroview_num}" name="touroview_num"/>
+                        <input type="hidden" name="tour_num" value="${tourVO.tour_num}">
 
-                                <!-- 이미지만 보여주는 테이블-->
-                                <div class="image_section ">
-                                    <div class="row">
-                                        <div class="col-sm-8">
-                                            <div class="slide-1 arrow-dark zoom-gallery ratio2_3">
-                                                <div>
-                                                    <a href="../assets/images/hotel/room/11.jpg">
-                                                        <img src="../assets/images/hotel/room/11.jpg"
-                                                            class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                        <h6 class="view-all">view all images</h6>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="center-content">
-                                                    <input type="file" class="upload-name" disabled="disabled">
-                                                    <label for="input-file" class="upload1">업로드</label>
-                                            </div>
+                      <!-- 이미지만 보여주는 테이블-->
+                      <div class="image_section ">
+                        <div class="row">
+                            <div class="col-sm-4 d-none d-sm-block">
+
+                              <div class="row">
+                                <input type="file" class="form-control" id="fileUpload" name="files" accept="image/*"  multiple>
+                                </br>
+                                <div style="display: flex; justify-content: center;">
+                                    <div id="imagePreviewContainer1" class="image-preview-container"></div>
+                                    <div id="imagePreviewContainer2" class="image-preview-container"></div>
+                                    <div id="imagePreviewContainer3" class="image-preview-container"></div>
+                                </div>
+                              </div>
+                              <script>
+                                document.getElementById('fileUpload').addEventListener('change', function (e) {
+                                    const previewContainers = document.querySelectorAll('.image-preview-container');
+                                    const files = e.target.files;
+                    
+                                    for (let i = 0; i < previewContainers.length; i++) {
+                                        if (files[i]) {
+                                            const reader = new FileReader();
+                    
+                                            reader.onload = function (e) {
+                                                const img = document.createElement('img');
+                                                img.src = e.target.result;
+                                                img.alt = 'Image Preview';
+                                                img.style.width = '100%';  // Adjust the image width to fill the container
+                                                img.style.height = '100%'; // Adjust the image height to fill the container
+                                                previewContainers[i].innerHTML = '';
+                                                previewContainers[i].appendChild(img);
+                                            };
+                    
+                                            reader.readAsDataURL(files[i]);
+                                        } else {
+                                            previewContainers[i].innerHTML = ''; // Clear the preview if no file is selected
+                                        }
+                                    }
+                                });
+                              </script>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="description-section" >
+                          <div class="description-details">
+                              <div class="col-12">
+                                  <div class="filter-panel right-filter open-cls">
+                                      <div class="left-filter">
+                                      </div>
+                                      <div class="left-panel">
+                                          <i class="fas fa-search"></i> 여행지 찾기
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-xl-12">
+                                  <div class="book-table single-table bg-inner">
+                                      <div class="table-form classic-form">
+                                            
+                                              <div class="row w-100">
+                                                  <div class="form-group col-9 p-0">
+                                                      <input type="text" class="form-control" id="searchInput" oninput="searchDestinations()" placeholder="여행지 검색 ">
+                                                          
+                                                      <!-- 여행지 검색 결과를 동적으로 추가할 곳-->
+                                                      <ul id="searchResults">
+                                                        <c:forEach var="tour" items="${tourvo}">
+                                                          <li onclick="showDestinationInfo(JSON.stringify(tour))">
+                                                              ${tour.tour_name} - ${tour.tour_addr}
+                                                          </li>
+                                                      </c:forEach>
+                                                    </ul>
+                                                  </div>
+                                                  <div class="col-2">
+                                                    <button type="button" class="btn btn-rounded color1" onclick="searchDestinations()" >search</button>
+                                                  </div>
+                                              </div>
+                                      </div>
+                                  </div>
+                                  <div class="menu-part page-section">
+                                    <!-- 선택한 여행지 정보 여기에 표시-->
+                                    <div id="selectedDestinationInfo">
+                                    </div>
+                                  </div>
+                              </div> 
+                              <br/>
+                          </div>
+                        </div>
+                        <!-- 여행지 사진 업로드 -->
+                        <div class="menu-part page-section">
+                          <!-- 선택한 여행지 정보 여기에 표시-->
+                          <div id="selectedDestinationInfo">
+                          </div>
+                        </div>
+
+                        <!-- 게시글  -->
+                        <div class="description-section">
+                            <div class="description-details">
+                                <div class="desc-box">
+                                    <div class="about page-section menu-part" id="about" style="width: 1100px;">
+                                        <br/>
+                                        <br/>
+                                        <!-- 여행지 이름-->
+                                        <input type="text" class="form-control" id="destinationInput" name="tour_name" value="${tourVO.tour_name}">
+                                        <br/><br/>
+                                        <!-- 게시글 제목 -->
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="touroview_title"
+                                                value="${touroviewVO.touroview_title}">
+                                        <br/>
+                                        <!-- 게시글 내용 -->
+                                        <textarea  class="form-control" id="exampleFormControlInput111" name="touroview_content"
+                                        >${touroviewVO.touroview_content}</textarea>
+                                        <br/>
+
+                                        <div style="text-align: center;">
+                                            <div style="display: inline-block; margin-right: 10px;">
+                                            <input type="submit" id = "modi" value=" 수정 " class="btn btn-rounded btn-sm color1" style="background-color: #4a90e2;">
                                         </div>
-                                        <div class="col-sm-4 d-none d-sm-block">
-                                            <div class="row">
-                                                <div class="col-12 ratio_59">
-                                                    <div class="slide-1 zoom-gallery no-arrow">
-                                                        <div>
-                                                            <a href="../assets/images/hotel/room/4.jpg">
-                                                                <img src="../assets/images/hotel/room/4.jpg"
-                                                                    class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                                <h6 class="view-all">room images</h6>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="center-content">
-                                                            <input type="file" class="upload-name" disabled="disabled" >
-                                                            <label for="input-file" class="upload2">업로드</label>
-                                                    </div>
-
-                                                    <div class="slide-1 zoom-gallery no-arrow m-cls">
-                                                        <div>
-                                                            <a href="../assets/images/hotel/room/13.jpg">
-                                                                <img src="../assets/images/hotel/room/13.jpg"
-                                                                    class="img-fluid blur-up lazyload bg-img w-100" alt="">
-                                                                <h6 class="view-all">poll images</h6>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="center-content">
-                                                            <input type="file" class="upload-name" disabled="disabled" >
-                                                            <label for="input-file" class="upload3">업로드</label>
-                                                    </div>
-                                                    <div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div style="display: inline-block;">
+                                            <input type="submit" id = "del" value=" 삭제 " class="btn btn-rounded btn-sm color1" style="background-color: #4a90e2;" onclick="deleteTouroview()">
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 게시글  -->
-                                <div class="description-section">
-                                    <div class="description-details">
-                                        <div class="desc-box">
-                                            <div class="about page-section menu-part" id="about" style="width: 1406px;">
-                                                <br/>
-                                                <br/>
-                                                <!-- 게시글 제목 -->
-                                                <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                        value="${touroviewVO.touroview_title}">
-                                                <br/>
-                                                <!-- 게시글 내용 -->
-                                                <textarea  class="form-control" id="exampleFormControlInput111"
-                                                >${touroviewVO.touroview_content}</textarea>
-                                                <br/>
-                                                <div>
-                                                    <input type="submit" id = "modi" value=" 수정 " style="background-color: #E6E6E6;">
-                                                </div>
-                                                <br/>
-                                                <div>
-                                                    <input type="submit" id = "del" value=" 삭제 " style="background-color: #E6E6E6;" onclick="deleteTouroview()">
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -246,27 +289,27 @@
     </script>
 
     <!-- 여행지 제목 받기 -->
-    <script>
-  var tourName = '${tourVO.tour_name}';
-    </script>
-
-
-    // 게시글 삭제 
-    <script>
+  
+    <!--<script>
         function deleteTouroview(){
             // 삭제 여부 사용자에게 확인
             var isConfirmed = confirm("정말로 삭제하시겠습니까?");
-            
             // 사용자가 확인 선택한 경우 삭제 요청 진행
             if (isConfirmed){
                 // 삭제할 후기 번호
                 var touroviewNum = "${touroviewVO.touroview_num}";
-
                 // ajax를 사용해서 서버에 삭제 요청
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "${pageContext.request.contextPath}/touroview/deleteTouroview", true);
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function(){
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            alert("삭제가 완료되었습니다.");
+                            window.location.href = "${pageContext.request.contextPath}/touroview/touroview_list";
+                    } else {
+                        alert("삭제에 실패했습니다. 다시 시도해주세요.");
+
                     if (xhr.readyState === 4 && xhr.status === 200){
                         // 삭제 성공 시
                         window.location.href = "${pageContext.request.contextPath}/touroview/touroview_list";
@@ -276,11 +319,123 @@
                         swal("", "서버와의 통신 중 오류가 발생했습니다.", "error");
                         // alert("삭제에 실패했습니다. 다시 시도해주세요.");
                     }
-                };
-                xhr.send("touroviewNum=" + touroviewNum);
+                }
+            };
+            xhr.send("touroviewNum=" + touroviewNum);
             }
         }
-    </script>
+    </script>-->
+
+    <script>
+    function deleteTouroview() {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = '${pageContext.request.contextPath}/touroview/deleteTouroview';
+    
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'touroviewNum';
+            input.value = '${touroviewVO.touroview_num}';
+            form.appendChild(input);
+    
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
+
+
+<!-- 여행지 검색하기 -->
+<script>
+    // 페이지 로드 시 초기 검색 결과 표시
+    $(document).ready(function(){
+      console.log("Document is ready.");
+
+      $("#searchButton").click(function() {
+        console.log("Search button clicked.");
+        searchDestinations();
+      });
+    });
+
+    // 여행지 검색 함수
+    function searchDestinations(){
+    var keyword = document.getElementById("searchInput").value;
+
+        // Ajax 사용해 서버에서 검색 결과 가져오기
+        $.ajax({
+            type: 'GET',
+            url: 'findByKeyword',
+            data: {
+                keyword: keyword
+            },
+            success: function (results) {
+                // 성공 시 검색 결과를 동적으로 추가
+                appendSearchResults(results);
+            },
+            error: function () {
+                console.log("Ajax request failed.");
+                // 오류 처리
+                alert('서버와의 통신 중 오류가 발생했습니다.');
+            }
+        });
+    }
+
+    // 검색 결과를 동적으로 추가하는 함수
+    function appendSearchResults(results) {
+      var searchResultsList = document.getElementById("searchResults");
+      searchResultsList.innerHTML = ""; // 기존 결과 초기화
+
+       // 결과 동적 추가
+    results.forEach(function(result) {
+        var resultItem = document.createElement("li");
+        resultItem.textContent = result.tour_name + " - " + result.tour_addr;
+        resultItem.onclick = function() {
+            // 선택한 여행지 이름을 입력란에 표시
+            var destinationInput = document.getElementById("destinationInput");
+            destinationInput.value = result.tour_name;
+        };
+        searchResultsList.appendChild(resultItem);
+    });
+}
+
+
+
+  // 선택한 여행지 정보를 표시하는 함수
+  function showDestinationInfo(destination){
+      console.log("Show destination info: ", destination);
+
+      // 여행지 번호를 hidden 필드에 설정
+      var tourNumInput = document.getElementById("selectedTourNum");
+      tourNumInput.value = destination.tour_num;
+
+      // 여행지 보이기
+      var selectedDestinationInfo = document.getElementById("selectedDestinationInfo");
+      var destinationInput = document.getElementById("destinationInput");
+      destinationInput.value = destination.tour_name;
+
+      // 선택한 여행지 정보를 HTML로 구성하여 업데이트
+      selectedDestinationInfo.innerHTML = `
+        <table class="rooms-box">
+            <tr>
+                <td>
+                    <h6 class="room-title">여행지 이름</h6>
+                    <a href="#">
+                        <img src="../${destination.tour_img1_path}" class="img-fluid blur-up lazyload" alt="">
+                    </a>
+                </td>
+                <td>
+                    <h5>여행지 이름: ${destination.tour_name}</h5>
+                    <h6>주소: ${destination.tour_addr}</h6>
+                    <p>여행지 내용: ${destination.tour_content}</p>
+                </td>
+            </tr>
+        </table>
+    `;
+  }
+  </script>
+
+
 
 </body>
 

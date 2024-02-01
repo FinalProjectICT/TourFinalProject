@@ -11,6 +11,7 @@ import com.example.coding.domain.TouroviewDetailVO;
 import com.example.coding.domain.TouroviewReviewVO;
 import com.example.coding.domain.TouroviewVO;
 import com.example.coding.domain.UserVO;
+import com.example.coding.domain.ImgVO;
 import com.example.coding.domain.LikeVO;
 
 @Mapper
@@ -78,9 +79,12 @@ public interface TouroviewDAO {
     // ---------------------------------------- update, delete
     // 후기 게시판 수정
     public void updateTouroview(TouroviewVO touroviewVO);
+
+    // 이미지 수정
+    public void UpdateImgDetail(ImgVO imgVO);
     
     // 후기 게시판 삭제
-    public void deleteTouroview(int touroviewNum);
+    public void deleteTouroview(int touroview_num);
 
      // 후기 게시판 글 번호
     public int selectViewNum();
@@ -99,4 +103,7 @@ public interface TouroviewDAO {
  
      // 좋아요 삭제
      int deleteWishList(LikeVO vo);
+
+     // Touroview에서 Tour 정보 가져오기
+     public TourVO getTourNameByTourNum(String tour_num);
 }

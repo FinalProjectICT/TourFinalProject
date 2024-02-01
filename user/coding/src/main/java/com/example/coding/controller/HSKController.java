@@ -16,8 +16,12 @@ import com.example.coding.util.MD5Generator;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,6 +36,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -222,7 +227,6 @@ public class HSKController {
         int startIndex = (currentPage - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalSearchCount);
 
-
         List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage, pageSize);
         model.addAttribute("touroviewList", touroviewList);
         model.addAttribute("keyword", keyword);
@@ -236,6 +240,25 @@ public class HSKController {
 
      
      } 
+
+
+     @GetMapping("/findByKeyword")
+    public ResponseEntity<List<TourVO>> findByKeyword(@RequestParam String keyword) {
+        try {
+            TourVO vo = new TourVO();
+            vo.setKeyword(keyword); // TourVO 객체에 키워드 설정
+
+            List<TourVO> tours = touroviewService.findByKeyword(vo);
+            return ResponseEntity.ok(tours); // 검색 결과 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+
+
+
 
 
      // 인기 게시물
@@ -270,9 +293,6 @@ public class HSKController {
                 return "redirect:/touroview/touroview_list";
             }
             
-            // 후기 작성자 정보 가져옴
-            UserVO touroviewAuthor = touroviewService.getUserById(touroviewVO.getUser_id());
-            model.addAttribute("touroviewAuthor", touroviewAuthor);
 
             int touroviewNum = Integer.parseInt(touroviewVO.getTour_num());
 
@@ -336,12 +356,16 @@ public class HSKController {
     
     // 후기 게시물 수정
     @GetMapping("/touroview_update_delete")
-    public String updateTouroview(@RequestParam(name = "touroview_num") int touroviewNum, Model model) {
+    public String updateTouroview(@RequestParam(name = "touroview_num") int touroviewNum,  Model model) {
         
         try{
             // 수정 삭제 페이지에 필요한 데이터 가져오기
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroviewNum);
             model.addAttribute("touroviewVO", touroviewVO);
+
+            // TourVO 데이터 가져오기
+            TourVO tourVO = touroviewService.getTourNameByTourNum(touroviewVO.getTour_num());
+            model.addAttribute("tourVO", tourVO);
             
             return "touroview/touroview_update_delete";
 
@@ -352,30 +376,65 @@ public class HSKController {
         }
         
     }
+    // // 수정
+    // @PostMapping("/touroview_update_delete")
+    // public String handleUpdateDeleteAction(@ModelAttribute TouroviewVO touroviewVO,
+    //                                         @RequestParam("files") MultipartFile[] files,
+    //                                         RedirectAttributes redirectAttrs){
+    //     try {
 
-    @PostMapping("/touroview_update_delete")
-    public String handleUpdateDeleteAction(@ModelAttribute TouroviewVO touroviewVO,
-                                            @RequestParam(name = "action", required = false) String action){
-            try {
-                if ("update".equals(action)) {
-                    // 업데이트 로직을 처리하고 목록 페이지로 리다이렉트
-                    touroviewService.updateTouroview(touroviewVO);
-                    return "redirect:/touroview/touroview_list";
-                } else if ("delete".equals(action)) {
-                    // 삭제 로직을 처리하고 목록 페이지로 리다이렉트
-                    touroviewService.deleteTouroview(touroviewVO.getTouroview_num());
-                    return "redirect:/touroview/touroview_list";
-                } else {
-                    // 유효하지 않은 동작일 경우 필요한 대로 처리
-                    return "redirect:/touroview/touroview_list";
-                }
-            } catch (Exception e) {
-                // 필요한 대로 예외 처리
-                e.printStackTrace();
-                return "redirect:/touroview/touroview_list";
-            }
+    //         touroviewService.updateTouroview(touroviewVO);
 
-    }
+    //         // 파일 업로드 처리 ImgVO 정보 업데이트
+    //         for (MultipartFile file : files) {
+    //             if (!file.isEmpty()) {
+    //                 // 파일 저장 로직 구현 (여기서는 가상의 메소드 saveFile을 호출)
+    //                 String filePath = saveFile(file);
+    //                 String fileName = file.getOriginalFilename();
+    
+    //                 // ImgVO 객체 생성 및 설정
+    //                 ImgVO imgVO = new ImgVO();
+    //                 imgVO.setTouroview_num(touroviewVO.getTouroview_num()); // 게시물 번호 설정
+    //                 imgVO.setImg_name(fileName); // 파일 이름 설정
+    //                 imgVO.setImg_path(filePath); // 파일 경로 설정
+    
+    //                 // 데이터베이스에 이미지 정보 업데이트
+    //                 touroviewService.UpdateImgDetail(imgVO);
+    //             }
+    //         }
+
+    //         redirectAttrs.addFlashAttribute("successMessage", "게시물이 성공적으로 수정되었습니다.");
+    //         return "redirect:/touroview/touroview_list";
+    //     } catch (Exception e) {
+    //         // 필요한 대로 예외 처리
+    //         e.printStackTrace();
+    //         redirectAttrs.addFlashAttribute("errorMessage", "게시물 수정 중 오류가 발생했습니다.");
+    //         return "redirect:/touroview/touroview_update_delete?touroview_num=" + touroviewVO.getTouroview_num();
+    //     }
+
+    // }
+
+
+    // // 파일을 저장하고 저장된 파일의 경로를 반환하는 메서드
+    // private String saveFile(MultipartFile file) throws IOException {
+    //     // 저장할 디렉토리 경로 설정 (이 경로는 실제 서버 환경에 맞게 설정해야 함)
+    //     String uploadDir = "여기에_파일을_저장할_서버_경로를_지정";
+
+    //     // 파일명 생성 로직 (중복 방지를 위해 시스템 시간을 활용할 수 있음)
+    //     String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+    //     // 파일 저장 경로 생성
+    //     Path savePath = Paths.get(uploadDir + File.separator + fileName);
+
+    //     // 파일 저장
+    //     Files.copy(file.getInputStream(), savePath, StandardCopyOption.REPLACE_EXISTING);
+
+    //     // 저장된 파일의 전체 경로를 문자열로 반환
+    //     return savePath.toString();
+    // }
+    
+
+
 
 
 
@@ -383,10 +442,6 @@ public class HSKController {
     @PostMapping("/deleteTouroview")
     public ResponseEntity<String> deleteTouroview(@RequestParam(name = "touroviewNum") int touroviewNum) {
         try {
-            // 여기에서 삭제 여부를 확인하는 로직을 추가할 수도 있습니다.
-            // 예를 들어, 특정 조건에 맞지 않으면 삭제를 거부하고 오류 응답을 보낼 수 있습니다.
-
-            // 삭제 로직을 처리하고 성공 응답을 반환
             touroviewService.deleteTouroview(touroviewNum);
             return ResponseEntity.ok("삭제가 완료되었습니다.");
         } catch (Exception e) {
