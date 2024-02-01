@@ -334,9 +334,9 @@ public class MainController {
       List<TouroviewReviewVO> review = new ArrayList<TouroviewReviewVO>();
       for(TouroviewReviewVO touroviewReview : result) {
         System.out.println(touroviewReview);
-        if(touroviewReview.getImg_real_name().equals("5ee25b671da2a46f118d0a4454d822a5")) {
-         touroviewReview.setImg_real_name(touroviewReview.getImg_name());
-        }
+        if (touroviewReview.getImg_real_name() != null && touroviewReview.getImg_real_name().equals("5ee25b671da2a46f118d0a4454d822a5")) {
+          touroviewReview.setImg_real_name(touroviewReview.getImg_name());
+      }
         review.add(touroviewReview);
       }
       return review;

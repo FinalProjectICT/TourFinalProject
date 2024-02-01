@@ -226,7 +226,10 @@ pageEncoding="UTF-8"%>
 }
 
 
-
+#kakao-map {
+    margin: 0;
+    padding: 0;
+}
 
 
 
@@ -262,6 +265,7 @@ pageEncoding="UTF-8"%>
     </section>
     <!-- breadcrumb end -->
 
+    <input type="hidden" value="${TourData.tour_num}" id="tourNum"/>
     <!-- section start-->
     <section
       class="small-section dashboard-section bg-inner"
@@ -699,11 +703,11 @@ pageEncoding="UTF-8"%>
                         class="dashboard-title col"
                         style="justify-content: right"
                       >
-                        <span
+                        <%-- <span
                           data-bs-toggle="modal"
                           data-bs-target="#edit-address"
                           >영수증 리뷰 작성
-                        </span>
+                        </span> --%>
                       </div>
                     </div>
 
@@ -726,7 +730,7 @@ pageEncoding="UTF-8"%>
                                 <!-- 여행지 주소-->
                                 <h5>${receipt.receipt_business_addr}</h5>
                                 <!-- 여행지 제목-->
-                                <a href="/tourDetail/${receipt.tour_num}"">
+                                <a href="/tourDetail/${receipt.tour_num}">
                                   <h5>${receipt.receipt_name}</h5>
                                 </a>
                                 <h6>${receipt.receipt_date}</h6>
@@ -1457,15 +1461,22 @@ pageEncoding="UTF-8"%>
     <!-- 나의 발자취 (카카오 지도 생성 코드) -->
     <script>
       setTimeout(function() {
-      var mapContainer = document.getElementById('kakao-map'), // 지도를 표시할 div
-      mapContainer.style.display = 'block';
-      mapOption = {
-          center: new kakao.maps.LatLng(37.5665, 126.9780), // 지도의 중심좌표
-          level: 3 // 지도의 확대 레벨
-      };
+          var mapContainer = document.getElementById('kakao-map');
+          mapContainer.style.display = 'block';
 
-      var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성
-    }, 500); // 500 밀리초(0.5초) 후에 지도 생성
+          var mapOption = {
+              center: new kakao.maps.LatLng(37.5665, 126.9780),
+              level: 3
+          };
+
+          var map = new kakao.maps.Map(mapContainer, mapOption);
+
+          // 윈도우 크기가 변경될 때 지도 크기를 조정
+          window.addEventListener('resize', function() {
+              mapContainer.style.height = '400px';
+              map.relayout();
+          });
+      }, 1200);
     </script>
 
 
