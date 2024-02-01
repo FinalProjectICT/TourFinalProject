@@ -44,6 +44,10 @@
     <!-- 추가한 css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/fileupload.css">
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 </head>
 
 <body>
@@ -269,7 +273,8 @@
 
                     } else if (xhr.readyState === 4 && xhr.status !== 200){
                         // 삭제 실패 시 사용자에게 알림
-                        alert("삭제에 실패했습니다. 다시 시도해주세요.");
+                        swal("", "서버와의 통신 중 오류가 발생했습니다.", "error");
+                        // alert("삭제에 실패했습니다. 다시 시도해주세요.");
                     }
                 };
                 xhr.send("touroviewNum=" + touroviewNum);

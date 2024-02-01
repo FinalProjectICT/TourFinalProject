@@ -60,6 +60,9 @@ pageEncoding="UTF-8"%>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0f448b5fdd2891d21a8357bbb07210aa&libraries=services,clusterer"></script>
 
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
     <style>
         .map_wrap {position:relative;width:100%;height:350px; display: block;}
@@ -90,24 +93,18 @@ pageEncoding="UTF-8"%>
 
 <body>
 
-
-    <!-- pre-loader start -->
-    <!-- <div class="loader-wrapper food-loader">
-        <div class="loader">
-            <img src="../assets/images/loader/food.gif" alt="loader">
-        </div>
-    </div> -->
-    <!-- pre-loader end -->
-
-
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
 
 
     <!-- breadcrumb start -->
-    <section class="not-found order-food-section pt-0">
-        <img src="../assets/images/restaurant/background/1.jpg" class="bg-img img-fluid blur-up lazyload" alt="">
+    <section class="hotel-single-section parallax-img pt-0">
+        <img
+          src="../assets/images/inner-pages/breadcrumb2.jpg"
+          class="bg-img bg-bottom img-fluid blur-up lazyload"
+          alt=""
+        />
     </section>
     <!-- breadcrumb end -->
 
