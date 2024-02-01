@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
     <script>
       $(function(){
       // 좋아요
-      var loggedInUserId = '<%= request.getSession().getAttribute("loggedInUser") != null ? ((UserVO)request.getSession().getAttribute("loggedInUser")).getUser_id() : null %>';
+      const loggedInUserId = $("#sessionId").val();;
   
       $(() => {
         // 좋아요 버튼들 찾아서 각 버튼마다 동작 작업
@@ -90,6 +90,7 @@ pageEncoding="UTF-8"%>
           // 좋아요 누를 때 동작
           $(item).on("click", (e) => {
             e.preventDefault();
+            
   
             var ck = "0";
             var icon = $(this).children();
@@ -126,7 +127,9 @@ pageEncoding="UTF-8"%>
                   }) // end ajax
                 
               }
-            } else if (id == null || id == "") alert("로그인이 필요합니다.");
+            } else if (id == null || id == "") {
+              swal('', '로그인이 필요한 기능입니다.', 'info');
+            };
           });
         });
       });
@@ -143,7 +146,7 @@ pageEncoding="UTF-8"%>
               $(item)
                 .children()
                 .attr("class", "fas fa-heart")
-                .css("color", "#ffffff");
+                .css("color", "#ff0000");
             }
           },
           error: function (err) {
@@ -165,6 +168,8 @@ pageEncoding="UTF-8"%>
             swal('',"로그인 후 이용해주세요.",'error').then(() => {
               window.location.href = "/user/login";
             });
+          } else {
+            window.location.href = "/touroview/touroview_insert";
           }
             // Add your logic here for the click event when sessionId is available
         });
@@ -182,6 +187,8 @@ pageEncoding="UTF-8"%>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
+
+    <input type="hidden" value="${sessionScope.loggedInUser.user_id}" id="sessionId"/>
 
     <!-- breadcrumb start -->
     <section class="breadcrumb-section parallax-img pt-0">
@@ -374,10 +381,10 @@ pageEncoding="UTF-8"%>
                   </a>
                 </li>
                 <!-- 페이징 번호 동적으로 생성 -->
-                <c:forEach begin="1" end="${touroviewPage}" varStatus="status">
+                <c:forEach begin="0" end="${touroviewPage-2}" varStatus="status">
                     <li class="page-item ${status.index == currentPage ? 'active' : ''}">
                       <a class="page-link" href="/touroview/touroview_list?page=${status.index}">
-                        ${status.index}
+                        ${status.index+1}
                       </a>
                   </li>
                 </c:forEach>

@@ -6,7 +6,7 @@
 <mapper namespace="com.example.coding.dao.TouroviewDAO">
 
 <!-- List-->
-<select id="getTourByNum" parameterType="java.lang.String" resultType="TourVO">
+<select id="getTourByNum" parameterType="String" resultType="TourVO">
     SELECT  * 
     FROM    tour
     WHERE   tour_num = #{tourNum}
@@ -65,7 +65,13 @@
 <!-- touroview_detail-->
 <!-- detail페이지 db 목록 불러오기-->
 <select id="getTouroviewList" resultType="TouroviewVO" parameterType="String">
-    SELECT  * FROM touroview
+    
+    SELECT tv.*
+    FROM touroview tv
+    LEFT OUTER JOIN report r ON tv.touroview_num = r.touroview_num
+    GROUP BY tv.touroview_num
+    HAVING COUNT(r.report_count) <![CDATA[<]]> 3;
+    
     <where>
         <if test="keyword != null and keyword.length() >= 2">
             AND touroview_title LIKE CONCAT('%', #{keyword}, '%')
