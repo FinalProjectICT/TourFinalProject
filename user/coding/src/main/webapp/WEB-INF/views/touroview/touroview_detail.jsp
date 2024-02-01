@@ -340,7 +340,7 @@ prefix="c" %>
                 <div class="right-part">
                 <!-- 신고 버튼 -->
                   <input type="hidden" id="touroviewNum" value="${touroviewVO.touroview_num}">
-                  <a onclick="reportPost();" href="#" class="btn btn-rounded btn-sm color1" id="reportbutton">신고</a>
+                  <a onclick="reportPost();" href="#" class="btn btn-rounded btn-sm " style="background-color: #fd6668;" id="reportbutton">신고</a>
                   
                   <!-- 수정 버튼 -->
                   <c:if test="${isAuthor}">
@@ -463,10 +463,6 @@ prefix="c" %>
                 </div>
 
                 <!-- 리뷰 테이블  -->
-
-                
-
-                
                 <div class="desc-box">
                   <h4 class="content-title">리뷰</h4>
                   <div class="menu-part page-section review" id="review">
@@ -558,9 +554,7 @@ prefix="c" %>
                     </form>
                     <!-- 댓글 추가하는 부분 -->
                   <div id="tour_review">
-                    
                   </div>
-                   
                     <button
                       type="button"
                       class="btn btn-secondary col-2 offset-xl-5"
@@ -574,7 +568,6 @@ prefix="c" %>
             </div>
 
             <!-- 다른 게시물 추천 테이블 -->
-            
           </div>
           <div class="col-xl-3 col-lg-4" id="booking">
             <div class="sticky-cls">
@@ -593,13 +586,10 @@ prefix="c" %>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
 
-                <p><i class="fas fa-phone-alt"></i>${touroviewAuthor.user_tel}</p>
-                <a href="#">
-                  <p><i class="fas fa-envelope"></i>${touroviewAuthor.user_email}</p>
-                </a>
+                <p><i class="fas fa-phone"></i>${touroviewVO.user_tel}</p>
+                  <p><i class="fas fa-envelope"></i>${touroviewVO.user_email}</p>
                 <div class="social-box"></div>
               </div>
-
             </div>
           </div>
         </div>

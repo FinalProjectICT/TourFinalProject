@@ -28,5 +28,8 @@ public class TouroviewVO {
    private String user_tel;   //  유저 번호
    private String user_email; // 유저 이메일 
 
+   
+   private String tour_name;
+
     
 }

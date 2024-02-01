@@ -411,13 +411,13 @@
                 <td>
                     <h6 class="room-title">여행지 이름</h6>
                     <a href="#">
-                        <img src="../${'${destination.tour_img1_path}'}" class="img-fluid blur-up lazyload" alt="">
+                        <img src="../${destination.tour_img1_path}" class="img-fluid blur-up lazyload" alt="">
                     </a>
                 </td>
                 <td>
-                    <h5>여행지 이름: ${'${destination.tour_name}'}</h5>
-                    <h6>주소: ${'${destination.tour_addr}'}</h6>
-                    <p>여행지 내용: ${'${destination.tour_content}'}</p>
+                    <h5>여행지 이름: ${destination.tour_name}</h5>
+                    <h6>주소: ${destination.tour_addr}</h6>
+                    <p>여행지 내용: ${destination.tour_content}</p>
                 </td>
             </tr>
         </table>

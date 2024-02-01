@@ -87,8 +87,8 @@ public class TouroviewServiceImpl implements TouroviewService{
 
     // 검색어
     @Override
-    public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage){
-        int pageSize = 9;
+    public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage, int pageSize){
+        pageSize = 9;
         int offset = (currentPage - 1) * pageSize;
         RowBounds rowBounds = new RowBounds(offset, pageSize);
 
@@ -164,10 +164,16 @@ public class TouroviewServiceImpl implements TouroviewService{
         touroviewDAO.updateTouroview(touroviewVO);
     }
 
+    // 이미지 수정
+    @Override
+    public void UpdateImgDetail(ImgVO imgVO){
+        touroviewDAO.UpdateImgDetail(imgVO);
+    }
+
     // 후기 게시물 삭제
     @Override
-    public void deleteTouroview(int touroviewNum){
-        touroviewDAO.deleteTouroview(touroviewNum);
+    public void deleteTouroview(int touroview_num){
+        touroviewDAO.deleteTouroview(touroview_num);
     }
 
     // 여행후기 게시판 등록된 글번호 가져오기
@@ -205,6 +211,13 @@ public class TouroviewServiceImpl implements TouroviewService{
     public int deleteWishList(LikeVO vo) {
         return touroviewDAO.deleteWishList(vo);
     }
+
+    // Touroview -> tour 가져오기
+    @Override
+    public TourVO getTourNameByTourNum(String tour_num){
+        return touroviewDAO.getTourNameByTourNum(tour_num);
+    }
+
 
 
     

@@ -234,7 +234,7 @@ pageEncoding="UTF-8"%>
   transform: translateX(-50%) scaleY(1); /* 텍스트 보이기 */
 }
 
-<style>
+
 .milestone {
   font-weight: bold;
   color: red; /* 메시지 색상 */
