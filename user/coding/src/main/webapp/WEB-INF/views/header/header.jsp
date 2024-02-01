@@ -11,7 +11,11 @@
 
 <script>
     function sendSessionValueToAndroid(sessionValue) {
+      if (typeof Android !== 'undefined' && Android !== null) {
         Android.setSessionValue(sessionValue);
+      } else {
+        //console.error('Android 객체가 정의되지 않았습니다.');
+      }
     }
 
     // 특정 페이지 로딩 시 세션 값을 전달하도록 설정
@@ -43,6 +47,7 @@
       });
     }
 </script>
+
 
 
   <body>

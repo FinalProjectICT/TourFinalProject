@@ -103,7 +103,9 @@
 <!-- detail (TouroviewVO) 페이지 -->
 <select id="getTouroviewById" resultType="TouroviewVO">
     SELECT  * 
-    FROM    touroview 
+    FROM    touroview tvw
+    INNER JOIN `USER` us
+    ON tvw.user_id = us.user_id
     WHERE   touroview_num = #{touroview_num}
 </select>
 
