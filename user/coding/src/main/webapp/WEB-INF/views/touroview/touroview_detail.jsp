@@ -590,9 +590,9 @@ prefix="c" %>
               </div>
               <div class="single-sidebar">
                 <h6 class="contact-title">작성자 정보</h6>
-                <p><i class="fas fa-phone-alt"></i>전화번호</p>
+                <p><i class="fas fa-phone-alt"></i>${touroviewAuthor.user_tel}</p>
                 <a href="#">
-                  <p><i class="fas fa-envelope"></i>이메일</p>
+                  <p><i class="fas fa-envelope"></i>${touroviewAuthor.user_email}</p>
                 </a>
                 <div class="social-box"></div>
               </div>

@@ -51,6 +51,9 @@ pageEncoding="UTF-8"%>
       href="../assets/css/datepicker.min.css"
     />
 
+  <!-- 발자취 발모양-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
     <!--Drop zon-->
     <link rel="stylesheet" type="text/css" href="../assets/css/dropzone.css" />
 
@@ -66,8 +69,7 @@ pageEncoding="UTF-8"%>
     <!-- 문의 내역 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- 발자취 발모양-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    
 
   </head>
 
@@ -179,39 +181,40 @@ pageEncoding="UTF-8"%>
 }
 
 
-/*나의 발자취 발걸음*/ 
- .footprints-section {
+.footprints-section {
+  /* 여기에 스타일을 추가하세요 */
   margin-top: 20px;
-} 
+}
 
-/* 섹션 제목 스타일 */
- .footprints-section h3 {
+.footprints-section h3 {
+  /* 섹션 제목 스타일 */
   text-align: center;
   margin-bottom: 15px;
-} 
+}
 
-/* 발자국 아이콘 스타일 */
- #footprints i {
+#footprints i {
+  /* 발자국 아이콘 스타일 */
   color: #4a4a4a;
   margin-right: 5px;
-} 
+}
 
-.footprints {
+
+.footprint {
   display: inline-block;
   position: relative;
   cursor: pointer;
 }
 
-.footprints i {
+.footprint i {
   color: #4a4a4a; /* 아이콘 색상 */
   transition: transform 0.3s ease; /* 위로 올라가는 효과 */
 }
 
-.footprints:hover i {
+.footprint:hover i {
   transform: translateY(-10px); /* 아이콘 위로 이동 */
 }
 
-.footprints .title {
+.footprint .title {
   position: absolute;
   bottom: 100%; /* 아이콘 위에 위치 */
   left: 50%;
@@ -221,9 +224,19 @@ pageEncoding="UTF-8"%>
   /* 추가 스타일링... */
 }
 
-.footprints:hover .title {
+.footprint:hover .title {
   transform: translateX(-50%) scaleY(1); /* 텍스트 보이기 */
 }
+
+<style>
+.milestone {
+  font-weight: bold;
+  color: red; /* 메시지 색상 */
+  margin: 10px 0; /* 상하 여백 */
+}
+</style>
+
+
 
 
 
@@ -388,7 +401,8 @@ pageEncoding="UTF-8"%>
                     <div class="footprints-section">
                       <h3>나의 발자취 걸음</h3>
                       <p id="stepCount">현재 발걸음 수: <span>${receiptCount}</span> 걸음</p>
-                      <div id="footprints"></div>
+                      <div id="footprints">
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -407,7 +421,7 @@ pageEncoding="UTF-8"%>
                       <h4>프로필</h4>
                       <span
                         data-bs-toggle="modal"
-                        data-bs-target="#edit-profile"
+                        data-bs-target="#profileModal"
                         >수정</span
                       >
                     </div>
@@ -882,7 +896,7 @@ pageEncoding="UTF-8"%>
     <!-- edit profile modal start -->
     <div
       class="modal fade edit-profile-modal"
-      id="edit-profile"
+      id="profileModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -900,7 +914,7 @@ pageEncoding="UTF-8"%>
             ></button>
           </div>
           <div class="modal-body">
-            <form>
+            <form id="profileForm">
               <div class="row">
                 <div class="form-group col-md-6" >
                   <label for="profileImage" >프로필 사진</label>
@@ -910,21 +924,21 @@ pageEncoding="UTF-8"%>
 
               <div class="row">
                 <div class="form-group col-md-6">
-                  <label for="first">아이디</label>
+                  <label for="userId">아이디</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="first"
+                    id="userId"
                     placeholder="아이디"
                     value="${userVO.user_id}" readonly
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="last">전화번호</label>
+                  <label for="userTel">전화번호</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="last"
+                    id="userTel"
                     placeholder="전화번호"
                     value="${userVO.user_tel}"
                   />
@@ -932,26 +946,27 @@ pageEncoding="UTF-8"%>
                 <div class="form-group col-md-6">
                   <label>나이</label>
                   <input
+                    type="text"
                     class="form-control"
-                    placeholder="18 april"
-                    id="datepicker"
+                    placeholder="나이"
+                    id="userAge"
                     value="${userVO.user_age}"
                   />
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputEmail">메일주소</label>
-                  <input type="text" class="form-control" id="inputCity" value="${userVO.user_email}"/>
+                  <input type="text" class="form-control" id="userEmail" value="${userVO.user_email}"/>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputState1">선호 여행 유형1</label>
-                  <select id="input" class="form-control">
+                  <select id="inputState1" class="form-control">
                       <option value="관광지" ${userVO.user_prefer_type1 == '관광지' ? 'selected' : ''}>관광지</option>
                       <option value="음식점" ${userVO.user_prefer_type1 == '음식점' ? 'selected' : ''}>음식점</option>
                       <option value="숙박" ${userVO.user_prefer_type1 == '숙박' ? 'selected' : ''}>숙박</option>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">선호 여행지1</label>
+                  <label for="inputarea1">선호 여행지1</label>
                   <select id="inputarea1" class="form-control">
                     <option value="1.0" ${userVO.user_prefer_loc1 == '1.0' ? 'selected' : ''}>서울</option>
                     <option value="2.0" ${userVO.user_prefer_loc1 == '2.0' ? 'selected' : ''}>인천</option>
@@ -973,7 +988,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">선호 여행 유형2</label>
+                  <label for="inputState2">선호 여행 유형2</label>
                   <select id="inputState2" class="form-control">
                     <option value="관광지" ${userVO.user_prefer_type2 == '관광지' ? 'selected' : ''}>관광지</option>
                     <option value="음식점" ${userVO.user_prefer_type2 == '음식점' ? 'selected' : ''}>음식점</option>
@@ -981,7 +996,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">선호 여행지2</label>
+                  <label for="inputarea2">선호 여행지2</label>
                   <select id="inputarea2" class="form-control">
                     <option value="1.0" ${userVO.user_prefer_loc2 == '1.0' ? 'selected' : ''}>서울</option>
                     <option value="2.0" ${userVO.user_prefer_loc2 == '2.0' ? 'selected' : ''}>인천</option>
@@ -1003,7 +1018,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputState">선호 여행 유형3</label>
+                  <label for="inputState3">선호 여행 유형3</label>
                   <select id="inputState3" class="form-control">
                     <option value="관광지" ${userVO.user_prefer_type3 == '관광지' ? 'selected' : ''}>관광지</option>
                     <option value="음식점" ${userVO.user_prefer_type3 == '음식점' ? 'selected' : ''}>음식점</option>
@@ -1011,7 +1026,7 @@ pageEncoding="UTF-8"%>
                   </select>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputZip">선호 여행지3</label>
+                  <label for="inputarea3">선호 여행지3</label>
                   <select id="inputarea3" class="form-control">
                     <option value="1.0" ${userVO.user_prefer_loc3 == '1.0' ? 'selected' : ''}>서울</option>
                     <option value="2.0" ${userVO.user_prefer_loc3 == '2.0' ? 'selected' : ''}>인천</option>
@@ -1512,57 +1527,31 @@ pageEncoding="UTF-8"%>
 
     <!-- 프로필 수정 -->
     <script>
-        function updateProfile() {
-          var userId = "${userId}";
-          console.log(userId);
-          var userTel = document.getElementById('last').value;
-          console.log(last);
-          var userGender = document.getElementById('gender').value;
-          var userAge = document.getElementById('datepicker').value;
-          var userAddr = document.getElementById('inputAddress').value;
-          var userEmail = document.getElementById('inputEmail').value;
-          var userPreferType1 = document.getElementById('inputState1').value;
-          var userPreferArea1 = document.getElementById('inputarea1').value;
-          var userPreferType2 = document.getElementById('inputState2').value;
-          var userPreferArea2 = document.getElementById('inputarea2').value;
-          var userPreferType3 = document.getElementById('inputState3').value;
-          var userPreferArea3 = document.getElementById('inputarea3').value;
+    function updateProfile() {
+    var formData = new FormData(document.getElementById('profileForm'));
+    // 파일 업로드가 필요한 경우 formData.append를 사용하여 파일 데이터 추가
 
-
-          // 구성된 데이터 객체
-          var userData = {
-            userId: userId,
-              userTel: userTel,
-              userGender: userGender,
-              userAge: userAge,
-              userAddr: userAddr,
-              userEmail: userEmail,
-              userPreferType1: userPreferType1,
-              userPreferArea1: userPreferArea1,
-              userPreferType2: userPreferType2,
-              userPreferArea2: userPreferArea2,
-              userPreferType3: userPreferType3,
-              userPreferArea3: userPreferArea3
-          };
-
-          // AJAX 요청
-          $.ajax({
-              url: '/profile', // 프로필 업데이트를 처리하는 서버 URL
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify(userData),
-              success: function(response) {
-                  // 성공 처리
-                  alert('프로필이 업데이트되었습니다.');
-                  window.location.href = '/mypage'; // 프로필 페이지로 리다이렉트
-              },
-              error: function(xhr, status, error) {
-                  // 에러 처리
-                  alert('프로필 업데이트에 실패했습니다.');
-              }
-          });
+    $.ajax({
+        url: '/user/mypage/updateProfile', // Spring Controller의 엔드포인트 URL
+        type: 'POST',
+        data: formData,
+        processData: false,  // 필수 옵션: false로 설정
+        contentType: false,  // 필수 옵션: false로 설정
+        success: function(response) {
+            // 업데이트 성공 시 처리
+            alert('프로필이 업데이트되었습니다.');
+        },
+        error: function(xhr, status, error) {
+            // 업데이트 실패 시 처리
+            alert('업데이트 실패: ' + error);
         }
+    });
+}
+
+
     </script>
+
+
 
     <!-- 채팅..? -->
     <script th:inline="javascript">
@@ -1728,7 +1717,7 @@ pageEncoding="UTF-8"%>
             '</div>' +
             '</div>' +
             '<div class="detail-last">' +
-            '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '" class="badge bg-info">댓글 보기</a>' +
+            '<a href="/touroview/touroview_detail?touroview_num=' + touroview.touroview_num + '" class="badge bg-secondary">댓글 보기</a>' +
             '</div>' +
             '</div>';
         container.append(reviewHtml);
@@ -1998,28 +1987,28 @@ pageEncoding="UTF-8"%>
 
 
 <!-- 발자취 발걸음 -->
-
-
-  <script th:inline="javascript">
-    /*<![CDATA[*/
-    var receiptData = /*[[${receiptVO}]]*/ [];
-    /*]]>*/
-  </script>
-
 <script>
-  $(document).ready(function() {
-    var footprints = "";
-    receiptData.forEach(function(receipt) {
-      var title = receipt.receipt_name || "제목 없음"; // 영수증 이름 필드에 따라 변경 필요
-      footprints += '<div class="footprint" data-title="' + title + '">'
-                  + '<i class="fas fa-shoe-prints"></i>'
-                  + '<span class="title">' + title + '</span>'
-                  + '</div>';
-    });
-    $("#footprints").html(footprints);
-  });
-  </script>
-  
+$(document).ready(function() {
+  var receiptCount = ${receiptCount}; // 서버에서 받아온 receiptCount 값
+  var footprints = "";
+  for (var i = 0; i < receiptCount; i++) {
+    // 일반 발자국 아이콘 추가
+    footprints += '<i class="fas fa-shoe-prints"></i>';
+
+    // 특정 발걸음 수에 도달했을 때 메시지 추가
+    if (i === 24) {
+      footprints += '<div class="milestone">25개 돌파!</div>';
+    } else if (i === 49) {
+      footprints += '<div class="milestone">50개 돌파!</div>';
+    } else if (i === 99) {
+      footprints += '<div class="milestone">100개 돌파!</div>';
+      
+    }
+  }
+  $("#footprints").html(footprints);
+});
+</script>
+
 
 
 

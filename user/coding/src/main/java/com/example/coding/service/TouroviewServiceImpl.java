@@ -3,6 +3,7 @@ package com.example.coding.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,11 +87,26 @@ public class TouroviewServiceImpl implements TouroviewService{
 
     // 검색어
     @Override
-    public List<TouroviewVO> searchByKeyword(String keyword){
-        return touroviewDAO.searchByKeyword(keyword);
+    public List<TouroviewVO> searchTouroviewList(String keyword, int currentPage){
+        int pageSize = 9;
+        int offset = (currentPage - 1) * pageSize;
+        RowBounds rowBounds = new RowBounds(offset, pageSize);
+
+        return touroviewDAO.searchByKeyword(keyword, rowBounds);
     }
 
-    
+    // 페이징
+    @Override
+    public int getTotalItemCount(String keyword) {
+        return touroviewDAO.countItemsByKeyword(keyword);
+    }
+
+    // 인기 게시물
+    public List<LikeVO> getPopularTouroview() {
+        return touroviewDAO.getPopularTouroview();
+    }
+
+
 
 
     // ----------------------------------------------------- touroview_detail
@@ -131,6 +147,12 @@ public class TouroviewServiceImpl implements TouroviewService{
     @Override
     public boolean checkReported(int touroviewNum, String userId){
         return touroviewDAO.checkReported(touroviewNum, userId) > 0;
+    }
+
+    // 작성자 정보
+    @Override
+    public UserVO getUserById(String userId) {
+        return touroviewDAO.getUserById(userId);
     }
 
 

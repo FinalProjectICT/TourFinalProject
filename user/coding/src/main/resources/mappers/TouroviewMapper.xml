@@ -14,10 +14,35 @@
 
 <!-- 검색어 -->
 <select id="searchByKeyword" resultType="TouroviewVO">
-    SELECT  * 
+    SELECT  *
     FROM    touroview
-    WHERE   touroview_title LIKE CONCAT('%', #{keyword}, '%') OR touroview_content LIKE CONCAT('%', #{keyword}, '%')
+    <where>
+        <if test="keyword != null and keyword.length() >= 2">
+            AND touroview_title LIKE CONCAT('%', #{keyword}, '%') OR touroview_content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+    </where>
 </select>
+
+<!-- 페이징 -->
+<select id="countItemsByKeyword" resultType="int">
+    SELECT COUNT(*)
+    FROM touroview
+    WHERE touroview_title LIKE CONCAT('%', #{keyword}, '%') OR
+          touroview_content LIKE CONCAT('%', #{keyword}, '%')
+</select>
+
+<!-- 인기 게시물 -->
+<select id="getPopularTouroview" resultType="LikeVO">
+    SELECT t.touroview_num, t.user_id, t.touroview_title, t.touroview_regdate, t.touroview_content, COUNT(l.like_num) as like_count
+    FROM touroview t
+    LEFT JOIN `like` l ON t.touroview_num = l.touroview_num
+    GROUP BY t.touroview_num, t.user_id, t.touroview_title, t.touroview_regdate, t.touroview_content
+    ORDER BY like_count DESC
+</select>
+
+
+
+
 
 
 
@@ -103,6 +128,13 @@
     WHERE   touroview_num = #{touroview_num} AND user_id = #{userId}
 </select>
 
+
+<!-- 사용자 정보 가져오기 -->
+<select id="getUserById" resultType="UserVO">
+    SELECT  * 
+    FROM    user 
+    WHERE   user_id = #{userId}
+</select>
 
 
 

@@ -142,31 +142,7 @@
                                 <div class="description-section">
                                     <div class="description-details">
                                         <div class="desc-box">
-                                            
-                                            <div class="col-xl-3 col-lg-4" id="booking">
-                                                <div class="sticky-cls">
-                                                    <div class="abcddessadsa">
-                                                        <div class="single-sidebar">
-                                                            <div class="selection-section"> 
-                                                                <div class="price-part">
-                                                                    <div class="left-part">
-                                                                    작성 날짜<input type="date" class="writerDate-insert" id ="writerinsert"
-                                                                    value="${touroviewVO.touroview_regdate}">
-
-                                                                    </div>
-                                                                </div>  
-                                                                <br/>
-                                                                <div class="price-part">
-                                                                    작성자<input type="text" class="writer-insert" id ="user_id" name="user_id" value="${sessionScope.userId}"readonly>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>  
-
                                             <div class="about page-section menu-part" id="about" style="width: 1406px;">
-                                                <input type="text" id="destinationInput" value="${tourVO.tour_name}">
                                                 <br/>
                                                 <br/>
                                                 <!-- 게시글 제목 -->

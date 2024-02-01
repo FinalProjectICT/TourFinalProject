@@ -58,7 +58,6 @@ public class HSKController {
         HttpSession session = request.getSession();
         UserVO user = (UserVO) session.getAttribute("loggedInUser");
         String userId =  user.getUser_id();
-        System.out.println("아이디: " + user.getUser_id()); // 로그 출력
         
         // 로그인 여부 확인
         if (userId == null){
@@ -79,19 +78,7 @@ public class HSKController {
     }
 
 
-    // 여행지 검색
-    @GetMapping("/findByKeyword")
-    @ResponseBody
-    public List<TourVO> findByKeyword(TourVO vo) {
-        try {
-            // 여행지 검색 로직을 수행 결과
-            return touroviewService.findByKeyword(vo);
-        } catch (Exception e) {
-            e.printStackTrace();
-            // 에러 처리를 적절히 수행
-            return Collections.emptyList();
-        }
-    }
+
 
     // 후기 게시물 등록
     @PostMapping("/saveTouroview")
@@ -200,13 +187,6 @@ public class HSKController {
             if(tourVO != null){
                 touroview.setTour_img1_path(tourVO.getTour_img1_path()); // TouroviewVO에 이미지 경로 설정
             }
-
-            // 사용자 정보 가져오기 및 설정
-            // UserVO userVO = touroviewService.getUserByTouroviewId(touroview.getTouroview_num());
-            // if(userVO != null){
-            //     touroview.setUser_tel(userVO.getUser_tel());        // 사용자 전화번호
-            //     touroview.setUser_email(userVO.getUser_email());    // 사용자 이메일
-            // }
         }                                
 
         // 전체 페이지 수 계산
@@ -222,13 +202,49 @@ public class HSKController {
     }
 
         
-    // 여행지 검색
-    @RequestMapping(value = "/search", method=RequestMethod.GET)
-    @ResponseBody
-    public List<TouroviewVO> searchByKeyword(@RequestParam("keyword") String keyword, Model model) {
-        return touroviewService.searchByKeyword(keyword);
+     // 여행지 검색
+     @GetMapping("/searchTouroviewList")
+     public String searchTouroviewList(@RequestParam(value = "keyword", required = false) String keyword,
+                                         @RequestParam(value = "page", defaultValue = "1") int currentPage,
+                                         Model model) {
+                                             
+        // 페이지 번호가 1보다 작은 경우 1로 설정
+        currentPage = Math.max(currentPage, 1);
+
+        // 페이징 처리
+        int totalSearchCount = touroviewService.getTotalItemCount(keyword); // 총 아이템 수
+        int pageSize = 9; // 페이지당 아이템 수 
+        int touroviewPage = (int) Math.ceil((double) totalSearchCount / pageSize); // 총 페이지 수
+        
+        // 페이지 범위를 넘어가지 않도록 처리
+        currentPage = Math.min(currentPage, touroviewPage);
+        
+        int startIndex = (currentPage - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, totalSearchCount);
+        int startIndex = Math.max((currentPage - 1) * pageSize, 0);
+
+
+        List<TouroviewVO> touroviewList = touroviewService.searchTouroviewList(keyword, currentPage);
+        model.addAttribute("touroviewList", touroviewList);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("touroviewPage", touroviewPage);
+        model.addAttribute("currentPage", currentPage);                                   
+ 
+        System.err.println("게시물 :" + touroviewList);
+        System.out.println("키워드 :" + keyword);
+
+         return "touroview/touroview_list";
+
+     }
+
+
+     // 인기 게시물
+     @GetMapping("/popular")
+     public ResponseEntity<List<LikeVO>> getPopularTouroview() {
+        List<LikeVO> popularTouroview = touroviewService.getPopularTouroview();
+        return ResponseEntity.ok(popularTouroview);
     }
-    
+
 
 
 
@@ -249,30 +265,31 @@ public class HSKController {
             // touroviewNum에 해당하는 후기를 서비스를 통해 불러와서 모델에 추가
             TouroviewVO touroviewVO = touroviewService.getTouroviewById(touroview_num);
 
+            // 후기 정보가 없을 경우 목록 페이지로 리다이렉트
+            if (touroviewVO == null){
+                return "redirect:/touroview/touroview_list";
+            }
+            
+            // 후기 작성자 정보 가져옴
+            UserVO touroviewAuthor = touroviewService.getUserById(touroviewVO.getUser_id());
+            model.addAttribute("touroviewAuthor", touroviewAuthor);
+
             int touroviewNum = Integer.parseInt(touroviewVO.getTour_num());
 
             // 배경 이미지
             TouroviewDetailVO touroviewImg = touroviewService.getTouroviewImg(touroviewNum);
-            // System.out.println(">>>>>>>>> 배경이미지" + touroviewImg.getTour_img1_path());
             model.addAttribute("touroviewImg", touroviewImg);
 
 
             // 디테일 이미지 가져오기(3개)
             List<TouroviewDetailVO> detailImg = touroviewService.detailviewImg(touroview_num);
-            // System.out.println("**********"+touroview_num);
-            // System.out.println(">>>>>>>>> 디테일이미지");
             model.addAttribute("detailImg", detailImg);
 
 
-            // 후기 정보가 없을 경우 목록 페이지로 리다이렉트
-            if (touroviewVO == null){
-                return "redirect:/touroview/touroview_list";
-            }
 
             // 후기 정보와 연결된 여행지 정보를 가져오기
             int tourNum = Integer.parseInt(touroviewVO.getTour_num()); 
             TourVO tourVO = touroviewService.getTourByTouroviewId(tourNum);
-            System.out.println("TourVO 이미지 가져오는지 확인: " + tourVO.getTour_img1_path());
             
 
             // 우편번호 000000 처리
@@ -282,14 +299,11 @@ public class HSKController {
             UserVO userVO = touroviewService.getUserByTouroviewId(touroview_num);
             TouroviewReviewVO touroviewReviewVO = (TouroviewReviewVO) model.getAttribute("touroviewReviewVO"); //touroviewReview
 
-            // boolean isReported = touroviewService.checkReported(touroviewNum, loggedInUserId);
-
 
             // 모델에 데이터 추가
             model.addAttribute("touroviewVO", touroviewVO);
             model.addAttribute("tourVO", tourVO);
             model.addAttribute("userVO", userVO);
-            // model.addAttribute("isReported", isReported);
 
 
 
