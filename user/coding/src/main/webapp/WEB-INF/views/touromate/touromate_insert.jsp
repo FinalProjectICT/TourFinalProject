@@ -643,7 +643,7 @@ pageEncoding="UTF-8"%>
                                     }
                                 }    
                             }
-                        }, 1000);
+                        }, 1500);
                         </script>
 
                     </div>
