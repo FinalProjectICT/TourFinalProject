@@ -61,12 +61,12 @@ pageEncoding="UTF-8"%>
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="../assets/css/color1.css" />
 
-    <!-- 추가한 css 파일-->
+    <%-- <!-- 추가한 css 파일-->
     <link
       rel="stylesheet"
       type="text/css"
       href="../assets/css/fileupload.css"
-    />
+    /> --%>
   </head>
 
   <body>
