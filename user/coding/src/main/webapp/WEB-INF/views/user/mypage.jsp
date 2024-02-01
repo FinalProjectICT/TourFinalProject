@@ -69,7 +69,8 @@ pageEncoding="UTF-8"%>
     <!-- 문의 내역 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    
+    <!-- sweetalert.js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
@@ -1607,11 +1608,13 @@ pageEncoding="UTF-8"%>
         contentType: false,  // 필수 옵션: false로 설정
         success: function(response) {
             // 업데이트 성공 시 처리
-            alert('프로필이 업데이트되었습니다.');
+            swal("", "프로필이 업데이트되었습니다.", "success");
+            // alert('프로필이 업데이트되었습니다.');
         },
         error: function(xhr, status, error) {
             // 업데이트 실패 시 처리
-            alert('업데이트 실패: ' + error);
+            swal("", "서버와의 통신 중 오류가 발생했습니다.", "error");
+            // alert('업데이트 실패: ' + error);
         }
     });
 }

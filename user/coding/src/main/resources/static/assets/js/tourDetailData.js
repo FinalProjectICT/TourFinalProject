@@ -34,7 +34,7 @@ $(() => {
     if (id != null && id != "") {
       // 문의 작성 여부 확인용 조건
       if (ck != 1) {
-        alert("문의 작성");
+        // alert("문의 작성");
         $.ajax({
           url: "/touro/inquiry",
           type: "post",
@@ -49,7 +49,8 @@ $(() => {
         });
         $(icon).attr("class", "fas fa-heart").css("color", "#ff0000");
       } else {
-        alert("이미 문의 내역이 존재하는 여행지입니다.");
+        swal("", "이미 문의 내역이 존재하는 여행지입니다.", "error");
+        // alert("이미 문의 내역이 존재하는 여행지입니다.");
       }
     } else if (id == null || id == "") alert("로그인이 필요합니다.");
 
