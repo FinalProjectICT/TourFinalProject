@@ -248,26 +248,35 @@ prefix="c" %>
             function deleteTouroMate(touroMateNum) {
               console.log("삭제 요청 전 loggedInUserId: ", loggedInUserId);
               console.log("삭제 요청 전 touroMateNum: ", touroMateNum);
-              if (loggedInUserId && confirm("정말로 삭제하시겠습니까?")) {
-                // AJAX를 사용하여 삭제 요청을 서버에 전송
-                $.ajax({
-                  type: "POST",
-                  url: "/touromate/deleteTouroMate",
-                  data: {
-                    touro_mate_num: touroMateNum,
-                    user_id: loggedInUserId,
-                  },
-                  success: function (response) {
-                    alert(response);
-                    window.location.href = "/touromate/touromate_list";
-                  },
-                  error: function (error) {
-                    swal("", "게시물 삭제 권한이 없습니다.", "error");
-                    // alert("게시물 삭제 권한이 없습니다.");
-                    console.error("삭제 오류:", error);
-                  },
-                });
-              }
+              swal({
+                    title: "정말로 삭제하시겠습니까?",
+                    icon: "warning",
+                    buttons: ["취소", "확인"],
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        // 사용자가 확인을 눌렀을 때 삭제 처리
+                        if (loggedInUserId) {
+                            // AJAX를 사용하여 삭제 요청을 서버에 전송
+                            $.ajax({
+                                type: "POST",
+                                url: "/touromate/deleteTouroMate",
+                                data: {
+                                    touro_mate_num: touroMateNum,
+                                    user_id: loggedInUserId,
+                                },
+                                success: function (response) {
+                                    swal("", response, "success");
+                                    window.location.href = "/touromate/touromate_list";
+                                },
+                                error: function (error) {
+                                    swal("", "게시물 삭제 권한이 없습니다.", "error");
+                                    // alert("게시물 삭제 권한이 없습니다.");
+                                    console.error("삭제 오류:", error);
+                                },
+                            });
+                        }
+                    }
+              });
             }
           </script>
 

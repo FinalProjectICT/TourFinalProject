@@ -59,7 +59,8 @@
 
     <!-- 각 게시물 이름 및 각 게시물 이미지  -->
     <section class="hotel-single-section pt-0">
-        <img src="../assets/images/single-hotel/bg-2.jpg" class="bg-img bg-bottom img-fluid blur-up lazyload" alt="">
+        <img src="../assets/images/inner-pages/breadcrumb2.jpg" 
+             class="bg-img bg-bottom img-fluid blur-up lazyload" alt="">
         <div class="hotel-title-section">
             <div class="container ">
                 <div class="row">
@@ -189,21 +190,6 @@
             </div>
         </div>
         <!-- tap to top end -->
-
-
-
-    <!-- setting start 화면 검정 + 왼쪽 정렬 , 오른쪽 정렬 -->
-    <div class="theme-setting">
-        <div class="dark">
-            <input class="tgl tgl-skewed" id="dark" type="checkbox">
-            <label class="tgl-btn" data-tg-off="Dark" data-tg-on="Light" for="dark"></label>
-        </div>
-        <div class="rtl">
-            <input class="tgl tgl-skewed" id="rtl" type="checkbox">
-            <label class="tgl-btn" data-tg-off="RTL" data-tg-on="LTR" for="rtl"></label>
-        </div>
-    </div>
-    <!-- setting end -->
 
 
     <!-- latest jquery-->
