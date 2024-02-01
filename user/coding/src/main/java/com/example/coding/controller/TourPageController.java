@@ -221,5 +221,55 @@ public class TourPageController {
 			return "default_profile.png";
 		}
 	}
+
+	
+	/* 
+	@RequestMapping(value = "/chatBot/tour", method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject chatBotTourList(Model m ,@RequestParam(required = false, defaultValue = "1") int page 
+							,@RequestParam(required = false, defaultValue = "1") int range 
+							,@RequestParam(required = false, defaultValue = "") String tour_cate_code 
+							,@RequestParam(required = false) String keyword
+							,@RequestParam(required = false, defaultValue = "") String Locs
+							,@RequestParam(required = false, defaultValue = "") String Star
+							,@ModelAttribute("search") Search search) throws Exception {
+
+		m.addAttribute("search", search);
+		search.setTour_cate_code(tour_cate_code);
+		search.setKeyword(keyword);
+		search.setLocs(Locs);
+		search.setStar(Star);
+
+		System.out.println(search.getTour_cate_code()+" / "+tour_cate_code);
+
+		if (search.getLocs() != null && !(search.getLocs().equals(""))){
+			search.setLoc_cate_code(search.getLocs().split("/"));
+		}else search.setLoc_cate_code(null);
+
+		if(search.getStar() != null && !(search.getStar().equals(""))){
+			search.setTour_star(search.getStar().split("/"));
+		}else search.setTour_star(null);
+		
+		int listCnt = tourListService.getBoardListCnt(search);
+
+		search.pageInfo(page, range, listCnt);
+		m.addAttribute("paging", search);
+		System.out.println(search.toString());
+
+		List<TourVO> List = tourListService.getTourList(search);
+
+		m.addAttribute("TourList", List);
+
+		JSONObject lcList = new JSONObject();
+
+		lcList.appendField("tour_num0", List.get(0).getTour_num());
+		lcList.appendField("tour_name0", List.get(0).getTour_name());
+		lcList.appendField("tour_num1", List.get(1).getTour_num());
+		lcList.appendField("tour_name1", List.get(1).getTour_name());
+		lcList.appendField("tour_num2", List.get(2).getTour_num());
+		lcList.appendField("tour_name2", List.get(2).getTour_name());
+		return lcList;
+	}
+	*/
 	
 }
