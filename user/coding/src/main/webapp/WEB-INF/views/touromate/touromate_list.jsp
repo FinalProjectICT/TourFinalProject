@@ -72,6 +72,28 @@ pageEncoding="UTF-8"%>
       type="text/css"
       href="../assets/css/fileupload.css"
     /> --%>
+
+    <script>
+      $(function(){ 
+        const sessionId = $("#sessionId").val();
+     
+        // If sessionId is available, continue with your logic
+        $('#findFriend').click((e) => {
+          e.preventDefault();
+          if(!sessionId) {
+            swal('',"로그인 후 이용해주세요.",'error').then(() => {
+              window.location.href = "/user/login";
+            });
+          }
+            // Add your logic here for the click event when sessionId is available
+        });
+    
+      }) // end script
+
+    </script>
+
+
+
   </head>
 
   <body>
@@ -79,6 +101,8 @@ pageEncoding="UTF-8"%>
     <!-- 해더 (로고, 탭메뉴 등 설정) -->
     <%@ include file='../header/header.jsp' %>
     <!--  해더 끝 -->
+
+    <input type="hidden" value="${sessionScope.loggedInUser}" id="sessionId"/>
 
     <!-- breadcrumb start -->
     <section class="breadcrumb-section parallax-img pt-0">
@@ -139,7 +163,7 @@ pageEncoding="UTF-8"%>
                   ><i class="fas fa-search"></i> 친구 찾기</a
                 >
                   <div class="collection-grid-view">
-                    <a href="/touromate/touromate_insert" class="btn btn-rounded color1">친구 찾기 쓰기</a>
+                    <a href="/touromate/touromate_insert" class="btn btn-rounded color1" id="findFriend">친구 찾기 쓰기</a>
                   </div>
                
               </div>

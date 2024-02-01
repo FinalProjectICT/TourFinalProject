@@ -27,7 +27,7 @@ public interface TouroviewDAO {
     
     // ---------------------------------------- list
     // (list 페이지) 페이징, 목록
-    public List<TouroviewVO> getTouroviewList(@Param("searchKeyword") String searchKeyword, int page, int size);
+    public List<TouroviewVO> getTouroviewList(@Param("keyword") String keyword, int page, int size);
     
     // 목록 전체 가져오기
     public int getTotalPages();
