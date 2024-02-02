@@ -46,6 +46,7 @@ public class TourPageController {
 	 * - mapper - TourListMapper - selectAll
 	 *  단순히 불러오는거라 20 개씩 출력되고 Nav도 정삭 작동하도록 수정해야함
 	 * 	?page=&range=&listSize=&tour_cate_code=&keyword=&Locs=&Star=
+	 * ?페이지넘버/페이지범위/게시물갯수/여행지 분류 코드/검색어/지역코드들/별점들
 	 */
 	@RequestMapping(value = "/tour")
 	public String tourList(Model m ,@RequestParam(required = false, defaultValue = "1") int page 
@@ -86,6 +87,7 @@ public class TourPageController {
 	 * 여행지 리스트 게시물 출력 /touro/tour/{}
 	 * - TourVO & TourListService, DAO
 	 * - mapper - TourListMapper - selectOne
+	 * DB 게시물 번호에 따라 게시물 내용 가져옴
 	 */
 	@RequestMapping(value = "/{tour_num}", method = {RequestMethod.GET})
 	public ModelAndView tourDetail(TourVO vo,  HttpServletRequest request) {

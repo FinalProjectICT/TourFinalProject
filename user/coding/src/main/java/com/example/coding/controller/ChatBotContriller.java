@@ -14,6 +14,8 @@ public class ChatBotContriller {
     // 여행지 리스트 서비스 연결
 	@Autowired
 	private TourListService tourListService;
+
+	미사용
  */
 
 
